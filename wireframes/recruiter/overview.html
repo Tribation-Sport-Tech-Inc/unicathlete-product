@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>
+   Recruiter System Overview
+  </title>
+  <style>
+   :root {
+  --navy:#111827;
+  --blue:#2563eb;
+  --blue-light:#eff6ff;
+  --green:#16a34a;
+  --green-light:#ecfdf5;
+  --orange:#f97316;
+  --orange-light:#fff7ed;
+  --purple:#7c3aed;
+  --purple-light:#f5f3ff;
+  --gray-bg:#f3f4f6;
+  --border:#e5e7eb;
+  --text:#111827;
+  --muted:#6b7280;
+  --card:#fff;
+}
+* {
+  box-sizing:border-box
+}
+body {
+  font-family:Arial,sans-serif;
+  margin:0;
+  background:var(--gray-bg);
+  color:var(--text);
+  line-height:1.5
+}
+.nav {
+  background:var(--navy);
+  padding:8px 40px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+  box-shadow:0 4px 14px rgba(0,0,0,.12);
+  position:relative;
+  top:auto;
+  z-index:auto;
+  overflow-x:auto;
+  border-bottom:1px solid rgba(255,255,255,.08)
+}
+.nav a {
+  color:#d1d5db;
+  text-decoration:none;
+  padding:6px 10px;
+  border-radius:8px;
+  font-size:13px;
+  white-space:nowrap
+}
+.nav a.active {
+  background:var(--blue);
+  color:white;
+  font-weight:700
+}
+.page {
+  max-width:1380px;
+  margin:28px auto;
+  padding:0 28px 42px
+}
+.hero,.section {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:26px;
+  box-shadow:0 6px 18px rgba(15,23,42,.05);
+  margin-bottom:22px
+}
+.hero {
+  background:linear-gradient(135deg,#fff 0%,#eff6ff 100%);
+  padding:34px
+}
+.label {
+  display:inline-flex;
+  background:var(--blue-light);
+  color:var(--blue);
+  border:1px solid #bfdbfe;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:900;
+  margin-bottom:14px
+}
+h1 {
+  margin:0 0 10px;
+  color:var(--navy);
+  font-size:34px;
+  letter-spacing:-.4px
+}
+h2 {
+  margin:0 0 8px;
+  color:var(--navy);
+  font-size:22px
+}
+h3 {
+  margin:0 0 8px;
+  color:var(--navy);
+  font-size:17px
+}
+p {
+  margin:0;
+  color:var(--muted)
+}
+.hero p {
+  max-width:900px;
+  font-size:16px
+}
+.toc {
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:10px;
+  margin-top:22px
+}
+.toc a {
+  background:white;
+  border:1px solid #bfdbfe;
+  color:var(--navy);
+  border-radius:12px;
+  padding:12px;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:800;
+  text-align:center
+}
+.grid-2 {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+  margin-top:16px
+}
+.grid-3 {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  margin-top:16px
+}
+.card {
+  background:#f9fafb;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:18px
+}
+.card p {
+  font-size:14px
+}
+.row {
+  border-bottom:1px solid var(--border);
+  padding:10px 0;
+  font-size:14px;
+  color:var(--muted)
+}
+.row:last-child {
+  border-bottom:none
+}
+.row strong {
+  color:var(--navy)
+}
+.tag {
+  display:inline-block;
+  font-size:12px;
+  font-weight:800;
+  padding:5px 8px;
+  border-radius:999px;
+  margin:3px 4px 3px 0
+}
+.blue {
+  background:var(--blue-light);
+  color:var(--blue)
+}
+.green {
+  background:var(--green-light);
+  color:var(--green)
+}
+.purple {
+  background:var(--purple-light);
+  color:var(--purple)
+}
+.orange {
+  background:var(--orange-light);
+  color:var(--orange)
+}
+.flow {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+  margin-top:18px
+}
+.step {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:9px 12px;
+  font-size:13px;
+  font-weight:800;
+  color:var(--navy)
+}
+.arrow {
+  font-weight:900;
+  color:var(--blue)
+}
+.backend {
+  background:#111827;
+  color:white;
+  border-radius:16px;
+  padding:18px;
+  overflow:auto;
+  font-size:14px;
+  line-height:1.6;
+  white-space:pre;
+  margin-top:16px
+}
+.note {
+  background:#fff7ed;
+  color:#9a3412;
+  border:1px solid #fed7aa;
+  border-radius:14px;
+  padding:15px;
+  font-size:14px;
+  margin-top:16px
+}
+@media (max-width: 1100px) {
+  .nav {
+  padding:14px 18px
+}
+.toc,.grid-2,.grid-3 {
+  grid-template-columns:1fr
+}
+h1 {
+  font-size:28px
+}
+}
+.embedded-system {
+  margin-top:20px;
+}
+.embed-level {
+  border-radius:22px;
+  padding:22px;
+  border:1px solid var(--border);
+  margin-top:16px;
+}
+.embed-header {
+  margin-bottom:16px;
+}
+.embed-header h3 {
+  font-size:20px;
+  margin:6px 0 6px;
+}
+.level-professional {
+  background:var(--purple-light);
+  border-color:#ddd6fe;
+}
+.level-workspace {
+  background:var(--blue-light);
+  border-color:#bfdbfe;
+}
+.level-project {
+  background:var(--green-light);
+  border-color:#bbf7d0;
+}
+.criteria-box {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:18px;
+  margin-bottom:16px;
+}
+.managed-athletes {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:18px;
+}
+.card.white {
+  background:white;
+}
+.big-flow {
+  background:#f9fafb;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:18px;
+}
+.pipeline-panel {
+  background:#f9fafb;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:18px;
+  margin-top:20px;
+}
+.pipeline-panel > p {
+  margin-bottom:18px;
+}
+.pipeline-steps {
+  display:grid;
+  grid-template-columns:1fr auto 1fr auto 1fr auto 1fr auto 1fr;
+  gap:10px;
+  align-items:stretch;
+}
+.pipeline-step {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:14px;
+}
+.pipeline-step strong {
+  display:block;
+  color:var(--navy);
+  font-size:14px;
+  margin-bottom:6px;
+}
+.pipeline-step p {
+  font-size:13px;
+}
+.pipeline-status {
+  display:inline-block;
+  background:var(--blue-light);
+  color:var(--blue);
+  border:1px solid #bfdbfe;
+  border-radius:999px;
+  padding:4px 8px;
+  font-size:11px;
+  font-weight:900;
+  margin-bottom:8px;
+}
+.pipeline-arrow {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--blue);
+  font-weight:900;
+  font-size:20px;
+}
+.priority-panel {
+  background:#ffffff;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:18px;
+  margin-top:18px;
+}
+.priority-panel h3 {
+  margin:0 0 6px;
+}
+.priority-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:14px;
+}
+.priority-card {
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:14px;
+  background:#f9fafb;
+}
+.priority-card strong {
+  display:block;
+  color:var(--navy);
+  margin-bottom:6px;
+}
+.priority-badge {
+  display:inline-flex;
+  border-radius:999px;
+  padding:5px 9px;
+  font-size:11px;
+  font-weight:900;
+  margin-bottom:10px;
+}
+.priority-card.high {
+  background:#fef2f2;
+  border-color:#fecaca;
+}
+.priority-card.high .priority-badge {
+  background:#fee2e2;
+  color:#b91c1c;
+  border:1px solid #fecaca;
+}
+.priority-card.medium {
+  background:#fffbeb;
+  border-color:#fde68a;
+}
+.priority-card.medium .priority-badge {
+  background:#fef3c7;
+  color:#b45309;
+  border:1px solid #fde68a;
+}
+.priority-card.low {
+  background:#f0fdf4;
+  border-color:#bbf7d0;
+}
+.priority-card.low .priority-badge {
+  background:#dcfce7;
+  color:#15803d;
+  border:1px solid #bbf7d0;
+}
+.priority-filter-rule {
+  margin-top:14px;
+  background:#eff6ff;
+  border:1px solid #bfdbfe;
+  color:#1d4ed8;
+  border-radius:12px;
+  padding:12px;
+  font-size:13px;
+  font-weight:800;
+}
+@media (max-width: 1100px) {
+  .pipeline-steps, .priority-grid {
+  grid-template-columns:1fr;
+}
+.pipeline-arrow {
+  transform:rotate(90deg);
+}
+}
+.context-flow {
+  display:grid;
+  grid-template-columns:1fr auto 1fr auto 1fr;
+  gap:12px;
+  align-items:stretch;
+  margin-top:18px;
+}
+.context-box {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:18px;
+}
+.context-box h3 {
+  margin:0 0 8px;
+}
+.context-box ul {
+  margin:10px 0 0;
+  padding-left:18px;
+  color:var(--muted);
+  font-size:14px;
+}
+.context-box li {
+  margin:4px 0;
+}
+.context-arrow {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--blue);
+  font-weight:900;
+  font-size:22px;
+}
+@media (max-width: 1100px) {
+  .context-flow {
+  grid-template-columns:1fr;
+}
+.context-arrow {
+  transform:rotate(90deg);
+}
+}
+
+#recruiting-project-work .grid-2 {
+  align-items:stretch;
+}
+#recruiting-project-work .card {
+  display:flex;
+  flex-direction:column;
+}
+#recruiting-project-work .card .tag {
+  margin-top:auto;
+}
+
+#history-storage .archive-panel {
+  background:linear-gradient(135deg,#ffffff 0%,#fff7ed 100%);
+  border-color:#fed7aa;
+}
+#history-storage .archive-record-grid {
+  margin-top:16px;
+}
+#history-storage .archive-card {
+  background:white;
+}
+#history-storage .archive-card h3 {
+  margin-top:8px;
+}
+#history-storage .archive-flow {
+  margin-top:18px;
+}
+#history-storage .lifecycle-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  margin-top:16px;
+}
+#history-storage .lifecycle-card {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:16px;
+}
+#history-storage .lifecycle-card h3 {
+  margin:8px 0 8px;
+}
+#history-storage .lifecycle-card.active-state {
+  border-color:#bfdbfe;
+  background:#eff6ff;
+}
+#history-storage .lifecycle-card.archive-state {
+  border-color:#fed7aa;
+  background:#fff7ed;
+}
+#history-storage .lifecycle-card.delete-state {
+  border-color:#fecaca;
+  background:#fef2f2;
+}
+#history-storage .lifecycle-badge {
+  display:inline-flex;
+  border-radius:999px;
+  padding:5px 9px;
+  font-size:11px;
+  font-weight:900;
+}
+#history-storage .active-state .lifecycle-badge {
+  background:#dbeafe;
+  color:#1d4ed8;
+}
+#history-storage .archive-state .lifecycle-badge {
+  background:#ffedd5;
+  color:#c2410c;
+}
+#history-storage .delete-state .lifecycle-badge {
+  background:#fee2e2;
+  color:#b91c1c;
+}
+
+  </style>
+  <link href="../shared/backend-modal.css" rel="stylesheet"/>
+  <link href="../shared/app-shell.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <header class="app-header">
+   <div class="app-header-inner">
+    <a class="app-logo" href="../index.html">
+     UNICATHLETE
+    </a>
+    <nav aria-label="Platform view switcher" class="app-switch">
+     <a href="../index.html">
+      Platform
+     </a>
+     <a href="../signup.html">
+      Create Account
+     </a>
+     <a href="../athlete/overview.html">
+      Athlete View
+     </a>
+     <a class="active" href="overview.html">
+      Recruiter View
+     </a>
+    </nav>
+   </div>
+  </header>
+  <div class="nav">
+   <a class="active" href="overview.html">
+    Recruiter Overview
+   </a>
+   <a href="scout-profile.html">
+    Scout Profile
+   </a>
+   <a href="dashboard.html">
+    Dashboard
+   </a>
+   <a href="discover.html">
+    Discover Athletes
+   </a>
+   <a href="workspace.html">
+    Workspace
+   </a>
+   <a href="profile.html">
+    Athlete Profile
+   </a>
+   <a href="messages.html">
+    Messages
+   </a>
+  </div>
+  <div class="page">
+   <div class="hero">
+    <h1>
+     Recruiter-side Experience
+    </h1>
+    <div class="toc">
+     <a href="#professional-work">
+      Workspace Access
+     </a>
+     <a href="#workspace-logic">
+      Workspace Logic
+     </a>
+     <a href="#work-contexts">
+      Work Contexts
+     </a>
+     <a href="#history-storage">
+      History Storage
+     </a>
+     <a href="#recruiting-project-work">
+      Project Work
+     </a>
+    </div>
+   </div>
+   <div class="section" id="professional-work">
+    <h2>
+     MVP Scout Workspace Model
+    </h2>
+	    <p>
+	     Every verified scout gets the same private scout workspace flow. A scout can have multiple organization affiliations, and each recruiting project can be independent or linked to one affiliation as context.
+    </p>
+    <div class="grid-3">
+     <div class="card">
+	      <h3>
+	       Scout Workspace
+	      </h3>
+	      <p>
+	       Created by default for a verified scout. This is the MVP operating surface behind the athlete-facing showcase.
+      </p>
+      <span class="tag blue">
+       MVP
+      </span>
+     </div>
+     <div class="card">
+      <h3>
+       Agency Affiliation
+      </h3>
+      <p>
+       Optional grouping layer for agencies, clubs, or companies. Agency scouts use the same flow as independent scouts, and project context does not change messaging in MVP.
+      </p>
+      <span class="tag green">
+       Skeleton Only
+      </span>
+     </div>
+    </div>
+    <div class="flow big-flow">
+	     <span class="step">
+	      Scout Profile
+	     </span>
+	     <span class="arrow">
+	      &rarr;
+	     </span>
+	     <span class="step">
+	      Dashboard
+	     </span>
+	     <span class="arrow">
+	      &rarr;
+	     </span>
+	     <span class="step">
+	      Scout Workspace
+	     </span>
+     <span class="arrow">
+      and/or
+     </span>
+     <span class="step">
+      Agency entity
+     </span>
+    </div>
+	    <div class="note">
+	     MVP rule: the Scout Profile is private identity and trust information; the Dashboard contains the private scout portfolio/activity summary. Project context does not create shared organization chats, permission management, or reporting. Those arrive later as Line 2 subscription features.
+	     In the UI, context should behave as a filter: selecting Toronto Academy, Global Soccer Partners, or Independent shows only projects, conversations, requests, and updates related to that context.
+	    </div>
+   </div>
+   <div class="section" id="workspace-logic">
+    <h2>
+     Workspace Logic
+    </h2>
+    <p>
+     A scout workspace is where a verified scout manages athlete-related work. Inside it,
+    work is divided into recruiting projects. Each project can be independent or linked
+    to one active organization affiliation as project context.
+    </p>
+    <div class="grid-3">
+     <div class="card">
+      <h3>
+       Workspace
+      </h3>
+      <p>
+       The operating area where a verified scout manages athlete-related work.
+      </p>
+      <span class="tag blue">
+       Work Area
+      </span>
+     </div>
+     <div class="card">
+    <h3>Projects</h3>
+
+    <p>
+        Generic work units inside a workspace. Each professional profile
+        implements its own project type.
+    </p>
+
+    <div style="
+        margin:16px 0;
+        padding:14px;
+        background:white;
+        border:1px solid var(--border);
+        border-radius:12px;
+    ">
+
+        <div style="
+            font-size:12px;
+            font-weight:900;
+            color:var(--muted);
+            text-transform:uppercase;
+            margin-bottom:8px;
+        ">
+            Current Project Type (MVP)
+        </div>
+
+        <div style="
+            padding-left:16px;
+            border-left:4px solid var(--green);
+        ">
+            <strong style="display:block;color:var(--navy);margin-bottom:6px;">
+                Recruiting Project
+            </strong>
+
+            <span style="font-size:13px;color:var(--muted);">
+                Each project represents a scouting assignment with specific recruiting criteria.
+            </span>
+        </div>
+
+    </div>
+
+    <span class="tag purple">Work Unit</span>
+</div>
+</div>
+    <div class="flow big-flow">
+     <span class="step">
+      Workspace
+     </span>
+     <span class="arrow">
+      &rarr;
+     </span>
+     <span class="step">
+      Recruiting Project
+     </span>
+     <span class="arrow">
+      &rarr;
+     </span>
+     <span class="step">
+      Managed Athletes
+     </span>
+    </div>
+    <div class="note">
+     Responsibility model: each project has a Lead Scout. Messages and requests stay
+     between the Lead Scout and athlete. Future collaboration can allow permissioned
+     scouts to view information or support evaluation without replacing the direct chat.
+    </div>
+   </div>
+   <div class="section" id="work-contexts">
+    <h2>
+     Work Contexts
+     <button class="info-note" onclick="openBackendNote('work-contexts')">
+      ⓘ
+     </button>
+    </h2>
+    <p>
+     Every feature in the platform operates within a specific context. This defines where data is stored,
+    how it is shared, and which users can access it.
+    </p>
+    <div class="context-flow">
+     <div class="context-box">
+      <h3>
+       Athlete Context
+      </h3>
+      <p>
+       Represents the athlete's global profile and portfolio.
+      </p>
+      <ul>
+       <li>
+        Profile data
+       </li>
+       <li>
+        Stats
+       </li>
+       <li>
+        Media
+       </li>
+       <li>
+        Documents
+       </li>
+      </ul>
+      <span class="tag blue">
+       Global Athlete Profile
+      </span>
+     </div>
+     <div class="context-arrow">
+      &rarr;
+     </div>
+     <div class="context-box">
+      <h3>
+       Scout-Athlete Relationship
+      </h3>
+      <p>
+       Represents the long-term relationship between one scout and one athlete.
+      </p>
+      <ul>
+       <li>
+        Scout-athlete messages
+       </li>
+       <li>
+        Scout-athlete information requests
+       </li>
+      </ul>
+      <p style="margin-top:10px;font-size:13px;">
+      </p>
+      <span class="tag purple">
+       ScoutAthleteRelationship
+      </span>
+     </div>
+     <div class="context-arrow">
+      &rarr;
+     </div>
+     <div class="context-box">
+      <h3>
+       Project Recruiting Record
+      </h3>
+      <p>
+       Represents one recruiting campaign for one athlete.
+      </p>
+      <ul>
+       <li>
+        Pipeline progression
+       </li>
+       <li>
+        Lead Scout
+       </li>
+       <li>
+        Evaluations
+       </li>
+       <li>
+        Internal notes
+       </li>
+      </ul>
+      <p style="margin-top:10px;font-size:13px;">
+       <strong>
+        Project-specific record for one athlete inside one recruiting project.
+       </strong>
+      </p>
+      <span class="tag green">
+       ProjectAthlete
+      </span>
+     </div>
+    </div>
+   
+    <div class="note">
+     It allows one athlete to participate in multiple recruiting projects without duplicating the same scout-athlete conversation for the same scout.
+    </div>
+   </div>
+	   <div class="section" id="history-storage">
+	    <h2>
+	     History Storage &amp; Project Archive
+	     <button class="info-note" onclick="openBackendNote('history-storage')">
+	      ⓘ
+	     </button>
+	    </h2>
+	    <p>
+	     Work Contexts define where active data lives. This section defines what happens to
+	     that data over time, especially when a Recruiting Project is closed.
+	    </p>
+	    <div class="note">
+	     Preservation principle: nothing is lost unless the user explicitly chooses a permanent delete action. Saved athletes, pipeline records, project history, evaluations, notes, and archived projects remain available or recoverable by default.
+	    </div>
+
+	    <div class="pipeline-panel archive-panel">
+     <h3>
+      Project Lifecycle
+     </h3>
+     <p>
+      Projects have three states. Archive is the safe default when closing a project;
+      delete is the only irreversible operation and must be a separate deliberate action.
+     </p>
+     <div class="lifecycle-grid">
+      <div class="lifecycle-card active-state">
+       <span class="lifecycle-badge">ACTIVE</span>
+       <h3>Active</h3>
+       <p>In progress and editable. Scouts can update criteria, athletes, priority, stage, evaluations, notes, and results.</p>
+      </div>
+      <div class="lifecycle-card archive-state">
+       <span class="lifecycle-badge">ARCHIVED</span>
+       <h3>Archived</h3>
+       <p>Closed and read-only. Preserves criteria, context, timeline, evaluations, notes, athlete outcomes, and results. Can be reactivated at any time.</p>
+      </div>
+      <div class="lifecycle-card delete-state">
+       <span class="lifecycle-badge">DELETED</span>
+       <h3>Deleted</h3>
+       <p>Permanent removal. Requires a clear confirmation and is separate from closing or archiving.</p>
+      </div>
+     </div>
+
+     <div class="grid-2 archive-record-grid">
+      <div class="card archive-card project-archive-card">
+       <span class="tag orange">
+        Project-Level Record
+       </span>
+       <h3>
+        Archived Recruiting Project
+       </h3>
+       <p>
+        Stores the closed project's structure and overall activity.
+       </p>
+       <div class="row"><strong>Includes:</strong> Criteria snapshot</div>
+       <div class="row"><strong>Includes:</strong> Context and Lead Scout</div>
+       <div class="row"><strong>Includes:</strong> Project-level timeline</div>
+       <div class="row"><strong>Includes:</strong> Reviewed athlete list</div>
+       <div class="row"><strong>MVP action:</strong> Reactivate same project</div>
+      </div>
+
+      <div class="card archive-card athlete-archive-card">
+       <span class="tag green">
+        Athlete-Level Record
+       </span>
+       <h3>
+        Archived Athlete Record
+       </h3>
+       <p>
+        Stores one athlete's outcome and history inside that closed project.
+       </p>
+       <div class="row"><strong>Includes:</strong> Athlete snapshot</div>
+       <div class="row"><strong>Includes:</strong> Final outcome and reason</div>
+       <div class="row"><strong>Includes:</strong> Evaluations and notes</div>
+       <div class="row"><strong>Includes:</strong> Athlete-specific timeline</div>
+      </div>
+     </div>
+	     <div class="note">
+	      Archive preserves work. Delete is the only irreversible action. MVP rule: Reactivate the same archived project. Duplicate as Template can be added later as a future enhancement while leaving the original archive intact.
+	     </div>
+    </div>
+
+    <div class="flow big-flow archive-flow">
+     <span class="step">
+      Active Recruiting Project
+     </span>
+     <span class="arrow">
+      &rarr;
+     </span>
+     <span class="step">
+      Archive Project
+     </span>
+     <span class="arrow">
+      &rarr;
+     </span>
+     <span class="step">
+      Archived Project
+     </span>
+     <span class="arrow">
+      contains
+     </span>
+     <span class="step">
+      Archived Athlete Records
+     </span>
+    </div>
+    
+   </div>
+   <div class="section" id="recruiting-project-work">
+    <h2>
+     Recruiting Project Work
+    </h2>
+    <p>
+     Each Recruiting Project is one scouting assignment. It contains recruiting criteria,
+     athletes who may fit those criteria, and the scout workflow used to make
+     decisions on each athlete. In MVP this is the scout's own workflow; team collaboration is a future scale layer.
+    </p>
+
+    <div class="grid-2">
+     <div class="card">
+      <h3>Recruiting Criteria</h3>
+      <p>
+       The description of the athlete the scout is looking for, such as position,
+       level, age, location, performance profile, media, and other requirements.
+      </p>
+      <span class="tag blue">Player Target</span>
+     </div>
+
+	     <div class="card">
+	      <h3>Saved Athletes</h3>
+	      <p>
+	       Discovered athletes are saved to a project longlist before they enter the pipeline.
+	       The same athlete can be saved or active in multiple recruiting projects.
+	      </p>
+	      <span class="tag green">Project Longlist</span>
+	     </div>
+
+     <div class="card">
+      <h3>Scout Actions</h3>
+      <p>
+       Scouts work on athletes using project-specific actions and scout-level follow-up actions.
+      </p>
+      <div class="row">
+       <strong>Project-specific:</strong>
+       Evaluate, compare, internal notes
+      </div>
+      <div class="row">
+       <strong>Scout-level:</strong>
+       Message, request information
+      </div>
+      <span class="tag purple">Scout Workflow</span>
+     </div>
+
+     <div class="card">
+      <h3>Lead Scout</h3>
+      <p>
+       Each active athlete should have one Lead Scout responsible for coordinating evaluation and making the final recommendation.
+      </p>
+      <span class="tag purple">Responsibility Model</span>
+     </div>
+	    </div>
+	
+	    <div class="flow big-flow">
+	     <span class="step">Discovery</span>
+	     <span class="arrow">&rarr;</span>
+	     <span class="step">Save to Project</span>
+	     <span class="arrow">&rarr;</span>
+	     <span class="step">Saved Athletes</span>
+	     <span class="arrow">&rarr;</span>
+	     <span class="step">Add to Pipeline: New</span>
+	    </div>
+		    <div class="note">
+		     MVP screening rule: Saved Athletes is the project longlist. It can be filtered by All Saved, Not in Pipeline, and In Pipeline. Athletes are not archived/disliked in MVP; they stay saved unless the scout explicitly removes them, and moving an athlete into the pipeline does not erase the saved record.
+		    </div>
+
+	    <div class="pipeline-panel">
+	     <h3>Recruiting Pipeline</h3>
+	     <p>
+	      This shows how one athlete moves through a Recruiting Project after the scout promotes them from Saved Athletes.
+	      Saved Athletes is the pre-pipeline longlist; once inside the pipeline, each athlete has both a pipeline stage and a priority level.
+	     </p>
+
+     <div class="pipeline-steps">
+      <div class="pipeline-step">
+       <span class="pipeline-status">NEW</span>
+       <strong>Athlete Added</strong>
+       <p>Added to the project. Can still be unassigned.</p>
+      </div>
+
+      <div class="pipeline-arrow">&rarr;</div>
+
+      <div class="pipeline-step">
+       <span class="pipeline-status">REVIEWING</span>
+       <strong>Initial Review</strong>
+       <p>Evaluation starts. Lead Scout required.</p>
+      </div>
+
+      <div class="pipeline-arrow">&rarr;</div>
+
+      <div class="pipeline-step">
+       <span class="pipeline-status">CONTACTED</span>
+       <strong>Athlete Contacted</strong>
+       <p>Communication or information request begins.</p>
+      </div>
+
+      <div class="pipeline-arrow">&rarr;</div>
+
+      <div class="pipeline-step">
+       <span class="pipeline-status">DISCUSSION</span>
+       <strong>Active Review</strong>
+       <p>The scout reviews, compares, and records fit.</p>
+      </div>
+
+      <div class="pipeline-arrow">&rarr;</div>
+
+      <div class="pipeline-step">
+       <span class="pipeline-status">DECISION</span>
+       <strong>Recruiting Decision</strong>
+       <p>Final outcome is recorded.</p>
+      </div>
+     </div>
+	    </div>
+    <div class="priority-panel">
+     <h3>Priority Levels</h3>
+     <p>
+      Priority is separate from pipeline stage. Stage answers where the athlete is in the process;
+      priority answers how much focus the athlete deserves.
+     </p>
+     <div class="priority-grid">
+      <div class="priority-card high">
+       <span class="priority-badge">HIGH</span>
+       <strong>High Priority</strong>
+       <p>
+        Strong fit or urgent opportunity. Should appear first inside each pipeline stage.
+       </p>
+      </div>
+      <div class="priority-card medium">
+       <span class="priority-badge">MEDIUM</span>
+       <strong>Medium Priority</strong>
+       <p>
+        Worth active review, but not the top focus. Useful for follow-up queues and comparisons.
+       </p>
+      </div>
+      <div class="priority-card low">
+       <span class="priority-badge">LOW</span>
+       <strong>Low Priority</strong>
+       <p>
+        Monitor or keep as backup. Still in the pipeline, but lower focus than stronger fits.
+       </p>
+      </div>
+     </div>
+     <div class="priority-filter-rule">
+      Required pipeline control: scouts must be able to filter and sort by priority within any stage, for example showing only High Priority athletes in Reviewing.
+     </div>
+    </div>
+
+	    <div class="grid-2">
+     <div class="card">
+      <h3>Lead Scout</h3>
+      <p>
+       The scout responsible for the athlete inside the project. A scout may assign
+       themselves as Lead Scout when adding an athlete. The Lead Scout manages follow-up, pipeline movement,
+       evaluation coordination, and final recommendation.
+      </p>
+      <div class="row"><strong>Can evaluate:</strong> Yes</div>
+      <div class="row"><strong>Can initiate/request info:</strong> Yes, through scout-athlete requests</div>
+      <div class="row"><strong>Can message athlete:</strong> Yes, through scout-athlete conversation</div>
+      <div class="row"><strong>Can compare athletes:</strong> Yes</div>
+      <div class="row"><strong>Can request collaborator review:</strong> Future scale feature</div>
+     </div>
+
+     <div class="card">
+      <h3>Collaborator Scouts</h3>
+      <p>
+       Post-MVP feature. Collaborator scouts can later support the Lead Scout
+       with review, evaluation, comparison, and internal discussion.
+      </p>
+      <div class="row"><strong>Can evaluate:</strong> Yes</div>
+      <div class="row"><strong>Can review linked request responses:</strong> Yes</div>
+      <div class="row"><strong>Can compare athletes:</strong> Yes</div>
+      <div class="row"><strong>Can leave internal notes:</strong> Yes</div>
+      <div class="row"><strong>MVP status:</strong> Deferred until team collaboration is validated</div>
+     </div>
+    </div>
+
+    <div class="note">
+     Rules:
+     - NEW can be unassigned.
+     - REVIEWING and later require lead_scout_id.
+     - priority_level = high / medium / low and can change independently from pipeline_status.
+     - Pipeline views must support stage filtering plus priority filtering/sorting.
+     - In MVP, the verified scout is the default Lead Scout.
+     - Project members, collaborator reviews, and override rules are post-MVP.
+    </div>
+   </div>
+  </div>
+  <div class="backend-modal" id="backendNoteModal" onclick="closeBackendNote(event)">
+   <div class="backend-modal-card">
+    <div class="backend-modal-header">
+     <h3 class="backend-modal-title" id="backendModalTitle">
+      Architecture Note
+     </h3>
+     <button class="backend-modal-close" onclick="closeBackendNote()">
+      &times;
+     </button>
+    </div>
+    <div class="backend-modal-body" id="backendModalBody">
+    </div>
+   </div>
+  </div>
+  <script>
+   const backendNotes = window.backendNotes = {
+
+"history-storage": {
+  title: "Project Archive Data Model",
+  body: `Active sources
+├── ScoutAthleteRelationship
+│   ├── messages
+│   └── information_requests
+│
+└── ProjectAthlete
+    ├── pipeline_status
+    ├── priority_level
+    ├── lead_scout_id
+    ├── collaborators (future)
+    ├── evaluations
+    ├── internal_notes
+    ├── outcome
+    └── activity_log
+
+ArchivedProject
+├── project_status: archived
+├── project_snapshot
+├── recruiting_criteria_snapshot
+├── context_and_lead_scout_snapshot
+├── project_activity_log
+├── reviewed_athletes[]
+├── completed_at
+├── reactivated_at
+└── archive_status
+
+ArchivedProjectAthlete
+├── archived_project_id
+├── project_athlete_id
+├── athlete_snapshot
+├── final_outcome
+├── closure_reason
+├── project_specific_activity_log
+├── evaluations_reference
+├── internal_notes_reference
+└── linked_scout_athlete_relationship
+
+Important rules:
+- Work Contexts define the active records.
+- Preservation principle: nothing is lost unless the user explicitly chooses permanent delete.
+- Project status states: active / archived / deleted.
+- Archive is the safe default when closing a project.
+- Archived projects are read-only and can be reactivated at any time.
+- MVP reactivation restores the same project.
+- Duplicate as Template is future, not MVP.
+- Delete is permanent, separate, and requires explicit confirmation.
+- Project activity and athlete-specific activity stay separate.
+- One ArchivedProject contains many ArchivedProjectAthlete records.
+- This supports future review and reporting without making reporting an MVP feature.`
+},
+
+"work-contexts": {
+  title: "Recruiter Athlete Data Model",
+  body: `AthleteProfile
+├── global athlete showcase profile
+├── sport_profiles
+├── playing_history
+├── media
+├── documents
+└── ProfileUsers[]
+    ├── athlete user
+    ├── guardian user
+    └── future additional guardian / manager
+
+ScoutAthleteRelationship
+├── athlete_profile_id
+├── scout_id
+├── messages
+└── information_requests
+
+ProjectAthlete
+├── scout_athlete_relationship_id
+├── project_id
+├── optional_affiliation_id
+├── pipeline_status
+├── priority
+├── lead_scout_id
+├── collaborators (future)
+├── evaluations
+├── internal_notes
+└── outcome
+
+ProjectSavedAthlete
+├── project_id
+├── athlete_profile_id
+├── saved_by_scout_id
+├── saved_at
+├── note (optional)
+└── linked_project_athlete_id (nullable)
+
+Important rules:
+- AthleteProfile is global.
+- AthleteProfile can be associated with multiple User accounts through ProfileUsers[].
+- ProfileUsers[] stores relationship, permissions, consent state, and age-based access mode.
+- For supervised 14-15 accounts, athlete and guardian are separate logins linked to the same AthleteProfile.
+- ScoutAthleteRelationship represents one scout's direct relationship with the athlete.
+- ProjectSavedAthlete represents the pre-pipeline project longlist.
+- ProjectAthlete represents one athlete inside one recruiting project pipeline.
+- The same athlete can exist in multiple projects.
+- Saved Athletes can be filtered by All Saved, Not in Pipeline, and In Pipeline.
+- Adding an athlete to the pipeline creates or links a ProjectAthlete record with pipeline_status = New.
+- Moving an athlete into the pipeline does not erase the ProjectSavedAthlete record.
+- A project can be independent or linked to one organization affiliation.
+- Line 2 can grant other scouts permissioned visibility without changing message ownership.
+- Athletes do not see ProjectAthlete internals.`
+}
+};
+  </script>
+
+  <script>
+   if (typeof window.openBackendNote !== "function") {
+     window.openBackendNote = function(noteKey) {
+       const note = window.backendNotes && window.backendNotes[noteKey];
+       const modal = document.getElementById("backendNoteModal");
+       const title = document.getElementById("backendModalTitle");
+       const body = document.getElementById("backendModalBody");
+       if (!note || !modal || !title || !body) return;
+       title.textContent = note.title || "Architecture Note";
+       body.textContent = note.body || "";
+       modal.style.display = "flex";
+     };
+   }
+   if (typeof window.closeBackendNote !== "function") {
+     window.closeBackendNote = function(event) {
+       const modal = document.getElementById("backendNoteModal");
+       if (!modal) return;
+       if (event && event.target !== modal) return;
+       modal.style.display = "none";
+     };
+   }
+  </script>
+  <script src="../shared/app.js">
+  </script>
+ </body>
+</html>

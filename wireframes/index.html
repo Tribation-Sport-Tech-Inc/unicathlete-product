@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>
+   UnicAthlete Platform Architecture
+  </title>
+  <style>
+   :root {
+  --navy:#111827;
+  --blue:#2563eb;
+  --blue-light:#eff6ff;
+  --green:#16a34a;
+  --green-light:#ecfdf5;
+  --orange:#f97316;
+  --orange-light:#fff7ed;
+  --purple:#7c3aed;
+  --purple-light:#f5f3ff;
+  --gray-bg:#f3f4f6;
+  --border:#e5e7eb;
+  --text:#111827;
+  --muted:#6b7280;
+  --card:#fff;
+}
+* {
+  box-sizing:border-box
+}
+body {
+  font-family:Arial,sans-serif;
+  margin:0;
+  background:var(--gray-bg);
+  color:var(--text);
+  line-height:1.5
+}
+.page {
+  max-width:1380px;
+  margin:28px auto;
+  padding:0 28px 42px
+}
+.view-choice-wrap {
+  background:#0f172a;
+  border-bottom:1px solid rgba(255,255,255,.10);
+  padding:18px 40px;
+  position:static;
+  box-shadow:0 4px 14px rgba(0,0,0,.16)
+}
+.view-choice-inner {
+  max-width:1380px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:18px;
+  align-items:center
+}
+.view-brand {
+  color:white
+}
+.view-brand strong {
+  display:block;
+  font-size:16px;
+  letter-spacing:.02em;
+  margin-bottom:3px
+}
+.view-brand span {
+  color:#cbd5e1;
+  font-size:13px
+}
+.view-choice-tabs {
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end
+}
+.view-choice-tab {
+  display:block;
+  min-width:220px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.14);
+  color:#d1d5db;
+  text-decoration:none;
+  border-radius:14px;
+  padding:12px 14px;
+  transition:.15s ease
+}
+.view-choice-tab:hover {
+  background:rgba(255,255,255,.10);
+  color:white
+}
+.view-choice-tab.active {
+  background:white;
+  color:var(--navy);
+  border-color:white
+}
+.view-choice-tab strong {
+  display:block;
+  font-size:14px;
+  margin-bottom:2px
+}
+.view-choice-tab span {
+  display:block;
+  font-size:12px;
+  color:inherit;
+  opacity:.78;
+  line-height:1.35
+}
+.hero,.section {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:26px;
+  box-shadow:0 6px 18px rgba(15,23,42,.05);
+  margin-bottom:22px
+}
+.hero {
+  background:linear-gradient(135deg,#fff 0%,#eff6ff 100%);
+  padding:36px
+}
+.label {
+  display:inline-flex;
+  background:var(--blue-light);
+  color:var(--blue);
+  border:1px solid #bfdbfe;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:900;
+  margin-bottom:14px
+}
+h1 {
+  margin:0 0 10px;
+  color:var(--navy);
+  font-size:36px;
+  letter-spacing:-.4px
+}
+h2 {
+  margin:0 0 8px;
+  color:var(--navy);
+  font-size:22px
+}
+h3 {
+  margin:0 0 8px;
+  color:var(--navy);
+  font-size:17px
+}
+p {
+  margin:0;
+  color:var(--muted)
+}
+.hero p {
+  max-width:860px;
+  font-size:16px
+}
+.grid-2 {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+  margin-top:16px
+}
+.grid-3 {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  margin-top:16px
+}
+.card {
+  background:#f9fafb;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:18px;
+  text-decoration:none;
+  color:inherit;
+  display:block
+}
+.card:hover {
+  border-color:#bfdbfe;
+  box-shadow:0 10px 24px rgba(15,23,42,.08)
+}
+.card p {
+  font-size:14px
+}
+.decision-list {
+  margin:12px 0 0;
+  padding-left:18px;
+  color:var(--muted);
+  font-size:14px
+}
+.decision-list li {
+  margin:6px 0
+}
+.future-note {
+  background:white;
+  border:1px solid #dbeafe;
+  border-radius:12px;
+  color:#1d4ed8;
+  font-size:13px;
+  font-weight:800;
+  margin-top:14px;
+  padding:12px
+}
+.lifecycle {
+  display:grid;
+  gap:18px;
+  margin-top:18px
+}
+.lifecycle-card {
+  background:#f9fafb;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:18px
+}
+.lifecycle-card.state {
+  background:#fff;
+  border-left:5px solid var(--blue)
+}
+.lifecycle-card.state.guardian {
+  border-left-color:var(--orange)
+}
+.lifecycle-card.state.supervised {
+  border-left-color:var(--blue)
+}
+.lifecycle-card.state.connected {
+  border-left-color:var(--purple)
+}
+.lifecycle-card.state.adult {
+  border-left-color:var(--green)
+}
+.lifecycle-kicker {
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:900;
+  text-transform:uppercase;
+  margin-bottom:4px
+}
+.lifecycle-card h3 {
+  margin-bottom:6px
+}
+.lifecycle-card p {
+  font-size:14px
+}
+.lifecycle-arrow {
+  text-align:center;
+  color:var(--blue);
+  font-size:22px;
+  font-weight:900;
+  line-height:1
+}
+.decision-card {
+  background:#eef2ff;
+  border:1px solid #c7d2fe;
+  border-radius:16px;
+  padding:18px
+}
+.decision-question {
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:flex-start;
+  margin-bottom:14px
+}
+.decision-question h3 {
+  margin:0
+}
+.decision-badge {
+  background:white;
+  border:1px solid #c7d2fe;
+  border-radius:999px;
+  color:#3730a3;
+  font-size:11px;
+  font-weight:900;
+  padding:6px 9px;
+  text-transform:uppercase;
+  white-space:nowrap
+}
+.decision-branches {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px
+}
+.branch {
+  background:white;
+  border:1px solid #e0e7ff;
+  border-radius:14px;
+  padding:14px
+}
+.branch.yes {
+  border-color:#bbf7d0
+}
+.branch.no {
+  border-color:#fed7aa
+}
+.branch-label {
+  display:inline-flex;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:900;
+  padding:5px 8px;
+  margin-bottom:8px;
+  text-transform:uppercase
+}
+.branch.yes .branch-label {
+  background:#dcfce7;
+  color:#166534
+}
+.branch.no .branch-label {
+  background:#fff7ed;
+  color:#9a3412
+}
+.branch strong {
+  display:block;
+  color:var(--navy);
+  font-size:14px;
+  margin-bottom:5px
+}
+.branch ul {
+  margin:8px 0 0;
+  padding-left:18px;
+  color:var(--muted);
+  font-size:13px
+}
+.branch li {
+  margin:4px 0
+}
+.tag {
+  display:inline-block;
+  font-size:12px;
+  font-weight:800;
+  padding:5px 8px;
+  border-radius:999px;
+  margin:10px 4px 0 0
+}
+.blue {
+  background:var(--blue-light);
+  color:var(--blue)
+}
+.green {
+  background:var(--green-light);
+  color:var(--green)
+}
+.purple {
+  background:var(--purple-light);
+  color:var(--purple)
+}
+.orange {
+  background:var(--orange-light);
+  color:var(--orange)
+}
+.flow {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+  margin-top:18px;
+  background:#f9fafb;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:18px
+}
+.step {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:9px 12px;
+  font-size:13px;
+  font-weight:900;
+  color:var(--navy)
+}
+.arrow {
+  font-weight:900;
+  color:var(--blue)
+}
+.note {
+  background:#fff7ed;
+  color:#9a3412;
+  border:1px solid #fed7aa;
+  border-radius:14px;
+  padding:15px;
+  font-size:14px;
+  margin-top:16px
+}
+@media (max-width: 900px) {
+  .view-choice-wrap {
+  padding:14px 18px
+}
+.view-choice-inner,.grid-2,.grid-3,.decision-branches {
+  grid-template-columns:1fr
+}
+.view-choice-tabs {
+  justify-content:flex-start
+}
+.view-choice-tab {
+  min-width:100%
+}
+h1 {
+  font-size:28px
+}
+}
+  </style>
+  <link href="shared/backend-modal.css" rel="stylesheet"/>
+  <link href="shared/app-shell.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <header class="app-header">
+   <div class="app-header-inner">
+    <a class="app-logo" href="index.html">
+     UNICATHLETE
+    </a>
+    <nav aria-label="Platform view switcher" class="app-switch">
+     <a class="active" href="index.html">
+      Platform
+     </a>
+     <a href="signup.html">
+      Create Account
+     </a>
+     <a href="athlete/overview.html">
+      Athlete View
+     </a>
+     <a href="recruiter/overview.html">
+      Recruiter View
+     </a>
+    </nav>
+   </div>
+  </header>
+  <div class="page">
+   <div class="hero">
+    <span class="label">
+     Platform Architecture
+    </span>
+    <h1>
+     UnicAthlete Ecosystem
+    </h1>
+    <p>
+     Platform-level decisions for the MVP and the architecture choices we want to preserve for later scaling.
+    </p>
+   </div>
+   <div class="section" id="architecture">
+    <h2>
+     MVP Platform Scope
+     <button class="info-note" onclick="openBackendNote('profile-architecture')">
+      ⓘ
+     </button>
+    </h2>
+	    <p>
+	     The MVP focuses on the athlete showcase and the recruiter/scout workflow. The model stays open for additional profile and professional types later.
+    </p>
+    <div class="grid-2">
+     <div class="card">
+      <h3>
+       MVP Profile Types
+      </h3>
+	      <p>
+	       The platform starts with two profile types only: Athlete Profile and Professional Profile.
+      </p>
+      <ul class="decision-list">
+       <li>
+        Athlete Profile is the athlete-facing public showcase.
+       </li>
+       <li>
+        Professional Profile is the private operating identity for professionals.
+       </li>
+      </ul>
+      <span class="tag blue">
+       Athlete
+      </span>
+      <span class="tag green">
+       Professional
+      </span>
+      <div class="future-note">
+       Future scaling plans: add Fan Profile, Coach Profile, Guardian-facing profile surfaces, or other role-specific profiles without changing the base User model.
+      </div>
+     </div>
+     <div class="card">
+	      <h3>
+	       MVP Professional Type
+	      </h3>
+	      <p>
+	       For the MVP, the Professional Profile supports one active professional type: Recruiter / Scout.
+      </p>
+      <ul class="decision-list">
+       <li>
+        Recruiter / Scout gets the first professional workflow.
+       </li>
+       <li>
+        Scout Profile stores identity, affiliation, expertise, and professional context.
+       </li>
+       <li>
+        Scout activity summaries live in the dashboard, not as a public portfolio.
+       </li>
+      </ul>
+      <span class="tag purple">
+       Recruiter
+      </span>
+      <span class="tag blue">
+       Scout
+      </span>
+      <div class="future-note">
+       Future scaling plans: add nutritionists, physicians, physiotherapists, agents, coaches, and other professional categories as additional professional_type values.
+      </div>
+     </div>
+    </div>
+    <div class="grid-2">
+     <div class="card">
+      <h3>
+       User And Profile Model
+      </h3>
+      <p>
+       User is the account/auth identity. Profiles are role-specific product identities connected to that user.
+      </p>
+      <ul class="decision-list">
+       <li>
+        One user can have one or more profile types.
+       </li>
+       <li>
+        A user can have an Athlete Profile, a Professional Profile, or future profile types.
+       </li>
+       <li>
+        Profile-user relationships define which users are connected to each profile.
+       </li>
+      </ul>
+      <div class="future-note">
+       Future scaling plans: new profile types should plug into the same User/Profile relationship instead of requiring a new auth model.
+      </div>
+     </div>
+     <div class="card">
+      <h3>
+       Public vs Private Profiles
+      </h3>
+      <p>
+       The athlete is the public showcase. Professionals work behind the scenes.
+      </p>
+      <ul class="decision-list">
+       <li>
+        Athlete Profile is the public showcase profile in the MVP.
+       </li>
+       <li>
+        Professional / Scout Profile is private and not publicly searchable.
+       </li>
+       <li>
+        Athletes may see a limited scout card only after interaction.
+       </li>
+      </ul>
+      <div class="future-note">
+       Future scaling plans: professional public visibility can be considered later, but it is not part of the MVP platform posture.
+      </div>
+     </div>
+    </div>
+	    <div class="note">
+	     Core platform split: athletes present themselves through public structured portfolios, while scouts work through private professional tools.
+	    </div>
+   </div>
+   <div class="section" id="athlete-lifecycle">
+    <h2>
+     Athlete Account Lifecycle
+    </h2>
+    <p>
+     This diagram shows how one athlete profile can evolve from guardian-managed under 14 to independent adult control. Birthdays unlock review actions; they do not change permissions automatically.
+    </p>
+    <div class="lifecycle">
+     <div class="lifecycle-card state guardian">
+      <span class="lifecycle-kicker">
+       Starting State
+      </span>
+      <h3>
+       Athlete joins under 14
+      </h3>
+      <p>
+       Guardian creates and manages the athlete profile. Athlete has no login in the MVP, and guardian handles messages and information requests.
+      </p>
+     </div>
+     <div class="lifecycle-arrow">
+      &darr; turns 14
+     </div>
+     <div class="decision-card">
+      <div class="decision-question">
+       <div>
+        <span class="lifecycle-kicker">
+         Decision At 14
+        </span>
+        <h3>
+         Invite athlete to login?
+        </h3>
+       </div>
+       <span class="decision-badge">
+        No automatic change
+       </span>
+      </div>
+      <div class="decision-branches">
+       <div class="branch yes">
+        <span class="branch-label">
+         Yes
+        </span>
+        <strong>
+         Supervised access starts
+        </strong>
+        <ul>
+         <li>
+          Athlete creates own login.
+         </li>
+         <li>
+          Athlete can edit basic profile fields.
+         </li>
+         <li>
+          Guardian approves sensitive actions.
+         </li>
+        </ul>
+       </div>
+       <div class="branch no">
+        <span class="branch-label">
+         No
+        </span>
+        <strong>
+         Guardian-managed continues
+        </strong>
+        <ul>
+         <li>
+          No athlete login yet.
+         </li>
+         <li>
+          Guardian continues managing profile and communication.
+         </li>
+         <li>
+          Invitation can be sent later.
+         </li>
+        </ul>
+       </div>
+      </div>
+     </div>
+     <div class="lifecycle-card state supervised">
+      <span class="lifecycle-kicker">
+       Possible State
+      </span>
+      <h3>
+       Age 14-15 supervised account
+      </h3>
+      <p>
+       Athlete may have a login, but guardian approval remains required for messages, information request responses, visibility settings, and other sensitive actions.
+      </p>
+     </div>
+     <div class="lifecycle-arrow">
+      &darr; turns 16
+     </div>
+     <div class="decision-card">
+      <div class="decision-question">
+       <div>
+        <span class="lifecycle-kicker">
+         Decision At 16
+        </span>
+        <h3>
+         Switch to independent communication?
+        </h3>
+       </div>
+       <span class="decision-badge">
+        Both sides confirm
+       </span>
+      </div>
+      <div class="decision-branches">
+       <div class="branch yes">
+        <span class="branch-label">
+         Yes
+        </span>
+        <strong>
+         Independent communication starts
+        </strong>
+        <ul>
+         <li>
+          Guardian consents.
+         </li>
+         <li>
+          Athlete accepts from secure email.
+         </li>
+         <li>
+          Athlete handles messages and requests directly.
+         </li>
+         <li>
+          Guardian remains connected.
+         </li>
+        </ul>
+       </div>
+       <div class="branch no">
+        <span class="branch-label">
+         No
+        </span>
+        <strong>
+         Supervised mode continues
+        </strong>
+        <ul>
+         <li>
+          Guardian approval remains required.
+         </li>
+         <li>
+          Athlete can keep supervised login.
+         </li>
+         <li>
+          Independent mode can be requested later.
+         </li>
+        </ul>
+       </div>
+      </div>
+     </div>
+     <div class="lifecycle-card state connected">
+      <span class="lifecycle-kicker">
+       Possible State
+      </span>
+      <h3>
+       Age 16-17 connected account
+      </h3>
+      <p>
+       The account is either supervised or independent with guardian connection. Guardian access remains until adult transfer or another explicit relationship change.
+      </p>
+     </div>
+     <div class="lifecycle-arrow">
+      &darr; turns 18
+     </div>
+     <div class="decision-card">
+      <div class="decision-question">
+       <div>
+        <span class="lifecycle-kicker">
+         Decision At 18
+        </span>
+        <h3>
+         Complete adult transfer?
+        </h3>
+       </div>
+       <span class="decision-badge">
+        Explicit decision
+       </span>
+      </div>
+      <div class="decision-branches">
+       <div class="branch yes">
+        <span class="branch-label">
+         Yes
+        </span>
+        <strong>
+         Athlete becomes adult owner
+        </strong>
+        <ul>
+         <li>
+          Athlete confirms adult control.
+         </li>
+         <li>
+          Adult terms and verification apply.
+         </li>
+         <li>
+          Guardian access is removed or changed only by explicit choice.
+         </li>
+        </ul>
+       </div>
+       <div class="branch no">
+        <span class="branch-label">
+         No
+        </span>
+        <strong>
+         Previous safe state remains
+        </strong>
+        <ul>
+         <li>
+          No silent permission switch.
+         </li>
+         <li>
+          Guardian access does not disappear automatically.
+         </li>
+         <li>
+          Adult transfer prompt remains pending.
+         </li>
+        </ul>
+       </div>
+      </div>
+     </div>
+     <div class="lifecycle-card state adult">
+      <span class="lifecycle-kicker">
+       Final Adult State
+      </span>
+      <h3>
+       18+ independent adult account
+      </h3>
+      <p>
+       The athlete controls the account, profile, visibility, messages, and information requests after adult transfer is completed.
+      </p>
+     </div>
+    </div>
+    <div class="note">
+     Age unlocks an option. Age does not automatically change permissions.
+    </div>
+    <div class="lifecycle-card">
+     <span class="lifecycle-kicker">
+      Consent And Verification Rule
+     </span>
+     <h3>
+      Third-party consent and ID verification
+     </h3>
+     <p>
+      Guardian consent, guardian ID verification, and adult athlete ID verification are handled through trusted third-party programs. The platform stores only the result, timestamp, provider reference, and accepted policy version.
+     </p>
+    </div>
+   </div>
+   <div class="section" id="access-workspaces">
+    <h2>
+     Access And Workspace Decisions
+    </h2>
+    <p>
+     The MVP keeps onboarding and workspaces simple while preserving the architecture needed for organizations later.
+    </p>
+    <div class="grid-2">
+     <div class="card">
+      <h3>
+       Signup And Access
+      </h3>
+      <p>
+       Signup is free for everyone in the MVP.
+      </p>
+      <ul class="decision-list">
+       <li>
+        Free signup does not automatically mean public visibility.
+       </li>
+       <li>
+        Product access and visibility can still depend on profile readiness and profile settings.
+       </li>
+      </ul>
+      <div class="future-note">
+       Future scaling plans: paid plans can be layered around advanced professional and organization features without changing free account creation.
+      </div>
+     </div>
+     <div class="card">
+      <h3>
+       Scout Workspace Model
+      </h3>
+      <p>
+       MVP work happens inside individual scout workspaces.
+      </p>
+      <ul class="decision-list">
+       <li>
+        Every scout gets an individual workspace.
+       </li>
+       <li>
+        Agency, club, or company affiliation can exist as lightweight project context.
+       </li>
+       <li>
+        Affiliation groups scouts structurally but does not create a separate MVP workflow.
+       </li>
+      </ul>
+      <div class="future-note">
+       Future scaling plans: organization workspaces can add team collaboration, roles, hierarchical permissions, reporting, and shared visibility as an advanced layer.
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="section" id="preservation-principle">
+    <h2>
+     Cross-Cutting Preservation Principle
+    </h2>
+    <p>
+     Nothing is permanently deleted unless the user deliberately chooses delete.
+    </p>
+    <div class="grid-2">
+     <div class="card">
+      <h3>
+       MVP Behavior
+      </h3>
+      <ul class="decision-list">
+       <li>
+        Archive / recover is the safe default.
+       </li>
+       <li>
+        Delete is separate, deliberate, and irreversible.
+       </li>
+       <li>
+        Saved athletes, project history, notes, evaluations, and archived projects remain available unless explicitly deleted.
+       </li>
+      </ul>
+     </div>
+     <div class="card">
+      <h3>
+       Future Scaling Plans
+      </h3>
+      <p>
+       The same preservation rule should support audit history, organization reporting, collaboration history, and future compliance needs.
+      </p>
+     </div>
+    </div>
+	    <div class="note">
+	     Platform rule: archive and recover by default; permanently delete only after explicit user intent.
+	    </div>
+   </div>
+  </div>
+  <div class="backend-modal" id="backendNoteModal" onclick="closeBackendNote(event)">
+   <div class="backend-modal-card">
+    <div class="backend-modal-header">
+     <h3 class="backend-modal-title" id="backendModalTitle">
+      Architecture Note
+     </h3>
+     <button class="backend-modal-close" onclick="closeBackendNote()">
+      &times;
+     </button>
+    </div>
+    <div class="backend-modal-body" id="backendModalBody">
+    </div>
+   </div>
+  </div>
+  <script>
+   const backendNotes = {
+  "profile-architecture": {
+  title: "Platform Data Model",
+  body: `User
+├── auth_identity
+├── AthleteProfile memberships through ProfileUsers[]
+└── ProfessionalProfile (0..1)
+    ├── professional_types[]
+    │   ├── recruiter
+    │   ├── nutritionist
+    │   ├── physiotherapist
+    │   ├── agent
+    │   └── future_professional_types
+    │
+    └── ScoutWorkspace
+        └── AgencyAffiliations[]
+
+AthleteProfile
+├── profile_data
+├── sport_profiles
+├── playing_history
+├── media
+├── documents
+├── visibility_settings
+└── ProfileUsers[]
+    ├── athlete user
+    ├── guardian user
+    └── future additional guardian / manager
+
+ScoutWorkspace
+├── scout_id
+├── RecruitingProjects[]
+├── AgencyAffiliations[]
+└── activity_log
+
+Agency
+├── agency_profile
+└── linked_scouts[]
+
+Project
+├── project_type
+├── lead_scout_id
+├── optional affiliation_id
+├── athlete_records
+├── tasks
+├── notes
+└── activity_log
+
+	Important rules:
+	- One User can be linked to one or more profile types.
+	- One User can have at most one ProfessionalProfile.
+	- AthleteProfile can have one or more associated User accounts through ProfileUsers[].
+	- ProfileUsers[] stores relationship and permission context.
+	- AthleteProfile is the public showcase profile in MVP.
+		- ProfessionalProfile is private; Scout Profile is its identity and professional context UI.
+		- Recruiter Dashboard shows the private scout activity summary.
+	- A ProfessionalProfile can support multiple professional_types.
+	- ScoutWorkspace is the MVP operating layer.
+- Agency is a grouping skeleton in MVP, not a separate workflow.
+- Line 2 adds permissions, visibility, reporting, and audit logs around linked scout work.
+- Project meaning depends on professional_type.
+
+MVP implementation:
+professional_type = recruiter
+project_type = recruiting_project`
+}
+};
+  </script>
+  <script src="shared/app.js">
+  </script>
+ </body>
+</html>

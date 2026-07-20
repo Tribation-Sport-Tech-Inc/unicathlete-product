@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>
+   Athlete Dashboard
+  </title>
+  <style>
+   :root {
+  --navy:#111827;
+  --blue:#2563eb;
+  --blue-light:#eff6ff;
+  --green:#16a34a;
+  --green-light:#ecfdf5;
+  --orange:#f97316;
+  --orange-light:#fff7ed;
+  --purple:#7c3aed;
+  --purple-light:#f5f3ff;
+  --red:#dc2626;
+  --red-light:#fee2e2;
+  --yellow:#ca8a04;
+  --yellow-light:#fefce8;
+  --gray-bg:#f3f4f6;
+  --border:#e5e7eb;
+  --text:#111827;
+  --muted:#6b7280;
+  --card:#fff
+}
+* {
+  box-sizing:border-box
+}
+body {
+  font-family:Arial,sans-serif;
+  margin:0;
+  background:var(--gray-bg);
+  color:var(--text);
+  line-height:1.45;
+  padding-top:56px!important
+}
+.app-header {
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:5000;
+  height:56px;
+  background:#0f172a;
+  border-bottom:1px solid rgba(255,255,255,.10);
+  box-shadow:0 4px 14px rgba(0,0,0,.16);
+  padding:0 24px;
+  display:flex;
+  align-items:center
+}
+.app-header-inner {
+  width:100%;
+  max-width:1480px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px
+}
+.app-logo {
+  color:white;
+  text-decoration:none;
+  font-size:16px;
+  letter-spacing:.06em;
+  font-weight:900;
+  white-space:nowrap
+}
+.app-switch {
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:999px;
+  padding:4px
+}
+.app-switch a {
+  color:#cbd5e1;
+  text-decoration:none;
+  border-radius:999px;
+  padding:6px 10px;
+  font-size:12px;
+  font-weight:900;
+  white-space:nowrap
+}
+.app-switch a.active {
+  background:white;
+  color:#111827
+}
+.nav {
+  background:var(--navy);
+  padding:8px 24px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+  box-shadow:0 4px 14px rgba(0,0,0,.12);
+  position:relative;
+  top:auto;
+  z-index:auto;
+  overflow-x:auto;
+  border-bottom:1px solid rgba(255,255,255,.08)
+}
+.nav a {
+  color:#d1d5db;
+  text-decoration:none;
+  padding:6px 10px;
+  border-radius:8px;
+  font-size:13px;
+  white-space:nowrap
+}
+.nav a:hover {
+  background:rgba(255,255,255,.10);
+  color:white
+}
+.nav a.active {
+  background:var(--blue);
+  color:white;
+  font-weight:700
+}
+.page {
+  max-width:1380px;
+  margin:28px auto;
+  padding:0 28px 42px
+}
+.hero,.section,.card {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:18px;
+  box-shadow:0 6px 18px rgba(15,23,42,.05)
+}
+.hero {
+  background:linear-gradient(135deg,#fff 0%,#eff6ff 100%);
+  padding:28px;
+  margin-bottom:20px
+}
+.section {
+  padding:22px;
+  margin-bottom:20px
+}
+.card {
+  padding:18px
+}
+.label {
+  display:inline-flex;
+  background:var(--blue-light);
+  color:var(--blue);
+  border:1px solid #bfdbfe;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:900;
+  margin-bottom:12px
+}
+h1 {
+  margin:0 0 8px;
+  color:var(--navy);
+  font-size:34px;
+  letter-spacing:-.4px
+}
+h2 {
+  margin:0 0 8px;
+  color:var(--navy);
+  font-size:21px
+}
+h3 {
+  margin:0 0 7px;
+  color:var(--navy);
+  font-size:17px
+}
+p {
+  margin:0;
+  color:var(--muted)
+}
+.hero p {
+  max-width:900px;
+  font-size:16px
+}
+.grid-2 {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px
+}
+.grid-3 {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px
+}
+.grid-4 {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px
+}
+.tag {
+  display:inline-flex;
+  font-size:12px;
+  font-weight:800;
+  padding:5px 8px;
+  border-radius:999px;
+  margin:8px 4px 0 0;
+  background:#f3f4f6;
+  color:var(--muted)
+}
+.blue {
+  background:var(--blue-light);
+  color:var(--blue);
+  border:1px solid #bfdbfe
+}
+.green {
+  background:var(--green-light);
+  color:var(--green);
+  border:1px solid #bbf7d0
+}
+.purple {
+  background:var(--purple-light);
+  color:var(--purple);
+  border:1px solid #ddd6fe
+}
+.orange {
+  background:var(--orange-light);
+  color:var(--orange);
+  border:1px solid #fed7aa
+}
+.red {
+  background:var(--red-light);
+  color:var(--red);
+  border:1px solid #fecaca
+}
+.yellow {
+  background:var(--yellow-light);
+  color:var(--yellow);
+  border:1px solid #fde68a
+}
+.button {
+  border:none;
+  border-radius:10px;
+  padding:10px 14px;
+  font-size:13px;
+  font-weight:900;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  white-space:nowrap;
+  cursor:pointer
+}
+.btn-primary {
+  background:var(--blue);
+  color:white
+}
+.btn-light {
+  background:white;
+  color:var(--navy);
+  border:1px solid var(--border)
+}
+.btn-dark {
+  background:var(--navy);
+  color:white
+}
+.metric strong {
+  display:block;
+  color:var(--blue);
+  font-size:28px;
+  line-height:1;
+  margin-bottom:5px
+}
+.metric span {
+  display:block;
+  color:var(--muted);
+  font-size:13px;
+  font-weight:800
+}
+.row {
+  border-bottom:1px solid #f1f5f9;
+  padding:10px 0;
+  font-size:14px;
+  display:flex;
+  justify-content:space-between;
+  gap:16px
+}
+.row:last-child {
+  border-bottom:none
+}
+.row span:first-child {
+  color:var(--muted)
+}
+.row span:last-child {
+  font-weight:800;
+  text-align:right
+}
+.flow {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+  margin-top:16px;
+  background:#f9fafb;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:16px
+}
+.step {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:8px 11px;
+  font-size:13px;
+  font-weight:900;
+  color:var(--navy)
+}
+.arrow {
+  font-weight:900;
+  color:var(--blue)
+}
+.status {
+  display:inline-flex;
+  border-radius:999px;
+  padding:5px 8px;
+  font-size:12px;
+  font-weight:900
+}
+.split {
+  display:grid;
+  grid-template-columns:1.25fr .9fr;
+  gap:18px;
+  align-items:start
+}
+.list {
+  display:grid;
+  gap:12px
+}
+.item {
+  background:#f9fafb;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:14px
+}
+.item.highlight {
+  background:var(--blue-light);
+  border-color:#bfdbfe
+}
+.item-head {
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:flex-start;
+  margin-bottom:6px
+}
+.item-title {
+  font-weight:900;
+  color:var(--navy);
+  margin-bottom:3px
+}
+.item-meta {
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.4
+}
+.actions {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px
+}
+.profile-hero {
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  align-items:center
+}
+.athlete-main {
+  display:flex;
+  gap:16px;
+  align-items:center
+}
+.avatar {
+  width:72px;
+  height:72px;
+  border-radius:18px;
+  background:var(--blue);
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+  font-weight:900;
+  flex-shrink:0
+}
+.progress {
+  height:10px;
+  border-radius:999px;
+  background:#e5e7eb;
+  overflow:hidden
+}
+.progress div {
+  height:100%;
+  background:var(--blue);
+  border-radius:999px
+}
+.form-grid {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px
+}
+.field label {
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:900;
+  text-transform:uppercase;
+  margin-bottom:5px
+}
+.field input,.field select,.field textarea {
+  width:100%;
+  border:1px solid var(--border);
+  background:#f9fafb;
+  color:var(--navy);
+  border-radius:10px;
+  padding:11px 12px;
+  font-size:14px;
+  font-family:Arial,sans-serif
+}
+.field textarea {
+  min-height:94px
+}
+.readiness-card {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:18px;
+}
+.readiness-card.featured {
+  background:var(--green-light);
+  border-color:#bbf7d0;
+}
+.readiness-card.warning {
+  background:var(--orange-light);
+  border-color:#fed7aa;
+}
+.readiness-status {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:10px;
+}
+.readiness-icon {
+  width:34px;
+  height:34px;
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:white;
+  border:1px solid var(--border);
+  font-weight:900;
+}
+.checklist {
+  display:grid;
+  gap:8px;
+  margin-top:12px;
+}
+.check-item {
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  font-size:13px;
+  color:var(--muted);
+}
+.check-item strong {
+  color:var(--navy);
+}
+.completion-large {
+  font-size:34px;
+  line-height:1;
+  font-weight:900;
+  color:var(--blue);
+  margin:8px 0 10px;
+}
+
+.media-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px
+}
+.media-thumb {
+  height:118px;
+  border-radius:14px;
+  background:linear-gradient(135deg,#111827,#2563eb);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  font-size:28px;
+  font-weight:900;
+  margin-bottom:10px
+}
+.conversation-layout {
+  display:grid;
+  grid-template-columns:320px 1fr;
+  gap:18px
+}
+.chat-box {
+  min-height:560px;
+  display:flex;
+  flex-direction:column
+}
+.messages {
+  display:grid;
+  gap:10px;
+  align-content:start;
+  flex:1;
+  padding:14px 0
+}
+.bubble {
+  max-width:74%;
+  border-radius:14px;
+  padding:12px 14px;
+  font-size:14px;
+  line-height:1.4
+}
+.bubble.athlete {
+  background:var(--blue);
+  color:white;
+  margin-left:auto
+}
+.bubble.recruiter {
+  background:#f3f4f6;
+  color:var(--navy);
+  border:1px solid var(--border)
+}
+.bubble.system {
+  max-width:100%;
+  background:var(--orange-light);
+  color:var(--orange);
+  border:1px solid #fed7aa;
+  text-align:center;
+  font-weight:800;
+  font-size:13px
+}
+.note {
+  background:#fff7ed;
+  color:#9a3412;
+  border:1px solid #fed7aa;
+  border-radius:14px;
+  padding:14px;
+  font-size:14px;
+  margin-top:14px
+}
+@media (max-width: 1000px) {
+  body {
+  padding-top:86px!important
+}
+.app-header {
+  height:auto;
+  min-height:86px;
+  padding:12px 18px
+}
+.app-header-inner {
+  align-items:flex-start;
+  flex-direction:column;
+  gap:10px
+}
+.app-switch {
+  width:100%;
+  overflow-x:auto;
+  justify-content:flex-start
+}
+.nav {
+  padding:8px 18px
+}
+.page {
+  padding:0 18px 36px
+}
+.grid-2,.grid-3,.grid-4,.split,.form-grid,.media-grid,.conversation-layout {
+  grid-template-columns:1fr
+}
+.profile-hero {
+  flex-direction:column;
+  align-items:flex-start
+}
+.bubble {
+  max-width:100%
+}
+}
+  
+.status-panel {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:18px;
+  box-shadow:0 6px 18px rgba(15,23,42,.05);
+  padding:18px;
+  margin-bottom:20px;
+}
+.status-panel-head {
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  align-items:flex-start;
+  margin-bottom:14px;
+}
+.status-panel-head p {
+  font-size:14px;
+  margin-top:3px;
+}
+.status-toggle {
+  border:1px solid var(--border);
+  background:white;
+  border-radius:999px;
+  padding:7px 11px;
+  font-size:12px;
+  font-weight:900;
+  color:var(--navy);
+  cursor:pointer;
+  white-space:nowrap;
+}
+.readiness-demo .state-not-ready {
+  display:none;
+}
+.readiness-demo.show-not-ready .state-ready {
+  display:none;
+}
+.readiness-demo.show-not-ready .state-not-ready {
+  display:block;
+}
+.status-compact {
+  background:var(--green-light);
+  border:1px solid #bbf7d0;
+  border-radius:16px;
+  padding:14px;
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  align-items:center;
+}
+.status-compact strong {
+  display:block;
+  color:var(--navy);
+  font-size:15px;
+  margin-bottom:3px;
+}
+.status-compact span {
+  color:var(--muted);
+  font-size:13px;
+}
+.status-pill {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  border-radius:999px;
+  padding:7px 10px;
+  font-size:12px;
+  font-weight:900;
+  white-space:nowrap;
+}
+.status-pill.ready {
+  background:var(--green-light);
+  color:var(--green);
+  border:1px solid #bbf7d0;
+}
+.status-pill.warning {
+  background:var(--orange-light);
+  color:var(--orange);
+  border:1px solid #fed7aa;
+}
+.missing-list {
+  display:grid;
+  gap:8px;
+  margin-top:12px;
+}
+.missing-item {
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:10px 12px;
+  font-size:13px;
+}
+.missing-item strong {
+  color:var(--navy);
+}
+.completion-mini {
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:flex-end;
+  margin-bottom:8px;
+}
+.completion-mini strong {
+  font-size:30px;
+  line-height:1;
+  color:var(--blue);
+}
+@media (max-width: 1000px) {
+  .status-panel-head,
+  .status-compact {
+    flex-direction:column;
+    align-items:flex-start;
+  }
+}
+
+  </style>
+  <link href="../shared/backend-modal.css" rel="stylesheet"/>
+  <link href="../shared/app-shell.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <header class="app-header">
+   <div class="app-header-inner">
+    <a class="app-logo" href="../index.html">
+     UNICATHLETE
+    </a>
+    <nav aria-label="Platform view switcher" class="app-switch">
+     <a href="../index.html">
+      Platform
+     </a>
+     <a href="../signup.html">
+      Create Account
+     </a>
+     <a class="active" href="overview.html">
+      Athlete View
+     </a>
+     <a href="../recruiter/overview.html">
+      Recruiter View
+     </a>
+    </nav>
+   </div>
+  </header>
+  <div class="nav">
+   <a href="overview.html">
+    Athlete Overview
+   </a>
+   <a class="active" href="dashboard.html">
+    Dashboard
+   </a>
+   <a href="profile.html">
+    Athlete Profile
+   </a>
+   <a href="messages.html">
+    Messages
+   </a>
+  </div>
+  <main class="page">
+   <div class="hero profile-hero">
+    <div class="athlete-main">
+     <div class="avatar">
+      AK
+     </div>
+     <div>
+      <h1>
+       Welcome back, Alex
+      </h1>
+      <p>
+       See what needs your attention today: profile readiness, recruiter messages, profile views, and media activity.
+      </p>
+     </div>
+    </div>
+   </div>
+
+   <div class="status-panel readiness-demo" id="dashboard-readiness-demo">
+    <div class="status-panel-head">
+     <div>
+      <h2>Recruiter Status &amp; Profile Completion</h2>
+     </div>
+     <button class="status-toggle" onclick="toggleReadinessDemo('dashboard-readiness-demo')">
+      Toggle ready / not ready
+     </button>
+    </div>
+
+    <div class="state-ready">
+     <div class="grid-2">
+      <div class="status-compact">
+       <div>
+        <strong>Recruiter-Ready</strong>
+        <span>Visible in recruiter search. Checklist requirements are complete.</span>
+       </div>
+       <span class="status-pill ready">✓ Searchable</span>
+      </div>
+
+      <div class="readiness-card">
+       <div class="completion-mini">
+        <div>
+         <h3>Profile Completion</h3>
+         <p>Used for profile quality, recommendations, and visibility signals.</p>
+        </div>
+        <strong>82%</strong>
+       </div>
+       <div class="progress"><div style="width:82%"></div></div>
+      </div>
+     </div>
+    </div>
+
+    <div class="state-not-ready">
+     <div class="grid-2">
+      <div class="readiness-card warning">
+       <div class="readiness-status">
+        <div class="readiness-icon">!</div>
+        <div>
+         <h2>Not Recruiter-Ready</h2>
+         <p>Your profile is hidden from recruiter search until the missing checklist items are completed.</p>
+        </div>
+       </div>
+       <div class="missing-list">
+        <div class="missing-item"><strong>Profile Photo</strong><span>Missing</span></div>
+        <div class="missing-item"><strong>Football Video</strong><span>Missing</span></div>
+       </div>
+       <div class="actions">
+        <a class="button btn-primary" href="profile.html#soccer-profile">Add Photo</a>
+        <a class="button btn-light" href="profile.html#media">Upload Video</a>
+       </div>
+      </div>
+
+      <div class="readiness-card">
+       <div class="completion-mini">
+        <div>
+         <h3>Profile Completion</h3>
+         <p>The player profile is complete, but search visibility is still locked.</p>
+        </div>
+        <strong>35%</strong>
+       </div>
+       <div class="progress"><div style="width:35%"></div></div>
+       <p style="margin-top:10px;">Completion score and Recruiter-Ready status are related, but separate.</p>
+      </div>
+     </div>
+    </div>
+   </div>
+
+  
+   <div class="split" style="margin-top:18px">
+    <div class="section">
+     <h2>
+      Needs Your Attention
+     </h2>
+     <div class="list">
+      <div class="item highlight">
+       <div class="item-head">
+        <div>
+	         <div class="item-title">
+	          Mike Brown requested a full match video
+	         </div>
+	         <div class="item-meta">
+	          Sports Recruiter · Toronto Academy. Upload or share a full match from your Football Portfolio.
+         </div>
+        </div>
+        <span class="status orange">
+         Action Needed
+        </span>
+       </div>
+       <div class="actions">
+        <a class="button btn-primary" href="profile.html#media">
+         Upload Media
+        </a>
+        <a class="button btn-light" href="messages.html">
+         Open Conversation
+        </a>
+       </div>
+      </div>
+
+      <div class="item">
+       <div class="item-head">
+        <div>
+         <div class="item-title">
+          New message from Mike Brown
+         </div>
+	         <div class="item-meta">
+	          Sports Recruiter · Toronto Academy asked about your availability next month.
+         </div>
+        </div>
+        <span class="status blue">
+         New
+        </span>
+       </div>
+       <div class="actions">
+        <a class="button btn-light" href="messages.html">
+         Open Message
+        </a>
+       </div>
+      </div>
+
+      <div class="item">
+       <div class="item-title">
+        Improve profile strength
+       </div>
+       <div class="item-meta">
+        Add another skill clip, update your playing history, or upload optional documents to make your profile stronger.
+       </div>
+       <div class="actions">
+        <a class="button btn-light" href="profile.html">
+         Improve Profile
+        </a>
+       </div>
+      </div>
+     </div>
+    </div>
+
+    <div class="section">
+     <h2>
+      Recruiter Activity
+     </h2>
+     <div class="list">
+      <div class="item">
+       <div class="item-title">
+        Toronto Academy viewed your profile
+       </div>
+       <div class="item-meta">
+        Viewed your Soccer Profile Information and Football Portfolio today.
+       </div>
+      </div>
+      <div class="item">
+       <div class="item-title">
+        U17 Season Highlights viewed
+       </div>
+       <div class="item-meta">
+        Your main highlight video was watched 2 times this week.
+       </div>
+      </div>
+      <div class="item">
+       <div class="item-title">
+        University Recruiting Office viewed documents
+       </div>
+       <div class="item-meta">
+        Your shared Academic Transcript was reviewed.
+       </div>
+      </div>
+      <div class="item">
+       <div class="item-title">
+        Profile appeared in recruiter search
+       </div>
+       <div class="item-meta">
+        Your profile matched a search for U17 wingers in Ontario.
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </main>
+
+  <script>
+   function toggleReadinessDemo(id){
+    const el=document.getElementById(id);
+    if(el) el.classList.toggle('show-not-ready');
+   }
+  </script>
+  <script src="../shared/app.js">
+  </script>
+ </body>
+</html>

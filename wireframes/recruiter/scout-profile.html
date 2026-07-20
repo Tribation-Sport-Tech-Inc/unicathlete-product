@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>
+   Scout Profile
+  </title>
+  <style>
+   :root {
+  --navy: #111827;
+  --blue: #2563eb;
+  --blue-light: #eff6ff;
+  --green: #16a34a;
+  --green-light: #ecfdf5;
+  --orange: #f97316;
+  --orange-light: #fff7ed;
+  --purple: #7c3aed;
+  --purple-light: #f5f3ff;
+  --gray-bg: #f3f4f6;
+  --border: #e5e7eb;
+  --text: #111827;
+  --muted: #6b7280;
+  --card: #ffffff;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: var(--gray-bg);
+  color: var(--text);
+}
+.nav {
+  background: var(--navy);
+  padding: 16px 40px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  overflow-x: auto;
+}
+.nav a {
+  color: #d1d5db;
+  text-decoration: none;
+  padding: 9px 13px;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: 0.2s;
+  white-space: nowrap;
+}
+.nav a:hover {
+  background: rgba(255,255,255,0.10);
+  color: white;
+}
+.nav a.active {
+  background: var(--blue);
+  color: white;
+  font-weight: 600;
+}
+.page {
+  max-width: 1360px;
+  margin: 28px auto;
+  padding: 0 28px 40px;
+}
+.page-title {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+}
+.page-title h1 {
+  margin: 0;
+  font-size: 28px;
+  color: var(--navy);
+}
+.page-title p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.button {
+  border: none;
+  padding: 10px 14px;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--blue);
+  color: white;
+}
+.btn-light {
+  background: white;
+  color: var(--navy);
+  border: 1px solid var(--border);
+}
+.btn-dark {
+  background: var(--navy);
+  color: white;
+}
+.hero {
+  background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: center;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
+  margin-bottom: 22px;
+}
+.profile-main {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+.avatar {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+.profile-main h2 {
+  margin: 0 0 6px;
+  font-size: 26px;
+  color: var(--navy);
+}
+.profile-main p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.hero-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.badge-row {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.badge {
+  background: white;
+  color: var(--blue);
+  border: 1px solid #bfdbfe;
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+}
+.badge.green {
+  color: var(--green);
+  border-color: #bbf7d0;
+  background: var(--green-light);
+}
+.badge.purple {
+  color: var(--purple);
+  border-color: #ddd6fe;
+  background: var(--purple-light);
+}
+.badge.orange {
+  color: var(--orange);
+  border-color: #fed7aa;
+  background: var(--orange-light);
+}
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+.card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+}
+.section-title {
+  margin: 0 0 14px;
+  font-size: 18px;
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+.section-subtitle {
+  margin: -6px 0 14px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.4;
+}
+.info-list {
+  display: grid;
+  gap: 10px;
+}
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 9px;
+  font-size: 14px;
+}
+.info-row span:first-child {
+  color: var(--muted);
+}
+.info-row span:last-child {
+  font-weight: 700;
+  text-align: right;
+  color: var(--navy);
+}
+.workspace-membership-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.workspace-summary-tile {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 13px;
+  text-align: center;
+}
+.workspace-summary-tile strong {
+  display: block;
+  color: var(--blue);
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+.workspace-summary-tile span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+.trust-preview-toggle summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  list-style: none;
+  width: fit-content;
+}
+.trust-preview-toggle summary::-webkit-details-marker {
+  display: none;
+}
+.trust-preview-toggle summary::after {
+  content: "Show";
+  border: 1px solid #bfdbfe;
+  background: white;
+  color: var(--blue);
+  border-radius: 999px;
+  padding: 5px 9px;
+  font-size: 11px;
+  font-weight: 900;
+}
+.trust-preview-toggle[open] summary::after {
+  content: "Hide";
+  background: var(--blue);
+  color: white;
+}
+.trust-card-preview {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: #f9fafb;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  margin-top: 14px;
+}
+.trust-card-preview h3 {
+  margin: 0 0 4px;
+  color: var(--navy);
+  font-size: 17px;
+}
+.trust-card-preview p {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+.trust-avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+}
+.visibility-note {
+  margin-top: 12px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1d4ed8;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 13px;
+  line-height: 1.45;
+  font-weight: 700;
+}
+.workspace-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1.35fr;
+  gap: 18px;
+  align-items: start;
+}
+.workspace-subsection {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+}
+.workspace-subsection h3 {
+  margin: 0 0 12px;
+  color: var(--navy);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.workspace-card-list {
+  display: grid;
+  gap: 10px;
+}
+.workspace-membership-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 15px;
+}
+.workspace-membership-card.organization {
+  border-color: #dbeafe;
+  background: #f8fafc;
+}
+.workspace-membership-card.individual {
+  border-color: #ddd6fe;
+  background: #f5f3ff;
+}
+.workspace-membership-card.primary-workspace {
+  min-height: 100%;
+  border-color: #c4b5fd;
+}
+.affiliation-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  align-items: center;
+}
+.affiliation-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+.affiliation-row .affiliation-meta-grid {
+  grid-column: 1 / -1;
+}
+.affiliation-meta {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 9px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.affiliation-meta strong {
+  display: block;
+  color: var(--navy);
+  font-size: 13px;
+  margin-bottom: 2px;
+}
+.workspace-note {
+  background: #f9fafb;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+  margin-bottom: 14px;
+}
+.workspace-membership-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+.workspace-membership-name {
+  font-weight: 900;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+.workspace-membership-meta {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+.workspace-type-pill {
+  border-radius: 999px;
+  padding: 5px 8px;
+  font-size: 11px;
+  font-weight: 900;
+  background: white;
+  color: var(--blue);
+  border: 1px solid #bfdbfe;
+  white-space: nowrap;
+}
+.workspace-type-pill.personal {
+  color: var(--purple);
+  border-color: #ddd6fe;
+}
+.workspace-stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+.workspace-stat {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 9px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.workspace-stat strong {
+  display: block;
+  color: var(--navy);
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+.workspace-action-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.project-card {
+  background: #f9fafb;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+.project-name {
+  font-weight: 900;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+.project-meta {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+.project-purpose {
+  margin-top: 8px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 9px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+.role-grid {
+  display: grid;
+  gap: 10px;
+}
+.role-card {
+  border: 1px solid var(--border);
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 14px;
+}
+.role-card strong {
+  display: block;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+.role-card span {
+  color: var(--muted);
+  line-height: 1.4;
+}
+@media (max-width: 1100px) {
+  .nav {
+  padding: 14px 18px;
+}
+.page-title, .hero {
+  flex-direction: column;
+  align-items: flex-start;
+}
+.hero-actions {
+  justify-content: flex-start;
+}
+.grid-2, .workspace-grid, .workspace-membership-summary, .workspace-stat-row, .affiliation-meta-grid, .affiliation-row {
+  grid-template-columns: 1fr;
+}
+.trust-card-preview {
+  flex-direction: column;
+}
+}
+  </style>
+  <link href="../shared/backend-modal.css" rel="stylesheet"/>
+  <link href="../shared/app-shell.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <header class="app-header">
+   <div class="app-header-inner">
+    <a class="app-logo" href="../index.html">
+     UNICATHLETE
+    </a>
+    <nav aria-label="Platform view switcher" class="app-switch">
+     <a href="../index.html">
+      Platform
+     </a>
+     <a href="../signup.html">
+      Create Account
+     </a>
+     <a href="../athlete/overview.html">
+      Athlete View
+     </a>
+     <a class="active" href="overview.html">
+      Recruiter View
+     </a>
+    </nav>
+   </div>
+  </header>
+  <div class="nav">
+   <a href="overview.html">
+    Recruiter Overview
+   </a>
+   <a class="active" href="scout-profile.html">
+    Scout Profile
+   </a>
+   <a href="dashboard.html">
+    Dashboard
+   </a>
+   <a href="discover.html">
+    Discover Athletes
+   </a>
+   <a href="workspace.html">
+    Workspace
+   </a>
+   <a href="profile.html">
+    Athlete Profile
+   </a>
+   <a href="messages.html">
+    Messages
+   </a>
+  </div>
+  <div class="page">
+   <div class="page-title">
+    <div>
+	     <h1>
+	      Scout Profile
+	     </h1>
+	     <p>
+	      Private identity, verification, affiliation, and scouting focus for the verified scout.
+	     </p>
+    </div>
+   </div>
+   <div class="hero">
+    <div class="profile-main">
+     <div class="avatar">
+      MB
+     </div>
+     <div>
+      <h2>
+       Mike Brown
+      </h2>
+	      <p>
+	       Sports Recruiter &middot; Toronto Academy &middot; Canada / Spain network
+	      </p>
+	      <div class="badge-row">
+	       <span class="badge green">
+	        Verified Professional
+	       </span>
+	       <span class="badge">
+	        Limited athlete-visible trust card
+	       </span>
+	       <span class="badge purple">
+	        Scout Workspace Active
+	       </span>
+      </div>
+     </div>
+    </div>
+    <div class="hero-actions">
+	     <a class="button btn-light" href="#">
+	      Edit Details
+	     </a>
+     <a class="button btn-dark" href="#">
+      Account Settings
+     </a>
+    </div>
+	   </div>
+	   <div class="grid-2">
+	    <div class="card">
+	     <h2 class="section-title">
+	      Private Scout Details
+	     </h2>
+     <div class="info-list">
+      <div class="info-row">
+       <span>
+        Professional Type
+       </span>
+       <span>
+        Sports Recruiter
+       </span>
+      </div>
+      <div class="info-row">
+       <span>
+        Agency Affiliation
+       </span>
+       <span>
+        Toronto Academy
+       </span>
+      </div>
+      <div class="info-row">
+       <span>
+        Location
+       </span>
+       <span>
+        Toronto, Canada
+       </span>
+      </div>
+      <div class="info-row">
+       <span>
+        Experience
+       </span>
+       <span>
+        8 years
+       </span>
+      </div>
+      <div class="info-row">
+       <span>
+        Languages
+       </span>
+       <span>
+        English, Turkish, Spanish
+       </span>
+      </div>
+     </div>
+    </div>
+		<div class="card">
+		 <h2 class="section-title">
+		  Scout Expertise
+		 </h2>
+		 <p class="section-subtitle">
+		  This defines the scout's background and evaluation strengths. It is not a public profile and does not replace project-specific athlete criteria.
+		 </p>
+     <div class="info-list">
+      <div class="info-row">
+       <span>
+        Sport
+       </span>
+       <span>
+        Football / Soccer
+       </span>
+      </div>
+      <div class="info-row">
+       <span>
+        Regions Known
+       </span>
+       <span>
+        Canada, Spain, Turkey
+       </span>
+      </div>
+      <div class="info-row">
+       <span>
+        Age Groups
+       </span>
+       <span>
+        U15&ndash;U21
+       </span>
+      </div>
+      <div class="info-row">
+       <span>
+        Specialization
+       </span>
+       <span>
+        Youth scouting, midfielders, wingers
+       </span>
+      </div>
+      <div class="info-row">
+       <span>
+        Evaluation Strengths
+       </span>
+       <span>
+        Technical ability, mentality, potential
+       </span>
+      </div>
+     </div>
+    </div>
+   </div>
+	   <div class="card" style="margin-bottom:18px;">
+	    <h2 class="section-title">
+	     Verification &amp; Trust
+	    </h2>
+    <div class="info-list">
+     <div class="info-row">
+      <span>
+       Verification Status
+      </span>
+      <span>
+       Verified
+      </span>
+     </div>
+     <div class="info-row">
+      <span>
+       Verification Method
+      </span>
+      <span>
+       Organization email + manual review
+      </span>
+     </div>
+     <div class="info-row">
+      <span>
+       Verified Organization
+      </span>
+      <span>
+       Toronto Academy
+      </span>
+     </div>
+     <div class="info-row">
+      <span>
+       Last Reviewed
+      </span>
+      <span>
+       Jun 12, 2026
+      </span>
+	     </div>
+	    </div>
+	   </div>
+	   <div class="card" style="margin-bottom:18px;">
+	    <details class="trust-preview-toggle">
+	     <summary>
+	      <h2 class="section-title">
+	       Athlete-visible Trust Card Preview
+	      </h2>
+	     </summary>
+	     <p class="section-subtitle">
+	      Athletes do not browse scout profiles publicly. This limited card appears only when this scout contacts or requests information from the athlete.
+	     </p>
+	     <div class="trust-card-preview">
+	      <div class="trust-avatar">
+	       MB
+	      </div>
+	      <div>
+	       <h3>
+	        Mike Brown
+	       </h3>
+		       <p>
+		        Sports Recruiter &middot; Toronto Academy &middot; Toronto, Canada
+		       </p>
+		       <div class="badge-row">
+		        <span class="badge green">
+		         Verified by UnicAthlete
+		        </span>
+		       </div>
+	      </div>
+	     </div>
+	    </details>
+	   </div>
+	   <div class="card" style="margin-bottom:18px;">
+	    <h2 class="section-title">
+		     Scout Workspace &amp; Agency Affiliation
+	    </h2>
+	    <p class="section-subtitle">
+	     The scout works behind the scenes. Organization affiliation is a private project context, while the athlete profile remains the only public showcase.
+	    </p>
+   <div class="workspace-grid">
+     <div class="workspace-subsection">
+      <h3>
+       Scout Workspace
+      </h3>
+      <div class="workspace-note">
+       This is the default operating area for the scout. Messages and information requests stay between this scout and the athlete, regardless of project context.
+      </div>
+      <div class="workspace-card-list">
+       <div class="workspace-membership-card individual primary-workspace">
+        <div class="workspace-membership-top">
+         <div>
+          <div class="workspace-membership-name">
+           Mike Brown Scout Workspace
+          </div>
+          <div class="workspace-membership-meta">
+           Created automatically after verification
+           <br/>
+           Owner: Mike Brown
+           <br/>
+           Used for independent and organization-context projects
+          </div>
+         </div>
+         <span class="workspace-type-pill personal">
+          Default
+         </span>
+        </div>
+        <div class="workspace-stat-row">
+         <div class="workspace-stat">
+          <strong>
+           1
+          </strong>
+          Scout
+         </div>
+         <div class="workspace-stat">
+          <strong>
+           14
+          </strong>
+          Managed Athletes
+         </div>
+         <div class="workspace-stat">
+          <strong>
+           3
+          </strong>
+          Recruiting Projects
+         </div>
+        </div>
+        <div class="workspace-action-row">
+         <a class="button btn-primary" href="workspace.html">
+          Open Workspace
+         </a>
+         <a class="button btn-light" href="create_group.html">
+          Create Recruiting Project
+         </a>
+         <a class="button btn-light" href="#">
+          Workspace Details
+         </a>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="workspace-subsection">
+      <h3>
+       Organization Contexts
+      </h3>
+      <div class="workspace-note">
+       These are selectable project filters. They do not create shared chats, shared requests, or organization permissions in MVP.
+      </div>
+      <div class="workspace-card-list">
+       <div class="workspace-membership-card organization affiliation-row">
+         <div>
+          <div class="workspace-membership-name">
+           Toronto Academy
+          </div>
+          <div class="workspace-membership-meta">
+           Academy &middot; Active affiliation &middot; Project context only
+          </div>
+         </div>
+         <span class="workspace-type-pill">
+          4 Projects
+         </span>
+        <div class="affiliation-meta-grid">
+         <div class="affiliation-meta">
+          <strong>
+           5
+          </strong>
+          Scouts in org
+         </div>
+         <div class="affiliation-meta">
+          <strong>
+           Context
+          </strong>
+          Filter only
+         </div>
+         <div class="affiliation-meta">
+          <strong>
+           Later
+          </strong>
+          Permissions layer
+         </div>
+        </div>
+       </div>
+       <div class="workspace-membership-card organization affiliation-row">
+        <div>
+         <div class="workspace-membership-name">
+          Global Soccer Partners
+         </div>
+         <div class="workspace-membership-meta">
+          Recruiting Agency &middot; Active affiliation &middot; Project context only
+         </div>
+        </div>
+        <span class="workspace-type-pill">
+         2 Projects
+        </span>
+        <div class="affiliation-meta-grid">
+         <div class="affiliation-meta">
+          <strong>
+           8
+          </strong>
+          Scouts in org
+         </div>
+         <div class="affiliation-meta">
+          <strong>
+           Context
+          </strong>
+          Filter only
+         </div>
+         <div class="affiliation-meta">
+          <strong>
+           Later
+          </strong>
+          Reporting layer
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div class="backend-modal" id="backendNoteModal" onclick="closeBackendNote(event)">
+   <div class="backend-modal-card">
+    <div class="backend-modal-header">
+     <h3 class="backend-modal-title" id="backendModalTitle">
+      Architecture Note
+     </h3>
+     <button class="backend-modal-close" onclick="closeBackendNote()">
+      &times;
+     </button>
+    </div>
+    <div class="backend-modal-body" id="backendModalBody">
+    </div>
+   </div>
+  </div>
+  <script>
+   const backendNotes = {
+  "profile-architecture": {
+    title: "Profile Architecture",
+    body: `User
+├── Athlete Profile
+│   ├── Public showcase profile
+│   └── Portfolio data
+│
+└── ProfessionalProfile
+    ├── Professional Type
+    │   ├── Recruiter (MVP)
+    │   └── Future Professional Types
+    │
+    ├── Private Scout Profile UI
+    │   ├── Identity
+    │   ├── Verification
+    │   ├── Affiliation
+    │   ├── Scout expertise
+    │   └── Athlete-visible trust card preview
+    │
+    ├── Private Dashboard UI
+    │   └── Scout activity summary
+    │
+    └── Scout Workspace
+        ├── Default scout workspace
+        └── Agency affiliations[]
+
+MVP visibility rule:
+• Athlete Profile is the public showcase
+• Scout Profile is private and not publicly searchable
+• Athlete-visible scout information is limited to a trust card after interaction
+• Scout activity summary belongs on the Dashboard, not the Profile
+
+ProfessionalProfile records can:
+• Receive a default Scout Workspace after verification
+• Be linked to multiple Agency entities
+• Choose one project context per Recruiting Project
+• Keep messages and requests in Scout-Athlete Relationships
+• Manage Recruiting Projects inside the same scout flow
+• Scale later into roles, permissions, and collaboration without rebuilding the base model`
+  },
+  "professional-expertise": {
+    title: "Scout Expertise",
+    body: `Scout Expertise
+│
+├── Sport background
+├── Regions known
+├── Age groups
+├── Specialization
+└── Evaluation strengths
+
+This describes the scout's background and evaluation strengths.
+
+It is not a public professional profile or athlete-facing page.
+
+It is not the same as recruiting criteria.
+
+Recruiting criteria live inside Recruiting Projects because each project may search for a different type of athlete.`
+  },
+  "verification": {
+    title: "Verification Architecture",
+    body: `ProfessionalProfile
+│
+├── Verification Status
+├── Verification Method
+├── Verified Organization
+└── Last Reviewed
+
+Verification belongs to the professional profile.
+
+Organization verification may be separate later.
+
+For MVP, a professional can be verified by:
+• Organization email
+• Club / academy document
+• Admin approval
+• Manual platform review`
+  },
+  "workspace-architecture": {
+    title: "MVP Workspace Architecture",
+    body: `ProfessionalProfile
+│
+├── Scout Workspace
+│   └── Default MVP recruiting work
+│
+└── Agency Affiliations[]
+    ├── Agency profile
+    ├── Scout affiliation record
+    └── Access Status: Pending / Approved / Suspended
+
+MVP workspace rule:
+• Every scout uses the same Scout Workspace flow
+• Agency affiliation is project context metadata only
+• One project can link to one affiliation or remain independent
+• Scout-athlete messages and requests do not move to the agency
+• No advanced agency roles, permissions, or reporting in MVP
+
+Each scout workspace can contain:
+• Recruiting Projects
+• Managed athletes
+• Evaluations
+• Scout-athlete requests
+• Scout-athlete messages
+• Notes
+• ActivityLog / activity history`
+  },
+  "organization-workspace": {
+    title: "Agency Skeleton",
+    body: `Agency Skeleton
+│
+├── Agency profile
+├── Agency type
+├── Verification status
+└── Linked scouts
+
+Used in MVP only to group scouts under an agency, club, or company and provide selectable project context.
+
+Each linked scout still works through the exact same Scout Workspace flow.
+
+Messages and requests remain between the Lead Scout and athlete.
+
+Post-MVP expansion can add:
+• Roles and permissions
+• Shared pipelines
+• Permissioned access to request responses and submitted documents
+• Aggregated reporting
+• Agency-athlete traceability`
+  },
+  "individual-workspace": {
+    title: "Scout Workspace",
+    body: `Scout Workspace
+│
+├── Scout: ProfessionalProfile
+├── Recruiting Projects
+├── Managed athletes
+├── Evaluations
+├── Notes
+└── Activity history
+
+Created by default for one verified scout.
+
+This same flow is used whether the scout is independent or agency-affiliated.`
+  }
+};
+  </script>
+  <script src="../shared/app.js">
+  </script>
+ </body>
+</html>
