@@ -8,7 +8,10 @@ signup.html
 
 specs/
   Markdown product specifications for implementation rules behind the wireframes.
-  - 03-age-based-athlete-accounts.md: guardian-managed under-14 accounts, supervised messaging, and age transitions.
+  - 01-mvp-slice-1-product-requirements.md: concise Slice 1 product requirements and acceptance criteria; source of truth for development.
+  - 02-legal-consent-product-requirements.md: product capabilities needed for evolving legal documents and consent; implementation owned by the Lead Developer.
+  - archive/age-based-athlete-accounts.md: background product exploration; not part of the Slice 1 handoff.
+  - archive/athlete-account-flow-schema.md: background product exploration; not part of the Slice 1 handoff.
 
 recruiter/
   Recruiter-side product experience and wireframes.

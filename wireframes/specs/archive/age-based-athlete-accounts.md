@@ -1,5 +1,7 @@
 # Age-Based Athlete Account Rules
 
+> Background product exploration. This document is not part of the Slice 1 developer handoff and must not expand the scope defined in `../01-mvp-slice-1-product-requirements.md`.
+
 ## Purpose
 
 UnicAthlete allows athlete profiles without a minimum age restriction, but account control and communication permissions depend on the athlete's age and guardian relationship.

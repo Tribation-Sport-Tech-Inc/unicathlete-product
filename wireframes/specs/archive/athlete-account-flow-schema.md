@@ -1,5 +1,7 @@
 # Athlete Account Flow Schema
 
+> Background product exploration. This document is not part of the Slice 1 developer handoff and must not expand the scope defined in `../01-mvp-slice-1-product-requirements.md`.
+
 ## Purpose
 
 This document describes the athlete account creation flow as decision logic, and the age-transition logic for an athlete profile as the athlete moves from under 14 to 18+.
