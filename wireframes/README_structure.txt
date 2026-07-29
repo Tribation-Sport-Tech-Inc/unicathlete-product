@@ -10,6 +10,7 @@ specs/
   Markdown product specifications for implementation rules behind the wireframes.
   - 01-mvp-slice-1-product-requirements.md: concise Slice 1 product requirements and acceptance criteria; source of truth for development.
   - 02-legal-consent-product-requirements.md: product capabilities needed for evolving legal documents and consent; implementation owned by the Lead Developer.
+  - 03-athlete-sport-profile-completion-product-requirements.md: rules, weights, exclusions, and UI requirements for per-Sport-Profile completion.
   - archive/age-based-athlete-accounts.md: background product exploration; not part of the Slice 1 handoff.
   - archive/athlete-account-flow-schema.md: background product exploration; not part of the Slice 1 handoff.
 
@@ -18,6 +19,7 @@ recruiter/
 
 athlete/
   Athlete-side product experience and wireframes.
+  - onboarding.html: guided setup for the first private AthleteSportProfile after account creation.
 
 shared/
   Shared CSS and JavaScript used across pages:

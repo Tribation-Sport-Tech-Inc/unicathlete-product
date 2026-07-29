@@ -1946,74 +1946,16 @@ p {
     </div>
     <div class="screen" data-step="athlete-created">
      <span class="label">
-      Account Created
+      Email Verification
      </span>
      <h2 id="athleteCreatedTitle">
-      Your athlete account has been created
+      Check your email
      </h2>
      <p id="athleteCreatedIntro">
-      Review the current account and relationship status below.
+      We sent a verification link to the email used to create this account.
      </p>
-     <div class="summary-grid">
-      <div class="summary-item">
-       <span>
-        Profile status
-       </span>
-       <strong>
-        Private draft
-       </strong>
-      </div>
-      <div class="summary-item">
-       <span>
-        Scout visibility
-       </span>
-       <strong>
-        Unavailable
-       </strong>
-      </div>
-      <div class="summary-item">
-       <span>
-        Email verification
-       </span>
-       <strong>
-        Pending
-       </strong>
-      </div>
-      <div class="summary-item">
-       <span>
-        Relationship
-       </span>
-       <strong id="completionRelationship">
-        Guardian connected
-       </strong>
-      </div>
-      <div class="summary-item">
-       <span>
-        Athlete login
-       </span>
-       <strong id="completionAthleteLogin">
-        Created
-       </strong>
-      </div>
-      <div class="summary-item">
-       <span id="completionVerificationLabel">
-        Identity verification
-       </span>
-       <strong id="completionVerificationStatus">
-        Not started
-       </strong>
-      </div>
-      <div class="summary-item path-hidden" id="completionCommunicationItem">
-       <span>
-        Communication mode
-       </span>
-       <strong id="completionCommunicationStatus">
-        Supervised
-       </strong>
-      </div>
-     </div>
-     <div class="info-box" id="completionNextAction">
-      Verify the account email to continue.
+     <div class="info-box">
+      Open the link in the email to verify and activate the account. If the email does not arrive, the verification email can be resent.
      </div>
     </div>
     <div class="screen" data-step="scout-account">
@@ -2092,71 +2034,13 @@ p {
       Account Created
      </span>
      <h2>
-      Your scout account has been created
+      Check your email
      </h2>
      <p>
-      Review the current account and access status below.
+      We sent a verification link to the email used to create your scout account.
      </p>
-     <div class="summary-grid">
-      <div class="summary-item">
-       <span>
-        Account type
-       </span>
-       <strong>
-        Professional / Scout
-       </strong>
-      </div>
-      <div class="summary-item">
-       <span>
-        Account status
-       </span>
-       <strong>
-        Restricted
-       </strong>
-      </div>
-      <div class="summary-item">
-       <span>
-        Email verification
-       </span>
-       <strong>
-        Pending
-       </strong>
-      </div>
-      <div class="summary-item">
-       <span>
-        Scout onboarding
-       </span>
-       <strong>
-        Not started
-       </strong>
-      </div>
-      <div class="summary-item">
-       <span>
-        Identity verification
-       </span>
-       <strong>
-        Not started
-       </strong>
-      </div>
-      <div class="summary-item">
-       <span>
-        Admin verification
-       </span>
-       <strong>
-        Not started
-       </strong>
-      </div>
-      <div class="summary-item">
-       <span>
-        Athlete access
-       </span>
-       <strong>
-        Unavailable
-       </strong>
-      </div>
-     </div>
      <div class="info-box">
-      Verify the scout account email to activate the account. Athlete access remains unavailable until scout onboarding, identity verification, and admin verification are complete.
+      Open the link in the email to verify the account. The scout account remains restricted until the required identity and admin verification are complete.
      </div>
     </div>
     <div class="actions">
@@ -2203,10 +2087,10 @@ const copy = {
   'older-teen-consent': ['Guardian Consent', 'Confirm connection, safety settings, and the selected communication mode.'],
   'adult-account': ['Independent Athlete Account', 'Adult athletes create their own login and manage their own profile.'],
   'adult-consent': ['Adult Account Consent', 'Confirm account ownership and required account acknowledgements.'],
-  'athlete-created': ['Athlete Account Created', 'Review account, relationship, visibility, and verification status.'],
+  'athlete-created': ['Check Your Email', 'Verify the account email before continuing with profile setup.'],
   'scout-account': ['Professional / Scout Account', 'Create a restricted account before identity and admin verification.'],
   'scout-terms': ['Scout Account Terms', 'Confirm the account terms and understand the restricted-account status.'],
-  'scout-created': ['Scout Account Created', 'Scout onboarding, identity verification, and admin verification have not started, and athlete access remains unavailable.']
+  'scout-created': ['Check Your Email', 'Verify the scout account email before continuing.']
 };
 function render() {
   document.querySelectorAll('.screen').forEach(screen => {
@@ -2222,38 +2106,25 @@ function render() {
   }
   const index = activeSequence.includes(currentStep) ? activeSequence.indexOf(currentStep) : 0;
   document.getElementById('screenTitle').textContent = copy[currentStep][0];
-  document.getElementById('screenSubtitle').textContent = copy[currentStep][1];
+  const screenSubtitle = document.getElementById('screenSubtitle');
+  if (screenSubtitle) screenSubtitle.textContent = copy[currentStep][1];
   document.getElementById('stepCount').textContent = `Step ${index + 1} of ${activeSequence.length}`;
   document.getElementById('progressBar').style.width = `${((index + 1) / activeSequence.length) * 100}%`;
-  document.getElementById('backButton').style.visibility = currentStep === 'profile-type' ? 'hidden' : 'visible';
+  document.getElementById('backButton').style.visibility = 'visible';
   const isFinalStep = index === activeSequence.length - 1;
-  document.getElementById('nextButton').textContent = currentStep === 'scout-terms'
-      ? 'Create Account'
-      : (currentStep === 'scout-created' || currentStep === 'athlete-created')
-        ? 'Back to Overview'
-        : isFinalStep
-          ? 'Finish Signup'
-        : 'Continue';
+  let nextButtonLabel = 'Continue';
+  if (currentStep === 'scout-terms') nextButtonLabel = 'Create Account';
+  else if (currentStep === 'athlete-created') nextButtonLabel = 'Continue to Profile Setup';
+  else if (currentStep === 'scout-created') nextButtonLabel = 'Back to Overview';
+  else if (isFinalStep) nextButtonLabel = 'Finish Signup';
+  document.getElementById('nextButton').textContent = nextButtonLabel;
   const supervisedChoiceRequired = currentStep === 'teen-access' && !selected.manager;
   const olderTeenChoiceRequired = currentStep === 'older-teen-access' && !selected.manager;
   const commModeRequired = (currentStep === 'older-teen-account-guardian' || currentStep === 'older-teen-account-athlete') && !selected.commMode;
   const ageBandRequired = currentStep === 'dob' && !selected.ageBand;
-  const activeScreen = document.querySelector(`[data-step="${currentStep}"]`);
-  const hasUnchecked = selector => activeScreen && Array.from(activeScreen.querySelectorAll(selector))
-    .filter(item => window.getComputedStyle(item.closest('.consent-item')).display !== 'none')
-    .some(item => !item.checked);
-  const sliceAcknowledgementsRequired =
-    (currentStep === 'consent' && hasUnchecked('.required-consent')) ||
-    (currentStep === 'teen-account-athlete' && hasUnchecked('.required-account-term')) ||
-    (currentStep === 'teen-consent' && hasUnchecked('.required-teen-consent')) ||
-    (currentStep === 'older-teen-account-athlete' && hasUnchecked('.required-account-term')) ||
-    (currentStep === 'older-teen-consent' && hasUnchecked('.required-older-teen-consent')) ||
-    (currentStep === 'adult-consent' && hasUnchecked('.required-adult-consent')) ||
-    (currentStep === 'scout-terms' && hasUnchecked('.required-scout-term'));
-  document.getElementById('nextButton').disabled = (currentStep === 'profile-type' && !selected.profileType) || ageBandRequired || supervisedChoiceRequired || olderTeenChoiceRequired || commModeRequired || sliceAcknowledgementsRequired;
+  document.getElementById('nextButton').disabled = (currentStep === 'profile-type' && !selected.profileType) || ageBandRequired || supervisedChoiceRequired || olderTeenChoiceRequired || commModeRequired;
   updateTeenPathCopy();
   updateOlderTeenPathCopy();
-  updateAthleteCompletion();
 }
 function selectChoice(key, value, button) {
   selected[key] = value;
@@ -2293,7 +2164,9 @@ function goNext() {
     currentStep = 'scout-terms';
   } else if (currentStep === 'scout-terms') {
     currentStep = 'scout-created';
-  } else if (currentStep === 'scout-created' || currentStep === 'athlete-created') {
+  } else if (currentStep === 'athlete-created') {
+    window.location.href = 'athlete/onboarding.html';
+  } else if (currentStep === 'scout-created') {
     window.location.href = 'index.html';
   } else if (activeSequence.indexOf(currentStep) === activeSequence.length - 1) {
     window.location.href = 'index.html';
@@ -2331,7 +2204,9 @@ function goNext() {
   render();
 }
 function goBack() {
-  if (currentStep === 'athlete-created') {
+  if (currentStep === 'profile-type') {
+    window.location.href = 'index.html';
+  } else if (currentStep === 'athlete-created') {
     if (selected.ageBand === 'under14') {
       currentStep = 'consent';
     } else if (selected.ageBand === 'teen1415') {
@@ -2557,71 +2432,7 @@ function updateOlderTeenPathCopy() {
     consentTitle.textContent = athleteStarted ? 'Guardian opens consent link' : 'Consent for age 16-17 account';
   }
 }
-function updateAthleteCompletion() {
-  const relationship = document.getElementById('completionRelationship');
-  const athleteLogin = document.getElementById('completionAthleteLogin');
-  const verificationLabel = document.getElementById('completionVerificationLabel');
-  const verificationStatus = document.getElementById('completionVerificationStatus');
-  const communicationItem = document.getElementById('completionCommunicationItem');
-  const communicationStatus = document.getElementById('completionCommunicationStatus');
-  const nextAction = document.getElementById('completionNextAction');
-  if (!relationship || !athleteLogin || !verificationLabel || !verificationStatus || !communicationItem || !communicationStatus || !nextAction) return;
-
-  verificationStatus.textContent = 'Not started';
-  communicationItem.classList.toggle('path-hidden', selected.ageBand !== 'teen1617');
-
-  if (selected.ageBand === 'under14') {
-    relationship.textContent = 'Guardian connected';
-    athleteLogin.textContent = 'Not available under 14';
-    verificationLabel.textContent = 'Guardian identity verification';
-    nextAction.textContent = 'Verify the guardian account email to activate the account.';
-  } else if (selected.ageBand === 'teen1415') {
-    verificationLabel.textContent = 'Guardian identity verification';
-    if (selected.manager === 'athlete_supervised') {
-      relationship.textContent = 'Guardian invitation queued';
-      athleteLogin.textContent = 'Created';
-      nextAction.textContent = 'Verify the athlete email to send the guardian invitation.';
-    } else {
-      relationship.textContent = 'Guardian connected';
-      const invitedAthleteEmail = document.getElementById('teenGuardianAthleteEmail')?.value.trim();
-      athleteLogin.textContent = invitedAthleteEmail ? 'Invitation queued' : 'Optional invitation';
-      nextAction.textContent = invitedAthleteEmail
-        ? 'Verify the guardian email to send the athlete invitation.'
-        : 'Verify the guardian email. The athlete can be invited using their own email.';
-    }
-  } else if (selected.ageBand === 'teen1617') {
-    verificationLabel.textContent = 'Guardian identity verification';
-    if (selected.commMode !== 'independent_1617' || selected.guardianEmailMode === 'supervised_1617') {
-      communicationStatus.textContent = 'Supervised';
-    } else if (selected.manager === 'athlete_older' && selected.guardianEmailMode === 'independent_1617') {
-      communicationStatus.textContent = 'Independent accepted';
-    } else {
-      communicationStatus.textContent = selected.manager === 'athlete_older'
-        ? 'Independent requested — guardian approval pending'
-        : 'Independent requested — athlete acceptance pending';
-    }
-    if (selected.manager === 'athlete_older') {
-      relationship.textContent = 'Guardian invitation queued';
-      athleteLogin.textContent = 'Created';
-      nextAction.textContent = 'Verify the athlete email to send the guardian invitation.';
-    } else {
-      relationship.textContent = 'Guardian connected';
-      athleteLogin.textContent = 'Invitation queued';
-      nextAction.textContent = 'Verify the guardian email to send the athlete invitation.';
-    }
-  } else {
-    relationship.textContent = 'Guardian not required';
-    athleteLogin.textContent = 'Created';
-    verificationLabel.textContent = 'Adult identity verification';
-    nextAction.textContent = 'Verify the athlete account email to activate the account.';
-  }
-}
 render();
-document.addEventListener('change', event => {
-  if (event.target.matches('.required-consent, .required-account-term, .required-teen-consent, .required-older-teen-consent, .required-adult-consent, .required-scout-term')) {
-    render();
-  }
-});
   </script>
  </body>
 </html>

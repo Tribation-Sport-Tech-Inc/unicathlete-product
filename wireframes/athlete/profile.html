@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
  <head>
+  <meta charset="UTF-8"/>
   <title>
    Athlete Profile
   </title>
@@ -424,11 +425,165 @@ p {
 .field textarea {
   min-height:94px
 }
+.field-help {
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.4;
+  margin-top:6px
+}
+.field-lock {
+  color:var(--blue);
+  font-size:11px;
+  font-weight:900;
+  margin-left:5px;
+  text-transform:none
+}
+.field-label-row {
+  display:flex;
+  align-items:center;
+  gap:6px;
+  margin-bottom:5px
+}
+.field-label-row label {
+  margin-bottom:0
+}
+.shared-profile-actions {
+  display:flex;
+  justify-content:flex-end;
+  margin-top:14px
+}
 
+.profile-tabs {
+  display:flex;
+  gap:8px;
+  margin:0 0 20px;
+  overflow-x:auto
+}
+.profile-tab {
+  background:white;
+  color:var(--navy);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:10px 14px;
+  font-size:13px;
+  font-weight:900;
+  cursor:pointer;
+  white-space:nowrap
+}
 .profile-tab.active {
   background:var(--blue);
   color:white;
   border-color:var(--blue);
+}
+.profile-tab-panel[hidden],
+.soccer-tab-panel[hidden],
+.editable-form[hidden],
+.collapsible-content[hidden] {
+  display:none
+}
+#current-team-summary[hidden],
+#current-team-fields[hidden],
+#unattached-summary[hidden],
+#current-season-performance[hidden],
+#documentUploadForm[hidden] {
+  display:none
+}
+.summary-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px
+}
+.summary-item {
+  background:#f9fafb;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:12px
+}
+.summary-item span {
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:900;
+  margin-bottom:4px;
+  text-transform:uppercase
+}
+.summary-item strong {
+  display:block;
+  color:var(--navy);
+  font-size:14px
+}
+.editable-form {
+  border-top:1px solid var(--border);
+  margin-top:14px;
+  padding-top:14px
+}
+.unattached-option {
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  border:1px solid var(--border);
+  background:#f9fafb;
+  border-radius:12px;
+  padding:12px;
+  margin-bottom:14px;
+  cursor:pointer
+}
+.unattached-option input {
+  width:18px;
+  height:18px;
+  margin:1px 0 0;
+  flex:0 0 auto
+}
+.unattached-option strong,.unattached-option span {
+  display:block
+}
+.unattached-option span {
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.4;
+  margin-top:3px
+}
+.compact-section-toggle {
+  margin-top:0
+}
+.sport-profile-heading {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:16px;
+  margin-bottom:14px
+}
+.sport-profile-heading h2 {
+  margin:6px 0 4px
+}
+.sport-profile-heading p {
+  color:var(--muted);
+  line-height:1.5
+}
+.sport-profile-selector {
+  min-width:190px
+}
+.sport-profile-selector label {
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:900;
+  text-transform:uppercase;
+  margin-bottom:5px
+}
+.sport-profile-selector select {
+  width:100%;
+  border:1px solid var(--border);
+  background:white;
+  color:var(--navy);
+  border-radius:10px;
+  padding:10px 12px;
+  font-size:14px;
+  font-weight:900
+}
+.sport-profile-subtabs {
+  margin-bottom:20px
 }
 .section-head {
   display:flex;
@@ -556,7 +711,7 @@ p {
 }
 .skill-strip {
   display:grid;
-  grid-template-columns:repeat(8,1fr);
+  grid-template-columns:repeat(4,1fr);
   gap:12px;
   margin-top:14px;
 }
@@ -570,10 +725,53 @@ p {
   display:flex;
   flex-direction:column;
   justify-content:space-between;
+  position:relative;
+  transition:border-color .2s,box-shadow .2s,background .2s;
+}
+.skill-card.recommended {
+  border-color:#60a5fa;
+  background:#f8fbff;
+  box-shadow:0 0 0 2px #dbeafe;
+}
+.skill-recommendation-badge {
+  display:inline-flex;
+  align-self:center;
+  background:var(--blue-light);
+  color:var(--blue);
+  border:1px solid #bfdbfe;
+  border-radius:999px;
+  padding:4px 7px;
+  font-size:10px;
+  font-weight:900;
+  margin-bottom:8px;
+}
+.skill-recommendation-summary {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:14px;
+  background:var(--blue-light);
+  border:1px solid #bfdbfe;
+  border-radius:12px;
+  padding:12px 14px;
+  margin-top:14px;
+}
+.skill-recommendation-summary strong {
+  display:block;
+  color:var(--blue);
+  margin-bottom:3px;
+}
+.skill-recommendation-summary > div > span {
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.4;
 }
 .skill-card.empty {
   border-style:dashed;
   background:#fff;
+}
+.skill-card[hidden] {
+  display:none
 }
 .skill-icon {
   width:54px;
@@ -1021,11 +1219,97 @@ p {
   line-height:1;
   color:var(--blue);
 }
+.measurement-grid {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+  margin-top:16px;
+}
+.measurement-card {
+  background:#f9fafb;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:16px;
+}
+.measurement-card .measurement-label {
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:900;
+  text-transform:uppercase;
+  margin-bottom:7px;
+}
+.measurement-card strong {
+  display:block;
+  color:var(--navy);
+  font-size:22px;
+}
+.measurement-conversion {
+  display:block;
+  color:var(--blue);
+  font-size:14px;
+  font-weight:900;
+  margin-top:3px
+}
+.measurement-meta {
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.4;
+  margin-top:10px
+}
+.measurement-panel {
+  background:#f9fafb;
+  border:1px solid var(--border);
+  border-radius:14px;
+  margin-top:14px;
+  padding:16px;
+}
+.measurement-history-list {
+  display:grid;
+  gap:8px;
+  margin-top:12px;
+}
+.measurement-history-row {
+  display:grid;
+  grid-template-columns:1.2fr .8fr .8fr 1fr;
+  gap:12px;
+  align-items:center;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:10px 12px;
+  color:var(--muted);
+  font-size:13px;
+}
+.measurement-history-row strong { color:var(--navy); }
+.document-filters {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:14px 0;
+}
+.document-filter.active {
+  background:var(--blue);
+  border-color:var(--blue);
+  color:white;
+}
 @media (max-width: 1000px) {
   .status-panel-head,
-  .status-compact {
+  .status-compact,
+  .sport-profile-heading,
+  .skill-recommendation-summary {
     flex-direction:column;
     align-items:flex-start;
+  }
+  .sport-profile-selector {
+    width:100%;
+    min-width:0;
+  }
+  .measurement-grid,
+  .summary-grid,
+  .measurement-history-row {
+    grid-template-columns:1fr;
   }
 }
 
@@ -1078,37 +1362,259 @@ p {
      <div>
       <h1>
        Alex Kim
+       <button class="info-note" onclick="openBackendNote('athlete-profile-ownership')" title="Engineering note" type="button">
+        ⓘ
+       </button>
       </h1>
       <p>
-       Winger &middot; U17 &middot; Toronto, Canada &middot; Open to academy and semi-pro opportunities.
+       Toronto, Canada
       </p>
-      <span class="tag green">
-       Recruiter-Ready
-      </span>
-      <span class="tag blue">
-       Searchable by recruiters
-      </span>
-      <span class="tag purple">
-       Profile Completion 82%
-      </span>
      </div>
     </div>
     <div class="actions">
-     <a class="button btn-primary" href="#">
-      Edit Profile
-     </a>
      <a class="button btn-light" href="profile.html">
       Preview Recruiter View
      </a>
     </div>
    </div>
 
+   <div aria-label="Athlete profile sections" class="profile-tabs" role="tablist">
+    <button aria-selected="true" class="profile-tab active" data-profile-tab="overview-panel" role="tab" type="button">Athlete</button>
+    <button aria-selected="false" class="profile-tab" data-profile-tab="sport-profiles" role="tab" type="button">Sport Profiles</button>
+    <button aria-selected="false" class="profile-tab" data-profile-tab="documents" role="tab" type="button">Documents</button>
+   </div>
+
+   <div class="profile-tab-panel" id="overview-panel" role="tabpanel">
+   <div class="section" id="athlete-details">
+    <div class="section-head">
+     <div>
+      <h2>
+       Athlete Details
+      </h2>
+     <p>
+       Shared personal and education information.
+      </p>
+     </div>
+     <button class="button btn-light compact-section-toggle" data-edit-target="athlete-details-form" type="button">Edit</button>
+    </div>
+
+    <div class="summary-grid">
+     <div class="summary-item"><span>Full Name</span><strong>Alex Kim</strong></div>
+     <div class="summary-item"><span>Location</span><strong>Toronto, Canada</strong></div>
+     <div class="summary-item"><span>Languages</span><strong>English, Korean</strong></div>
+     <div class="summary-item"><span>Date of Birth</span><strong>Apr 18, 2009 &middot; Locked</strong></div>
+     <div class="summary-item"><span>Education</span><strong>Currently in secondary education</strong></div>
+     <div class="summary-item"><span>Current School</span><strong>North Toronto Collegiate Institute</strong></div>
+     <div class="summary-item"><span>School Country</span><strong>Canada</strong></div>
+     <div class="summary-item"><span>Expected Graduation</span><strong>June 2027</strong></div>
+    </div>
+
+    <div class="editable-form" hidden id="athlete-details-form">
+    <div class="form-grid">
+     <div class="field">
+      <label for="athleteFullName">
+       Full Name
+      </label>
+      <input id="athleteFullName" value="Alex Kim"/>
+     </div>
+     <div class="field">
+      <div class="field-label-row">
+       <label for="athleteDateOfBirth">
+        Date of Birth
+        <span class="field-lock">Cannot be changed here</span>
+       </label>
+       <button aria-label="Date of birth engineering note" class="info-note" onclick="openBackendNote('date-of-birth-correction')" title="Engineering note" type="button">
+        ⓘ
+       </button>
+      </div>
+      <input id="athleteDateOfBirth" readonly type="date" value="2009-04-18"/>
+      <span class="field-help">Contact support only if this date was entered incorrectly.</span>
+     </div>
+     <div class="field">
+      <label for="athleteCity">
+       City
+      </label>
+      <input id="athleteCity" value="Toronto"/>
+     </div>
+     <div class="field">
+      <label for="athleteCountry">
+       Country of Residence
+      </label>
+      <select id="athleteCountry">
+       <option selected>Canada</option>
+       <option>Spain</option>
+       <option>United Kingdom</option>
+      </select>
+     </div>
+     <div class="field" style="grid-column:1/-1">
+     <label for="athleteLanguages">
+       Languages
+      </label>
+      <input id="athleteLanguages" value="English, Korean"/>
+      <span class="field-help">Add the languages the athlete can use comfortably.</span>
+     </div>
+     <div class="field">
+      <label for="athleteEducationStatus">
+       Education Status
+      </label>
+      <select id="athleteEducationStatus">
+       <option selected value="secondary-current">Currently in secondary education</option>
+       <option value="secondary-completed">Completed secondary education</option>
+       <option value="higher-current">Currently in college/university</option>
+       <option value="higher-completed">Completed college/university</option>
+       <option value="not-enrolled">Not currently enrolled</option>
+       <option value="other">Other</option>
+      </select>
+     </div>
+     <div class="field">
+      <label for="athleteSchoolName">
+       Current or Most Recent School
+      </label>
+      <input id="athleteSchoolName" value="North Toronto Collegiate Institute"/>
+     </div>
+     <div class="field">
+      <label for="athleteSchoolCountry">
+       School Country
+      </label>
+      <select id="athleteSchoolCountry">
+       <option selected>Canada</option>
+       <option>Spain</option>
+       <option>United Kingdom</option>
+       <option>United States</option>
+       <option>Other</option>
+      </select>
+     </div>
+     <div class="field" id="educationGraduationField">
+      <label for="educationGraduationDate" id="educationGraduationLabel">
+       Expected Graduation Date
+      </label>
+      <input id="educationGraduationDate" type="month" value="2027-06"/>
+     </div>
+    </div>
+    <div class="shared-profile-actions">
+     <button class="button btn-primary" data-close-edit="athlete-details-form" type="button">
+      Save Athlete Details
+     </button>
+    </div>
+    </div>
+   </div>
+
+   <div class="section" id="measurements">
+    <div class="section-head">
+     <div>
+      <div class="field-label-row">
+       <h2>
+        Measurements
+       </h2>
+       <button aria-label="Measurement visibility engineering note" class="info-note" onclick="openBackendNote('measurement-visibility')" title="Engineering note" type="button">
+        ⓘ
+       </button>
+      </div>
+      <p>
+       Optional current measurements that can support athlete evaluation.
+      </p>
+     </div>
+     <div class="actions">
+      <button class="button btn-primary" id="updateMeasurementsButton" type="button">
+       Update Measurements
+      </button>
+      <button class="button btn-light" id="viewMeasurementHistoryButton" type="button">
+       View History
+      </button>
+     </div>
+    </div>
+
+    <div class="measurement-grid">
+     <div class="measurement-card">
+      <span class="measurement-label">Current Height</span>
+      <strong id="currentHeight">178 cm</strong>
+      <span class="measurement-conversion" id="currentHeightImperial">5 ft 10 in</span>
+      <span class="measurement-meta" id="currentHeightMeta">Measured Jul 20, 2026 &middot; Self-reported</span>
+     </div>
+     <div class="measurement-card">
+      <span class="measurement-label">Current Weight</span>
+      <strong id="currentWeight">70 kg</strong>
+      <span class="measurement-conversion" id="currentWeightImperial">154 lb</span>
+      <span class="measurement-meta" id="currentWeightMeta">Measured Jul 20, 2026 &middot; Self-reported</span>
+     </div>
+    </div>
+
+    <div class="measurement-panel" id="measurementForm" hidden>
+     <h3>Record New Measurements</h3>
+     <p>Adding a new entry preserves the athlete's previous measurements.</p>
+     <div class="form-grid" style="margin-top:14px;">
+      <div class="field">
+       <label for="measurementHeight">Height (cm)</label>
+       <input id="measurementHeight" inputmode="decimal" min="1" placeholder="Example: 178" step="0.1" type="number" value="178"/>
+      </div>
+      <div class="field">
+       <label for="measurementWeight">Weight (kg)</label>
+       <input id="measurementWeight" inputmode="decimal" min="1" placeholder="Example: 70" step="0.1" type="number" value="70"/>
+      </div>
+      <div class="field">
+       <label for="measurementDate">Measurement Date</label>
+       <input id="measurementDate" type="date" value="2026-07-28"/>
+      </div>
+      <div class="field">
+       <label for="measurementSource">Measurement Source</label>
+       <select id="measurementSource">
+        <option selected>Self-reported</option>
+        <option>Provided by club/team</option>
+        <option>Provided by another organization</option>
+        <option>Other</option>
+       </select>
+      </div>
+     </div>
+     <div class="actions">
+      <button class="button btn-primary" id="saveMeasurementsButton" type="button">Save New Entry</button>
+      <button class="button btn-light" id="cancelMeasurementsButton" type="button">Cancel</button>
+     </div>
+    </div>
+
+    <div class="measurement-panel" id="measurementHistory" hidden>
+     <h3>Measurement History</h3>
+     <p>Private to the athlete and connected guardian. Scouts never see measurement history.</p>
+     <div class="measurement-history-list" id="measurementHistoryList">
+      <div class="measurement-history-row">
+       <strong>Jul 20, 2026</strong><span>178 cm</span><span>70 kg</span><span>Self-reported &middot; Entered by athlete</span>
+      </div>
+      <div class="measurement-history-row">
+       <strong>Jan 12, 2026</strong><span>176 cm</span><span>68 kg</span><span>Self-reported &middot; Entered by guardian</span>
+      </div>
+     </div>
+    </div>
+   </div>
+   </div>
+
+   <section class="profile-tab-panel" hidden id="sport-profiles" role="tabpanel">
+   <div class="sport-profile-heading">
+    <div>
+     <h2>Soccer Profile</h2>
+     <p>Sport-specific playing, recruiting, performance, and media information.</p>
+    </div>
+    <div class="sport-profile-selector">
+     <label for="activeSportProfile">Sport Profile</label>
+     <select id="activeSportProfile">
+      <option selected>Soccer</option>
+     </select>
+    </div>
+   </div>
+   <div aria-label="Soccer profile sections" class="profile-tabs sport-profile-subtabs" role="tablist">
+    <button aria-selected="true" class="profile-tab active" data-soccer-tab="soccer-overview-panel" role="tab" type="button">Profile</button>
+    <button aria-selected="false" class="profile-tab" data-soccer-tab="soccer-media-panel" role="tab" type="button">Media</button>
+   </div>
+   <div class="soccer-tab-panel" id="soccer-overview-panel" role="tabpanel">
    <div class="status-panel readiness-demo" id="profile-readiness-demo">
     <div class="status-panel-head">
      <div>
-      <h2>Recruiter Status &amp; Profile Completion</h2>
+      <div class="field-label-row">
+       <h2>Soccer Profile Status &amp; Completion</h2>
+       <button aria-label="Soccer profile engineering note" class="info-note" onclick="openBackendNote('soccer-profile-structure')" title="Engineering note" type="button">
+        ⓘ
+       </button>
+      </div>
       <p>
-       Recruiter-Ready controls search visibility. Profile Completion measures the strength of the full athlete profile.
+       Recruiter-Ready evaluates the minimum content for this Soccer profile. Search visibility remains a separate result.
       </p>
      </div>
      <button class="status-toggle" onclick="toggleReadinessDemo('profile-readiness-demo')">
@@ -1121,41 +1627,45 @@ p {
       <div class="status-compact">
        <div>
         <strong>Recruiter-Ready</strong>
-        <span>Searchable by verified recruiters. Required checklist is complete.</span>
+        <span>Minimum player, current-team, recruiting, and evaluation-video information is available.</span>
        </div>
-       <span class="status-pill ready">✓ Visible</span>
+       <span class="status-pill ready">✓ Ready</span>
       </div>
 
       <div class="readiness-card">
        <div class="completion-mini">
         <div>
          <h3>Profile Completion</h3>
-         <p>Next improvements: verification, documents, and achievements.</p>
+         <p>Next completion actions: add a profile photo and Off-ball Movement &amp; Positioning footage.</p>
         </div>
-        <strong>82%</strong>
+        <strong>96%</strong>
        </div>
-       <div class="progress"><div style="width:82%"></div></div>
-      </div>
+       <div class="progress"><div style="width:96%"></div></div>
      </div>
     </div>
+    <div class="note">
+     <strong>Discovery status: Searchable.</strong> Recruiter-Ready, account eligibility, and Soccer visibility are active.
+    </div>
+   </div>
 
-    <div class="state-not-ready">
+   <div class="state-not-ready">
      <div class="grid-2">
       <div class="readiness-card warning">
        <div class="readiness-status">
         <div class="readiness-icon">!</div>
         <div>
          <h2>Not Recruiter-Ready</h2>
-         <p>The profile exists, but it is hidden from recruiter search until the evaluation checklist is complete.</p>
+         <p>The Soccer profile exists, but it has not reached the minimum Recruiter-Ready checklist.</p>
         </div>
        </div>
        <div class="missing-list">
-        <div class="missing-item"><strong>Profile Photo</strong><span>Missing</span></div>
-        <div class="missing-item"><strong>Football Video</strong><span>Missing</span></div>
+        <div class="missing-item"><strong>Current Playing Context</strong><span>Missing · 20%</span></div>
+        <div class="missing-item"><strong>Recruiting Details</strong><span>Missing · 15%</span></div>
+        <div class="missing-item"><strong>Soccer Media</strong><span>Missing · 25%</span></div>
        </div>
        <div class="actions">
-        <a class="button btn-primary" href="#visibility">Add Photo</a>
-        <a class="button btn-light" href="#media">Upload Video</a>
+        <a class="button btn-primary" href="#soccer-details">Complete Soccer Profile</a>
+        <a class="button btn-light" data-open-soccer-tab="soccer-media-panel" href="#soccer-media-panel">Upload Video</a>
        </div>
       </div>
 
@@ -1165,38 +1675,38 @@ p {
          <h3>Profile Completion</h3>
          <p>Basic player profile is complete, but Recruiter-Ready is still locked.</p>
         </div>
-        <strong>35%</strong>
+        <strong>40%</strong>
        </div>
-       <div class="progress"><div style="width:35%"></div></div>
+       <div class="progress"><div style="width:40%"></div></div>
        <p style="margin-top:10px;">Completion score can improve independently from search visibility.</p>
       </div>
      </div>
     </div>
    </div>
 
-   <div class="split" id="overview">
-    <div class="section" id="soccer-profile">
-     <h2>
-      Soccer Profile Information
-     </h2>
+   <div id="overview">
+    <div class="section" id="soccer-details">
+     <div class="section-head">
+      <div>
+       <h2>Player Details</h2>
+       <p>Core soccer information used across team-seasons.</p>
+      </div>
+      <button class="button btn-light compact-section-toggle" data-edit-target="player-details-form" type="button">Edit</button>
+     </div>
+     <div class="summary-grid">
+      <div class="summary-item"><span>Recruiting Category</span><strong>Men's Soccer</strong></div>
+      <div class="summary-item"><span>Primary Position</span><strong>Winger</strong></div>
+      <div class="summary-item"><span>Secondary Position</span><strong>No secondary position</strong></div>
+      <div class="summary-item"><span>Preferred Foot</span><strong>Right</strong></div>
+      <div class="summary-item" style="grid-column:1/-1"><span>Player Summary</span><strong>Direct winger who creates chances through 1v1 play and crossing, presses high, and tracks back defensively.</strong></div>
+     </div>
+     <div class="editable-form" hidden id="player-details-form">
      <div class="form-grid">
-      <div class="field">
-       <label>
-        Full Name
-       </label>
-       <input value="Alex Kim"/>
-      </div>
-      <div class="field">
-       <label>
-        Location
-       </label>
-       <input value="Toronto, Canada"/>
-      </div>
       <div class="field">
        <label>
         Sport
        </label>
-       <select>
+       <select disabled>
         <option>
          Football / Soccer
         </option>
@@ -1204,25 +1714,13 @@ p {
       </div>
       <div class="field">
        <label>
-        Primary Position
+        Recruiting Category
        </label>
-       <select>
-        <option>
-         Right Winger
-        </option>
+       <select id="recruitingCategory">
+        <option selected>Men's Soccer</option>
+        <option>Women's Soccer</option>
        </select>
-      </div>
-      <div class="field">
-       <label>
-        Age Group
-       </label>
-       <input value="U17"/>
-      </div>
-      <div class="field">
-       <label>
-        Current Club
-       </label>
-       <input value="North Toronto FC"/>
+       <span class="field-help">Used to match this Soccer Profile with the appropriate college soccer programs. It is not an eligibility determination.</span>
       </div>
       <div class="field">
        <label>
@@ -1232,88 +1730,311 @@ p {
         <option>
          Right
         </option>
+        <option>
+         Left
+        </option>
+        <option>
+         Both
+        </option>
+        <option>
+         Not sure
+        </option>
        </select>
       </div>
       <div class="field">
        <label>
-        Height / Weight
+        Primary Position
        </label>
-       <input value="178 cm &middot; 70 kg"/>
+       <select id="primaryPosition">
+        <option selected>Winger</option>
+        <option>Goalkeeper</option>
+        <option>Centre Back</option>
+        <option>Full Back / Wing Back</option>
+        <option>Defensive Midfielder</option>
+        <option>Central Midfielder</option>
+        <option>Attacking Midfielder</option>
+        <option>Forward / Striker</option>
+       </select>
+      </div>
+      <div class="field">
+       <label>
+        Secondary Position <span class="field-lock">Optional</span>
+       </label>
+       <select id="secondaryPosition">
+        <option>No secondary position</option>
+        <option>Goalkeeper</option>
+        <option>Centre Back</option>
+        <option>Full Back / Wing Back</option>
+        <option>Defensive Midfielder</option>
+        <option>Central Midfielder</option>
+        <option>Attacking Midfielder</option>
+        <option>Winger</option>
+        <option>Forward / Striker</option>
+       </select>
       </div>
       <div class="field" style="grid-column:1/-1">
        <label>
-        Player Bio
+        Player Summary <span class="field-lock">Optional</span>
        </label>
-       <textarea>Explosive winger with strong 1v1 ability, crossing, and pressing work rate. Looking for academy exposure and trial opportunities.</textarea>
+       <textarea maxlength="500">Direct winger who prefers attacking from the right, creating chances through 1v1 play and crossing. Comfortable pressing high and tracking back defensively.</textarea>
+       <span class="field-help">Briefly describe playing style, strengths, and typical role. Maximum 500 characters.</span>
       </div>
+     </div>
+     <div class="shared-profile-actions">
+      <button class="button btn-primary" data-close-edit="player-details-form" type="button">Save Player Details</button>
+     </div>
      </div>
     </div>
-     <div class="section" id="stats">
-      <div class="section-head">
-       <div>
-        <h2>
-         Playing History
-        </h2>
-        <p>
-         Season-based football record. Athletes select a season, add match entries, and the season totals are generated from those matches.
-        </p>
+    <div class="section" id="current-team-season">
+     <div class="section-head">
+      <div>
+       <div class="field-label-row">
+        <h2>Current Team &amp; Competition</h2>
+        <span class="tag green" id="currentTeamStatusBadge" style="margin:0;">Active Team-Season</span>
        </div>
+       <p>This active record supplies the current team, competition, season, statistics, and linked-media context.</p>
       </div>
-
-      <div class="season-tabs">
-       <a class="season-tab active" href="#">2025/26</a>
-       <a class="season-tab" href="#">2024/25</a>
-       <a class="season-tab" href="#">2023/24</a>
-       <a class="season-tab add" href="#">+ Add Season</a>
+      <button class="button btn-light compact-section-toggle" data-edit-target="current-team-form" type="button">Edit</button>
+     </div>
+     <div class="summary-grid" id="current-team-summary">
+      <div class="summary-item"><span>Club &amp; Squad</span><strong>North Toronto FC &middot; U17 Academy</strong></div>
+      <div class="summary-item"><span>Competition</span><strong>OPDL U17</strong></div>
+      <div class="summary-item"><span>Season</span><strong>2025/26 &middot; Active</strong></div>
+      <div class="summary-item"><span>Squad Level</span><strong>Youth / Academy &middot; U17</strong></div>
+      <div class="summary-item"><span>Position</span><strong>Winger</strong></div>
+      <div class="summary-item"><span>Country</span><strong>Canada</strong></div>
+     </div>
+     <div class="note" hidden id="unattached-summary">
+      <strong>Currently unattached.</strong> No active team-season is required. Previous playing history remains available.
+     </div>
+     <div class="editable-form" hidden id="current-team-form">
+     <label class="unattached-option" for="currentlyUnattached">
+      <input id="currentlyUnattached" type="checkbox"/>
+      <div>
+       <strong>I'm not currently with a club or team</strong>
+       <span>Select this only when the athlete is currently unattached. Previous playing history will remain available.</span>
       </div>
-
-      <div class="season-card current">
-       <div class="season-card-head">
-        <div>
-         <h3>2025/26 Season</h3>
-         <p>North Toronto FC &middot; OPDL U17 &middot; Right Winger</p>
-        </div>
-        <div class="actions">
-         <a class="button btn-primary" href="#">+ Add Match</a>
-        </div>
-       </div>
-
-       <div class="season-stat-list">
-        <div class="season-stat-row">
-         <span>Matches Played</span>
-         <strong>31</strong>
-        </div>
-        <div class="season-stat-row">
-         <span>Starts</span>
-         <strong>28</strong>
-        </div>
-        <div class="season-stat-row">
-         <span>Minutes Played</span>
-         <strong>2,140</strong>
-        </div>
-        <div class="season-stat-row">
-         <span>Yellow Cards</span>
-         <strong>2</strong>
-        </div>
-        <div class="season-stat-row">
-         <span>Red Cards</span>
-         <strong>0</strong>
-        </div>
-       </div>
-
+     </label>
+     <div class="form-grid" id="current-team-fields">
+      <div class="field">
+       <label>Club / Academy</label>
+       <input value="North Toronto FC"/>
+      </div>
+      <div class="field">
+       <label>Team / Squad</label>
+       <input value="U17 Academy"/>
+      </div>
+      <div class="field">
+       <label>Country</label>
+       <select>
+        <option selected>Canada</option>
+        <option>Spain</option>
+        <option>United Kingdom</option>
+        <option>United States</option>
+        <option>Other</option>
+       </select>
+      </div>
+      <div class="field">
+       <label>Competition / League</label>
+       <input value="OPDL U17"/>
+      </div>
+      <div class="field">
+       <label>Squad Level</label>
+       <select>
+        <option selected>Youth / Academy</option>
+        <option>Reserve</option>
+        <option>Senior</option>
+        <option>School Team</option>
+        <option>Other</option>
+       </select>
+      </div>
+      <div class="field">
+       <label>Competition Age Group</label>
+       <input value="U17"/>
+      </div>
+      <div class="field">
+       <label>Season</label>
+       <input value="2025/26"/>
+      </div>
+      <div class="field">
+       <label>Start Date</label>
+       <input type="month" value="2025-08"/>
+      </div>
+      <div class="field">
+       <label>Position Played</label>
+       <select>
+        <option selected>Winger</option>
+        <option>Goalkeeper</option>
+        <option>Centre Back</option>
+        <option>Full Back / Wing Back</option>
+        <option>Defensive Midfielder</option>
+        <option>Central Midfielder</option>
+        <option>Attacking Midfielder</option>
+        <option>Forward / Striker</option>
+       </select>
+      </div>
+      <div class="field">
+       <label>Usual Shirt Number <span class="field-lock">Optional</span></label>
+       <input value="11"/>
       </div>
      </div>
+     <div class="shared-profile-actions">
+      <button class="button btn-primary" data-close-edit="current-team-form" type="button">Save Team-Season</button>
+     </div>
+     </div>
+    </div>
    </div>
 
+   <div class="section" id="stats">
+    <div class="section-head">
+     <div>
+      <h2>Season Performance &amp; Playing History</h2>
+      <p>Current statistics use the active Team-Season above. Previous records keep their own team and competition context.</p>
+     </div>
+     <a class="button btn-light" href="#">+ Add Previous Season</a>
+    </div>
 
-   <div class="section" id="media">
+    <div id="current-season-performance">
+    <div class="season-card current">
+     <div class="season-card-head">
+      <div>
+       <h3>2025/26 Current Season Performance</h3>
+       <p>Linked to Current Team &amp; Competition</p>
+      </div>
+      <div class="actions">
+       <span class="source-badge">Self-reported</span>
+       <a class="button btn-primary" href="#">+ Add Match</a>
+      </div>
+     </div>
+
+     <div class="season-stat-grid">
+      <div class="season-stat"><strong>31</strong><span>Matches</span></div>
+      <div class="season-stat"><strong>28</strong><span>Starts</span></div>
+      <div class="season-stat"><strong>2,140</strong><span>Minutes</span></div>
+      <div class="season-stat"><strong>9</strong><span>Goals</span></div>
+      <div class="season-stat"><strong>12</strong><span>Assists</span></div>
+      <div class="season-stat"><strong>2</strong><span>Yellow Cards</span></div>
+      <div class="season-stat"><strong>0</strong><span>Red Cards</span></div>
+     </div>
+     <p class="source-note">Statistics are athlete-entered unless a different source is shown. They are not verified in the MVP.</p>
+    </div>
+    </div>
+
+    <div class="section-head" style="margin-top:18px;">
+     <div>
+      <h3>Previous Playing History</h3>
+      <p>2 previous team-seasons</p>
+     </div>
+     <button class="button btn-light compact-section-toggle" data-collapse-target="previous-history-content" data-collapsed-label="View History" data-expanded-label="Hide History" type="button">View History</button>
+    </div>
+    <div class="collapsible-content season-history-list" hidden id="previous-history-content">
+     <div class="season-history-row">
+      <div><strong>2024/25 &middot; North Toronto FC U16</strong><span>OPDL U16 &middot; Youth / Academy &middot; Winger</span></div>
+      <a class="button btn-light" href="#">View Season</a>
+     </div>
+     <div class="season-history-row">
+      <div><strong>2023/24 &middot; Toronto City Academy U15</strong><span>Ontario Academy League &middot; Youth / Academy &middot; Winger</span></div>
+      <a class="button btn-light" href="#">View Season</a>
+     </div>
+    </div>
+   </div>
+
+   <div class="section" id="recruiting-details">
+    <div class="section-head">
+     <div>
+     <h2>Recruiting Details</h2>
+      <p>Current availability and intended North American college pathway.</p>
+     </div>
+     <button class="button btn-light compact-section-toggle" data-edit-target="recruiting-details-form" type="button">Edit</button>
+    </div>
+    <div class="summary-grid">
+     <div class="summary-item"><span>Recruiting Availability</span><strong>Open to opportunities</strong></div>
+     <div class="summary-item"><span>Target College Start</span><strong>Fall 2027</strong></div>
+     <div class="summary-item"><span>Destination Interest</span><strong>United States and Canada</strong></div>
+    </div>
+    <div class="editable-form" hidden id="recruiting-details-form">
+    <div class="form-grid">
+     <div class="field">
+      <label>Recruiting Availability</label>
+      <select>
+       <option selected>Open to opportunities</option>
+       <option>Committed</option>
+       <option>Not currently seeking</option>
+      </select>
+     </div>
+     <div class="field">
+      <label>Target College Start</label>
+      <select>
+       <option selected>Fall 2027</option>
+       <option>Spring 2028</option>
+       <option>Not sure yet</option>
+      </select>
+     </div>
+     <div class="field">
+      <label>Destination Interest <span class="field-lock">Optional</span></label>
+      <select>
+       <option selected>United States and Canada</option>
+       <option>United States</option>
+       <option>Canada</option>
+      </select>
+     </div>
+    </div>
+    <div class="shared-profile-actions">
+     <button class="button btn-primary" data-close-edit="recruiting-details-form" type="button">Save Recruiting Details</button>
+    </div>
+    </div>
+   </div>
+
+   <div class="section" id="soccer-experience">
+    <div class="section-head">
+     <div>
+      <h2>Achievements and References</h2>
+      <p>Optional supporting context for the athlete's soccer experience.</p>
+     </div>
+     <button class="button btn-light compact-section-toggle" data-collapse-target="soccer-experience-content" data-collapsed-label="Expand" data-expanded-label="Collapse" type="button">Expand</button>
+    </div>
+    <div class="collapsible-content form-grid" hidden id="soccer-experience-content">
+     <div class="field">
+      <label>Soccer Achievements <span class="field-lock">Optional</span></label>
+      <textarea>2025 OPDL Cup finalist · Selected for regional development camp</textarea>
+     </div>
+     <div class="field">
+      <label>Coach Reference</label>
+      <select>
+       <option selected>Reference available on request</option>
+       <option>Not added</option>
+      </select>
+      <span class="field-help">Coach contact details are not displayed publicly and require permission to share.</span>
+     </div>
+    </div>
+   </div>
+
+   <div class="section" id="soccer-linked-documents">
+    <div class="section-head">
+     <div>
+      <h2>Linked Documents</h2>
+      <p>Documents connected to this Soccer Profile. File management remains in the central Documents library.</p>
+     </div>
+     <button class="button btn-light" data-open-profile-tab="documents" type="button">Manage in Documents</button>
+    </div>
+    <div class="season-history-row">
+     <div>
+      <strong>Coach Recommendation</strong>
+      <span>Issued May 2026 &middot; English</span>
+     </div>
+     <button class="button btn-light" data-open-profile-tab="documents" type="button">View Document</button>
+    </div>
+   </div>
+   </div>
+
+   <div class="soccer-tab-panel section" hidden id="soccer-media-panel" role="tabpanel">
     <div class="section-head">
      <div>
       <h2>
-       Media
+       Soccer Media
       </h2>
       <p>
-       Curated football media used by recruiters to evaluate the athlete. MVP limits keep the portfolio focused and comparable across athletes.
+       Highlights, skill clips, and match footage for evaluating this athlete as a soccer player.
       </p>
      </div>
     </div>
@@ -1321,7 +2042,7 @@ p {
     <div class="portfolio-block">
      <div class="portfolio-block-head">
       <div>
-       <h3>Main Highlight Video</h3>
+       <h3>Main Evaluation Video</h3>
        <p>One primary video recruiters can watch first for a quick overview of the athlete.</p>
       </div>
       <span class="limit-note">Limit: 1 item · max 5 min</span>
@@ -1331,7 +2052,7 @@ p {
       <div class="highlight-thumb">▶</div>
       <div>
        <h3>U17 Season Highlights</h3>
-       <p>4:36</p>
+       <p>4:36 &middot; 2025/26 &middot; OPDL U17 &middot; Winger &middot; Shirt #11</p>
        <span class="tag blue">Viewed 14 times</span>
       </div>
       <div class="actions">
@@ -1344,65 +2065,106 @@ p {
     <div class="portfolio-block">
      <div class="portfolio-block-head">
       <div>
-       <h3>Skill Clips</h3>
-       <p>Short Instagram-style clips organized by skill category. MVP allows one clip per category.</p>
+       <div class="field-label-row">
+        <h3>Skill Clips</h3>
+        <button aria-label="Skill clip recommendation engineering note" class="info-note" onclick="openBackendNote('skill-clip-recommendations')" title="Engineering note" type="button">ⓘ</button>
+       </div>
+       <p>Short match or training clips organized by soccer skill. Primary-position categories contribute to Soccer Profile completion.</p>
       </div>
-      <span class="limit-note">Limit: 8 items · 15–60 sec each</span>
+      <div class="actions" style="margin-top:0;">
+       <span class="limit-note">Up to 8 clips · 15–60 sec each</span>
+      </div>
      </div>
 
-     <div class="skill-strip">
-      <div class="skill-card">
-       <div><div class="skill-icon">▶</div><div class="skill-name">Speed</div></div>
+     <div id="skill-clips-content">
+     <div class="skill-recommendation-summary">
+      <div>
+       <strong id="skillRecommendationTitle">Winger skill coverage: 5 of 6</strong>
+       <span>Each required primary-position category contributes an equal share of 10%. Secondary-position categories remain suggestions.</span>
+      </div>
+      <span class="tag blue" id="skillCompletionTag" style="margin:0;">8.3 of 10%</span>
+     </div>
+     <div class="skill-strip" id="skillClipGrid">
+      <div class="skill-card" data-skill-category="pace" data-skill-scope="outfield">
+       <div><div class="skill-icon">▶</div><div class="skill-name">Pace &amp; Acceleration</div></div>
        <div class="skill-time">0:32</div>
       </div>
-      <div class="skill-card">
-       <div><div class="skill-icon">▶</div><div class="skill-name">1v1</div></div>
+      <div class="skill-card" data-skill-category="attacking-1v1" data-skill-scope="outfield">
+       <div><div class="skill-icon">▶</div><div class="skill-name">Dribbling &amp; Attacking 1v1</div></div>
        <div class="skill-time">0:46</div>
       </div>
-      <div class="skill-card">
-       <div><div class="skill-icon">▶</div><div class="skill-name">Passing</div></div>
+      <div class="skill-card" data-skill-category="passing" data-skill-scope="outfield">
+       <div><div class="skill-icon">▶</div><div class="skill-name">Passing &amp; Distribution</div></div>
        <div class="skill-time">0:38</div>
       </div>
-      <div class="skill-card">
+      <div class="skill-card" data-skill-category="finishing" data-skill-scope="outfield">
        <div><div class="skill-icon">▶</div><div class="skill-name">Finishing</div></div>
        <div class="skill-time">0:55</div>
       </div>
-      <div class="skill-card">
-       <div><div class="skill-icon">▶</div><div class="skill-name">Crossing</div></div>
+      <div class="skill-card" data-skill-category="chance-creation" data-skill-scope="outfield">
+       <div><div class="skill-icon">▶</div><div class="skill-name">Crossing &amp; Chance Creation</div></div>
        <div class="skill-time">0:29</div>
       </div>
-      <div class="skill-card empty">
-       <div><div class="skill-icon">+</div><div class="skill-name">Defending</div></div>
+      <div class="skill-card empty" data-skill-category="defending" data-skill-scope="outfield">
+       <div><div class="skill-icon">+</div><div class="skill-name">Defending &amp; Pressing</div></div>
        <div class="skill-time">Add clip</div>
       </div>
-      <div class="skill-card">
-       <div><div class="skill-icon">▶</div><div class="skill-name">First Touch</div></div>
+      <div class="skill-card" data-skill-category="first-touch" data-skill-scope="outfield">
+       <div><div class="skill-icon">▶</div><div class="skill-name">First Touch &amp; Ball Control</div></div>
        <div class="skill-time">0:41</div>
       </div>
-      <div class="skill-card empty">
-       <div><div class="skill-icon">+</div><div class="skill-name">Movement</div></div>
+      <div class="skill-card empty" data-skill-category="off-ball" data-skill-scope="outfield">
+       <div><div class="skill-icon">+</div><div class="skill-name">Off-ball Movement &amp; Positioning</div></div>
        <div class="skill-time">Add clip</div>
       </div>
+      <div class="skill-card empty" data-skill-category="aerial" data-skill-scope="outfield">
+       <div><div class="skill-icon">+</div><div class="skill-name">Aerial Play</div></div>
+       <div class="skill-time">Add clip</div>
+      </div>
+      <div class="skill-card empty" data-skill-category="goalkeeper-shot-stopping" data-skill-scope="goalkeeper" hidden>
+       <div><div class="skill-icon">+</div><div class="skill-name">Shot Stopping</div></div>
+       <div class="skill-time">Add clip</div>
+      </div>
+      <div class="skill-card empty" data-skill-category="goalkeeper-handling" data-skill-scope="goalkeeper" hidden>
+       <div><div class="skill-icon">+</div><div class="skill-name">Handling &amp; Crosses</div></div>
+       <div class="skill-time">Add clip</div>
+      </div>
+      <div class="skill-card empty" data-skill-category="goalkeeper-1v1" data-skill-scope="goalkeeper" hidden>
+       <div><div class="skill-icon">+</div><div class="skill-name">Goalkeeper 1v1</div></div>
+       <div class="skill-time">Add clip</div>
+      </div>
+      <div class="skill-card empty" data-skill-category="goalkeeper-distribution" data-skill-scope="goalkeeper" hidden>
+       <div><div class="skill-icon">+</div><div class="skill-name">Goalkeeper Distribution</div></div>
+       <div class="skill-time">Add clip</div>
+      </div>
+      <div class="skill-card empty" data-skill-category="goalkeeper-positioning" data-skill-scope="goalkeeper" hidden>
+       <div><div class="skill-icon">+</div><div class="skill-name">Goalkeeper Positioning</div></div>
+       <div class="skill-time">Add clip</div>
+      </div>
+     </div>
      </div>
     </div>
 
     <div class="portfolio-block">
      <div class="portfolio-block-head">
       <div>
-       <h3>Full Match Footage</h3>
-       <p>One longer match video for deeper evaluation. Athletes manually add timestamps to guide recruiter attention.</p>
+       <h3>Extended Match Footage</h3>
+       <p>One longer match segment for deeper evaluation. Athletes manually add timestamps to guide recruiter attention.</p>
       </div>
-      <span class="limit-note">Limit: 1 item · max 45 min</span>
+      <div class="actions" style="margin-top:0;">
+       <span class="limit-note">Limit: 1 item · max 45 min</span>
+      </div>
      </div>
 
+     <div id="extended-footage-content">
      <div class="match-layout">
       <div class="highlight-card" style="grid-template-columns:180px 1fr;">
        <div class="highlight-thumb">▶</div>
        <div>
         <h3>North Toronto vs East York</h3>
-        <p>44:52</p>
+        <p>44:52 &middot; Mar 15, 2026 &middot; OPDL U17 &middot; Winger &middot; Shirt #11</p>
         <div class="actions">
-         <a class="button btn-light" href="#">Replace Match</a>
+         <a class="button btn-light" href="#">Replace Footage</a>
          <a class="button btn-primary" href="#">Edit Timestamps</a>
         </div>
        </div>
@@ -1419,88 +2181,619 @@ p {
        </div>
       </div>
      </div>
+     </div>
     </div>
    </div>
+   </section>
 
-   <div class="section" id="documents">
+   <div class="profile-tab-panel section" hidden id="documents" role="tabpanel">
     <div class="section-head">
      <div>
-      <h2>
-       Documents
-      </h2>
+      <div class="field-label-row">
+       <h2>Documents</h2>
+       <button aria-label="Document storage engineering note" class="info-note" onclick="openBackendNote('document-storage')" title="Engineering note" type="button">ⓘ</button>
+      </div>
       <p>
-        Private documents can be uploaded proactively or requested by recruiters
-        through Information Requests. Documents remain private until shared by the athlete.
+       Private files managed by the athlete and authorized guardian. A document may optionally be linked to a Sport Profile.
       </p>
      </div>
-     <a class="button btn-light" href="#">
-      Upload Document
-     </a>
+     <button class="button btn-primary" id="uploadDocumentButton" type="button">Upload Document</button>
     </div>
-     <div class="list">
 
-    <div class="item">
+    <div class="note">
+     <strong>Private by default.</strong> Uploading a document does not make it visible to recruiters or anyone outside the athlete's authorized account relationships.
+    </div>
+
+    <div class="measurement-panel" hidden id="documentUploadForm">
+     <h3>Upload Document</h3>
+     <p>The document will remain private. Files uploaded here are not treated as official or independently verified.</p>
+     <div class="form-grid" style="margin-top:14px;">
+      <div class="field" style="grid-column:1/-1">
+       <label for="documentFile">File</label>
+       <input accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" id="documentFile" type="file"/>
+       <span class="field-help">PDF, Word document, JPG or PNG.</span>
+      </div>
+      <div class="field">
+       <label for="documentType">Document Type</label>
+       <select id="documentType">
+        <option selected>Unofficial Academic Transcript</option>
+        <option>Transcript Translation</option>
+        <option>Graduation Certificate / Diploma</option>
+        <option>Enrollment or Expected Graduation Letter</option>
+        <option>English Proficiency Result</option>
+        <option>Standardized Test Result</option>
+        <option>Coach Recommendation</option>
+        <option>Club or Academy Confirmation</option>
+        <option>Other Academic Document</option>
+        <option>Other Soccer Document</option>
+        <option>Other</option>
+       </select>
+      </div>
+      <div class="field">
+       <label for="documentCategory">Category</label>
+       <select id="documentCategory">
+        <option selected>Academic</option>
+        <option>Soccer</option>
+        <option>Other</option>
+       </select>
+      </div>
+      <div class="field">
+       <label for="documentLanguage">Document Language</label>
+       <input id="documentLanguage" value="English"/>
+      </div>
+      <div class="field">
+       <label for="documentSportProfile">Linked Sport Profile <span class="field-lock">Optional</span></label>
+       <select id="documentSportProfile">
+        <option selected>Not linked</option>
+        <option>Soccer Profile</option>
+       </select>
+      </div>
+      <div class="field">
+       <label for="documentIssueDate">Issue Date <span class="field-lock">Optional</span></label>
+       <input id="documentIssueDate" type="date"/>
+      </div>
+      <div class="field">
+       <label for="documentExpiryDate">Expiry Date <span class="field-lock">Optional</span></label>
+       <input id="documentExpiryDate" type="date"/>
+      </div>
+     </div>
+     <div class="actions">
+      <button class="button btn-primary" id="saveDocumentButton" type="button">Save Document</button>
+      <button class="button btn-light" id="cancelDocumentUploadButton" type="button">Cancel</button>
+     </div>
+    </div>
+
+    <div class="document-filters" aria-label="Document category filters">
+     <button class="status-toggle document-filter active" data-document-filter="all" type="button">All</button>
+     <button class="status-toggle document-filter" data-document-filter="academic" type="button">Academic</button>
+     <button class="status-toggle document-filter" data-document-filter="soccer" type="button">Soccer</button>
+     <button class="status-toggle document-filter" data-document-filter="other" type="button">Other</button>
+    </div>
+    <div class="list">
+
+    <div class="item" data-document-scope="academic">
       <div class="item-head">
         <div>
-          <div class="item-title">
-            Academic Transcript
-          </div>
+          <div class="item-title">Unofficial Academic Transcript</div>
           <div class="item-meta">
-            Category: Academic • Shared only with approved recruiters.
+            English &middot; Issued June 2026 &middot; Uploaded July 28, 2026 &middot; Not linked to a Sport Profile
           </div>
         </div>
-
-        <span class="status green">
-          Uploaded
-        </span>
+      </div>
+      <div class="actions">
+       <button class="button btn-light" type="button">Preview</button>
+       <button class="button btn-light" type="button">Download</button>
+       <button class="button btn-light" type="button">Replace</button>
+       <button class="button btn-light" type="button">Delete</button>
       </div>
     </div>
 
-    <div class="item">
+    <div class="item" data-document-scope="academic">
       <div class="item-head">
         <div>
-          <div class="item-title">
-            Medical Clearance
-          </div>
+          <div class="item-title">Transcript Translation</div>
           <div class="item-meta">
-            Category: Medical • Private until shared through a request.
+            Spanish to English &middot; Issued June 2026 &middot; Uploaded July 28, 2026 &middot; Not linked to a Sport Profile
           </div>
         </div>
-
-        <span class="status purple">
-          Private
-        </span>
+      </div>
+      <div class="actions">
+       <button class="button btn-light" type="button">Preview</button>
+       <button class="button btn-light" type="button">Download</button>
+       <button class="button btn-light" type="button">Replace</button>
+       <button class="button btn-light" type="button">Delete</button>
       </div>
     </div>
 
-    <div class="item">
+    <div class="item" data-document-scope="soccer">
       <div class="item-head">
         <div>
-          <div class="item-title">
-            Coach Recommendation
-          </div>
+          <div class="item-title">Coach Recommendation</div>
           <div class="item-meta">
-            Category: Custom • Requested by Toronto FC Academy.
+            English &middot; Issued May 2026 &middot; Uploaded July 25, 2026 &middot; Linked to Soccer Profile
           </div>
         </div>
-
-        <span class="status orange">
-          Pending
-        </span>
+      </div>
+      <div class="actions">
+       <button class="button btn-light" type="button">Preview</button>
+       <button class="button btn-light" type="button">Download</button>
+       <button class="button btn-light" type="button">Replace</button>
+       <button class="button btn-light" type="button">Delete</button>
       </div>
     </div>
-
-  </div>
 
     </div>
    </div>
   </main>
 
+  <div class="backend-modal" id="backendNoteModal" onclick="closeBackendNote(event)">
+   <div class="backend-modal-card">
+    <div class="backend-modal-header">
+     <h3 class="backend-modal-title" id="backendModalTitle">
+      Engineering Note
+     </h3>
+     <button class="backend-modal-close" onclick="closeBackendNote()" type="button">
+      &times;
+     </button>
+    </div>
+    <div class="backend-modal-body" id="backendModalBody">
+    </div>
+   </div>
+  </div>
+
   <script>
+   const backendNotes = {
+    'date-of-birth-correction': {
+     title: 'Date of Birth Correction — Exception Only',
+     body: `NORMAL RULE
+• During signup, warn that the date of birth cannot normally be changed after account creation.
+• After account creation, keep the field read-only for athletes and guardians.
+
+EXCEPTION PROCESS
+• A genuine data-entry error may be corrected through a support/admin process.
+• Record the previous value, corrected value, requester, reviewer, reason, and timestamps.
+• Recalculate the athlete's derived age band from the corrected date.
+
+IF THE AGE BAND CHANGES
+• Re-evaluate guardian-management, communication, consent, and account-access requirements.
+• Require any newly applicable guardian or legal actions before enabling affected access.
+• Preserve the previous guardian relationships and legal-action history; do not silently delete or rewrite it.
+
+Future identity verification may be used as evidence for a correction, but it is not part of the current slice.`
+    },
+    'measurement-visibility': {
+     title: 'Measurements — Storage and Visibility',
+     body: `MEASUREMENT RECORD
+• Height and weight are optional and stored as dated AthleteMeasurement records.
+• Store canonical values in centimetres and kilograms; calculate US-unit displays rather than storing duplicate values.
+• Record the measurement source separately from the User who entered it.
+• Height and weight may have different latest-record dates.
+
+PRIVATE TO ATHLETE / CONNECTED GUARDIAN
+• Complete measurement history
+• Identity of the User who entered each record
+• Update controls
+
+SCOUT-VISIBLE
+• Latest available height and weight only
+• Metric and calculated US-unit display
+• Date of each latest measurement
+• Source label, such as Self-reported or Provided by club/team
+
+Scouts see these values only through an AthleteSportProfile they are permitted to view. They never see measurement history or who entered a record. If the athlete leaves a measurement blank, it is not shown.
+
+MVP measurements are not marked verified. A future verification process may add a separate verification status without rewriting the original record.`
+    },
+    'soccer-profile-structure': {
+     title: 'Soccer Profile — Structure and Recruiter-Ready',
+     body: `ATHLETESPORTPROFILE — SOCCER CORE
+• Required recruiting category: Men's Soccer or Women's Soccer
+• Primary and secondary positions
+• Preferred foot
+• Current team state derived from an active TeamSeason or an explicit unattached declaration
+• Optional Soccer-specific player summary
+
+Do not ask an athlete to separately state that they are playing with a team when an active TeamSeason already proves it. If the athlete explicitly declares that they are unattached, no active TeamSeason is required. Previous TeamSeason records remain unchanged.
+
+SOCCER RECRUITING CONTEXT
+• Recruiting availability
+• Target college start
+• Optional United States / Canada destination interest
+
+Recruiting availability describes whether the athlete is seeking opportunities; it does not enable, disable, or replace Soccer profile visibility. Keep recruiting context linked to the Soccer profile so a future sport profile can have different recruiting availability.
+
+SEPARATE SOCCER-LINKED RECORDS
+• Team/season history: club/academy, team/squad, country, competition, squad level, age group, season, and start/end dates
+• Season-specific shirt number
+• Season and position-specific statistics, including source
+• Achievements
+• Soccer media and video metadata; every item references the Soccer AthleteSportProfile and may additionally reference a TeamSeason or match
+• Coach references and sharing permission
+
+RECRUITER-READY MINIMUM
+• Recruiting category
+• Primary position and preferred foot
+• An active TeamSeason with current club/team, competition, squad level, and season; or an explicit unattached declaration
+• Recruiting availability and target college start
+• At least one evaluation video
+
+Player summary, statistics, achievements, measurements, extended match footage, secondary position, and coach reference improve the profile but do not block Recruiter-Ready.
+
+SCOUT VISIBILITY
+Eligible scouts see the Soccer profile only when its visibility is enabled and all account/safety conditions pass. Coach contact details remain private and require an approved sharing action. Athlete/guardian edit controls and internal source/audit records are never scout-visible.`
+    },
+    'skill-clip-recommendations': {
+     title: 'Skill Clips — Position-Based Recommendations',
+     body: `RECOMMENDATION RULES
+• Derive recommended skill categories from the Soccer profile's primary and optional secondary position.
+• Primary-position recommendations appear first; then add relevant secondary-position categories and remove duplicates.
+• Store the position-to-category mapping as configurable, versioned product rules rather than hardcoding it into AthleteSportProfile.
+• Goalkeepers use a separate skill-category set.
+
+COMPLETION BEHAVIOR
+• Soccer Media contributes 25%: 10% for a successfully processed Main Evaluation Video, 10% for Skill Clips covering the categories mapped to the primary position, and 5% for successfully processed Extended Match Footage.
+• Skill Clip contribution = completed applicable primary-position categories / all mapped primary-position categories × 10%.
+• One clip can satisfy no more than one required category for completion, even when it has multiple category tags.
+• Secondary-position recommendations and additional clips remain optional and do not add completion credit.
+• Skill Clip completion does not independently change Recruiter-Ready, visibility, or search ranking.
+• Changing a position updates the recommendation display but never deletes, retags, or hides an existing uploaded clip.
+• Athletes may upload a clip in any available category, and one clip may carry more than one category tag.
+• Match and training clips remain distinguishable through source/context metadata.
+
+SCOUT VIEW
+Recruiters see uploaded clips and their category/context labels. They do not see empty recommendation slots, internal recommendation badges, or the position-mapping logic.`
+    },
+    'document-storage': {
+     title: 'Documents — Private Library Foundation',
+     body: `OWNERSHIP AND ACCESS
+• AthleteDocument is owned by AthleteProfile and may optionally link to one or more AthleteSportProfiles.
+• Only the athlete and currently authorized guardian relationships can access the private library.
+• Sport Profile visibility never grants access to a linked document.
+• Documents do not affect Profile Completion, Recruiter-Ready, search visibility, or ranking.
+
+DOCUMENT RECORD
+• Document type and category
+• Storage reference and original filename
+• File-processing status: Processing, Ready, or Upload failed
+• Language, issue date, and optional expiry date
+• Uploaded-by User and upload timestamp
+• Self-uploaded / unverified source label
+• Optional AthleteSportProfile links
+
+UPLOAD RULES
+• Athlete-uploaded academic documents are not represented as official or independently verified.
+• Identity, medical, visa, financial, consent, and legal documents are excluded from this general library.
+• Replacing a file should preserve relevant audit history; deleting it must remove normal access according to the platform's retention rules.
+
+FUTURE EXTENSION
+A later request-and-sharing workflow may reference an AthleteDocument through a separate request and access-grant record. Do not add scout access or sharing state directly to Sport Profile visibility.`
+    },
+    'athlete-profile-ownership': {
+     title: 'Athlete Profile Data Ownership',
+     body: `ATHLETEPROFILE — SHARED ACROSS SPORTS
+• Full name
+• City and country of residence
+• Languages
+• Shared profile-photo reference
+• Date of birth and derived age band
+• Management and communication modes
+
+Date of birth, age rules, and account-management fields are managed through account/settings flows. Shared athlete information must not be duplicated inside the Soccer profile.
+
+ATHLETEMEASUREMENTS — SHARED MEASUREMENT HISTORY
+• AthleteProfile reference
+• Optional height and weight
+• Measurement date
+• Recorded-by User
+• Entry source
+
+Current height and weight are derived from the latest applicable records. New entries preserve history. Measurements remain optional and do not affect Recruiter-Ready.
+
+EDUCATIONRECORD — SHARED ACADEMIC CONTEXT
+• Current education status
+• Current or most recent school
+• School country
+• Expected graduation date for current students
+• Graduation date for completed education
+
+Education status is displayed with shared athlete details because it applies across sports, but it is stored separately so the athlete can later have multiple education records.
+
+ATHLETESPORTPROFILE — SOCCER
+• Sport-profile status and completion
+• Primary and secondary positions
+• Preferred foot
+• Current team state derived from an active TeamSeason or explicit unattached declaration
+• Soccer-linked recruiting context
+• Optional Soccer player summary
+• Playing history, including the active TeamSeason used for current club/team and competition context
+• Statistics, achievements, and Soccer media
+• Future Soccer visibility
+
+One AthleteProfile can later have multiple AthleteSportProfiles.
+
+ATHLETEDOCUMENT — PRIVATE ATHLETE RESOURCE
+• Owned by AthleteProfile
+• Optional links to one or more AthleteSportProfiles
+• File-processing and source status stored separately from any future request status
+
+General documents are not duplicated by sport. A Soccer recommendation or eligibility record can link to the Soccer profile through AthleteDocumentSportLink. Documents remain private and do not affect Profile Completion or Recruiter-Ready. Future requests and access grants should reference the document without changing its ownership or Sport Profile visibility.
+
+FUTURE STATUS LOGIC
+Recruiter-Ready = the required current Soccer and recruiting fields exist, including at least one Soccer evaluation video.
+
+Searchable = Recruiter-Ready + account eligibility + Soccer visibility enabled + no safety/suspension hold.
+
+Profile Completion remains guidance and does not itself unlock visibility.`
+    }
+   };
+
    function toggleReadinessDemo(id){
     const el=document.getElementById(id);
     if(el) el.classList.toggle('show-not-ready');
    }
+
+   document.querySelectorAll('[data-profile-tab]').forEach(function(button){
+    button.addEventListener('click',function(){
+     document.querySelectorAll('[data-profile-tab]').forEach(function(item){
+      const isActive=item===button;
+      item.classList.toggle('active',isActive);
+      item.setAttribute('aria-selected',isActive?'true':'false');
+     });
+     document.querySelectorAll('.profile-tab-panel').forEach(function(panel){
+      panel.hidden=panel.id!==button.dataset.profileTab;
+     });
+    });
+   });
+
+   document.querySelectorAll('[data-open-profile-tab]').forEach(function(link){
+    link.addEventListener('click',function(event){
+     event.preventDefault();
+     const targetId=link.dataset.openProfileTab;
+     const tab=document.querySelector('[data-profile-tab="'+targetId+'"]');
+     if(tab) tab.click();
+     const target=document.getElementById(targetId);
+     if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+   });
+
+   document.querySelectorAll('[data-soccer-tab]').forEach(function(button){
+    button.addEventListener('click',function(){
+     document.querySelectorAll('[data-soccer-tab]').forEach(function(item){
+      const isActive=item===button;
+      item.classList.toggle('active',isActive);
+      item.setAttribute('aria-selected',isActive?'true':'false');
+     });
+     document.querySelectorAll('.soccer-tab-panel').forEach(function(panel){
+      panel.hidden=panel.id!==button.dataset.soccerTab;
+     });
+    });
+   });
+
+   document.querySelectorAll('[data-open-soccer-tab]').forEach(function(link){
+    link.addEventListener('click',function(event){
+     event.preventDefault();
+     const soccerProfileTab=document.querySelector('[data-profile-tab="sport-profiles"]');
+     if(soccerProfileTab) soccerProfileTab.click();
+     const targetId=link.dataset.openSoccerTab;
+     const soccerTab=document.querySelector('[data-soccer-tab="'+targetId+'"]');
+     if(soccerTab) soccerTab.click();
+     const target=document.getElementById(targetId);
+     if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+   });
+
+   document.querySelectorAll('[data-edit-target]').forEach(function(button){
+    button.addEventListener('click',function(){
+     const form=document.getElementById(button.dataset.editTarget);
+     if(!form) return;
+     const isOpening=form.hidden;
+     form.hidden=!isOpening;
+     button.textContent=isOpening?'Cancel':'Edit';
+    });
+   });
+
+   document.querySelectorAll('[data-close-edit]').forEach(function(button){
+    button.addEventListener('click',function(){
+     const form=document.getElementById(button.dataset.closeEdit);
+     if(!form) return;
+     form.hidden=true;
+     const trigger=document.querySelector('[data-edit-target="'+button.dataset.closeEdit+'"]');
+     if(trigger) trigger.textContent='Edit';
+    });
+   });
+
+   document.querySelectorAll('[data-collapse-target]').forEach(function(button){
+    button.addEventListener('click',function(){
+     const content=document.getElementById(button.dataset.collapseTarget);
+     if(!content) return;
+     const isOpening=content.hidden;
+     content.hidden=!isOpening;
+     button.textContent=isOpening?button.dataset.expandedLabel:button.dataset.collapsedLabel;
+    });
+   });
+
+   const educationStatus=document.getElementById('athleteEducationStatus');
+   const educationGraduationField=document.getElementById('educationGraduationField');
+   const educationGraduationLabel=document.getElementById('educationGraduationLabel');
+   function updateEducationGraduationField(){
+    const status=educationStatus.value;
+    const isCurrent=status==='secondary-current'||status==='higher-current';
+    const isCompleted=status==='secondary-completed'||status==='higher-completed';
+    educationGraduationField.hidden=!isCurrent&&!isCompleted;
+    educationGraduationLabel.textContent=isCompleted?'Graduation Date':'Expected Graduation Date';
+   }
+   educationStatus.addEventListener('change',updateEducationGraduationField);
+   updateEducationGraduationField();
+
+   const primaryPosition=document.getElementById('primaryPosition');
+   const secondaryPosition=document.getElementById('secondaryPosition');
+   const skillClipGrid=document.getElementById('skillClipGrid');
+   const skillRecommendationTitle=document.getElementById('skillRecommendationTitle');
+   const skillCompletionTag=document.getElementById('skillCompletionTag');
+   const positionSkillRecommendations={
+    'Goalkeeper':['goalkeeper-shot-stopping','goalkeeper-handling','goalkeeper-1v1','goalkeeper-distribution','goalkeeper-positioning'],
+    'Centre Back':['defending','aerial','passing','first-touch'],
+    'Full Back / Wing Back':['pace','defending','chance-creation','passing','off-ball','first-touch'],
+    'Defensive Midfielder':['defending','passing','first-touch','off-ball'],
+    'Central Midfielder':['passing','first-touch','off-ball','attacking-1v1'],
+    'Attacking Midfielder':['attacking-1v1','passing','first-touch','off-ball','finishing'],
+    'Winger':['attacking-1v1','chance-creation','off-ball','pace','first-touch','finishing'],
+    'Forward / Striker':['finishing','off-ball','attacking-1v1','first-touch','aerial','pace']
+   };
+   const skillCards=Array.from(skillClipGrid.querySelectorAll('[data-skill-category]'));
+   skillCards.forEach(function(card,index){card.dataset.defaultOrder=String(index);});
+   function updateSkillClipRecommendations(){
+    const positions=[primaryPosition.value];
+    if(secondaryPosition.value!=='No secondary position'&&secondaryPosition.value!==primaryPosition.value){
+     positions.push(secondaryPosition.value);
+    }
+    const primaryRecommendations=positionSkillRecommendations[primaryPosition.value]||[];
+    const secondaryRecommendations=positions.length>1?(positionSkillRecommendations[secondaryPosition.value]||[]):[];
+    const recommendedOrder=[];
+    primaryRecommendations.concat(secondaryRecommendations).forEach(function(category){
+     if(!recommendedOrder.includes(category)) recommendedOrder.push(category);
+    });
+    const recommendedSet=new Set(recommendedOrder);
+    const primaryRecommendationSet=new Set(primaryRecommendations);
+    const hasGoalkeeperPosition=positions.includes('Goalkeeper');
+    const hasOutfieldPosition=positions.some(function(position){return position!=='Goalkeeper';});
+
+    skillCards.forEach(function(card){
+     const isGoalkeeperCategory=card.dataset.skillScope==='goalkeeper';
+     const isUploaded=!card.classList.contains('empty');
+     card.hidden=isGoalkeeperCategory?!hasGoalkeeperPosition:(!hasOutfieldPosition&&!isUploaded);
+     card.classList.toggle('recommended',recommendedSet.has(card.dataset.skillCategory));
+     const existingBadge=card.querySelector('.skill-recommendation-badge');
+     if(existingBadge) existingBadge.remove();
+     if(recommendedSet.has(card.dataset.skillCategory)){
+      const badge=document.createElement('span');
+      badge.className='skill-recommendation-badge';
+      badge.textContent=primaryRecommendationSet.has(card.dataset.skillCategory)?'Required':'Secondary suggestion';
+      card.prepend(badge);
+     }
+    });
+
+    skillCards.sort(function(a,b){
+     const aRecommendedIndex=recommendedOrder.indexOf(a.dataset.skillCategory);
+     const bRecommendedIndex=recommendedOrder.indexOf(b.dataset.skillCategory);
+     const aRank=aRecommendedIndex===-1?100+a.dataset.defaultOrder:Number(aRecommendedIndex);
+     const bRank=bRecommendedIndex===-1?100+b.dataset.defaultOrder:Number(bRecommendedIndex);
+     return aRank-bRank;
+    }).forEach(function(card){skillClipGrid.appendChild(card);});
+
+    const completedPrimaryCategories=primaryRecommendations.filter(function(category){
+     const card=skillCards.find(function(item){return item.dataset.skillCategory===category;});
+     return card&&!card.classList.contains('empty');
+    }).length;
+    const totalPrimaryCategories=primaryRecommendations.length;
+    const skillContribution=totalPrimaryCategories?(completedPrimaryCategories/totalPrimaryCategories*10):0;
+    skillRecommendationTitle.textContent=primaryPosition.value+' skill coverage: '+completedPrimaryCategories+' of '+totalPrimaryCategories;
+    skillCompletionTag.textContent=skillContribution.toFixed(1).replace('.0','')+' of 10%';
+   }
+   primaryPosition.addEventListener('change',updateSkillClipRecommendations);
+   secondaryPosition.addEventListener('change',updateSkillClipRecommendations);
+   updateSkillClipRecommendations();
+
+   const currentlyUnattached=document.getElementById('currentlyUnattached');
+   const currentTeamSummary=document.getElementById('current-team-summary');
+   const currentTeamFields=document.getElementById('current-team-fields');
+   const unattachedSummary=document.getElementById('unattached-summary');
+   const currentTeamStatusBadge=document.getElementById('currentTeamStatusBadge');
+   const currentSeasonPerformance=document.getElementById('current-season-performance');
+   function updateCurrentTeamSeasonVisibility(){
+    const isUnattached=currentlyUnattached.checked;
+    currentTeamSummary.hidden=isUnattached;
+    currentTeamFields.hidden=isUnattached;
+    unattachedSummary.hidden=!isUnattached;
+    currentSeasonPerformance.hidden=isUnattached;
+    currentTeamStatusBadge.textContent=isUnattached?'Currently Unattached':'Active Team-Season';
+    currentTeamStatusBadge.classList.toggle('green',!isUnattached);
+    currentTeamStatusBadge.classList.toggle('orange',isUnattached);
+   }
+   currentlyUnattached.addEventListener('change',updateCurrentTeamSeasonVisibility);
+   updateCurrentTeamSeasonVisibility();
+
+   const measurementForm=document.getElementById('measurementForm');
+   const measurementHistory=document.getElementById('measurementHistory');
+   document.getElementById('updateMeasurementsButton').addEventListener('click',function(){
+    measurementForm.hidden=!measurementForm.hidden;
+    measurementHistory.hidden=true;
+   });
+   document.getElementById('viewMeasurementHistoryButton').addEventListener('click',function(){
+    measurementHistory.hidden=!measurementHistory.hidden;
+    measurementForm.hidden=true;
+   });
+   document.getElementById('cancelMeasurementsButton').addEventListener('click',function(){
+    measurementForm.hidden=true;
+   });
+   document.getElementById('saveMeasurementsButton').addEventListener('click',function(){
+    const height=document.getElementById('measurementHeight').value.trim();
+    const weight=document.getElementById('measurementWeight').value.trim();
+    const dateValue=document.getElementById('measurementDate').value;
+    const source=document.getElementById('measurementSource').value;
+    if(!height&&!weight) return;
+
+    const parsedDate=dateValue?new Date(dateValue+'T12:00:00'):new Date();
+    const displayDate=parsedDate.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+    if(height){
+     const heightCm=Number(height);
+     const totalInches=Math.round(heightCm/2.54);
+     const feet=Math.floor(totalInches/12);
+     const inches=totalInches%12;
+     document.getElementById('currentHeight').textContent=height+' cm';
+     document.getElementById('currentHeightImperial').textContent=feet+' ft '+inches+' in';
+     document.getElementById('currentHeightMeta').textContent='Measured '+displayDate+' · '+source;
+    }
+    if(weight){
+     const weightKg=Number(weight);
+     document.getElementById('currentWeight').textContent=weight+' kg';
+     document.getElementById('currentWeightImperial').textContent=Math.round(weightKg*2.20462)+' lb';
+     document.getElementById('currentWeightMeta').textContent='Measured '+displayDate+' · '+source;
+    }
+
+    const row=document.createElement('div');
+    row.className='measurement-history-row';
+    row.innerHTML='<strong>'+displayDate+'</strong><span>'+(height?height+' cm':'Not recorded')+'</span><span>'+(weight?weight+' kg':'Not recorded')+'</span><span>'+source+' · Entered by athlete</span>';
+    document.getElementById('measurementHistoryList').prepend(row);
+    measurementForm.hidden=true;
+   });
+
+   const documentUploadForm=document.getElementById('documentUploadForm');
+   const uploadDocumentButton=document.getElementById('uploadDocumentButton');
+   const cancelDocumentUploadButton=document.getElementById('cancelDocumentUploadButton');
+   const saveDocumentButton=document.getElementById('saveDocumentButton');
+   const documentType=document.getElementById('documentType');
+   const documentCategory=document.getElementById('documentCategory');
+   const documentSportProfile=document.getElementById('documentSportProfile');
+   function closeDocumentUpload(){
+    documentUploadForm.hidden=true;
+    uploadDocumentButton.textContent='Upload Document';
+   }
+   uploadDocumentButton.addEventListener('click',function(){
+    const isOpening=documentUploadForm.hidden;
+    documentUploadForm.hidden=!isOpening;
+    uploadDocumentButton.textContent=isOpening?'Cancel Upload':'Upload Document';
+   });
+   cancelDocumentUploadButton.addEventListener('click',closeDocumentUpload);
+   saveDocumentButton.addEventListener('click',closeDocumentUpload);
+   documentType.addEventListener('change',function(){
+    const type=documentType.value;
+    const isSoccer=type==='Coach Recommendation'||type==='Club or Academy Confirmation'||type==='Other Soccer Document';
+    const isOther=type==='Other';
+    documentCategory.value=isSoccer?'Soccer':(isOther?'Other':'Academic');
+    documentSportProfile.value=isSoccer?'Soccer Profile':'Not linked';
+   });
+
+   document.querySelectorAll('.document-filter').forEach(function(button){
+    button.addEventListener('click',function(){
+     document.querySelectorAll('.document-filter').forEach(function(item){item.classList.remove('active');});
+     button.classList.add('active');
+     const filter=button.dataset.documentFilter;
+     document.querySelectorAll('[data-document-scope]').forEach(function(documentItem){
+      documentItem.hidden=filter!=='all'&&documentItem.dataset.documentScope!==filter;
+     });
+    });
+   });
   </script>
   <script src="../shared/app.js">
   </script>
