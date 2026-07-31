@@ -11,6 +11,7 @@ specs/
   - 01-mvp-slice-1-product-requirements.md: concise Slice 1 product requirements and acceptance criteria; source of truth for development.
   - 02-legal-consent-product-requirements.md: product capabilities needed for evolving legal documents and consent; implementation owned by the Lead Developer.
   - 03-athlete-sport-profile-completion-product-requirements.md: rules, weights, exclusions, and UI requirements for per-Sport-Profile completion.
+  - 04-mvp-slice-2-athlete-profile-product-requirements.md: concise Slice 2 scope, editing authority, protected actions, privacy boundary, and future media compatibility rules.
   - archive/age-based-athlete-accounts.md: background product exploration; not part of the Slice 1 handoff.
   - archive/athlete-account-flow-schema.md: background product exploration; not part of the Slice 1 handoff.
 

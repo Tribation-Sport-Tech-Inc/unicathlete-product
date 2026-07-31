@@ -1372,7 +1372,7 @@ p {
      </div>
     </div>
     <div class="actions">
-     <a class="button btn-light" href="profile.html">
+     <a class="button btn-light" href="../recruiter/profile.html">
       Preview Recruiter View
      </a>
     </div>
@@ -1404,7 +1404,6 @@ p {
      <div class="summary-item"><span>Languages</span><strong>English, Korean</strong></div>
      <div class="summary-item"><span>Date of Birth</span><strong>Apr 18, 2009 &middot; Locked</strong></div>
      <div class="summary-item"><span>Education</span><strong>Currently in secondary education</strong></div>
-     <div class="summary-item"><span>Current School</span><strong>North Toronto Collegiate Institute</strong></div>
      <div class="summary-item"><span>School Country</span><strong>Canada</strong></div>
      <div class="summary-item"><span>Expected Graduation</span><strong>June 2027</strong></div>
     </div>
@@ -1415,7 +1414,8 @@ p {
       <label for="athleteFullName">
        Full Name
       </label>
-      <input id="athleteFullName" value="Alex Kim"/>
+      <input id="athleteFullName" readonly value="Alex Kim"/>
+      <span class="field-help">Legal-name corrections use the protected account correction process.</span>
      </div>
      <div class="field">
       <div class="field-label-row">
@@ -1465,12 +1465,6 @@ p {
        <option value="not-enrolled">Not currently enrolled</option>
        <option value="other">Other</option>
       </select>
-     </div>
-     <div class="field">
-      <label for="athleteSchoolName">
-       Current or Most Recent School
-      </label>
-      <input id="athleteSchoolName" value="North Toronto Collegiate Institute"/>
      </div>
      <div class="field">
       <label for="athleteSchoolCountry">
@@ -1643,43 +1637,39 @@ p {
        <div class="progress"><div style="width:96%"></div></div>
      </div>
     </div>
-    <div class="note">
-     <strong>Discovery status: Searchable.</strong> Recruiter-Ready, account eligibility, and Soccer visibility are active.
-    </div>
    </div>
 
    <div class="state-not-ready">
-     <div class="grid-2">
-      <div class="readiness-card warning">
-       <div class="readiness-status">
-        <div class="readiness-icon">!</div>
-        <div>
-         <h2>Not Recruiter-Ready</h2>
-         <p>The Soccer profile exists, but it has not reached the minimum Recruiter-Ready checklist.</p>
-        </div>
-       </div>
-       <div class="missing-list">
-        <div class="missing-item"><strong>Current Playing Context</strong><span>Missing · 20%</span></div>
-        <div class="missing-item"><strong>Recruiting Details</strong><span>Missing · 15%</span></div>
-        <div class="missing-item"><strong>Soccer Media</strong><span>Missing · 25%</span></div>
-       </div>
-       <div class="actions">
-        <a class="button btn-primary" href="#soccer-details">Complete Soccer Profile</a>
-        <a class="button btn-light" data-open-soccer-tab="soccer-media-panel" href="#soccer-media-panel">Upload Video</a>
+    <div class="grid-2">
+     <div class="readiness-card warning">
+      <div class="readiness-status">
+       <div class="readiness-icon">!</div>
+       <div>
+        <h2>Not Recruiter-Ready</h2>
+        <p>The Soccer profile exists, but it has not reached the minimum Recruiter-Ready checklist.</p>
        </div>
       </div>
+      <div class="missing-list">
+        <div class="missing-item"><strong>Current Playing Context</strong><span>Missing · 15%</span></div>
+        <div class="missing-item"><strong>Recruiting Details</strong><span>Missing · 10%</span></div>
+       <div class="missing-item"><strong>Soccer Media</strong><span>Missing · 25%</span></div>
+      </div>
+      <div class="actions">
+       <a class="button btn-primary" href="#soccer-details">Complete Soccer Profile</a>
+       <a class="button btn-light" data-open-soccer-tab="soccer-media-panel" href="#soccer-media-panel">Upload Video</a>
+      </div>
+     </div>
 
-      <div class="readiness-card">
-       <div class="completion-mini">
-        <div>
-         <h3>Profile Completion</h3>
-         <p>Basic player profile is complete, but Recruiter-Ready is still locked.</p>
-        </div>
-        <strong>40%</strong>
+     <div class="readiness-card">
+      <div class="completion-mini">
+       <div>
+        <h3>Profile Completion</h3>
+        <p>Basic player profile is complete, but Recruiter-Ready is still locked.</p>
        </div>
-       <div class="progress"><div style="width:40%"></div></div>
-       <p style="margin-top:10px;">Completion score can improve independently from search visibility.</p>
+       <strong>40%</strong>
       </div>
+      <div class="progress"><div style="width:40%"></div></div>
+      <p style="margin-top:10px;">Completion score can improve independently from search visibility.</p>
      </div>
     </div>
    </div>
@@ -1792,7 +1782,7 @@ p {
         <h2>Current Team &amp; Competition</h2>
         <span class="tag green" id="currentTeamStatusBadge" style="margin:0;">Active Team-Season</span>
        </div>
-       <p>This active record supplies the current team, competition, season, statistics, and linked-media context.</p>
+       <p id="currentTeamContextCopy">This active record supplies the current team, competition, season, statistics, and linked-media context.</p>
       </div>
       <button class="button btn-light compact-section-toggle" data-edit-target="current-team-form" type="button">Edit</button>
      </div>
@@ -1807,26 +1797,31 @@ p {
      <div class="note" hidden id="unattached-summary">
       <strong>Currently unattached.</strong> No active team-season is required. Previous playing history remains available.
      </div>
+     <div class="note" hidden id="draft-team-summary">
+      <strong>Draft Team-Season.</strong> Add club or academy, team or squad, country, and season to activate this record.
+     </div>
      <div class="editable-form" hidden id="current-team-form">
-     <label class="unattached-option" for="currentlyUnattached">
-      <input id="currentlyUnattached" type="checkbox"/>
-      <div>
-       <strong>I'm not currently with a club or team</strong>
-       <span>Select this only when the athlete is currently unattached. Previous playing history will remain available.</span>
-      </div>
-     </label>
+     <div class="field" style="margin-bottom:16px;">
+      <label for="currentPlayingStatus">Current Playing Status</label>
+      <select id="currentPlayingStatus">
+       <option selected value="with-team">Currently playing with a club or team</option>
+       <option value="unattached">Currently unattached</option>
+      </select>
+      <span class="field-help">Playing status is stored separately from the Team-Season record.</span>
+     </div>
      <div class="form-grid" id="current-team-fields">
       <div class="field">
-       <label>Club / Academy</label>
-       <input value="North Toronto FC"/>
+       <label for="currentTeamClub">Club / Academy</label>
+       <input id="currentTeamClub" value="North Toronto FC"/>
       </div>
       <div class="field">
-       <label>Team / Squad</label>
-       <input value="U17 Academy"/>
+       <label for="currentTeamSquad">Team / Squad</label>
+       <input id="currentTeamSquad" value="U17 Academy"/>
       </div>
       <div class="field">
-       <label>Country</label>
-       <select>
+       <label for="currentTeamCountry">Country</label>
+       <select id="currentTeamCountry">
+        <option value="">Not added yet</option>
         <option selected>Canada</option>
         <option>Spain</option>
         <option>United Kingdom</option>
@@ -1853,8 +1848,8 @@ p {
        <input value="U17"/>
       </div>
       <div class="field">
-       <label>Season</label>
-       <input value="2025/26"/>
+       <label for="currentTeamSeason">Season</label>
+       <input id="currentTeamSeason" value="2025/26"/>
       </div>
       <div class="field">
        <label>Start Date</label>
@@ -2026,6 +2021,7 @@ p {
     </div>
    </div>
    </div>
+   </div>
 
    <div class="soccer-tab-panel section" hidden id="soccer-media-panel" role="tabpanel">
     <div class="section-head">
@@ -2069,28 +2065,72 @@ p {
         <h3>Skill Clips</h3>
         <button aria-label="Skill clip recommendation engineering note" class="info-note" onclick="openBackendNote('skill-clip-recommendations')" title="Engineering note" type="button">ⓘ</button>
        </div>
-       <p>Short match or training clips organized by soccer skill. Primary-position categories contribute to Soccer Profile completion.</p>
+       <p>Create short evaluation sequences from existing match footage or upload a separate clip. Suggested primary-position categories contribute to Soccer Profile completion.</p>
       </div>
       <div class="actions" style="margin-top:0;">
-       <span class="limit-note">Up to 8 clips · 15–60 sec each</span>
+       <span class="limit-note">Up to 8 clips · usually 10–60 sec · up to 90 sec for context</span>
+       <button class="button btn-primary" id="addSkillClipButton" type="button">Add another clip</button>
+      </div>
+     </div>
+
+     <div class="editable-form" hidden id="skill-clip-editor">
+      <div class="form-grid">
+       <div class="field">
+        <label for="skillClipSourceType">Clip source</label>
+        <select id="skillClipSourceType">
+         <option selected value="main">Cut from Main Evaluation Video</option>
+         <option value="extended">Cut from Extended Match Footage</option>
+         <option value="upload">Upload a separate clip</option>
+        </select>
+       </div>
+       <div class="field" id="skillClipSourceVideoField">
+        <label for="skillClipSourceVideo">Source video</label>
+        <select id="skillClipSourceVideo">
+         <option selected>U17 Season Highlights · 4:36</option>
+        </select>
+       </div>
+       <div class="field" hidden id="skillClipUploadField">
+        <label for="skillClipUpload">Video file</label>
+        <input accept="video/*" id="skillClipUpload" type="file"/>
+       </div>
+       <div class="field">
+        <label for="skillClipCategory">Skill category</label>
+        <select id="skillClipCategory"></select>
+        <span class="field-help">Choose one primary category. Additional descriptive tags may be added later.</span>
+       </div>
+       <div class="field" id="skillClipStartField">
+        <label for="skillClipStart">Start time</label>
+        <input id="skillClipStart" placeholder="00:45" value="00:45"/>
+       </div>
+       <div class="field" id="skillClipEndField">
+        <label for="skillClipEnd">End time</label>
+        <input id="skillClipEnd" placeholder="01:20" value="01:20"/>
+       </div>
+       <div class="field" style="grid-column:1/-1">
+        <span class="field-help">For positioning, pressing, off-ball movement, pace, goalkeeper positioning, or hold-up play, include enough time before the action to show how it developed.</span>
+       </div>
+      </div>
+      <div class="shared-profile-actions">
+       <button class="button btn-light" id="cancelSkillClipButton" type="button">Cancel</button>
+       <button class="button btn-primary" type="button">Save Skill Clip</button>
       </div>
      </div>
 
      <div id="skill-clips-content">
      <div class="skill-recommendation-summary">
       <div>
-       <strong id="skillRecommendationTitle">Winger skill coverage: 5 of 6</strong>
-       <span>Each required primary-position category contributes an equal share of 10%. Secondary-position categories remain suggestions.</span>
+       <strong id="skillRecommendationTitle">Winger suggested skill coverage: 5 of 6</strong>
+       <span>Each covered primary-position suggestion contributes an equal share of 10%. These clips do not block Recruiter-Ready.</span>
       </div>
       <span class="tag blue" id="skillCompletionTag" style="margin:0;">8.3 of 10%</span>
      </div>
      <div class="skill-strip" id="skillClipGrid">
       <div class="skill-card" data-skill-category="pace" data-skill-scope="outfield">
-       <div><div class="skill-icon">▶</div><div class="skill-name">Pace &amp; Acceleration</div></div>
+       <div><div class="skill-icon">▶</div><div class="skill-name">Pace in Match Situations</div></div>
        <div class="skill-time">0:32</div>
       </div>
       <div class="skill-card" data-skill-category="attacking-1v1" data-skill-scope="outfield">
-       <div><div class="skill-icon">▶</div><div class="skill-name">Dribbling &amp; Attacking 1v1</div></div>
+       <div><div class="skill-icon">▶</div><div class="skill-name">Ball Carrying &amp; Attacking 1v1</div></div>
        <div class="skill-time">0:46</div>
       </div>
       <div class="skill-card" data-skill-category="passing" data-skill-scope="outfield">
@@ -2121,12 +2161,16 @@ p {
        <div><div class="skill-icon">+</div><div class="skill-name">Aerial Play</div></div>
        <div class="skill-time">Add clip</div>
       </div>
+      <div class="skill-card empty" data-skill-category="hold-up-link" data-skill-scope="outfield">
+       <div><div class="skill-icon">+</div><div class="skill-name">Hold-up &amp; Link Play</div></div>
+       <div class="skill-time">Add clip</div>
+      </div>
       <div class="skill-card empty" data-skill-category="goalkeeper-shot-stopping" data-skill-scope="goalkeeper" hidden>
        <div><div class="skill-icon">+</div><div class="skill-name">Shot Stopping</div></div>
        <div class="skill-time">Add clip</div>
       </div>
       <div class="skill-card empty" data-skill-category="goalkeeper-handling" data-skill-scope="goalkeeper" hidden>
-       <div><div class="skill-icon">+</div><div class="skill-name">Handling &amp; Crosses</div></div>
+       <div><div class="skill-icon">+</div><div class="skill-name">Handling &amp; Cross Management</div></div>
        <div class="skill-time">Add clip</div>
       </div>
       <div class="skill-card empty" data-skill-category="goalkeeper-1v1" data-skill-scope="goalkeeper" hidden>
@@ -2390,10 +2434,10 @@ MVP measurements are not marked verified. A future verification process may add 
 • Required recruiting category: Men's Soccer or Women's Soccer
 • Primary and secondary positions
 • Preferred foot
-• Current team state derived from an active TeamSeason or an explicit unattached declaration
+• Current playing status stored separately as With a team or Currently unattached
 • Optional Soccer-specific player summary
 
-Do not ask an athlete to separately state that they are playing with a team when an active TeamSeason already proves it. If the athlete explicitly declares that they are unattached, no active TeamSeason is required. Previous TeamSeason records remain unchanged.
+When With a team is selected, partially entered team information remains a private draft TeamSeason. Club or academy, team or squad, country, and season activate it. Changing an active TeamSeason to Currently unattached requires confirmation; the closed record remains in playing history.
 
 SOCCER RECRUITING CONTEXT
 • Recruiting availability
@@ -2413,7 +2457,7 @@ SEPARATE SOCCER-LINKED RECORDS
 RECRUITER-READY MINIMUM
 • Recruiting category
 • Primary position and preferred foot
-• An active TeamSeason with current club/team, competition, squad level, and season; or an explicit unattached declaration
+• An active TeamSeason containing every required current-playing field in the product specification; or an explicit unattached declaration
 • Recruiting availability and target college start
 • At least one evaluation video
 
@@ -2425,20 +2469,26 @@ Eligible scouts see the Soccer profile only when its visibility is enabled and a
     'skill-clip-recommendations': {
      title: 'Skill Clips — Position-Based Recommendations',
      body: `RECOMMENDATION RULES
-• Derive recommended skill categories from the Soccer profile's primary and optional secondary position.
-• Primary-position recommendations appear first; then add relevant secondary-position categories and remove duplicates.
+• Derive suggested skill categories from the Soccer profile's primary and optional secondary position.
+• Primary-position suggestions appear first; then add relevant secondary-position suggestions and remove duplicates.
+• Add another clip allows any category from the full library, grouped as primary-position suggestions, secondary-position suggestions, and other soccer skills.
 • Store the position-to-category mapping as configurable, versioned product rules rather than hardcoding it into AthleteSportProfile.
 • Goalkeepers use a separate skill-category set.
 
 COMPLETION BEHAVIOR
 • Soccer Media contributes 25%: 10% for a successfully processed Main Evaluation Video, 10% for Skill Clips covering the categories mapped to the primary position, and 5% for successfully processed Extended Match Footage.
 • Skill Clip contribution = completed applicable primary-position categories / all mapped primary-position categories × 10%.
-• One clip can satisfy no more than one required category for completion, even when it has multiple category tags.
-• Secondary-position recommendations and additional clips remain optional and do not add completion credit.
+• One Skill Clip satisfies no more than one mapped category for completion.
+• Missing mapped categories reduce Profile Completion but do not block Recruiter-Ready.
+• Secondary-position suggestions, other categories, and repeated clips remain optional and do not add completion credit.
 • Skill Clip completion does not independently change Recruiter-Ready, visibility, or search ranking.
 • Changing a position updates the recommendation display but never deletes, retags, or hides an existing uploaded clip.
-• Athletes may upload a clip in any available category, and one clip may carry more than one category tag.
-• Match and training clips remain distinguishable through source/context metadata.
+• A Skill Clip may be cut from the Main Evaluation Video, cut from Extended Match Footage, or uploaded separately. Reuse the source media reference instead of duplicating the original file.
+• Default duration is 10–60 seconds. Allow up to 90 seconds when positioning, pressing, movement, pace, goalkeeper positioning, or link play requires more context.
+• Match and training clips remain distinguishable through source/context metadata. Video evidence demonstrates pace but does not create an objective speed measurement.
+
+DELIVERY PHASING
+The wireframe visualizes the planned media workflow. Slice 2 includes its placement and completion boundary only; functional upload, storage, processing, clipping, playback, replacement, deletion, and moderation are implemented in a later media slice.
 
 SCOUT VIEW
 Recruiters see uploaded clips and their category/context labels. They do not see empty recommendation slots, internal recommendation badges, or the position-mapping logic.`
@@ -2465,6 +2515,9 @@ UPLOAD RULES
 • Identity, medical, visa, financial, consent, and legal documents are excluded from this general library.
 • Replacing a file should preserve relevant audit history; deleting it must remove normal access according to the platform's retention rules.
 
+DELIVERY PHASING
+The wireframe visualizes the planned document library. Slice 2 includes its placement and data-boundary placeholder only; functional upload, storage, processing, preview, download, replacement, deletion, requests, sharing, and access grants are implemented later.
+
 FUTURE EXTENSION
 A later request-and-sharing workflow may reference an AthleteDocument through a separate request and access-grant record. Do not add scout access or sharing state directly to Sport Profile visibility.`
     },
@@ -2478,7 +2531,7 @@ A later request-and-sharing workflow may reference an AthleteDocument through a 
 • Date of birth and derived age band
 • Management and communication modes
 
-Date of birth, age rules, and account-management fields are managed through account/settings flows. Shared athlete information must not be duplicated inside the Soccer profile.
+Date of birth, age rules, and account-management fields are managed through account/settings flows. Shared athlete information must not be duplicated inside the Soccer profile. The profile does not collect an exact home address, postal code, coordinates, live location, or exact school name. City and country may appear only through an approved recruiter-facing projection when the applicable Sport Profile is effectively visible.
 
 ATHLETEMEASUREMENTS — SHARED MEASUREMENT HISTORY
 • AthleteProfile reference
@@ -2491,7 +2544,6 @@ Current height and weight are derived from the latest applicable records. New en
 
 EDUCATIONRECORD — SHARED ACADEMIC CONTEXT
 • Current education status
-• Current or most recent school
 • School country
 • Expected graduation date for current students
 • Graduation date for completed education
@@ -2502,7 +2554,7 @@ ATHLETESPORTPROFILE — SOCCER
 • Sport-profile status and completion
 • Primary and secondary positions
 • Preferred foot
-• Current team state derived from an active TeamSeason or explicit unattached declaration
+• Current playing status stored separately from draft, active, and historical TeamSeason records
 • Soccer-linked recruiting context
 • Optional Soccer player summary
 • Playing history, including the active TeamSeason used for current club/team and competition context
@@ -2630,15 +2682,16 @@ Profile Completion remains guidance and does not itself unlock visibility.`
    const skillClipGrid=document.getElementById('skillClipGrid');
    const skillRecommendationTitle=document.getElementById('skillRecommendationTitle');
    const skillCompletionTag=document.getElementById('skillCompletionTag');
+   const skillClipCategory=document.getElementById('skillClipCategory');
    const positionSkillRecommendations={
     'Goalkeeper':['goalkeeper-shot-stopping','goalkeeper-handling','goalkeeper-1v1','goalkeeper-distribution','goalkeeper-positioning'],
-    'Centre Back':['defending','aerial','passing','first-touch'],
+    'Centre Back':['defending','aerial','passing','first-touch','off-ball'],
     'Full Back / Wing Back':['pace','defending','chance-creation','passing','off-ball','first-touch'],
     'Defensive Midfielder':['defending','passing','first-touch','off-ball'],
-    'Central Midfielder':['passing','first-touch','off-ball','attacking-1v1'],
-    'Attacking Midfielder':['attacking-1v1','passing','first-touch','off-ball','finishing'],
+    'Central Midfielder':['passing','first-touch','off-ball','attacking-1v1','chance-creation'],
+    'Attacking Midfielder':['attacking-1v1','passing','first-touch','off-ball','chance-creation','finishing'],
     'Winger':['attacking-1v1','chance-creation','off-ball','pace','first-touch','finishing'],
-    'Forward / Striker':['finishing','off-ball','attacking-1v1','first-touch','aerial','pace']
+    'Forward / Striker':['finishing','off-ball','attacking-1v1','first-touch','hold-up-link']
    };
    const skillCards=Array.from(skillClipGrid.querySelectorAll('[data-skill-category]'));
    skillCards.forEach(function(card,index){card.dataset.defaultOrder=String(index);});
@@ -2666,9 +2719,9 @@ Profile Completion remains guidance and does not itself unlock visibility.`
      const existingBadge=card.querySelector('.skill-recommendation-badge');
      if(existingBadge) existingBadge.remove();
      if(recommendedSet.has(card.dataset.skillCategory)){
-      const badge=document.createElement('span');
-      badge.className='skill-recommendation-badge';
-      badge.textContent=primaryRecommendationSet.has(card.dataset.skillCategory)?'Required':'Secondary suggestion';
+     const badge=document.createElement('span');
+     badge.className='skill-recommendation-badge';
+      badge.textContent=primaryRecommendationSet.has(card.dataset.skillCategory)?'Primary suggestion':'Secondary suggestion';
       card.prepend(badge);
      }
     });
@@ -2687,30 +2740,111 @@ Profile Completion remains guidance and does not itself unlock visibility.`
     }).length;
     const totalPrimaryCategories=primaryRecommendations.length;
     const skillContribution=totalPrimaryCategories?(completedPrimaryCategories/totalPrimaryCategories*10):0;
-    skillRecommendationTitle.textContent=primaryPosition.value+' skill coverage: '+completedPrimaryCategories+' of '+totalPrimaryCategories;
+    skillRecommendationTitle.textContent=primaryPosition.value+' suggested skill coverage: '+completedPrimaryCategories+' of '+totalPrimaryCategories;
     skillCompletionTag.textContent=skillContribution.toFixed(1).replace('.0','')+' of 10%';
+
+    skillClipCategory.innerHTML='';
+    function appendCategoryGroup(label,categories){
+     if(!categories.length) return;
+     const group=document.createElement('optgroup');
+     group.label=label;
+     categories.forEach(function(category){
+      const card=skillCards.find(function(item){return item.dataset.skillCategory===category;});
+      if(!card) return;
+      const option=document.createElement('option');
+      option.value=category;
+      option.textContent=card.querySelector('.skill-name').textContent;
+      group.appendChild(option);
+     });
+     skillClipCategory.appendChild(group);
+    }
+    appendCategoryGroup('Suggested for your primary position',primaryRecommendations);
+    appendCategoryGroup('Suggested for your secondary position',secondaryRecommendations.filter(function(category){return !primaryRecommendationSet.has(category);}));
+    const compatibleCategories=skillCards.filter(function(card){
+     return card.dataset.skillScope==='goalkeeper'?hasGoalkeeperPosition:hasOutfieldPosition;
+    }).map(function(card){return card.dataset.skillCategory;});
+    appendCategoryGroup('Other soccer skills',compatibleCategories.filter(function(category){return !recommendedSet.has(category);}));
    }
    primaryPosition.addEventListener('change',updateSkillClipRecommendations);
    secondaryPosition.addEventListener('change',updateSkillClipRecommendations);
    updateSkillClipRecommendations();
 
-   const currentlyUnattached=document.getElementById('currentlyUnattached');
+   const addSkillClipButton=document.getElementById('addSkillClipButton');
+   const cancelSkillClipButton=document.getElementById('cancelSkillClipButton');
+   const skillClipEditor=document.getElementById('skill-clip-editor');
+   const skillClipSourceType=document.getElementById('skillClipSourceType');
+   const skillClipSourceVideo=document.getElementById('skillClipSourceVideo');
+   const skillClipSourceVideoField=document.getElementById('skillClipSourceVideoField');
+   const skillClipUploadField=document.getElementById('skillClipUploadField');
+   const skillClipStartField=document.getElementById('skillClipStartField');
+   const skillClipEndField=document.getElementById('skillClipEndField');
+   function setSkillClipEditor(open){
+    skillClipEditor.hidden=!open;
+    addSkillClipButton.textContent=open?'Close':'Add another clip';
+   }
+   function updateSkillClipSource(){
+    const isUpload=skillClipSourceType.value==='upload';
+    skillClipUploadField.hidden=!isUpload;
+    skillClipSourceVideoField.hidden=isUpload;
+    skillClipStartField.hidden=isUpload;
+    skillClipEndField.hidden=isUpload;
+    if(!isUpload){
+     skillClipSourceVideo.innerHTML='';
+     const option=document.createElement('option');
+     option.textContent=skillClipSourceType.value==='extended'?'North Toronto vs East York · 44:52':'U17 Season Highlights · 4:36';
+     skillClipSourceVideo.appendChild(option);
+    }
+   }
+   addSkillClipButton.addEventListener('click',function(){setSkillClipEditor(skillClipEditor.hidden);});
+   cancelSkillClipButton.addEventListener('click',function(){setSkillClipEditor(false);});
+   skillClipSourceType.addEventListener('change',updateSkillClipSource);
+   updateSkillClipSource();
+
+   const currentPlayingStatus=document.getElementById('currentPlayingStatus');
    const currentTeamSummary=document.getElementById('current-team-summary');
    const currentTeamFields=document.getElementById('current-team-fields');
    const unattachedSummary=document.getElementById('unattached-summary');
+   const draftTeamSummary=document.getElementById('draft-team-summary');
    const currentTeamStatusBadge=document.getElementById('currentTeamStatusBadge');
+   const currentTeamContextCopy=document.getElementById('currentTeamContextCopy');
    const currentSeasonPerformance=document.getElementById('current-season-performance');
+   const teamActivationFields=['currentTeamClub','currentTeamSquad','currentTeamCountry','currentTeamSeason'].map(id=>document.getElementById(id));
+   let previousPlayingStatus=currentPlayingStatus.value;
+   function hasActiveTeamSeason(){
+    return teamActivationFields.every(field=>String(field.value||'').trim()!=='');
+   }
    function updateCurrentTeamSeasonVisibility(){
-    const isUnattached=currentlyUnattached.checked;
-    currentTeamSummary.hidden=isUnattached;
+    const isUnattached=currentPlayingStatus.value==='unattached';
+    const isDraft=!isUnattached&&!hasActiveTeamSeason();
+    currentTeamSummary.hidden=isUnattached||isDraft;
     currentTeamFields.hidden=isUnattached;
     unattachedSummary.hidden=!isUnattached;
-    currentSeasonPerformance.hidden=isUnattached;
-    currentTeamStatusBadge.textContent=isUnattached?'Currently Unattached':'Active Team-Season';
-    currentTeamStatusBadge.classList.toggle('green',!isUnattached);
-    currentTeamStatusBadge.classList.toggle('orange',isUnattached);
+    draftTeamSummary.hidden=!isDraft;
+    currentSeasonPerformance.hidden=isUnattached||isDraft;
+    currentTeamStatusBadge.textContent=isUnattached?'Currently Unattached':(isDraft?'Draft Team-Season':'Active Team-Season');
+    currentTeamStatusBadge.classList.toggle('green',!isUnattached&&!isDraft);
+    currentTeamStatusBadge.classList.toggle('orange',isUnattached||isDraft);
+    currentTeamContextCopy.textContent=isUnattached
+     ? 'The athlete is currently unattached. Previous Team-Seasons remain in playing history.'
+     : isDraft
+      ? 'Current-team information is saved as a private draft until the minimum identifying fields are present.'
+      : 'This active record supplies the current team, competition, season, statistics, and linked-media context.';
    }
-   currentlyUnattached.addEventListener('change',updateCurrentTeamSeasonVisibility);
+   currentPlayingStatus.addEventListener('change',function(){
+    if(currentPlayingStatus.value==='unattached'&&previousPlayingStatus==='with-team'&&hasActiveTeamSeason()){
+     const confirmed=window.confirm('Change the athlete to Currently unattached? The active Team-Season will close and remain in playing history.');
+     if(!confirmed){
+      currentPlayingStatus.value=previousPlayingStatus;
+      return;
+     }
+    }
+    previousPlayingStatus=currentPlayingStatus.value;
+    updateCurrentTeamSeasonVisibility();
+   });
+   teamActivationFields.forEach(field=>{
+    field.addEventListener('input',updateCurrentTeamSeasonVisibility);
+    field.addEventListener('change',updateCurrentTeamSeasonVisibility);
+   });
    updateCurrentTeamSeasonVisibility();
 
    const measurementForm=document.getElementById('measurementForm');

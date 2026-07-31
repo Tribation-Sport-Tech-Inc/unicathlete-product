@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Define how UnicAthlete calculates and displays how fully an athlete's applicable profile information has been completed. Completion measures profile coverage, not athlete quality, recruiting potential, verification, or scout interest.
+Define how UnicAthlete calculates and displays how fully an athlete's applicable profile information has been completed.
 
 Completion is calculated separately for each `AthleteSportProfile`. A Sport Profile may use applicable shared `AthleteProfile`, education, and measurement data without duplicating those source records.
 
@@ -17,7 +17,7 @@ An athlete may become Recruiter-Ready below 100% completion. Completion must not
 
 ## Soccer Recruiter-Ready Checklist
 
-Recruiter-Ready is a pass/fail content evaluation. It means that the Soccer Profile contains enough information for a scout to make an initial decision about whether to continue evaluating the athlete. It does not mean that the athlete is eligible, verified, visible, available, or likely to be recruited.
+Recruiter-Ready is a pass/fail content evaluation. It means that the Soccer Profile contains enough information for a scout to make an initial decision about whether to continue evaluating the athlete.
 
 Every applicable item below must pass.
 
@@ -31,7 +31,7 @@ Every applicable item below must pass.
 ### Education and Recruiting Timeline
 
 - Education status is selected.
-- Current or most recent school is present.
+- School country is selected.
 - Expected or completed secondary-school graduation date is present when applicable.
 - Target college start contains a specific term and year.
 
@@ -135,12 +135,11 @@ Passing every requirement must only enable the control. It must never automatica
 
 ### Age-Based Visibility Control
 
-- **Under 14:** the connected authorized guardian controls visibility.
-- **Ages 14–15:** guardian approval is required to enable visibility. The athlete may make the Sport Profile private; where choices conflict, the more restrictive choice applies.
-- **Ages 16–17:** guardian approval is required to enable visibility unless a different legally approved rule is adopted later. The athlete may make the Sport Profile private; where choices conflict, the more restrictive choice applies.
+- **Under 14:** only the guardian has access and controls visibility.
+- **Ages 14–15:** the athlete can view the status; only the guardian can turn visibility on or off.
+- **Ages 16–17, supervised:** the same rule as ages 14–15.
+- **Ages 16–17, independent:** the athlete controls visibility once all eligibility gates and any required legal permission are satisfied.
 - **Adults 18+:** the athlete controls visibility.
-
-The ages 16–17 communication-mode decision is separate and must not grant visibility authority by itself.
 
 ### Continued Eligibility and Automatic Hiding
 
@@ -161,7 +160,7 @@ The exact permission, consent, verification, jurisdiction, and age requirements 
 
 ### Slice 2 Boundary
 
-Slice 2 calculates Profile Completion and Recruiter-Ready but keeps every Sport Profile private and unavailable to scouts. The production visibility control and scout-access workflow are implemented only when the applicable verification, permission, safety, and scout-eligibility rules are approved and available.
+Slice 2 calculates Profile Completion and Recruiter-Ready but keeps every Sport Profile private and unavailable to scouts. Media UI is placeholder-only: no upload, storage, processing, clipping, playback, replacement, deletion, or review is implemented. Media contributes zero, temporary completion cannot exceed 75%, and Recruiter-Ready remains `No — Main Evaluation Video required`. Production media, visibility, and scout-access workflows are implemented in later slices.
 
 ## Soccer Completion Weights
 
@@ -190,9 +189,8 @@ Full name and date of birth do not contribute because they are required during a
 ### Education — 10%
 
 - Education status: 3%.
-- Expected or completed graduation date, when applicable: 3%.
-- Current or most recent school: 2%.
-- School country: 2%.
+- Expected or completed graduation date, when applicable: 4%.
+- School country: 3%.
 
 If graduation information is not applicable to the selected education status, recalculate the section across the remaining applicable education items so the section can still reach 10%.
 
@@ -217,7 +215,9 @@ Recruiting category belongs to the `AthleteSportProfile`, not the shared `Athlet
 
 An explicit `Currently unattached` declaration completes this section because active team fields are then not applicable.
 
-Otherwise, each of these active `TeamSeason` items contributes an equal share of 15%:
+The playing-status choice is stored separately from `TeamSeason`. `Currently unattached` and an active `TeamSeason` are mutually exclusive. A partially completed current `TeamSeason` remains a private draft and cannot satisfy Recruiter-Ready. The lifecycle and history rules are defined in `04-mvp-slice-2-athlete-profile-product-requirements.md`.
+
+When `With a team` is selected, each completed item on the current draft or active `TeamSeason` contributes an equal share of 15%:
 
 - club or academy;
 - team or squad;
@@ -234,6 +234,8 @@ Otherwise, each of these active `TeamSeason` items contributes an equal share of
 
 - Current-season performance: 6%. The supported statistics must contain numeric values, including valid zero values, or an explicit `Statistics unavailable/not tracked` response.
 - Previous playing history: 4%. At least one complete previous `TeamSeason` or an explicit `No previous team seasons` response counts.
+
+Statistics are owned by the applicable `TeamSeason`; closing or archiving a season must not move its values onto the general Soccer Profile.
 
 If current-season performance is not applicable because the athlete is unattached and has no active `TeamSeason`, recalculate this section across the remaining applicable item.
 
@@ -255,41 +257,68 @@ Coach contact information remains private and does not need to be publicly displ
 ### Soccer Media — 25%
 
 - Main Evaluation Video: 10% when it has uploaded and processed successfully.
-- Primary-position Skill Clips: 10%, calculated from coverage of the categories mapped to the selected primary position.
+- Primary-position Skill Clips: 10%, calculated from coverage of the suggested categories mapped to the selected primary position.
 - Extended Match Footage: 5% when it has uploaded and processed successfully.
 
 Calculate the Skill Clip contribution as:
 
-`completed applicable primary-position categories / all applicable primary-position categories × 10`
+`completed mapped primary-position categories / all mapped primary-position categories × 10`
 
-The denominator varies by primary position while the maximum contribution remains 10%. Secondary-position recommendations do not create completion requirements. One uploaded clip can satisfy no more than one required category for completion, even when it has multiple category tags.
+The denominator varies by primary position while the maximum contribution remains 10%. These are suggestions for building useful position-relevant evidence; missing categories reduce Profile Completion but do not block Recruiter-Ready. Secondary-position suggestions do not enter the completion denominator. One Skill Clip can satisfy no more than one mapped category for completion.
 
-An empty, processing, or failed media upload does not contribute. Additional clips and footage beyond the defined coverage items do not add completion credit.
+An empty, processing, or failed media item does not contribute. Additional clips in an already covered category and clips assigned only to categories outside the primary-position mapping do not add completion credit.
 
 ## Soccer Primary-Position Skill Mapping
 
-| Primary position | Required Skill Clip categories |
+| Primary position | Suggested Skill Clip categories used for completion coverage |
 |---|---|
-| Goalkeeper | Shot Stopping; Handling & Crosses; Goalkeeper 1v1; Goalkeeper Distribution; Goalkeeper Positioning |
-| Centre Back | Defending & Pressing; Aerial Play; Passing & Distribution; First Touch & Ball Control |
-| Full Back / Wing Back | Pace & Acceleration; Defending & Pressing; Crossing & Chance Creation; Passing & Distribution; Off-ball Movement & Positioning; First Touch & Ball Control |
+| Goalkeeper | Shot Stopping; Handling & Cross Management; Goalkeeper 1v1; Goalkeeper Distribution; Goalkeeper Positioning |
+| Centre Back | Defending & Pressing; Aerial Play; Passing & Distribution; First Touch & Ball Control; Off-ball Movement & Positioning |
+| Full Back / Wing Back | Pace in Match Situations; Defending & Pressing; Crossing & Chance Creation; Passing & Distribution; Off-ball Movement & Positioning; First Touch & Ball Control |
 | Defensive Midfielder | Defending & Pressing; Passing & Distribution; First Touch & Ball Control; Off-ball Movement & Positioning |
-| Central Midfielder | Passing & Distribution; First Touch & Ball Control; Off-ball Movement & Positioning; Dribbling & Attacking 1v1 |
-| Attacking Midfielder | Dribbling & Attacking 1v1; Passing & Distribution; First Touch & Ball Control; Off-ball Movement & Positioning; Finishing |
-| Winger | Dribbling & Attacking 1v1; Crossing & Chance Creation; Off-ball Movement & Positioning; Pace & Acceleration; First Touch & Ball Control; Finishing |
-| Forward / Striker | Finishing; Off-ball Movement & Positioning; Dribbling & Attacking 1v1; First Touch & Ball Control; Aerial Play; Pace & Acceleration |
+| Central Midfielder | Passing & Distribution; First Touch & Ball Control; Off-ball Movement & Positioning; Ball Carrying & Attacking 1v1; Crossing & Chance Creation |
+| Attacking Midfielder | Ball Carrying & Attacking 1v1; Passing & Distribution; First Touch & Ball Control; Off-ball Movement & Positioning; Crossing & Chance Creation; Finishing |
+| Winger | Ball Carrying & Attacking 1v1; Crossing & Chance Creation; Off-ball Movement & Positioning; Pace in Match Situations; First Touch & Ball Control; Finishing |
+| Forward / Striker | Finishing; Off-ball Movement & Positioning; Ball Carrying & Attacking 1v1; First Touch & Ball Control; Hold-up & Link Play |
 
-This mapping is an MVP product rule that should be reviewed with soccer recruiting expertise. Engineering must implement it as configurable, versioned product data rather than hardcoded profile columns. Category identifiers used by media records must remain stable even if display labels change.
+The MVP library contains 15 unique categories and 42 position-to-category assignments. This mapping should be reviewed with soccer recruiting expertise. Engineering must implement it as configurable, versioned product data rather than hardcoded profile columns. Category identifiers used by media records must remain stable even if display labels change.
 
 ### Skill Filtering and Recalculation
 
-- Primary-position categories appear first and are marked as required for Skill Clip completion.
-- Categories unique to the optional secondary position appear next as recommendations and do not enter the completion denominator.
-- Remaining compatible categories may remain available for optional uploads.
+- Primary-position categories appear first and are labelled `Suggested for your primary position`. Their coverage determines the Skill Clip portion of Profile Completion.
+- Categories unique to the optional secondary position appear next as suggestions and do not enter the completion denominator.
+- The athlete may select any other compatible category from the complete Skill Clip category dropdown.
 - Goalkeeper and outfield categories use separate sets. A goalkeeper/outfield primary-secondary combination may display both sets.
 - Changing the primary position immediately recalculates the applicable denominator and completed-category count.
 - Changing a position must never delete, retag, or hide an already uploaded clip from its owner.
 - A previously uploaded clip counts when its category becomes applicable to the new primary position and its processing status is successful.
+
+### Skill Clip Creation and Sources
+
+The athlete may create a Skill Clip in any of these ways:
+
+- cut a segment from the uploaded Main Evaluation Video;
+- cut a segment from uploaded Extended Match Footage; or
+- upload a separate match or training clip.
+
+The same source video may supply multiple Skill Clips without requiring the original media to be uploaded again. Each resulting Skill Clip is a separate evidence record that references its source media and start/end timestamps where applicable.
+
+When adding a Skill Clip, the athlete must select exactly one primary category from a dropdown organized as:
+
+1. `Suggested for your primary position`;
+2. `Suggested for your secondary position`, when applicable; and
+3. `Other soccer skills`.
+
+Multiple Skill Clips may use the same category, but repeated clips do not create additional completion credit. Additional descriptive tags may be supported later, but they must not affect completion.
+
+### Duration and Context
+
+- Default Skill Clip duration: 10–60 seconds.
+- Context-dependent evidence may be up to 90 seconds when needed to show the development and result of the action.
+- The editing UI should encourage the athlete to include several seconds before the key action for positioning, pressing, off-ball movement, pace in match situations, goalkeeper positioning, and hold-up/link play.
+- A clip may demonstrate a quality but must not be represented as an objective measurement. For example, `Pace in Match Situations` is video evidence, not a verified sprint-speed value.
+- Match and training sources must remain distinguishable through source/context metadata.
+- The future media slice supports up to eight saved Skill Clips per Soccer Profile.
 
 ## Calculation Rules
 
@@ -332,7 +361,7 @@ This mapping is an MVP product rule that should be reviewed with soccer recruiti
 - An athlete marked `Currently unattached` may be Recruiter-Ready without an active `TeamSeason`.
 - With no successfully processed Soccer media, the maximum completion is 75%.
 - Without a Main Evaluation Video, the maximum completion is 90%.
-- A Centre Back with three of four mapped categories receives `3 / 4 × 10 = 7.5%` from Skill Clips.
+- A Centre Back with three of five mapped categories receives `3 / 5 × 10 = 6%` from Skill Clips.
 - A Winger with three of six mapped categories receives `3 / 6 × 10 = 5%` from Skill Clips.
 - An explicit `Currently unattached` response completes Current Playing Context.
 - A valid zero statistic counts; a blank statistic does not.
