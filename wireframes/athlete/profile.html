@@ -2069,50 +2069,6 @@ p {
       </div>
       <div class="actions" style="margin-top:0;">
        <span class="limit-note">Up to 8 clips · usually 10–60 sec · up to 90 sec for context</span>
-       <button class="button btn-primary" id="addSkillClipButton" type="button">Add another clip</button>
-      </div>
-     </div>
-
-     <div class="editable-form" hidden id="skill-clip-editor">
-      <div class="form-grid">
-       <div class="field">
-        <label for="skillClipSourceType">Clip source</label>
-        <select id="skillClipSourceType">
-         <option selected value="main">Cut from Main Evaluation Video</option>
-         <option value="extended">Cut from Extended Match Footage</option>
-         <option value="upload">Upload a separate clip</option>
-        </select>
-       </div>
-       <div class="field" id="skillClipSourceVideoField">
-        <label for="skillClipSourceVideo">Source video</label>
-        <select id="skillClipSourceVideo">
-         <option selected>U17 Season Highlights · 4:36</option>
-        </select>
-       </div>
-       <div class="field" hidden id="skillClipUploadField">
-        <label for="skillClipUpload">Video file</label>
-        <input accept="video/*" id="skillClipUpload" type="file"/>
-       </div>
-       <div class="field">
-        <label for="skillClipCategory">Skill category</label>
-        <select id="skillClipCategory"></select>
-        <span class="field-help">Choose one primary category. Additional descriptive tags may be added later.</span>
-       </div>
-       <div class="field" id="skillClipStartField">
-        <label for="skillClipStart">Start time</label>
-        <input id="skillClipStart" placeholder="00:45" value="00:45"/>
-       </div>
-       <div class="field" id="skillClipEndField">
-        <label for="skillClipEnd">End time</label>
-        <input id="skillClipEnd" placeholder="01:20" value="01:20"/>
-       </div>
-       <div class="field" style="grid-column:1/-1">
-        <span class="field-help">For positioning, pressing, off-ball movement, pace, goalkeeper positioning, or hold-up play, include enough time before the action to show how it developed.</span>
-       </div>
-      </div>
-      <div class="shared-profile-actions">
-       <button class="button btn-light" id="cancelSkillClipButton" type="button">Cancel</button>
-       <button class="button btn-primary" type="button">Save Skill Clip</button>
       </div>
      </div>
 
@@ -2133,9 +2089,9 @@ p {
        <div><div class="skill-icon">▶</div><div class="skill-name">Ball Carrying &amp; Attacking 1v1</div></div>
        <div class="skill-time">0:46</div>
       </div>
-      <div class="skill-card" data-skill-category="passing" data-skill-scope="outfield">
-       <div><div class="skill-icon">▶</div><div class="skill-name">Passing &amp; Distribution</div></div>
-       <div class="skill-time">0:38</div>
+      <div class="skill-card empty" data-skill-category="passing" data-skill-scope="outfield">
+       <div><div class="skill-icon">+</div><div class="skill-name">Passing &amp; Distribution</div></div>
+       <div class="skill-time">Add clip</div>
       </div>
       <div class="skill-card" data-skill-category="finishing" data-skill-scope="outfield">
        <div><div class="skill-icon">▶</div><div class="skill-name">Finishing</div></div>
@@ -2184,6 +2140,10 @@ p {
       <div class="skill-card empty" data-skill-category="goalkeeper-positioning" data-skill-scope="goalkeeper" hidden>
        <div><div class="skill-icon">+</div><div class="skill-name">Goalkeeper Positioning</div></div>
        <div class="skill-time">Add clip</div>
+      </div>
+      <div class="skill-card empty" id="addSkillClipTile">
+       <div><div class="skill-icon">+</div><div class="skill-name">Add another clip</div></div>
+       <div class="skill-time">Choose skill type</div>
       </div>
      </div>
      </div>
@@ -2469,9 +2429,8 @@ Eligible scouts see the Soccer profile only when its visibility is enabled and a
     'skill-clip-recommendations': {
      title: 'Skill Clips — Position-Based Recommendations',
      body: `RECOMMENDATION RULES
-• Derive suggested skill categories from the Soccer profile's primary and optional secondary position.
-• Primary-position suggestions appear first; then add relevant secondary-position suggestions and remove duplicates.
-• Add another clip allows any category from the full library, grouped as primary-position suggestions, secondary-position suggestions, and other soccer skills.
+• Show suggested skill categories only for the Soccer profile's primary position.
+• The Add another clip tile represents the entry point for selecting a skill category from the full library and writing a description. The detailed upload flow is not shown on this wireframe.
 • Store the position-to-category mapping as configurable, versioned product rules rather than hardcoding it into AthleteSportProfile.
 • Goalkeepers use a separate skill-category set.
 
@@ -2480,7 +2439,7 @@ COMPLETION BEHAVIOR
 • Skill Clip contribution = completed applicable primary-position categories / all mapped primary-position categories × 10%.
 • One Skill Clip satisfies no more than one mapped category for completion.
 • Missing mapped categories reduce Profile Completion but do not block Recruiter-Ready.
-• Secondary-position suggestions, other categories, and repeated clips remain optional and do not add completion credit.
+• Categories outside the primary-position mapping and repeated clips remain optional and do not add completion credit.
 • Skill Clip completion does not independently change Recruiter-Ready, visibility, or search ranking.
 • Changing a position updates the recommendation display but never deletes, retags, or hides an existing uploaded clip.
 • A Skill Clip may be cut from the Main Evaluation Video, cut from Extended Match Footage, or uploaded separately. Reuse the source media reference instead of duplicating the original file.
@@ -2682,7 +2641,7 @@ Profile Completion remains guidance and does not itself unlock visibility.`
    const skillClipGrid=document.getElementById('skillClipGrid');
    const skillRecommendationTitle=document.getElementById('skillRecommendationTitle');
    const skillCompletionTag=document.getElementById('skillCompletionTag');
-   const skillClipCategory=document.getElementById('skillClipCategory');
+   const addSkillClipTile=document.getElementById('addSkillClipTile');
    const positionSkillRecommendations={
     'Goalkeeper':['goalkeeper-shot-stopping','goalkeeper-handling','goalkeeper-1v1','goalkeeper-distribution','goalkeeper-positioning'],
     'Centre Back':['defending','aerial','passing','first-touch','off-ball'],
@@ -2696,32 +2655,21 @@ Profile Completion remains guidance and does not itself unlock visibility.`
    const skillCards=Array.from(skillClipGrid.querySelectorAll('[data-skill-category]'));
    skillCards.forEach(function(card,index){card.dataset.defaultOrder=String(index);});
    function updateSkillClipRecommendations(){
-    const positions=[primaryPosition.value];
-    if(secondaryPosition.value!=='No secondary position'&&secondaryPosition.value!==primaryPosition.value){
-     positions.push(secondaryPosition.value);
-    }
     const primaryRecommendations=positionSkillRecommendations[primaryPosition.value]||[];
-    const secondaryRecommendations=positions.length>1?(positionSkillRecommendations[secondaryPosition.value]||[]):[];
-    const recommendedOrder=[];
-    primaryRecommendations.concat(secondaryRecommendations).forEach(function(category){
-     if(!recommendedOrder.includes(category)) recommendedOrder.push(category);
-    });
-    const recommendedSet=new Set(recommendedOrder);
+    const recommendedOrder=primaryRecommendations.slice();
     const primaryRecommendationSet=new Set(primaryRecommendations);
-    const hasGoalkeeperPosition=positions.includes('Goalkeeper');
-    const hasOutfieldPosition=positions.some(function(position){return position!=='Goalkeeper';});
 
     skillCards.forEach(function(card){
-     const isGoalkeeperCategory=card.dataset.skillScope==='goalkeeper';
+     const isPrimaryRecommendation=primaryRecommendationSet.has(card.dataset.skillCategory);
      const isUploaded=!card.classList.contains('empty');
-     card.hidden=isGoalkeeperCategory?!hasGoalkeeperPosition:(!hasOutfieldPosition&&!isUploaded);
-     card.classList.toggle('recommended',recommendedSet.has(card.dataset.skillCategory));
+     card.hidden=!isPrimaryRecommendation&&!isUploaded;
+     card.classList.toggle('recommended',isPrimaryRecommendation);
      const existingBadge=card.querySelector('.skill-recommendation-badge');
      if(existingBadge) existingBadge.remove();
-     if(recommendedSet.has(card.dataset.skillCategory)){
+     if(isPrimaryRecommendation||isUploaded){
      const badge=document.createElement('span');
      badge.className='skill-recommendation-badge';
-      badge.textContent=primaryRecommendationSet.has(card.dataset.skillCategory)?'Primary suggestion':'Secondary suggestion';
+      badge.textContent=isPrimaryRecommendation?'Suggested for primary position':'Additional clip';
       card.prepend(badge);
      }
     });
@@ -2733,6 +2681,7 @@ Profile Completion remains guidance and does not itself unlock visibility.`
      const bRank=bRecommendedIndex===-1?100+b.dataset.defaultOrder:Number(bRecommendedIndex);
      return aRank-bRank;
     }).forEach(function(card){skillClipGrid.appendChild(card);});
+    skillClipGrid.appendChild(addSkillClipTile);
 
     const completedPrimaryCategories=primaryRecommendations.filter(function(category){
      const card=skillCards.find(function(item){return item.dataset.skillCategory===category;});
@@ -2743,62 +2692,9 @@ Profile Completion remains guidance and does not itself unlock visibility.`
     skillRecommendationTitle.textContent=primaryPosition.value+' suggested skill coverage: '+completedPrimaryCategories+' of '+totalPrimaryCategories;
     skillCompletionTag.textContent=skillContribution.toFixed(1).replace('.0','')+' of 10%';
 
-    skillClipCategory.innerHTML='';
-    function appendCategoryGroup(label,categories){
-     if(!categories.length) return;
-     const group=document.createElement('optgroup');
-     group.label=label;
-     categories.forEach(function(category){
-      const card=skillCards.find(function(item){return item.dataset.skillCategory===category;});
-      if(!card) return;
-      const option=document.createElement('option');
-      option.value=category;
-      option.textContent=card.querySelector('.skill-name').textContent;
-      group.appendChild(option);
-     });
-     skillClipCategory.appendChild(group);
-    }
-    appendCategoryGroup('Suggested for your primary position',primaryRecommendations);
-    appendCategoryGroup('Suggested for your secondary position',secondaryRecommendations.filter(function(category){return !primaryRecommendationSet.has(category);}));
-    const compatibleCategories=skillCards.filter(function(card){
-     return card.dataset.skillScope==='goalkeeper'?hasGoalkeeperPosition:hasOutfieldPosition;
-    }).map(function(card){return card.dataset.skillCategory;});
-    appendCategoryGroup('Other soccer skills',compatibleCategories.filter(function(category){return !recommendedSet.has(category);}));
    }
    primaryPosition.addEventListener('change',updateSkillClipRecommendations);
-   secondaryPosition.addEventListener('change',updateSkillClipRecommendations);
    updateSkillClipRecommendations();
-
-   const addSkillClipButton=document.getElementById('addSkillClipButton');
-   const cancelSkillClipButton=document.getElementById('cancelSkillClipButton');
-   const skillClipEditor=document.getElementById('skill-clip-editor');
-   const skillClipSourceType=document.getElementById('skillClipSourceType');
-   const skillClipSourceVideo=document.getElementById('skillClipSourceVideo');
-   const skillClipSourceVideoField=document.getElementById('skillClipSourceVideoField');
-   const skillClipUploadField=document.getElementById('skillClipUploadField');
-   const skillClipStartField=document.getElementById('skillClipStartField');
-   const skillClipEndField=document.getElementById('skillClipEndField');
-   function setSkillClipEditor(open){
-    skillClipEditor.hidden=!open;
-    addSkillClipButton.textContent=open?'Close':'Add another clip';
-   }
-   function updateSkillClipSource(){
-    const isUpload=skillClipSourceType.value==='upload';
-    skillClipUploadField.hidden=!isUpload;
-    skillClipSourceVideoField.hidden=isUpload;
-    skillClipStartField.hidden=isUpload;
-    skillClipEndField.hidden=isUpload;
-    if(!isUpload){
-     skillClipSourceVideo.innerHTML='';
-     const option=document.createElement('option');
-     option.textContent=skillClipSourceType.value==='extended'?'North Toronto vs East York · 44:52':'U17 Season Highlights · 4:36';
-     skillClipSourceVideo.appendChild(option);
-    }
-   }
-   addSkillClipButton.addEventListener('click',function(){setSkillClipEditor(skillClipEditor.hidden);});
-   cancelSkillClipButton.addEventListener('click',function(){setSkillClipEditor(false);});
-   skillClipSourceType.addEventListener('change',updateSkillClipSource);
-   updateSkillClipSource();
 
    const currentPlayingStatus=document.getElementById('currentPlayingStatus');
    const currentTeamSummary=document.getElementById('current-team-summary');

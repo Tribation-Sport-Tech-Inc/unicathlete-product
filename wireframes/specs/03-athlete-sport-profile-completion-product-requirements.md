@@ -281,14 +281,13 @@ An empty, processing, or failed media item does not contribute. Additional clips
 | Winger | Ball Carrying & Attacking 1v1; Crossing & Chance Creation; Off-ball Movement & Positioning; Pace in Match Situations; First Touch & Ball Control; Finishing |
 | Forward / Striker | Finishing; Off-ball Movement & Positioning; Ball Carrying & Attacking 1v1; First Touch & Ball Control; Hold-up & Link Play |
 
-The MVP library contains 15 unique categories and 42 position-to-category assignments. This mapping should be reviewed with soccer recruiting expertise. Engineering must implement it as configurable, versioned product data rather than hardcoded profile columns. Category identifiers used by media records must remain stable even if display labels change.
+The MVP library contains 15 unique categories and 42 position-to-category assignments. Engineering must implement it as configurable, versioned product data rather than hardcoded profile columns. Category identifiers used by media records must remain stable even if display labels change.
 
 ### Skill Filtering and Recalculation
 
-- Primary-position categories appear first and are labelled `Suggested for your primary position`. Their coverage determines the Skill Clip portion of Profile Completion.
-- Categories unique to the optional secondary position appear next as suggestions and do not enter the completion denominator.
-- The athlete may select any other compatible category from the complete Skill Clip category dropdown.
-- Goalkeeper and outfield categories use separate sets. A goalkeeper/outfield primary-secondary combination may display both sets.
+- Only categories mapped to the selected primary position appear as suggested Skill Clip slots. Their coverage determines the Skill Clip portion of Profile Completion.
+- The secondary position does not generate additional suggestions.
+- `Upload another clip` allows the athlete to select any category from the complete Skill Clip category dropdown and write their own description.
 - Changing the primary position immediately recalculates the applicable denominator and completed-category count.
 - Changing a position must never delete, retag, or hide an already uploaded clip from its owner.
 - A previously uploaded clip counts when its category becomes applicable to the new primary position and its processing status is successful.
@@ -303,13 +302,12 @@ The athlete may create a Skill Clip in any of these ways:
 
 The same source video may supply multiple Skill Clips without requiring the original media to be uploaded again. Each resulting Skill Clip is a separate evidence record that references its source media and start/end timestamps where applicable.
 
-When adding a Skill Clip, the athlete must select exactly one primary category from a dropdown organized as:
+When adding a Skill Clip, the athlete must select exactly one category from a dropdown organized as:
 
 1. `Suggested for your primary position`;
-2. `Suggested for your secondary position`, when applicable; and
-3. `Other soccer skills`.
+2. `Other soccer skills`.
 
-Multiple Skill Clips may use the same category, but repeated clips do not create additional completion credit. Additional descriptive tags may be supported later, but they must not affect completion.
+The athlete may add their own description of what the clip demonstrates and any useful match context. Multiple Skill Clips may use the same category, but repeated clips do not create additional completion credit. The description does not affect completion.
 
 ### Duration and Context
 
