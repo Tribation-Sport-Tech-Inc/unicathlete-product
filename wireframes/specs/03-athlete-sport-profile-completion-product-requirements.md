@@ -160,7 +160,7 @@ The exact permission, consent, verification, jurisdiction, and age requirements 
 
 ### Slice 2 Boundary
 
-Slice 2 calculates Profile Completion and Recruiter-Ready but keeps every Sport Profile private and unavailable to scouts. Media UI is placeholder-only: no upload, storage, processing, clipping, playback, replacement, deletion, or review is implemented. Media contributes zero, temporary completion cannot exceed 75%, and Recruiter-Ready remains `No — Main Evaluation Video required`. Production media, visibility, and scout-access workflows are implemented in later slices.
+The Slice 2 implementation boundary and temporary profile-status behavior are defined in `04-mvp-slice-2-athlete-profile-product-requirements.md`. This document defines the completed-product calculation rules without expanding what Slice 2 implements.
 
 ## Soccer Completion Weights
 
@@ -287,36 +287,23 @@ The MVP library contains 15 unique categories and 42 position-to-category assign
 
 - Only categories mapped to the selected primary position appear as suggested Skill Clip slots. Their coverage determines the Skill Clip portion of Profile Completion.
 - The secondary position does not generate additional suggestions.
-- `Upload another clip` allows the athlete to select any category from the complete Skill Clip category dropdown and write their own description.
+- `Add another clip` allows the athlete to select any category from the complete Skill Clip category list and write their own description.
 - Changing the primary position immediately recalculates the applicable denominator and completed-category count.
 - Changing a position must never delete, retag, or hide an already uploaded clip from its owner.
 - A previously uploaded clip counts when its category becomes applicable to the new primary position and its processing status is successful.
 
-### Skill Clip Creation and Sources
+### Skill Clip Categorization
 
-The athlete may create a Skill Clip in any of these ways:
-
-- cut a segment from the uploaded Main Evaluation Video;
-- cut a segment from uploaded Extended Match Footage; or
-- upload a separate match or training clip.
-
-The same source video may supply multiple Skill Clips without requiring the original media to be uploaded again. Each resulting Skill Clip is a separate evidence record that references its source media and start/end timestamps where applicable.
-
-When adding a Skill Clip, the athlete must select exactly one category from a dropdown organized as:
+When adding a Skill Clip, the athlete must select exactly one category organized as:
 
 1. `Suggested for your primary position`;
 2. `Other soccer skills`.
 
 The athlete may add their own description of what the clip demonstrates and any useful match context. Multiple Skill Clips may use the same category, but repeated clips do not create additional completion credit. The description does not affect completion.
 
-### Duration and Context
+### Rules Deferred to the Media Slice
 
-- Default Skill Clip duration: 10–60 seconds.
-- Context-dependent evidence may be up to 90 seconds when needed to show the development and result of the action.
-- The editing UI should encourage the athlete to include several seconds before the key action for positioning, pressing, off-ball movement, pace in match situations, goalkeeper positioning, and hold-up/link play.
-- A clip may demonstrate a quality but must not be represented as an objective measurement. For example, `Pace in Match Situations` is video evidence, not a verified sprint-speed value.
-- Match and training sources must remain distinguishable through source/context metadata.
-- The future media slice supports up to eight saved Skill Clips per Soccer Profile.
+This document does not define media file-size, duration, upload-count, storage, processing, editing, source, moderation, pricing, or purchase-entitlement rules. Those decisions are deferred to the separate media slice. The approved high-level commercial direction is recorded once in the Media Boundary section of `04-mvp-slice-2-athlete-profile-product-requirements.md`.
 
 ## Calculation Rules
 
@@ -357,7 +344,6 @@ The athlete may add their own description of what the clip demonstrates and any 
 - A Soccer Profile without a selected recruiting category is not Recruiter-Ready.
 - A profile with no Skill Clips may be Recruiter-Ready when every minimum checklist item, including the Main Evaluation Video, passes.
 - An athlete marked `Currently unattached` may be Recruiter-Ready without an active `TeamSeason`.
-- With no successfully processed Soccer media, the maximum completion is 75%.
 - Without a Main Evaluation Video, the maximum completion is 90%.
 - A Centre Back with three of five mapped categories receives `3 / 5 × 10 = 6%` from Skill Clips.
 - A Winger with three of six mapped categories receives `3 / 6 × 10 = 5%` from Skill Clips.

@@ -80,7 +80,7 @@ The one-active-record rule is an MVP product constraint. The relationship model 
 
 ## Protected Actions
 
-For a guardian-controlled profile, only the guardian may perform guardian-required legal actions, manage supervision/relationships, enable future visibility, approve external sharing, or request profile/account deletion. For under-14 profiles, the guardian performs all profile and protected actions directly rather than reviewing athlete actions. Independent-mode ages 16–17 and adult profiles do not use the guardian-review workflow; any separate legally required permission must be evaluated independently.
+For a guardian-controlled profile, only the guardian may perform guardian-required legal actions, manage supervision/relationships, approve external sharing, or request profile/account deletion. Visibility authority follows the Age-Based Visibility Control rules in `03-athlete-sport-profile-completion-product-requirements.md`. For under-14 profiles, the guardian performs all profile and protected actions directly rather than reviewing athlete actions. Independent-mode ages 16–17 and adult profiles do not use the guardian-review workflow; any separate legally required permission must be evaluated independently.
 
 - Date of birth is not normally editable by either person and uses the correction process.
 - Legal/full-name correction is guardian-controlled for a supervised minor and must be audited.
@@ -115,7 +115,9 @@ Future Soccer media belongs to the applicable `AthleteSportProfile`. While priva
 - removing or invalidating the approved Main Evaluation Video makes Recruiter-Ready `No` and suspends effective visibility;
 - guardian approval never overrides processing, moderation, safety, or administrative holds.
 
-Detailed category, duration, source, completion, and Recruiter-Ready rules are defined in `03-athlete-sport-profile-completion-product-requirements.md`.
+Completion, Recruiter-Ready, visibility and position-to-skill category rules are defined in `03-athlete-sport-profile-completion-product-requirements.md`.
+
+The future media model must support a configurable free upload allowance and separately purchased additional upload capacity. Exact file-size, duration, quantity, storage, pricing and entitlement rules are deferred to the media slice and are not approved in this specification.
 
 ## Document Boundary
 
