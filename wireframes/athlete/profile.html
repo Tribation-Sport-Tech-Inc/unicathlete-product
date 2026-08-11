@@ -1466,6 +1466,11 @@ p {
 
     <div class="editable-form" hidden id="athlete-details-form">
     <div class="form-grid">
+     <div class="field" style="grid-column:1/-1">
+      <label for="athleteProfilePhoto">Profile Photo <span class="field-lock">Optional</span></label>
+      <input accept=".jpg,.jpeg,.png" id="athleteProfilePhoto" type="file"/>
+      <span class="field-help">Upload or replace the shared Athlete Profile photo. It remains private while the profile is private.</span>
+     </div>
      <div class="field">
       <label for="athleteFullName">
        Full Name
@@ -1828,9 +1833,6 @@ p {
         <option>
          Both
         </option>
-        <option>
-         Not sure
-        </option>
        </select>
       </div>
       <div class="field">
@@ -2027,7 +2029,7 @@ p {
       </div>
       <div class="actions">
        <span class="source-badge">Self-reported</span>
-       <a class="button btn-primary" href="#">+ Add Match</a>
+       <a class="button btn-primary" href="#">Edit Season Statistics</a>
       </div>
      </div>
 
@@ -2345,7 +2347,7 @@ p {
        <button aria-label="Document storage engineering note" class="info-note" onclick="openBackendNote('document-storage')" title="Engineering note" type="button">ⓘ</button>
       </div>
       <p>
-       Private files managed by the athlete and authorized guardian. A document may optionally be linked to a Sport Profile.
+       Private files associated with the Athlete Profile. A document may optionally be linked to a Sport Profile; linking it does not make it visible.
       </p>
      </div>
      <button class="button btn-primary" id="uploadDocumentButton" type="button">Upload Document</button>
@@ -2624,7 +2626,7 @@ Recruiters see uploaded clips and their category/context labels. They do not see
      title: 'Documents — Private Library Foundation',
      body: `OWNERSHIP AND ACCESS
 • AthleteDocument is owned by AthleteProfile and may optionally link to one or more AthleteSportProfiles.
-• Only the athlete and currently authorized guardian relationships can access the private library.
+• Slice 2 does not implement document access or management. The document slice must apply the current athlete/guardian authorization state and define any narrower document-specific permissions.
 • Sport Profile visibility never grants access to a linked document.
 • Documents do not affect Profile Completion, Recruiter-Ready, search visibility, or ranking.
 
@@ -2658,6 +2660,12 @@ A later request-and-sharing workflow may reference an AthleteDocument through a 
 • Shared profile-photo reference
 • Date of birth and derived age band
 • Management and communication modes
+
+AUTHORIZATION PRESENTATION
+• This wireframe shows the ordinary-content editor view.
+• Before an athlete aged 14–17 joins, the guardian may edit ordinary profile content.
+• After the athlete joins, the athlete becomes the ordinary-content editor. The guardian sees the profile without ordinary Edit, upload, add, or delete controls and retains only the separately authorized supervision actions.
+• Under-14 profiles remain guardian managed; adult profiles are athlete managed.
 
 Date of birth, age rules, and account-management fields are managed through account/settings flows. Shared athlete information must not be duplicated inside the Soccer profile. Store citizenship as one or more standardized country identifiers; do not collect passport numbers or citizenship documents in this field. The profile does not collect an exact home address, postal code, coordinates, live location, or exact school name. City, country of residence, and citizenship countries may appear only through an approved recruiter-facing projection when the applicable Sport Profile is effectively visible.
 

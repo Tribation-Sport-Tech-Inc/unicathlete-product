@@ -42,8 +42,10 @@ Every applicable item below must pass.
 
 - Recruiting category is selected as `Men's Soccer` or `Women's Soccer`.
 - Primary position is selected.
-- Preferred foot is selected.
+- Preferred foot is selected as `Left`, `Right`, or `Both`.
 - Current height is present.
+
+`Not sure` is not a stored preferred-foot value and does not satisfy Profile Completion or Recruiter-Ready. The field may remain unanswered until the athlete can select one of the supported values.
 
 Secondary position, weight, and player summary are not required for Recruiter-Ready.
 
@@ -137,10 +139,13 @@ Passing every requirement must only enable the control. It must never automatica
 ### Age-Based Visibility Control
 
 - **Under 14:** only the guardian has access and controls visibility.
-- **Ages 14–15:** the athlete can view the status; only the guardian can turn visibility on or off.
-- **Ages 16–17, supervised:** the same rule as ages 14–15.
-- **Ages 16–17, independent:** the athlete controls visibility once all eligibility gates and any required legal permission are satisfied.
+- **Ages 14–17, athlete has not joined:** the guardian manages the profile and controls visibility.
+- **Ages 14–15, athlete has joined:** the athlete can view the status; only the guardian can turn visibility on or off.
+- **Ages 16–17, supervised and joined:** the same rule as joined ages 14–15.
+- **Ages 16–17, independent and joined:** the athlete may turn visibility on or off once all eligibility gates and any required legal permission are satisfied. The guardian cannot turn it on but may make the profile private as a safety action.
 - **Adults 18+:** the athlete controls visibility.
+
+Profile-management and guardian-access transitions are defined in `06-athlete-guardian-profile-access-product-requirements.md`.
 
 ### Continued Eligibility and Automatic Hiding
 
@@ -187,6 +192,8 @@ The Slice 2 implementation boundary and temporary profile-status behavior are de
 - Languages: 2%. The athlete must select a primary language and answer the English-proficiency question. English may itself be the primary language; additional languages are optional and may each carry their own proficiency level.
 
 Supported proficiency answers are `Native or bilingual`, `Advanced`, `Intermediate`, `Basic`, and `No current proficiency`. When an additional language is added, its proficiency level must also be selected. Additional languages remain optional and do not provide extra Profile Completion credit. Language and country values must use standardized identifiers rather than uncontrolled display text.
+
+Country standardization applies to citizenship, country of residence, school country, TeamSeason country, and other country selectors. The UI may localize display names while persistence keeps stable country codes.
 
 Full name and date of birth do not contribute because they are required during account creation.
 
@@ -244,6 +251,8 @@ When `With a team` is selected, each completed item on the current draft or acti
 Statistics are owned by the applicable `TeamSeason`; closing or archiving a season must not move its values onto the general Soccer Profile.
 
 The explicit `Statistics unavailable/not tracked` answer also belongs to the applicable `TeamSeason`; it must not automatically carry forward to another season.
+
+`No previous team seasons` is a Sport Profile-level explicit response. Store it separately from `TeamSeason` records, prevent it from coexisting with a previous TeamSeason, and clear it when previous history is added.
 
 The applicable statistic set is determined by the position played in that `TeamSeason`, not only by the Soccer Profile's primary position:
 

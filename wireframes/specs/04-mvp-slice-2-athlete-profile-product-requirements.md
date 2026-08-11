@@ -8,6 +8,7 @@ An email-verified athlete or authorized guardian can create, resume, and edit a 
 
 - resumable structured-data onboarding without duplicate profile creation;
 - shared athlete, education, and measurement information - `AthleteProfile` level;
+- functional private profile-photo upload and replacement - `AthleteProfile` level;
 - shared Sport Profile lifecycle and status information - `AthleteSportProfile` level;
 - Soccer player, team-season, playing-history, performance, and recruiting information - one-to-one `SoccerProfile` extension;
 - Profile Completion and Recruiter-Ready calculation using the supporting completion specification;
@@ -46,24 +47,22 @@ In this specification, **Soccer Sport Profile** refers to the combined product v
 ## Draft Editing Authority
 
 - **Under 14:** the authorized guardian completes onboarding and edits all profile content; the athlete has no login.
-- **Ages 14–15:** the connected athlete and authorized guardian may complete onboarding and edit ordinary profile content. The guardian controls supervised-account actions.
-- **Ages 16–17, supervised mode:** the connected athlete and authorized guardian may edit ordinary profile content, with the same guardian controls as ages 14–15.
-- **Ages 16–17, independent mode:** the athlete may edit ordinary profile content without a guardian review workflow. Any legally required guardian permission for visibility remains a separate rule and does not create ongoing review of the athlete's edits.
+- **Ages 14–17, athlete has not joined:** the guardian completes onboarding and edits the private profile. Athlete participation is optional when the guardian starts, except that independent mode requires an activated athlete login.
+- **Ages 14–17, athlete has joined:** the athlete becomes the ordinary-content editor. The guardian retains view and applicable supervision access but cannot edit ordinary profile content.
+- **Ages 16–17, independent mode:** the athlete edits ordinary profile content without guardian review. The guardian remains view-only and retains only the applicable legal, permission, and safety actions.
 - **Adults 18+:** the athlete edits and manages the profile.
 
-In this specification, **guardian-controlled profile** means an ages 14–15 profile or an ages 16–17 profile in supervised mode where the athlete has a login but specified actions require guardian review. It does not mean:
+When an invited athlete activates their account, editing authority transfers to the athlete without recreating the profile. Guardian editing must not return automatically because the athlete account becomes inactive or unavailable. Detailed transitions and the access matrix are defined in `06-athlete-guardian-profile-access-product-requirements.md`.
 
-- an under-14 profile, because the athlete has no login and the guardian edits directly;
-- an ages 16–17 profile in independent mode; or
-- an adult profile.
-
-Ordinary athlete-editable content is limited to:
+Ordinary profile content, edited by the guardian before athlete activation and by the athlete afterward, is limited to:
 
 - city, country of residence, country or countries of citizenship, languages, profile photo, education status, school country, and graduation date;
 - height and weight entries;
 - Soccer recruiting category, positions, preferred foot, and player summary;
 - current/unattached status, team-seasons, playing history, statistics, and achievements;
 - recruiting availability, target college start, destination interest, and coach-reference status.
+
+Country and language selectors must persist standardized identifiers. This includes citizenship, country of residence, school country, TeamSeason country, primary language, English, and additional languages. Display labels may be localized without changing the stored identity.
 
 ## TeamSeason Lifecycle
 
@@ -77,6 +76,8 @@ Ordinary athlete-editable content is limited to:
 - A new season at the same club creates a new record rather than overwriting the previous season.
 - Store the real TeamSeason start date and optional end date separately from system lifecycle timestamps such as `closed_at`. Historical TeamSeasons may preserve both dates; an active TeamSeason normally has no end date yet.
 - Season statistics belong to their `TeamSeason`. The applicable configurable statistic set is selected from the position played in that season; goalkeeper and outfield seasons therefore expose different fields. Statistic types must not be fixed columns on `TeamSeason`, and the values must not be stored as general lifetime Soccer Profile values. Detailed scoring rules are defined in Spec 03.
+- Slice 2 stores cumulative season totals only. The current ordinary-content editor updates them through `Edit season statistics`; Slice 2 does not create match-by-match records or provide an `Add match` action.
+- Preserve an explicit `No previous team seasons` response on the Soccer Profile. It cannot coexist with a previous TeamSeason and must be cleared when previous history is added.
 - Historical corrections record actor and timestamp. Normal removal archives the record from display; approved retention/deletion rules govern permanent erasure.
 - Recruiter-Ready uses a sufficiently complete active `TeamSeason` or explicit unattached state. A draft `TeamSeason` cannot satisfy it. Previous seasons improve completion but do not block Recruiter-Ready.
 
@@ -84,40 +85,26 @@ The one-active-record rule is an MVP product constraint. The relationship model 
 
 ## Protected Actions
 
-For a guardian-controlled profile, only the guardian may perform guardian-required legal actions, manage supervision/relationships, approve external sharing, or request profile/account deletion. Visibility authority follows the Age-Based Visibility Control rules in `03-athlete-sport-profile-completion-product-requirements.md`. For under-14 profiles, the guardian performs all profile and protected actions directly rather than reviewing athlete actions. Independent-mode ages 16–17 and adult profiles do not use the guardian-review workflow; any separate legally required permission must be evaluated independently.
+Ordinary profile editing does not grant authority over guardian-required legal actions, relationships, supervision, external sharing, visibility, or profile/account deletion. Visibility authority follows Spec 03 and the access matrix in Spec 06. For under-14 and guardian-managed unjoined profiles, the guardian performs profile and applicable protected actions directly. Joined athletes manage ordinary content; the guardian performs only the supervisory actions assigned to them.
 
 - Date of birth is not normally editable by either person and uses the correction process.
-- Legal/full-name correction is guardian-controlled for a supervised minor and must be audited.
+- Legal/full-name correction uses an audited exception process rather than ordinary profile editing.
 - Each login owner controls their own email verification, password, multifactor authentication, and recovery information. Credentials are never shared.
-- Either athlete or guardian may make a Sport Profile more private; the more restrictive choice wins.
+- In independent mode, the guardian may make the Sport Profile private but cannot enable visibility. Withdrawal of a guardian-provided permission is a separate legal action from changing visibility.
 
-## Future Review of Changes to Visible Profiles
+## No Guardian Review of Ordinary Profile Changes
 
-This workflow is defined for future compatibility and is not implemented in Slice 2. It applies only when a guardian-controlled profile, as defined above, is currently visible to scouts. It therefore applies to ages 14–15 and supervised ages 16–17 only.
+Once an athlete aged 14–17 joins, ordinary profile changes do not require guardian approval, including when visibility is introduced later. Guardian supervision applies to visibility, required permissions, and the future external-interaction rules defined for messaging and documents. Processing, moderation, Recruiter-Ready, safety, and administrative rules may still prevent changed information from being exposed.
 
-It does not apply while the Sport Profile is private, to under-14 profiles, to independent-mode ages 16–17, or to adults.
+## Profile Photo Boundary
 
-For an applicable visible guardian-controlled profile:
-
-- Athlete changes to scout-visible fields are saved as one private change set rather than overwriting approved values.
-- The guardian receives a notification and reviews previous and proposed values, actor, and timestamp.
-- The guardian approves or rejects the complete change set. Approval applies it atomically and recalculates Recruiter-Ready and effective visibility; rejection preserves approved values and may include a reason.
-- The last approved version may remain visible while review is pending. The athlete can make the Sport Profile private immediately.
-- Guardian edits may apply directly, subject to Recruiter-Ready, verification, permission, safety, and administrative gates.
-
-Future change-set data must support `draft`, `pending`, `approved`, `rejected`, and `withdrawn`, plus submitter, reviewer, timestamps, and previous/proposed values.
+Profile-photo upload is functional in Slice 2 and is separate from deferred Soccer media. Accept JPEG and PNG, store a private object reference rather than a publicly guessable permanent URL, and allow the current ordinary-content editor to upload or replace it. The photo remains unavailable to scouts in Slice 2 and does not use the future paid Soccer-media allowance. File-size, image-dimension, and processing limits must be configurable; Engineering may select safe operational defaults for Slice 2.
 
 ## Media Boundary and Future Rules
 
-Slice 2 shows Media placeholders only. It does not provide upload, storage, processing, clipping, playback, replacement, deletion, moderation, or guardian media-review functionality.
+Slice 2 shows Media placeholders only. It does not provide upload, storage, processing, clipping, playback, replacement, deletion, moderation, or minor-specific media approval functionality.
 
-Future Soccer media belongs to the applicable `AthleteSportProfile`. While private, an authorized account user may prepare media without triggering visible-profile review. The following guardian media-review rules apply only when an ages 14–15 or supervised ages 16–17 guardian-controlled profile is visible to scouts; they do not apply to under-14, independent-mode ages 16–17, or adult profiles:
-
-- athlete-created uploads, replacements, deletions, category/timestamp changes, titles, context, thumbnails, and ordering require guardian review after successful processing;
-- guardian changes may apply directly after successful processing and safety checks;
-- a replacement remains private until approved, while the last approved item remains unchanged;
-- removing or invalidating the approved Main Evaluation Video makes Recruiter-Ready `No` and suspends effective visibility;
-- guardian approval never overrides processing, moderation, safety, or administrative holds.
+Future Soccer media belongs to the applicable `AthleteSportProfile`. Its upload, processing, moderation, editing, and exposure rules are defined in the media slice. A guardian does not approve ordinary profile changes merely because media contributes to the profile; any narrower minor-safety rule must be explicitly defined in that slice. Removing or invalidating the approved Main Evaluation Video makes Recruiter-Ready `No` and suspends effective visibility.
 
 Completion, Recruiter-Ready, visibility and position-to-skill category rules are defined in `03-athlete-sport-profile-completion-product-requirements.md`.
 

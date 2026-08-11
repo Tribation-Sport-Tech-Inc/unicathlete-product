@@ -30,8 +30,8 @@ Date of birth is the source of truth. Production calculates the age band; the ag
 | Age | Who may start | Athlete login | Guardian rule | Mode |
 |---|---|---|---|---|
 | Under 14 | Guardian only | None | Required | Guardian managed |
-| 14–15 | Athlete or guardian | Created or invited | Required | Supervised |
-| 16–17 | Athlete or guardian | Required | Required | Supervised by default |
+| 14–15 | Athlete or guardian | Required when athlete starts; optional when guardian starts | Required | Guardian managed until athlete joins; then supervised |
+| 16–17 | Athlete or guardian | Required when athlete starts or for independent mode; optional when guardian starts | Required | Guardian managed until athlete joins; then supervised by default |
 | 18+ | Athlete | Required | Not required | Independent adult |
 
 Additional rules:
@@ -40,10 +40,12 @@ Additional rules:
 - Ages 14–15, athlete starts: guardian invitation and approval are required.
 - Ages 14–15, guardian starts: athlete invitation is optional during signup and may be sent later.
 - Ages 16–17, athlete starts: guardian invitation and approval are required.
-- Ages 16–17, guardian starts: athlete invitation and activation are required.
-- Ages 16–17 choose supervised or request independent communication during account creation. Independent communication must never activate from age alone or from one person's selection: the invited person must explicitly accept it, otherwise the result is supervised.
+- Ages 16–17, guardian starts: athlete invitation is optional during signup and may be sent later. The profile remains guardian managed and supervised until the athlete joins.
+- Ages 16–17 may choose supervised mode or request independent communication only after the athlete has an activated login. Independent communication must never activate from age alone or from one person's selection: the other person must explicitly accept it, otherwise the result is supervised.
 - Independent communication covers eligible scout messages, information-request responses, requested media/documents, and related recruiting follow-up. Guardian connection remains in place.
 - Adults create and manage their own account and athlete profile without a guardian.
+
+Profile-management authority before and after athlete invitation acceptance is defined in `06-athlete-guardian-profile-access-product-requirements.md`.
 
 ## Email Verification and Invitations
 
@@ -99,6 +101,7 @@ Athlete/guardian status must identify:
 
 - private-draft status and unavailable scout visibility;
 - connected, invited, or pending relationships;
+- whether the profile is guardian managed because the athlete has not joined, or athlete managed after activation;
 - email-verification status;
 - guardian/adult identity verification as `not started`;
 - the current 16–17 communication status, when applicable;

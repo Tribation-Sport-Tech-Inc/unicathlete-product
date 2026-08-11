@@ -1321,7 +1321,7 @@ p {
        The guardian email is already identified by the secure link. This page should not ask the guardian to create a password in the athlete-start path.
       </div>
       <div class="required-note">
-       Account activation requires every consent item on this form to be checked.
+       Account activation requires every applicable required item on this form to be completed.
       </div>
       <div class="consent-list">
       <label class="consent-item">
@@ -1388,7 +1388,7 @@ p {
         I am a parent / guardian
        </strong>
        <span>
-        I connect as guardian first, then invite the athlete to activate their login.
+        I connect as guardian first. I can invite the athlete now or later.
        </span>
       </button>
      </div>
@@ -1596,10 +1596,10 @@ p {
       Age 16-17 Athlete
      </span>
      <p id="olderTeenGuardianAccountIntro">
-      The guardian creates their own login first, then invites the athlete to activate their login.
+      The guardian creates their own login first. Inviting the athlete during signup is optional.
      </p>
      <div class="info-box" id="olderTeenGuardianAccountNotice">
-      After guardian consent, the guardian can continue profile setup. The athlete invitation remains pending until the athlete activates their login.
+      The guardian can continue profile setup while the athlete has not joined. If an invitation is sent, ordinary profile editing transfers to the athlete after activation.
      </div>
      <div class="path-form">
       <div class="form-grid">
@@ -1638,41 +1638,16 @@ p {
         </select>
        </div>
        <div class="field">
-        <label>
-         Athlete email for activation invitation <span class="required">*</span>
+       <label>
+         Athlete email for activation invitation <span class="optional">Optional</span>
         </label>
         <input placeholder="athlete@email.com" type="email"/>
+        <span class="field-help">Leave blank to invite the athlete later. If entered, the invitation is sent after the guardian verifies their email.</span>
        </div>
       </div>
      </div>
-     <div class="path-form">
-      <h3>
-       Requested communication mode
-      </h3>
-      <p>
-       This choice controls which consent points appear in the guardian consent step.
-      </p>
-      <div class="choice-grid">
-       <button class="choice" data-comm-choice="supervised_1617" onclick="selectChoice('commMode','supervised_1617', this)">
-        <strong>
-         Supervised mode
-        </strong>
-        <span>
-         Athlete drafts messages and sensitive request responses. Guardian approves before anything is sent or shared.
-        </span>
-       </button>
-       <button class="choice" data-comm-choice="independent_1617" onclick="selectChoice('commMode','independent_1617', this)">
-        <strong>
-         Independent communication
-        </strong>
-        <span>
-         Athlete can handle scout messages, information requests, and recruiting sharing directly after joint consent.
-        </span>
-       </button>
-      </div>
-     </div>
-     <div class="info-box" id="olderTeenModeNotice">
-      Supervised mode needs guardian consent. Independent mode needs both guardian consent and athlete acceptance; if either side declines, supervised mode wins.
+     <div class="info-box">
+      The profile remains guardian managed until the athlete joins. After activation, the athlete begins in supervised mode. Independent communication may be requested only after the athlete has joined and both people explicitly accept it.
      </div>
      <div class="email-consent-preview">
       <div class="email-preview-head">
@@ -1681,7 +1656,7 @@ p {
          Athlete invitation email
         </span>
         <strong>
-         What the athlete receives after guardian consent
+         What the athlete receives if invited
         </strong>
        </div>
        <div class="email-badge">
@@ -1693,7 +1668,7 @@ p {
         <span>
          To
         </span>
-        Athlete email for activation invitation
+        Optional athlete invitation email
        </div>
        <div class="email-envelope-row">
         <span>
@@ -1709,7 +1684,7 @@ p {
        </div>
       </div>
       <p>
-       The athlete opens a secure email link, creates their password, agrees to the age-appropriate Terms, acknowledges the age-appropriate Privacy Notice, and sees the communication mode requested by the guardian.
+       The athlete opens a secure email link, creates their password, agrees to the age-appropriate Terms, and acknowledges the age-appropriate Privacy Notice. Activation connects the athlete to the existing profile and transfers ordinary profile editing to them.
       </p>
       <div class="form-grid">
        <div class="field">
@@ -1719,29 +1694,8 @@ p {
         <input placeholder="Created by athlete from email link" type="password"/>
        </div>
       </div>
-      <div class="info-box older-supervised-consent">
-       In supervised mode, the athlete activates their login only. No independent communication choice is shown.
-      </div>
-      <div class="choice-grid older-independent-consent">
-       <button class="choice" type="button">
-        <strong>
-         Accept independent communication
-        </strong>
-        <span>
-         I agree to manage scout messages, information requests, requested media/documents, and recruiting follow-up directly.
-        </span>
-       </button>
-       <button class="choice" type="button">
-        <strong>
-         Keep supervised mode
-        </strong>
-        <span>
-         I want guardian approval to remain required for sensitive scout communication and sharing.
-        </span>
-       </button>
-      </div>
-      <div class="verification-later-note older-independent-consent">
-       Independent communication becomes active only if the athlete accepts it from this email. If they choose supervised mode, supervised mode wins.
+      <div class="info-box">
+       The invited athlete activates in supervised mode. Any later request for independent communication is a separate two-person decision.
       </div>
      </div>
     </div>
@@ -1788,7 +1742,7 @@ p {
        The guardian reaches this consent form from the secure email link sent after the athlete starts signup. The guardian email is already identified by that link.
       </p>
       <div class="required-note">
-       Account activation requires every consent item on this form to be checked.
+       Account activation requires every applicable required item on this form to be completed.
       </div>
       <div class="consent-list">
       <label class="consent-item">
@@ -1800,7 +1754,7 @@ p {
         </small>
        </span>
       </label>
-      <label class="consent-item">
+      <label class="consent-item older-athlete-start-field">
        <input class="required-older-teen-consent" type="checkbox"/>
        <span>
         I consent to this athlete having their own connected athlete account.
@@ -1809,7 +1763,7 @@ p {
         </small>
        </span>
       </label>
-      <label class="consent-item older-supervised-consent">
+      <label class="consent-item older-supervised-consent older-athlete-start-field">
        <input class="required-older-teen-consent" type="checkbox"/>
        <span>
         I understand that messages, information request responses, and sensitive sharing require guardian approval in supervised mode.
@@ -2083,8 +2037,8 @@ const copy = {
   'teen-consent': ['Guardian Consent', 'Confirm supervised access, profile visibility, and message approval rules.'],
   'older-teen-access': ['Connected Guardian Access', 'Athletes aged 16-17 can have more independence, but guardian connection remains required.'],
   'older-teen-account-athlete': ['Athlete Starts', 'Create the connected athlete login and send guardian consent by email.'],
-  'older-teen-account-guardian': ['Guardian Starts', 'Create the guardian account and invite the athlete to activate their login.'],
-  'older-teen-consent': ['Guardian Consent', 'Confirm connection, safety settings, and the selected communication mode.'],
+  'older-teen-account-guardian': ['Guardian Starts', 'Create the guardian account and optionally invite the athlete now or later.'],
+  'older-teen-consent': ['Guardian Account Actions', 'Confirm guardian authority and the required account acknowledgements.'],
   'adult-account': ['Independent Athlete Account', 'Adult athletes create their own login and manage their own profile.'],
   'adult-consent': ['Adult Account Consent', 'Confirm account ownership and required account acknowledgements.'],
   'athlete-created': ['Check Your Email', 'Verify the account email before continuing with profile setup.'],
@@ -2120,7 +2074,7 @@ function render() {
   document.getElementById('nextButton').textContent = nextButtonLabel;
   const supervisedChoiceRequired = currentStep === 'teen-access' && !selected.manager;
   const olderTeenChoiceRequired = currentStep === 'older-teen-access' && !selected.manager;
-  const commModeRequired = (currentStep === 'older-teen-account-guardian' || currentStep === 'older-teen-account-athlete') && !selected.commMode;
+  const commModeRequired = currentStep === 'older-teen-account-athlete' && !selected.commMode;
   const ageBandRequired = currentStep === 'dob' && !selected.ageBand;
   document.getElementById('nextButton').disabled = (currentStep === 'profile-type' && !selected.profileType) || ageBandRequired || supervisedChoiceRequired || olderTeenChoiceRequired || commModeRequired;
   updateTeenPathCopy();
@@ -2409,8 +2363,8 @@ function updateOlderTeenPathCopy() {
       accountIntro.textContent = 'The athlete creates their own login and provides guardian name, email, and relationship for the consent link.';
       accountNotice.textContent = 'The guardian opens the secure link, verifies their email, and confirms the selected communication mode.';
     } else {
-      accountIntro.textContent = 'The guardian connects first and provides the athlete email for activation.';
-      accountNotice.textContent = 'After guardian consent, the guardian can continue profile setup. The athlete invitation remains pending until the athlete activates their login.';
+      accountIntro.textContent = 'The guardian creates their own login first. Inviting the athlete during signup is optional.';
+      accountNotice.textContent = 'The guardian can continue profile setup while the athlete has not joined. If the athlete later activates, ordinary profile editing transfers to them.';
     }
   }
   if (modeNotice) {
@@ -2425,11 +2379,11 @@ function updateOlderTeenPathCopy() {
         : 'The guardian requested independent communication. The athlete must also accept it when activating their login.'
       : athleteStarted
         ? 'This is not an athlete-facing form. The guardian opened this secure email link to confirm connected guardian access.'
-        : 'The guardian confirms connected access, profile visibility, and supervised approval rules.';
+        : 'The guardian confirms their authority and completes the required actions for their own account.';
   }
   if (consentLabel && consentTitle) {
-    consentLabel.textContent = athleteStarted ? 'Email Preview' : 'Guardian Consent';
-    consentTitle.textContent = athleteStarted ? 'Guardian opens consent link' : 'Consent for age 16-17 account';
+    consentLabel.textContent = athleteStarted ? 'Email Preview' : 'Guardian Account';
+    consentTitle.textContent = athleteStarted ? 'Guardian opens consent link' : 'Guardian account acknowledgements';
   }
 }
 render();

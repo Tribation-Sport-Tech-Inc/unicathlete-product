@@ -57,12 +57,15 @@ The 16–17 communication-mode record is a product permission. Legal review may 
 
 Apart from the defined communication-mode decision, Slice 1 does not request permission for discovery, published visibility, evaluations, international scout access, or other recruiting-data uses.
 
+An athlete invitation may authenticate the invited email and connect the athlete to the existing profile, but it does not itself record the athlete's Terms action, Privacy Notice action, consent, or product permission. Those actions require their own authenticated presentation and response.
+
 Slice 1 is an internal development milestone. Its placeholder notices, checkboxes, and authority assertions must not be represented as production-ready legal content or as completed verifiable parental consent.
 
 ## Future-Safety Rules
 
 - Do not hard-code one global legal rule; requirements may vary by jurisdiction, age/capacity, account type, role, information sensitivity, and processing purpose.
-- Age transitions must not silently remove guardian access, grant permissions, or convert prior decisions into new consent.
+- Age transitions must not silently grant access, grant permissions, or convert prior decisions into new consent. Automatic minor-based guardian access ends at adulthood through an explicit, auditable transition; any later voluntary access requires a separate adult-authorized relationship.
+- A person may withdraw only an applicable consent or permission action they personally provided. Turning Sport Profile visibility off and withdrawing consent/permission remain separate actions, and withdrawal history must be preserved.
 - New collection, use, disclosure, third-party access, or materially changed purpose requires Product/privacy review.
 - Cross-border processing and international access require jurisdiction-specific review before activation.
 - Identity documents, biometrics, health information, and other sensitive information require separate necessity, notice, consent, security, and retention review before collection.
