@@ -1457,7 +1457,7 @@ p {
      <div class="summary-item"><span>Full Name</span><strong>Alex Kim</strong></div>
      <div class="summary-item"><span>Location</span><strong>Toronto, Canada</strong></div>
      <div class="summary-item"><span>Citizenship</span><strong>Canada, South Korea</strong></div>
-     <div class="summary-item"><span>Languages</span><strong>English, Korean</strong></div>
+     <div class="summary-item"><span>Languages</span><strong>Korean (Primary) · English (Native or bilingual)</strong></div>
      <div class="summary-item"><span>Date of Birth</span><strong>Apr 18, 2009 &middot; Locked</strong></div>
      <div class="summary-item"><span>Education</span><strong>Currently in secondary education</strong></div>
      <div class="summary-item"><span>School Country</span><strong>Canada</strong></div>
@@ -1515,12 +1515,45 @@ p {
       </select>
       <span class="field-help">Select every country where the athlete currently holds citizenship. Citizenship is separate from country of residence.</span>
      </div>
-     <div class="field" style="grid-column:1/-1">
-     <label for="athleteLanguages">
-       Languages
-      </label>
-      <input id="athleteLanguages" value="English, Korean"/>
-      <span class="field-help">Add the languages the athlete can use comfortably.</span>
+     <div class="field">
+      <label for="athletePrimaryLanguage">Primary Language</label>
+      <select id="athletePrimaryLanguage">
+       <option>English</option>
+       <option>French</option>
+       <option selected>Korean</option>
+       <option>Spanish</option>
+       <option>Other</option>
+      </select>
+     </div>
+     <div class="field">
+      <label for="athleteEnglishProficiency">English Proficiency</label>
+      <select id="athleteEnglishProficiency">
+       <option selected>Native or bilingual</option>
+       <option>Advanced</option>
+       <option>Intermediate</option>
+       <option>Basic</option>
+       <option>No current proficiency</option>
+      </select>
+     </div>
+     <div class="field">
+      <label for="athleteAdditionalLanguage">Additional Language <span class="field-lock">Optional</span></label>
+      <select id="athleteAdditionalLanguage">
+       <option value="">None added</option>
+       <option>French</option>
+       <option>Spanish</option>
+       <option>Other</option>
+      </select>
+     </div>
+     <div class="field">
+      <label for="athleteAdditionalLanguageProficiency">Additional-language Proficiency</label>
+      <select id="athleteAdditionalLanguageProficiency">
+       <option value="">Not applicable</option>
+       <option>Native or bilingual</option>
+       <option>Advanced</option>
+       <option>Intermediate</option>
+       <option>Basic</option>
+      </select>
+      <span class="field-help">Additional languages may be added later. Language proficiency is self-reported.</span>
      </div>
      <div class="field">
       <label for="athleteEducationStatus">
@@ -1933,6 +1966,10 @@ p {
        <input type="month" value="2025-08"/>
       </div>
       <div class="field">
+       <label>End Date <span class="field-lock">Optional while active</span></label>
+       <input type="month"/>
+      </div>
+      <div class="field">
        <label>Position Played</label>
        <select id="currentTeamPosition">
         <option selected>Right Winger (RW)</option>
@@ -1951,7 +1988,8 @@ p {
       </div>
       <div class="field">
        <label>Usual Shirt Number <span class="field-lock">Optional</span></label>
-       <input value="11"/>
+       <input id="currentTeamShirtNumber" value="11"/>
+       <label style="margin-top:8px;"><input id="noFixedShirtNumber" type="checkbox"/> No fixed shirt number</label>
       </div>
      </div>
      <div class="shared-profile-actions">
@@ -1993,6 +2031,15 @@ p {
       </div>
      </div>
 
+     <div class="field" style="max-width:320px;margin-bottom:14px;">
+      <label for="statisticsAvailability">Statistics reporting</label>
+      <select id="statisticsAvailability">
+       <option selected value="available">Statistics available</option>
+       <option value="not-tracked">Statistics unavailable / not tracked</option>
+      </select>
+      <span class="field-help">This answer applies only to the current TeamSeason.</span>
+     </div>
+     <div class="note" hidden id="statisticsUnavailableNote"><strong>Statistics unavailable / not tracked.</strong> This TeamSeason still remains part of the athlete's playing history.</div>
      <div class="season-stat-grid" id="outfieldSeasonStats">
       <div class="season-stat"><strong>31</strong><span>Appearances</span><small>28 starts</small></div>
       <div class="season-stat"><strong>2,140</strong><span>Minutes</span></div>
@@ -2016,11 +2063,12 @@ p {
     <div class="section-head" style="margin-top:18px;">
      <div>
       <h3>Previous Playing History</h3>
-      <p>2 previous team-seasons</p>
+      <p id="previousHistoryCount">2 previous team-seasons</p>
      </div>
      <button class="button btn-light compact-section-toggle" data-collapse-target="previous-history-content" data-collapsed-label="View History" data-expanded-label="Hide History" type="button">View History</button>
     </div>
     <div class="collapsible-content season-history-list" hidden id="previous-history-content">
+     <label><input id="noPreviousTeamSeasons" type="checkbox"/> No previous team seasons</label>
      <div class="season-history-row">
       <div><strong>2024/25 &middot; North Toronto FC U16</strong><span>OPDL U16 &middot; Youth / Academy &middot; Right Winger (RW)</span></div>
       <a class="button btn-light" href="#">View Season</a>
@@ -2089,7 +2137,8 @@ p {
     <div class="collapsible-content form-grid" hidden id="soccer-experience-content">
      <div class="field">
       <label>Soccer Achievements <span class="field-lock">Optional</span></label>
-      <textarea>2025 OPDL Cup finalist · Selected for regional development camp</textarea>
+      <textarea id="soccerAchievements">2025 OPDL Cup finalist · Selected for regional development camp</textarea>
+      <label style="margin-top:8px;"><input id="noSoccerAchievements" type="checkbox"/> No achievements to add</label>
      </div>
      <div class="field">
       <label>Coach Reference</label>
@@ -2488,7 +2537,12 @@ MVP measurements are not marked verified. A future verification process may add 
     },
     'soccer-profile-structure': {
      title: 'Soccer Profile — Structure and Recruiter-Ready',
-     body: `ATHLETESPORTPROFILE — SOCCER CORE
+     body: `ATHLETESPORTPROFILE — SPORT-NEUTRAL CORE
+• Sport identity and lifecycle
+• Visibility setting and effective status
+• Profile Completion and Recruiter-Ready result
+
+SOCCERPROFILE — ONE-TO-ONE SOCCER EXTENSION
 • Required recruiting category: Men's Soccer or Women's Soccer
 • Primary and secondary positions
 • Wide positions use side-specific values: RW/LW and RB/LB/RWB/LWB
@@ -2819,6 +2873,15 @@ Profile Completion remains guidance and does not itself unlock visibility.`
    const currentTeamPosition=document.getElementById('currentTeamPosition');
    const outfieldSeasonStats=document.getElementById('outfieldSeasonStats');
    const goalkeeperSeasonStats=document.getElementById('goalkeeperSeasonStats');
+   const statisticsAvailability=document.getElementById('statisticsAvailability');
+   const statisticsUnavailableNote=document.getElementById('statisticsUnavailableNote');
+   const noFixedShirtNumber=document.getElementById('noFixedShirtNumber');
+   const currentTeamShirtNumber=document.getElementById('currentTeamShirtNumber');
+   const noPreviousTeamSeasons=document.getElementById('noPreviousTeamSeasons');
+   const previousHistoryCount=document.getElementById('previousHistoryCount');
+   const previousHistoryRows=Array.from(document.querySelectorAll('#previous-history-content .season-history-row'));
+   const noSoccerAchievements=document.getElementById('noSoccerAchievements');
+   const soccerAchievements=document.getElementById('soccerAchievements');
    const statisticReviewButtons=Array.from(document.querySelectorAll('[data-stat-review]'));
    const currentTeamSummary=document.getElementById('current-team-summary');
    const currentTeamFields=document.getElementById('current-team-fields');
@@ -2850,8 +2913,10 @@ Profile Completion remains guidance and does not itself unlock visibility.`
       : 'This active record supplies the current team, competition, season, statistics, and linked-media context.';
    }
    function showSeasonStatisticSet(isGoalkeeper){
-    outfieldSeasonStats.hidden=isGoalkeeper;
-    goalkeeperSeasonStats.hidden=!isGoalkeeper;
+    const statisticsUnavailable=statisticsAvailability.value==='not-tracked';
+    outfieldSeasonStats.hidden=statisticsUnavailable||isGoalkeeper;
+    goalkeeperSeasonStats.hidden=statisticsUnavailable||!isGoalkeeper;
+    statisticsUnavailableNote.hidden=!statisticsUnavailable;
     statisticReviewButtons.forEach(function(button){
      const isActive=button.dataset.statReview===(isGoalkeeper?'goalkeeper':'outfield');
      button.classList.toggle('active',isActive);
@@ -2865,6 +2930,13 @@ Profile Completion remains guidance and does not itself unlock visibility.`
     button.addEventListener('click',function(){showSeasonStatisticSet(button.dataset.statReview==='goalkeeper');});
    });
    currentTeamPosition.addEventListener('change',updateSeasonStatisticSet);
+   statisticsAvailability.addEventListener('change',updateSeasonStatisticSet);
+   noFixedShirtNumber.addEventListener('change',function(){currentTeamShirtNumber.disabled=noFixedShirtNumber.checked;});
+   noPreviousTeamSeasons.addEventListener('change',function(){
+    previousHistoryRows.forEach(function(row){row.hidden=noPreviousTeamSeasons.checked;});
+    previousHistoryCount.textContent=noPreviousTeamSeasons.checked?'No previous team seasons':'2 previous team-seasons';
+   });
+   noSoccerAchievements.addEventListener('change',function(){soccerAchievements.disabled=noSoccerAchievements.checked;});
    currentPlayingStatus.addEventListener('change',function(){
     if(currentPlayingStatus.value==='unattached'&&previousPlayingStatus==='with-team'&&hasActiveTeamSeason()){
      const confirmed=window.confirm('Change the athlete to Currently unattached? The active Team-Season will close and remain in playing history.');

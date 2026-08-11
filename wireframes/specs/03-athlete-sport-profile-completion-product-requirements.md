@@ -184,7 +184,9 @@ The Slice 2 implementation boundary and temporary profile-status behavior are de
 - City: 2%.
 - Country of residence: 2%.
 - At least one country of citizenship: 2%.
-- At least one language: 2%.
+- Languages: 2%. The athlete must select a primary language and answer the English-proficiency question. English may itself be the primary language; additional languages are optional and may each carry their own proficiency level.
+
+Supported proficiency answers are `Native or bilingual`, `Advanced`, `Intermediate`, `Basic`, and `No current proficiency`. When an additional language is added, its proficiency level must also be selected. Additional languages remain optional and do not provide extra Profile Completion credit. Language and country values must use standardized identifiers rather than uncontrolled display text.
 
 Full name and date of birth do not contribute because they are required during account creation.
 
@@ -240,6 +242,8 @@ When `With a team` is selected, each completed item on the current draft or acti
 - Previous playing history: 4%. At least one complete previous `TeamSeason` or an explicit `No previous team seasons` response counts.
 
 Statistics are owned by the applicable `TeamSeason`; closing or archiving a season must not move its values onto the general Soccer Profile.
+
+The explicit `Statistics unavailable/not tracked` answer also belongs to the applicable `TeamSeason`; it must not automatically carry forward to another season.
 
 The applicable statistic set is determined by the position played in that `TeamSeason`, not only by the Soccer Profile's primary position:
 
@@ -327,6 +331,7 @@ This document does not define media file-size, duration, upload-count, storage, 
 - A completed answer counts whether it is self-reported or verified. Verification remains separate.
 - Deleted records, expired active records, and failed uploads do not count.
 - Rules, weights, applicability logic, and position mappings must be configurable and versioned. Source records remain the source of truth.
+- Recruiter-Ready calculation must return all applicable missing-item reason codes, rather than one free-text reason, so the UI can present the checklist consistently.
 
 ## Information Excluded From Completion
 

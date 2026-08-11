@@ -390,10 +390,47 @@
         </select>
         <span class="field-help">Select every country where the athlete currently holds citizenship. Required before the Soccer Profile can become Recruiter-Ready.</span>
        </div>
-       <div class="field full">
-        <label for="sharedLanguages">Languages <span class="optional">Optional</span></label>
-        <input id="sharedLanguages" value="English, Korean"/>
-        <span class="field-help">Enter at least one language the athlete can use comfortably.</span>
+       <div class="field">
+        <label for="primaryLanguage">Primary language <span class="optional">Optional during setup</span></label>
+        <select id="primaryLanguage">
+         <option value="">Not added yet</option>
+         <option>English</option>
+         <option>French</option>
+         <option selected>Korean</option>
+         <option>Spanish</option>
+         <option>Other</option>
+        </select>
+       </div>
+       <div class="field">
+        <label for="englishProficiency">English proficiency <span class="optional">Optional during setup</span></label>
+        <select id="englishProficiency">
+         <option value="">Not answered yet</option>
+         <option selected>Native or bilingual</option>
+         <option>Advanced</option>
+         <option>Intermediate</option>
+         <option>Basic</option>
+         <option>No current proficiency</option>
+        </select>
+       </div>
+       <div class="field">
+        <label for="additionalLanguage">Additional language <span class="optional">Optional</span></label>
+        <select id="additionalLanguage">
+         <option value="">None added</option>
+         <option>French</option>
+         <option>Spanish</option>
+         <option>Other</option>
+        </select>
+       </div>
+       <div class="field">
+        <label for="additionalLanguageProficiency">Additional-language proficiency</label>
+        <select id="additionalLanguageProficiency">
+         <option value="">Not applicable</option>
+         <option>Native or bilingual</option>
+         <option>Advanced</option>
+         <option>Intermediate</option>
+         <option>Basic</option>
+        </select>
+        <span class="field-help">Additional languages may be added later. Language proficiency is self-reported.</span>
        </div>
        <div class="field full">
         <label for="sharedPhoto">Profile photo <span class="optional">Optional</span></label>
@@ -630,7 +667,7 @@
     if(fieldHasValue(document.getElementById('sharedCity'))) score+=2;
     if(fieldHasValue(document.getElementById('sharedCountry'))) score+=2;
     if(fieldHasValue(document.getElementById('sharedCitizenship'))) score+=2;
-    if(fieldHasValue(document.getElementById('sharedLanguages'))) score+=2;
+    if(fieldHasValue(document.getElementById('primaryLanguage'))&&fieldHasValue(document.getElementById('englishProficiency'))) score+=2;
 
     const educationStatusValue=document.getElementById('educationStatus').value;
     const schoolCountryValue=document.getElementById('schoolCountry').value;

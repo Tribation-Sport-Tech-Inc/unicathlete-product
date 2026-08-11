@@ -2,13 +2,14 @@
 
 ## Outcome
 
-An email-verified athlete or authorized guardian can create, resume, and edit a private shared `AthleteProfile` and the athlete's first Soccer `AthleteSportProfile`.
+An email-verified athlete or authorized guardian can create, resume, and edit a private shared `AthleteProfile`, the athlete's first sport-neutral `AthleteSportProfile`, and its Soccer-specific `SoccerProfile` extension.
 
 ## Included
 
 - resumable structured-data onboarding without duplicate profile creation;
 - shared athlete, education, and measurement information - `AthleteProfile` level;
-- Soccer player, team-season, playing-history, performance, and recruiting information - `AthleteSportProfile` level;
+- shared Sport Profile lifecycle and status information - `AthleteSportProfile` level;
+- Soccer player, team-season, playing-history, performance, and recruiting information - one-to-one `SoccerProfile` extension;
 - Profile Completion and Recruiter-Ready calculation using the supporting completion specification;
 - audit information identifying who changed a record and when;
 - non-functional placeholders for future Soccer media and private documents.
@@ -26,7 +27,7 @@ All other profile fields may be completed later. A field may still contribute to
 
 ## Onboarding Lifecycle
 
-- Create the private `AthleteProfile` and first Soccer `AthleteSportProfile` idempotently when onboarding starts; do not wait for the final action and do not create duplicates on resume.
+- Create the private `AthleteProfile`, first Soccer `AthleteSportProfile`, and its `SoccerProfile` extension idempotently when onboarding starts; do not wait for the final action and do not create duplicates on resume.
 - Persist valid changes automatically and expose `Saving`, `Saved`, or actionable save-error feedback. `Continue` also attempts to persist the current step.
 - `Continue` validates only the required fields on the current step. Optional steps may be skipped.
 - `Save and exit` preserves progress. Resume the existing draft at the first incomplete step containing an onboarding requirement.
@@ -38,7 +39,9 @@ All other profile fields may be completed later. A field may still contribute to
 - Finishing onboarding opens the production Athlete Profile.
 - Once onboarding is `Completed`, later removal of optional information or a lower Profile Completion score does not restart it.
 - Recalculate Profile Completion and Recruiter-Ready after each successful change that can affect either result.
-- Shared `AthleteProfile` information and Soccer `AthleteSportProfile` information remain separate in both persistence and their presentation on the profile page.
+- Shared `AthleteProfile` information and Soccer-specific `SoccerProfile` information remain separate in both persistence and their presentation on the profile page.
+
+In this specification, **Soccer Sport Profile** refers to the combined product view of the sport-neutral `AthleteSportProfile` and its one-to-one Soccer-specific `SoccerProfile`. Shared lifecycle, visibility, completion, and Recruiter-Ready state belong to `AthleteSportProfile`; Soccer-only fields belong to `SoccerProfile`.
 
 ## Draft Editing Authority
 
@@ -72,6 +75,7 @@ Ordinary athlete-editable content is limited to:
 - Activating a new `TeamSeason` closes the previous active record and preserves it in playing history. The transition must be atomic so two active records cannot result.
 - Changing from `With a team` to `Currently unattached` requires user confirmation, then closes any active `TeamSeason` without deleting it. Adding a new active `TeamSeason` changes the playing-status choice to `With a team`.
 - A new season at the same club creates a new record rather than overwriting the previous season.
+- Store the real TeamSeason start date and optional end date separately from system lifecycle timestamps such as `closed_at`. Historical TeamSeasons may preserve both dates; an active TeamSeason normally has no end date yet.
 - Season statistics belong to their `TeamSeason`. The applicable configurable statistic set is selected from the position played in that season; goalkeeper and outfield seasons therefore expose different fields. Statistic types must not be fixed columns on `TeamSeason`, and the values must not be stored as general lifetime Soccer Profile values. Detailed scoring rules are defined in Spec 03.
 - Historical corrections record actor and timestamp. Normal removal archives the record from display; approved retention/deletion rules govern permanent erasure.
 - Recruiter-Ready uses a sufficiently complete active `TeamSeason` or explicit unattached state. A draft `TeamSeason` cannot satisfy it. Previous seasons improve completion but do not block Recruiter-Ready.
