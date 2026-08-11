@@ -56,7 +56,7 @@ In this specification, **guardian-controlled profile** means an ages 14–15 pro
 
 Ordinary athlete-editable content is limited to:
 
-- city, country, languages, profile photo, education status, school country, and graduation date;
+- city, country of residence, country or countries of citizenship, languages, profile photo, education status, school country, and graduation date;
 - height and weight entries;
 - Soccer recruiting category, positions, preferred foot, and player summary;
 - current/unattached status, team-seasons, playing history, statistics, and achievements;
@@ -72,7 +72,7 @@ Ordinary athlete-editable content is limited to:
 - Activating a new `TeamSeason` closes the previous active record and preserves it in playing history. The transition must be atomic so two active records cannot result.
 - Changing from `With a team` to `Currently unattached` requires user confirmation, then closes any active `TeamSeason` without deleting it. Adding a new active `TeamSeason` changes the playing-status choice to `With a team`.
 - A new season at the same club creates a new record rather than overwriting the previous season.
-- Season statistics belong to their `TeamSeason`. They must not be stored as general lifetime Soccer Profile values.
+- Season statistics belong to their `TeamSeason`. The applicable configurable statistic set is selected from the position played in that season; goalkeeper and outfield seasons therefore expose different fields. Statistic types must not be fixed columns on `TeamSeason`, and the values must not be stored as general lifetime Soccer Profile values. Detailed scoring rules are defined in Spec 03.
 - Historical corrections record actor and timestamp. Normal removal archives the record from display; approved retention/deletion rules govern permanent erasure.
 - Recruiter-Ready uses a sufficiently complete active `TeamSeason` or explicit unattached state. A draft `TeamSeason` cannot satisfy it. Previous seasons improve completion but do not block Recruiter-Ready.
 

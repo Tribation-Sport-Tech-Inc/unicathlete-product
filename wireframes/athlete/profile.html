@@ -891,6 +891,9 @@ p {
   grid-template-columns:repeat(3,1fr);
   gap:10px;
 }
+.season-stat-grid[hidden] {
+  display:none;
+}
 .season-stat {
   background:white;
   border:1px solid var(--border);
@@ -910,6 +913,58 @@ p {
   color:var(--muted);
   font-size:12px;
   font-weight:900;
+}
+.season-stat small {
+  display:block;
+  margin-top:4px;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.35;
+}
+.stat-help {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:15px;
+  height:15px;
+  margin-left:3px;
+  border:1px solid #9db4f8;
+  border-radius:50%;
+  color:var(--primary);
+  font-size:9px;
+  font-style:normal;
+  vertical-align:1px;
+}
+.stat-review-control {
+  display:flex;
+  align-items:center;
+  gap:4px;
+  padding:4px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:#f8fafc;
+}
+.stat-review-control > span {
+  padding:0 6px;
+  color:var(--muted);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+.stat-review-button {
+  border:0;
+  border-radius:8px;
+  padding:7px 10px;
+  background:transparent;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:900;
+  cursor:pointer;
+}
+.stat-review-button.active {
+  background:var(--blue);
+  color:white;
 }
 .season-history-list {
   display:grid;
@@ -1401,6 +1456,7 @@ p {
     <div class="summary-grid">
      <div class="summary-item"><span>Full Name</span><strong>Alex Kim</strong></div>
      <div class="summary-item"><span>Location</span><strong>Toronto, Canada</strong></div>
+     <div class="summary-item"><span>Citizenship</span><strong>Canada, South Korea</strong></div>
      <div class="summary-item"><span>Languages</span><strong>English, Korean</strong></div>
      <div class="summary-item"><span>Date of Birth</span><strong>Apr 18, 2009 &middot; Locked</strong></div>
      <div class="summary-item"><span>Education</span><strong>Currently in secondary education</strong></div>
@@ -1440,11 +1496,24 @@ p {
       <label for="athleteCountry">
        Country of Residence
       </label>
-      <select id="athleteCountry">
+     <select id="athleteCountry">
        <option selected>Canada</option>
        <option>Spain</option>
        <option>United Kingdom</option>
       </select>
+     </div>
+     <div class="field" style="grid-column:1/-1">
+      <label for="athleteCitizenship">
+       Country/Countries of Citizenship
+      </label>
+      <select id="athleteCitizenship" multiple size="5">
+       <option selected>Canada</option>
+       <option>Spain</option>
+       <option selected>South Korea</option>
+       <option>United Kingdom</option>
+       <option>United States</option>
+      </select>
+      <span class="field-help">Select every country where the athlete currently holds citizenship. Citizenship is separate from country of residence.</span>
      </div>
      <div class="field" style="grid-column:1/-1">
      <label for="athleteLanguages">
@@ -1685,10 +1754,10 @@ p {
      </div>
      <div class="summary-grid">
       <div class="summary-item"><span>Recruiting Category</span><strong>Men's Soccer</strong></div>
-      <div class="summary-item"><span>Primary Position</span><strong>Winger</strong></div>
+      <div class="summary-item"><span>Primary Position</span><strong>Right Winger (RW)</strong></div>
       <div class="summary-item"><span>Secondary Position</span><strong>No secondary position</strong></div>
       <div class="summary-item"><span>Preferred Foot</span><strong>Right</strong></div>
-      <div class="summary-item" style="grid-column:1/-1"><span>Player Summary</span><strong>Direct winger who creates chances through 1v1 play and crossing, presses high, and tracks back defensively.</strong></div>
+      <div class="summary-item" style="grid-column:1/-1"><span>Player Summary</span><strong>Direct right winger who creates chances through 1v1 play and crossing, presses high, and tracks back defensively.</strong></div>
      </div>
      <div class="editable-form" hidden id="player-details-form">
      <div class="form-grid">
@@ -1736,10 +1805,14 @@ p {
         Primary Position
        </label>
        <select id="primaryPosition">
-        <option selected>Winger</option>
+        <option selected>Right Winger (RW)</option>
+        <option>Left Winger (LW)</option>
         <option>Goalkeeper</option>
         <option>Centre Back</option>
-        <option>Full Back / Wing Back</option>
+        <option>Right Back (RB)</option>
+        <option>Left Back (LB)</option>
+        <option>Right Wing-Back (RWB)</option>
+        <option>Left Wing-Back (LWB)</option>
         <option>Defensive Midfielder</option>
         <option>Central Midfielder</option>
         <option>Attacking Midfielder</option>
@@ -1754,11 +1827,15 @@ p {
         <option>No secondary position</option>
         <option>Goalkeeper</option>
         <option>Centre Back</option>
-        <option>Full Back / Wing Back</option>
+        <option>Right Back (RB)</option>
+        <option>Left Back (LB)</option>
+        <option>Right Wing-Back (RWB)</option>
+        <option>Left Wing-Back (LWB)</option>
         <option>Defensive Midfielder</option>
         <option>Central Midfielder</option>
         <option>Attacking Midfielder</option>
-        <option>Winger</option>
+        <option>Right Winger (RW)</option>
+        <option>Left Winger (LW)</option>
         <option>Forward / Striker</option>
        </select>
       </div>
@@ -1766,7 +1843,7 @@ p {
        <label>
         Player Summary <span class="field-lock">Optional</span>
        </label>
-       <textarea maxlength="500">Direct winger who prefers attacking from the right, creating chances through 1v1 play and crossing. Comfortable pressing high and tracking back defensively.</textarea>
+       <textarea maxlength="500">Direct right winger who creates chances through 1v1 play and crossing. Comfortable pressing high and tracking back defensively.</textarea>
        <span class="field-help">Briefly describe playing style, strengths, and typical role. Maximum 500 characters.</span>
       </div>
      </div>
@@ -1791,7 +1868,7 @@ p {
       <div class="summary-item"><span>Competition</span><strong>OPDL U17</strong></div>
       <div class="summary-item"><span>Season</span><strong>2025/26 &middot; Active</strong></div>
       <div class="summary-item"><span>Squad Level</span><strong>Youth / Academy &middot; U17</strong></div>
-      <div class="summary-item"><span>Position</span><strong>Winger</strong></div>
+      <div class="summary-item"><span>Position</span><strong>Right Winger (RW)</strong></div>
       <div class="summary-item"><span>Country</span><strong>Canada</strong></div>
      </div>
      <div class="note" hidden id="unattached-summary">
@@ -1857,11 +1934,15 @@ p {
       </div>
       <div class="field">
        <label>Position Played</label>
-       <select>
-        <option selected>Winger</option>
+       <select id="currentTeamPosition">
+        <option selected>Right Winger (RW)</option>
+        <option>Left Winger (LW)</option>
         <option>Goalkeeper</option>
         <option>Centre Back</option>
-        <option>Full Back / Wing Back</option>
+        <option>Right Back (RB)</option>
+        <option>Left Back (LB)</option>
+        <option>Right Wing-Back (RWB)</option>
+        <option>Left Wing-Back (LWB)</option>
         <option>Defensive Midfielder</option>
         <option>Central Midfielder</option>
         <option>Attacking Midfielder</option>
@@ -1883,10 +1964,20 @@ p {
    <div class="section" id="stats">
     <div class="section-head">
      <div>
-      <h2>Season Performance &amp; Playing History</h2>
+      <div class="field-label-row">
+       <h2>Season Performance &amp; Playing History</h2>
+       <button aria-label="Season statistics engineering note" class="info-note" onclick="openBackendNote('season-statistics')" title="Engineering note" type="button">ⓘ</button>
+      </div>
       <p>Current statistics use the active Team-Season above. Previous records keep their own team and competition context.</p>
      </div>
-     <a class="button btn-light" href="#">+ Add Previous Season</a>
+     <div class="actions" style="margin-top:0;">
+      <div aria-label="Review statistic set" class="stat-review-control">
+       <span>Review only</span>
+       <button aria-pressed="true" class="stat-review-button active" data-stat-review="outfield" type="button">Outfield</button>
+       <button aria-pressed="false" class="stat-review-button" data-stat-review="goalkeeper" type="button">Goalkeeper</button>
+      </div>
+      <a class="button btn-light" href="#">+ Add Previous Season</a>
+     </div>
     </div>
 
     <div id="current-season-performance">
@@ -1902,14 +1993,21 @@ p {
       </div>
      </div>
 
-     <div class="season-stat-grid">
-      <div class="season-stat"><strong>31</strong><span>Matches</span></div>
-      <div class="season-stat"><strong>28</strong><span>Starts</span></div>
+     <div class="season-stat-grid" id="outfieldSeasonStats">
+      <div class="season-stat"><strong>31</strong><span>Appearances</span><small>28 starts</small></div>
       <div class="season-stat"><strong>2,140</strong><span>Minutes</span></div>
       <div class="season-stat"><strong>9</strong><span>Goals</span></div>
       <div class="season-stat"><strong>12</strong><span>Assists</span></div>
-      <div class="season-stat"><strong>2</strong><span>Yellow Cards</span></div>
-      <div class="season-stat"><strong>0</strong><span>Red Cards</span></div>
+      <div class="season-stat"><strong>21</strong><span>Goal Contributions</span><small>Goals + assists</small></div>
+      <div class="season-stat"><strong>2 / 0</strong><span>Yellow / Red Cards</span></div>
+     </div>
+     <div class="season-stat-grid" hidden id="goalkeeperSeasonStats">
+      <div class="season-stat"><strong>24</strong><span>Appearances</span><small>23 starts</small></div>
+      <div class="season-stat"><strong>2,070</strong><span>Minutes</span></div>
+      <div class="season-stat"><strong>8</strong><span>Clean Sheets</span></div>
+      <div class="season-stat"><strong>96</strong><span>Saves</span><small>81.4% Save Rate · 96 of 118 shots saved <i aria-label="Saves divided by shots on target faced" class="stat-help" title="Saves ÷ shots on target faced × 100">i</i></small></div>
+      <div class="season-stat"><strong>22</strong><span>Goals Conceded</span></div>
+      <div class="season-stat"><strong>1 / 0</strong><span>Yellow / Red Cards</span></div>
      </div>
      <p class="source-note">Statistics are athlete-entered unless a different source is shown. They are not verified in the MVP.</p>
     </div>
@@ -1924,11 +2022,11 @@ p {
     </div>
     <div class="collapsible-content season-history-list" hidden id="previous-history-content">
      <div class="season-history-row">
-      <div><strong>2024/25 &middot; North Toronto FC U16</strong><span>OPDL U16 &middot; Youth / Academy &middot; Winger</span></div>
+      <div><strong>2024/25 &middot; North Toronto FC U16</strong><span>OPDL U16 &middot; Youth / Academy &middot; Right Winger (RW)</span></div>
       <a class="button btn-light" href="#">View Season</a>
      </div>
      <div class="season-history-row">
-      <div><strong>2023/24 &middot; Toronto City Academy U15</strong><span>Ontario Academy League &middot; Youth / Academy &middot; Winger</span></div>
+      <div><strong>2023/24 &middot; Toronto City Academy U15</strong><span>Ontario Academy League &middot; Youth / Academy &middot; Right Winger (RW)</span></div>
       <a class="button btn-light" href="#">View Season</a>
      </div>
     </div>
@@ -2048,7 +2146,7 @@ p {
       <div class="highlight-thumb">▶</div>
       <div>
        <h3>U17 Season Highlights</h3>
-       <p>4:36 &middot; 2025/26 &middot; OPDL U17 &middot; Winger &middot; Shirt #11</p>
+       <p>4:36 &middot; 2025/26 &middot; OPDL U17 &middot; Right Winger (RW) &middot; Shirt #11</p>
        <span class="tag blue">Viewed 14 times</span>
       </div>
       <div class="actions">
@@ -2075,7 +2173,7 @@ p {
      <div id="skill-clips-content">
      <div class="skill-recommendation-summary">
       <div>
-       <strong id="skillRecommendationTitle">Winger suggested skill coverage: 5 of 6</strong>
+       <strong id="skillRecommendationTitle">Right Winger (RW) suggested skill coverage: 5 of 6</strong>
        <span>Each covered primary-position suggestion contributes an equal share of 10%. These clips do not block Recruiter-Ready.</span>
       </div>
       <span class="tag blue" id="skillCompletionTag" style="margin:0;">8.3 of 10%</span>
@@ -2166,7 +2264,7 @@ p {
        <div class="highlight-thumb">▶</div>
        <div>
         <h3>North Toronto vs East York</h3>
-        <p>44:52 &middot; Mar 15, 2026 &middot; OPDL U17 &middot; Winger &middot; Shirt #11</p>
+        <p>44:52 &middot; Mar 15, 2026 &middot; OPDL U17 &middot; Right Winger (RW) &middot; Shirt #11</p>
         <div class="actions">
          <a class="button btn-light" href="#">Replace Footage</a>
          <a class="button btn-primary" href="#">Edit Timestamps</a>
@@ -2393,6 +2491,7 @@ MVP measurements are not marked verified. A future verification process may add 
      body: `ATHLETESPORTPROFILE — SOCCER CORE
 • Required recruiting category: Men's Soccer or Women's Soccer
 • Primary and secondary positions
+• Wide positions use side-specific values: RW/LW and RB/LB/RWB/LWB
 • Preferred foot
 • Current playing status stored separately as With a team or Currently unattached
 • Optional Soccer-specific player summary
@@ -2415,6 +2514,7 @@ SEPARATE SOCCER-LINKED RECORDS
 • Coach references and sharing permission
 
 RECRUITER-READY MINIMUM
+• Required shared athlete and education information from the product specification, including at least one country of citizenship
 • Recruiting category
 • Primary position and preferred foot
 • An active TeamSeason containing every required current-playing field in the product specification; or an explicit unattached declaration
@@ -2425,6 +2525,20 @@ Player summary, statistics, achievements, measurements, extended match footage, 
 
 SCOUT VISIBILITY
 Eligible scouts see the Soccer profile only when its visibility is enabled and all account/safety conditions pass. Coach contact details remain private and require an approved sharing action. Athlete/guardian edit controls and internal source/audit records are never scout-visible.`
+    },
+    'season-statistics': {
+     title: 'TeamSeason — Position-Specific Statistics',
+     body: `STATISTIC SET
+• The Outfield / Goalkeeper switch beside the section title exists only for convenient wireframe review. Do not include this manual switch in production.
+• Select the applicable statistic set from the position played in this TeamSeason, not only the AthleteSportProfile primary position.
+• Common statistics include appearances, starts, minutes, yellow cards, and red cards for every position group.
+• Outfield statistics additionally include goals, assists, and calculated Goal Contributions.
+• Goalkeeper statistics additionally include saves, clean sheets, goals conceded, and shots on target faced.
+• Display the calculated percentage as Save Rate. Calculate it from saves and shots on target faced when both values are available; do not store it as an independently editable value.
+• Statistics unavailable / not tracked remains a valid explicit response.
+
+DATA MODEL
+Store statistic definitions and TeamSeason statistic values as configurable, versioned records with stable identifiers. Do not create one fixed database column for every possible sport or position statistic. Preserve the entered source and whether the value is self-reported or verified.`
     },
     'skill-clip-recommendations': {
      title: 'Skill Clips — Position-Based Recommendations',
@@ -2485,12 +2599,13 @@ A later request-and-sharing workflow may reference an AthleteDocument through a 
      body: `ATHLETEPROFILE — SHARED ACROSS SPORTS
 • Full name
 • City and country of residence
+• Country or countries of citizenship
 • Languages
 • Shared profile-photo reference
 • Date of birth and derived age band
 • Management and communication modes
 
-Date of birth, age rules, and account-management fields are managed through account/settings flows. Shared athlete information must not be duplicated inside the Soccer profile. The profile does not collect an exact home address, postal code, coordinates, live location, or exact school name. City and country may appear only through an approved recruiter-facing projection when the applicable Sport Profile is effectively visible.
+Date of birth, age rules, and account-management fields are managed through account/settings flows. Shared athlete information must not be duplicated inside the Soccer profile. Store citizenship as one or more standardized country identifiers; do not collect passport numbers or citizenship documents in this field. The profile does not collect an exact home address, postal code, coordinates, live location, or exact school name. City, country of residence, and citizenship countries may appear only through an approved recruiter-facing projection when the applicable Sport Profile is effectively visible.
 
 ATHLETEMEASUREMENTS — SHARED MEASUREMENT HISTORY
 • AthleteProfile reference
@@ -2645,11 +2760,15 @@ Profile Completion remains guidance and does not itself unlock visibility.`
    const positionSkillRecommendations={
     'Goalkeeper':['goalkeeper-shot-stopping','goalkeeper-handling','goalkeeper-1v1','goalkeeper-distribution','goalkeeper-positioning'],
     'Centre Back':['defending','aerial','passing','first-touch','off-ball'],
-    'Full Back / Wing Back':['pace','defending','chance-creation','passing','off-ball','first-touch'],
+    'Right Back (RB)':['pace','defending','chance-creation','passing','off-ball','first-touch'],
+    'Left Back (LB)':['pace','defending','chance-creation','passing','off-ball','first-touch'],
+    'Right Wing-Back (RWB)':['pace','defending','chance-creation','passing','off-ball','first-touch'],
+    'Left Wing-Back (LWB)':['pace','defending','chance-creation','passing','off-ball','first-touch'],
     'Defensive Midfielder':['defending','passing','first-touch','off-ball'],
     'Central Midfielder':['passing','first-touch','off-ball','attacking-1v1','chance-creation'],
     'Attacking Midfielder':['attacking-1v1','passing','first-touch','off-ball','chance-creation','finishing'],
-    'Winger':['attacking-1v1','chance-creation','off-ball','pace','first-touch','finishing'],
+    'Right Winger (RW)':['attacking-1v1','chance-creation','off-ball','pace','first-touch','finishing'],
+    'Left Winger (LW)':['attacking-1v1','chance-creation','off-ball','pace','first-touch','finishing'],
     'Forward / Striker':['finishing','off-ball','attacking-1v1','first-touch','hold-up-link']
    };
    const skillCards=Array.from(skillClipGrid.querySelectorAll('[data-skill-category]'));
@@ -2697,6 +2816,10 @@ Profile Completion remains guidance and does not itself unlock visibility.`
    updateSkillClipRecommendations();
 
    const currentPlayingStatus=document.getElementById('currentPlayingStatus');
+   const currentTeamPosition=document.getElementById('currentTeamPosition');
+   const outfieldSeasonStats=document.getElementById('outfieldSeasonStats');
+   const goalkeeperSeasonStats=document.getElementById('goalkeeperSeasonStats');
+   const statisticReviewButtons=Array.from(document.querySelectorAll('[data-stat-review]'));
    const currentTeamSummary=document.getElementById('current-team-summary');
    const currentTeamFields=document.getElementById('current-team-fields');
    const unattachedSummary=document.getElementById('unattached-summary');
@@ -2726,6 +2849,22 @@ Profile Completion remains guidance and does not itself unlock visibility.`
       ? 'Current-team information is saved as a private draft until the minimum identifying fields are present.'
       : 'This active record supplies the current team, competition, season, statistics, and linked-media context.';
    }
+   function showSeasonStatisticSet(isGoalkeeper){
+    outfieldSeasonStats.hidden=isGoalkeeper;
+    goalkeeperSeasonStats.hidden=!isGoalkeeper;
+    statisticReviewButtons.forEach(function(button){
+     const isActive=button.dataset.statReview===(isGoalkeeper?'goalkeeper':'outfield');
+     button.classList.toggle('active',isActive);
+     button.setAttribute('aria-pressed',String(isActive));
+    });
+   }
+   function updateSeasonStatisticSet(){
+    showSeasonStatisticSet(currentTeamPosition.value==='Goalkeeper');
+   }
+   statisticReviewButtons.forEach(function(button){
+    button.addEventListener('click',function(){showSeasonStatisticSet(button.dataset.statReview==='goalkeeper');});
+   });
+   currentTeamPosition.addEventListener('change',updateSeasonStatisticSet);
    currentPlayingStatus.addEventListener('change',function(){
     if(currentPlayingStatus.value==='unattached'&&previousPlayingStatus==='with-team'&&hasActiveTeamSeason()){
      const confirmed=window.confirm('Change the athlete to Currently unattached? The active Team-Season will close and remain in playing history.');
@@ -2742,6 +2881,7 @@ Profile Completion remains guidance and does not itself unlock visibility.`
     field.addEventListener('change',updateCurrentTeamSeasonVisibility);
    });
    updateCurrentTeamSeasonVisibility();
+   updateSeasonStatisticSet();
 
    const measurementForm=document.getElementById('measurementForm');
    const measurementHistory=document.getElementById('measurementHistory');

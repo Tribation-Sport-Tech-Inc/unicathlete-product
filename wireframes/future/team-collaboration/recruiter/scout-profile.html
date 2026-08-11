@@ -190,6 +190,16 @@ body {
   gap: 18px;
   margin-bottom: 18px;
 }
+.professional-overview-grid {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.7fr) minmax(0, 1.3fr);
+  gap: 28px;
+}
+.overview-subsection h3 {
+  margin: 0 0 12px;
+  color: var(--navy);
+  font-size: 15px;
+}
 .card {
   background: white;
   border: 1px solid var(--border);
@@ -408,7 +418,7 @@ body {
 .hero-actions {
   justify-content: flex-start;
 }
-.grid-2, .workspace-grid, .workspace-membership-summary, .workspace-stat-row {
+.grid-2, .professional-overview-grid, .workspace-grid, .workspace-membership-summary, .workspace-stat-row {
   grid-template-columns: 1fr;
 }
 }
@@ -465,7 +475,7 @@ body {
       Professional Profile
      </h1>
      <p>
-      Identity, verification, expertise, and workspace memberships for a sports recruiting professional.
+      Professional identity, Scout role, organization affiliations, verification, and workspace memberships.
      </p>
     </div>
    </div>
@@ -479,14 +489,14 @@ body {
        Mike Brown
       </h2>
       <p>
-       Sports Recruiter &middot; Toronto Academy &middot; Canada / Spain network
+       Scout &middot; 2 confirmed affiliations &middot; Canada / Spain recruiting coverage
       </p>
       <div class="badge-row">
        <span class="badge green">
-        Verified Professional
+        Eligible Scout
        </span>
        <span class="badge">
-        Organization Owner
+        Organization Workspace Owner
        </span>
        <span class="badge purple">
         Individual Workspace Active
@@ -503,73 +513,61 @@ body {
      </a>
     </div>
    </div>
-   <div class="grid-2">
-    <div class="card">
-     <h2 class="section-title">
-      Professional Details
-     </h2>
-     <div class="info-list">
-      <div class="info-row">
-       <span>
-        Professional Type
-       </span>
-       <span>
-        Sports Recruiter
-       </span>
-      </div>
-      <div class="info-row">
-       <span>
-        Current Organization
-       </span>
-       <span>
-        Toronto Academy
-       </span>
-      </div>
-      <div class="info-row">
-       <span>
-        Location
-       </span>
-       <span>
-        Toronto, Canada
-       </span>
-      </div>
-      <div class="info-row">
-       <span>
-        Experience
-       </span>
-       <span>
-        8 years
-       </span>
-      </div>
-      <div class="info-row">
-       <span>
-        Languages
-       </span>
-       <span>
-        English, Turkish, Spanish
-       </span>
+   <div class="card" style="margin-bottom:18px;">
+    <h2 class="section-title">
+     Professional Overview
+    </h2>
+    <p class="section-subtitle">
+     Personal professional information and reusable scouting background. Project-specific athlete criteria are defined separately.
+    </p>
+    <div class="professional-overview-grid">
+     <div class="overview-subsection">
+      <h3>
+       About
+      </h3>
+      <div class="info-list">
+       <div class="info-row">
+        <span>
+         Location
+        </span>
+        <span>
+         Toronto, Canada
+        </span>
+       </div>
+       <div class="info-row">
+        <span>
+         Languages
+        </span>
+        <span>
+         English, Turkish, Spanish
+        </span>
+       </div>
       </div>
      </div>
-    </div>
-    <div class="card">
-     <h2 class="section-title">
-      Professional Expertise
-     </h2>
-     <p class="section-subtitle">
-      This section describes the recruiter's long-term professional background. Actual player requirements are defined separately inside each Recruiting Project.
-     </p>
-     <div class="info-list">
+     <div class="overview-subsection">
+      <h3>
+       Scouting Background
+      </h3>
+      <div class="info-list">
       <div class="info-row">
        <span>
         Sport
        </span>
        <span>
-        Football / Soccer
+       Football / Soccer
        </span>
       </div>
       <div class="info-row">
        <span>
-        Regions Known
+        Scouting / Recruiting Experience
+       </span>
+       <span>
+        6&ndash;10 years
+       </span>
+      </div>
+      <div class="info-row">
+       <span>
+        Recruiting Coverage
        </span>
        <span>
         Canada, Spain, Turkey
@@ -585,7 +583,7 @@ body {
       </div>
       <div class="info-row">
        <span>
-        Specialization
+        Scouting Focus
        </span>
        <span>
         Youth scouting, midfielders, wingers
@@ -596,20 +594,21 @@ body {
         Evaluation Strengths
        </span>
        <span>
-        Technical ability, mentality, potential
+       Technical ability, mentality, potential
        </span>
+      </div>
       </div>
      </div>
     </div>
-   </div>
+     </div>
    <div class="card" style="margin-bottom:18px;">
     <h2 class="section-title">
-     Verification Details
+     Verification &amp; Access
     </h2>
     <div class="info-list">
      <div class="info-row">
       <span>
-       Verification Status
+       Email Verification
       </span>
       <span>
        Verified
@@ -617,27 +616,87 @@ body {
      </div>
      <div class="info-row">
       <span>
-       Verification Method
+       Identity Verification
       </span>
       <span>
-       Organization email + manual review
-      </span>
-     </div>
-     <div class="info-row">
-      <span>
-       Verified Organization
-      </span>
-      <span>
-       Toronto Academy
+       Verified
       </span>
      </div>
      <div class="info-row">
       <span>
-       Last Reviewed
+       Organization Affiliation
+      </span>
+      <span>
+       Confirmed
+      </span>
+     </div>
+     <div class="info-row">
+      <span>
+       Athlete Access
+      </span>
+      <span>
+       Enabled
+      </span>
+     </div>
+     <div class="info-row">
+      <span>
+       Manual Review Last Completed
       </span>
       <span>
        Jun 12, 2026
       </span>
+     </div>
+   </div>
+   </div>
+   <div class="card" style="margin-bottom:18px;">
+    <h2 class="section-title">
+     Organization Affiliations
+    </h2>
+    <p class="section-subtitle">
+     Each relationship is confirmed separately. There is no permanent primary affiliation; the applicable confirmed organization is selected when recruiting work begins.
+    </p>
+    <div class="workspace-grid">
+     <div class="workspace-membership-card organization">
+      <div class="workspace-membership-top">
+       <div>
+        <div class="workspace-membership-name">
+         Toronto Academy
+        </div>
+        <div class="workspace-membership-meta">
+         Academy &middot; Canada
+         <br/>
+         Relationship: Employee
+         <br/>
+         Professional title: Scout
+         <br/>
+         Reviewed: Jun 12, 2026
+        </div>
+       </div>
+       <span class="workspace-type-pill">
+        Confirmed
+       </span>
+      </div>
+     </div>
+     <div class="workspace-membership-card organization">
+      <div class="workspace-membership-top">
+       <div>
+        <div class="workspace-membership-name">
+         Global Soccer Partners
+        </div>
+        <div class="workspace-membership-meta">
+         Recruiting Agency &middot; Canada / United States
+         <br/>
+         Relationship: Contractor
+         <br/>
+         Professional title: Regional Scout
+         <br/>
+         Reviewed: May 28, 2026
+        </div>
+       </div>
+       <span class="workspace-type-pill">
+        Confirmed
+       </span>
+      </div>
      </div>
     </div>
    </div>
@@ -785,74 +844,67 @@ body {
   "profile-architecture": {
     title: "Profile Architecture",
     body: `User
-├── Athlete Profile
-│   └── Portfolio Data
-│
-└── Professional Profile
-    ├── Professional Type
-    │   ├── Recruiter (MVP)
-    │   └── Future Professional Types
-    │
-    └── Workspace Access
-        ├── Individual Workspace
-        └── Organization Workspace Memberships
+└── ProfessionalProfile
+    ├── ProfessionalRoles[]
+    │   ├── Scout (MVP)
+    │   └── Future professional roles
+    ├── OrganizationAffiliations[]
+    └── WorkspaceMemberships[]
+        ├── Personal Workspace
+        └── Organization Workspaces
 
-Professional profiles can:
-• Create an Individual Workspace
-• Join Organization Workspaces
+Professional role, organization affiliation, and workspace permission remain separate.
+
+A professional can:
+• Hold more than one professional role
+• Hold multiple organization affiliations
+• Join multiple Organization Workspaces through separate memberships
 • Hold different roles in different workspaces
 • Manage Recruiting Projects inside each workspace`
   },
   "professional-expertise": {
-    title: "Professional Expertise",
-    body: `Professional Expertise
+    title: "Scout Expertise",
+    body: `Scout ProfessionalRole
 │
-├── Sport background
-├── Regions known
+├── Sport
+├── Recruiting coverage
 ├── Age groups
-├── Specialization
+├── Scouting focus
 └── Evaluation strengths
 
-This describes the professional's long-term background and strengths.
+This describes the Scout's reusable professional background and strengths.
 
 It is not the same as recruiting criteria.
 
 Recruiting criteria live inside Recruiting Projects because each project may search for a different type of athlete.`
   },
   "verification": {
-    title: "Verification Architecture",
+    title: "Verification and Access Architecture",
     body: `ProfessionalProfile
 │
-├── Verification Status
-├── Verification Method
-├── Verified Organization
-└── Last Reviewed
+├── Email Verification
+├── Identity Verification
+├── OrganizationAffiliations[]
+│   └── Manual affiliation-verification status
+└── Effective Athlete Access
 
-Verification belongs to the professional profile.
+These statuses remain separate. No single "verified" field represents all of them.
 
-Organization verification may be separate later.
-
-For MVP, a professional can be verified by:
-• Organization email
-• Club / academy document
-• Admin approval
-• Manual platform review`
+Organization verification, affiliation confirmation, and Organization Workspace membership are also separate concepts.`
   },
   "workspace-architecture": {
     title: "Workspace Architecture",
     body: `ProfessionalProfile
 │
-├── Individual Workspace
+├── Personal Workspace Membership
 │   └── Personal recruiting work
 │
-└── Organization Workspace Memberships
-    ├── Role: Owner / Admin / Member
-    ├── Access Status: Pending / Approved / Suspended
+└── Organization Workspace Memberships[]
+    ├── Role: Owner / Admin / Member / Viewer
+    ├── Access Status: Pending / Active / Suspended / Ended
     └── Organization Workspace Access
 
-Workspace types:
-• Organization Workspace
-• Individual Workspace
+Workspace membership grants access. Organization affiliation alone never grants access.
 
 Each workspace can contain:
 • Members
@@ -862,17 +914,18 @@ Each workspace can contain:
 • Requests
 • Messages
 • Notes
-• ActivityLog / activity history`
+• Activity history`
   },
   "organization-workspace": {
     title: "Organization Workspace",
     body: `Organization Workspace
 │
-├── Organization profile
-├── Workspace members
+├── Organization record
+├── Workspace memberships
 │   ├── Owner
 │   ├── Admin
-│   └── Member
+│   ├── Member
+│   └── Viewer
 │
 ├── Recruiting Projects
 ├── Managed athletes
@@ -881,24 +934,20 @@ Each workspace can contain:
 ├── Shared messages
 └── Internal collaboration
 
-Used for team recruiting.
-
-Access is controlled through membership records and roles.`
+Used for permissioned team recruiting. Access is controlled through membership records and workspace roles, not inferred from affiliation.`
   },
   "individual-workspace": {
-    title: "Individual Workspace",
-    body: `Individual Workspace
+    title: "Personal Workspace",
+    body: `Personal Workspace
 │
-├── Owner: ProfessionalProfile
+├── Owner membership
 ├── Personal Recruiting Projects
 ├── Personal managed athletes
 ├── Individual evaluations
 ├── Private notes
 └── Personal activity history
 
-Owned by one professional profile.
-
-This lets a professional work outside an organization while using the same workspace structure.`
+Created during onboarding for the individual professional and retained separately from every Organization Workspace.`
   }
 };
   </script>

@@ -401,7 +401,7 @@ Workspace &rarr; RecruitingProject &rarr; ProjectAthlete records" data-title="Re
        Basic Information
        <button class="info-note" data-note="Basic Information defines what this project is and which context it uses.
 
-Every verified scout creates projects inside the same scout workspace flow. A project can be independent or linked to one of the scout's active organization affiliations.
+Every verified Scout creates projects inside the same personal workspace flow. In the MVP, the Scout has one active confirmed organization affiliation, so no organization-context switcher is required.
 
 The selected project context is attribution metadata in MVP. It does not create shared messaging, shared requests, or organization permissions yet.
 
@@ -415,19 +415,13 @@ The project name should describe the recruiting focus, not the scout creating it
          Project Context
         </div>
         <div>
-         <select>
-          <option>
-           Independent / personal project
-          </option>
+         <select disabled>
           <option selected="">
            Toronto Academy
           </option>
-          <option>
-           Global Soccer Partners
-          </option>
          </select>
          <div class="workspace-marker">
-          Selected affiliation: Toronto Academy
+          Active affiliation: Toronto Academy · context switching is not included in the MVP
          </div>
         </div>
        </div>

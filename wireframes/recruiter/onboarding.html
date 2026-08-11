@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>Scout Onboarding</title>
+  <style>
+   :root {
+    --navy:#111827;
+    --blue:#2563eb;
+    --blue-light:#eff6ff;
+    --green:#16a34a;
+    --green-light:#ecfdf5;
+    --orange:#f97316;
+    --orange-light:#fff7ed;
+    --red:#dc2626;
+    --red-light:#fef2f2;
+    --purple:#7c3aed;
+    --purple-light:#f5f3ff;
+    --gray-bg:#f3f4f6;
+    --border:#e5e7eb;
+    --muted:#6b7280;
+   }
+   * { box-sizing:border-box; }
+   body {
+    margin:0;
+    padding-top:56px!important;
+    background:var(--gray-bg);
+    color:var(--navy);
+    font-family:Arial,sans-serif;
+    line-height:1.45;
+   }
+   .page {
+    width:min(1060px,calc(100% - 40px));
+    margin:28px auto 48px;
+   }
+   .setup-shell {
+    display:grid;
+    grid-template-columns:250px minmax(0,1fr);
+    background:white;
+    border:1px solid var(--border);
+    border-radius:20px;
+    box-shadow:0 8px 24px rgba(15,23,42,.06);
+    overflow:hidden;
+   }
+   .setup-sidebar {
+    background:#f8fafc;
+    border-right:1px solid var(--border);
+    padding:24px 18px;
+   }
+   .setup-sidebar h1 { margin:0 0 6px; font-size:21px; }
+   .setup-sidebar > p { margin:0 0 20px; color:var(--muted); font-size:13px; }
+   .restricted-pill,.saved-pill,.status-pill {
+    display:inline-flex;
+    border-radius:999px;
+    padding:6px 9px;
+    font-size:11px;
+    font-weight:900;
+   }
+   .restricted-pill {
+    color:#9a3412;
+    background:var(--orange-light);
+    border:1px solid #fed7aa;
+    margin-bottom:18px;
+   }
+   .saved-pill { color:#166534; background:var(--green-light); border:1px solid #bbf7d0; }
+   .status-pill.green { color:#166534; background:var(--green-light); border:1px solid #bbf7d0; }
+   .status-pill.orange { color:#9a3412; background:var(--orange-light); border:1px solid #fed7aa; }
+   .status-pill.gray { color:#475569; background:#f8fafc; border:1px solid var(--border); }
+   .status-pill.red { color:#991b1b; background:var(--red-light); border:1px solid #fecaca; }
+   .step-list { display:grid; gap:8px; }
+   .step-link {
+    display:flex;
+    align-items:center;
+    gap:10px;
+    width:100%;
+    border:0;
+    background:transparent;
+    color:var(--muted);
+    border-radius:10px;
+    padding:9px;
+    text-align:left;
+    font:inherit;
+    font-size:13px;
+    font-weight:800;
+    cursor:pointer;
+   }
+   .step-link.active { background:white; color:var(--blue); box-shadow:0 3px 12px rgba(15,23,42,.06); }
+   .step-number {
+    width:25px;
+    height:25px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:white;
+    border:1px solid var(--border);
+    font-size:11px;
+   }
+   .step-link.active .step-number,.step-link.complete .step-number { background:var(--blue); border-color:var(--blue); color:white; }
+   .setup-main { min-width:0; }
+   .setup-head {
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    align-items:flex-start;
+    padding:24px 26px 20px;
+    border-bottom:1px solid var(--border);
+   }
+   .setup-head h2 { margin:0 0 6px; font-size:25px; }
+   .setup-head p { margin:0; color:var(--muted); max-width:650px; }
+   .progress { height:7px; background:#e5e7eb; }
+   .progress > div { height:100%; width:16.666%; background:var(--blue); transition:width .2s ease; }
+   .setup-screen { display:none; padding:26px; }
+   .setup-screen.active { display:block; }
+   .form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+   .field { display:grid; gap:6px; }
+   .field.full { grid-column:1/-1; }
+   .field label { color:var(--muted); font-size:12px; font-weight:900; text-transform:uppercase; }
+   .field input,.field select,.field textarea {
+    width:100%;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:#f9fafb;
+    color:var(--navy);
+    padding:11px 12px;
+    font:14px Arial,sans-serif;
+   }
+   .field input[readonly],.field select:disabled { color:var(--muted); }
+   .field input[aria-invalid="true"],.field select[aria-invalid="true"] { border-color:var(--red); box-shadow:0 0 0 2px #fee2e2; }
+   .field textarea { min-height:95px; resize:vertical; }
+   .required { color:var(--red); }
+   .optional { color:var(--blue); font-size:11px; text-transform:none; }
+   .field-help { color:var(--muted); font-size:12px; }
+   .checkbox-row {
+    grid-column:1/-1;
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:#f9fafb;
+    padding:12px 14px;
+   }
+   .checkbox-row input { margin:3px 0 0; }
+   .checkbox-row label { font-size:13px; font-weight:800; }
+   .checkbox-row span { display:block; margin-top:3px; color:var(--muted); font-size:12px; font-weight:400; }
+   .email-status-row {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-top:4px;
+   }
+   .notice {
+    background:var(--blue-light);
+    border:1px solid #bfdbfe;
+    border-radius:13px;
+    color:#1e3a8a;
+    padding:13px 14px;
+    margin-bottom:18px;
+    font-size:13px;
+   }
+   .notice.orange { color:#9a3412; background:var(--orange-light); border-color:#fed7aa; }
+   .validation-message {
+    color:#991b1b;
+    background:var(--red-light);
+    border:1px solid #fecaca;
+    border-radius:10px;
+    margin:18px 26px 0;
+    padding:11px 13px;
+    font-size:13px;
+   }
+   .review-grid,.status-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+   .review-card,.status-card { border:1px solid var(--border); background:#f9fafb; border-radius:14px; padding:15px; }
+   .review-card span:first-child,.status-card > span:first-child {
+    display:block;
+    color:var(--muted);
+    font-size:11px;
+    font-weight:900;
+    text-transform:uppercase;
+    margin-bottom:7px;
+   }
+   .review-card strong { display:block; }
+   .status-card { display:flex; justify-content:space-between; gap:14px; align-items:center; }
+   .status-card > div strong { display:block; margin-bottom:3px; }
+   .status-card > div span { color:var(--muted); font-size:12px; }
+   .submission-box {
+    background:var(--purple-light);
+    border:1px solid #ddd6fe;
+    border-radius:14px;
+    padding:16px;
+    margin-top:18px;
+   }
+   .submission-box h3 { margin:0 0 5px; }
+   .submission-box p { margin:0; color:var(--muted); font-size:13px; }
+   .review-tools {
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    align-items:center;
+    margin:20px 0 0;
+    padding-top:18px;
+    border-top:1px solid var(--border);
+   }
+   .review-tools strong { font-size:12px; color:var(--muted); margin-right:4px; }
+   .review-reason {
+    margin-top:14px;
+    padding:13px 14px;
+    border-radius:12px;
+    color:#991b1b;
+    background:var(--red-light);
+    border:1px solid #fecaca;
+   }
+   .setup-actions { display:flex; justify-content:space-between; gap:12px; border-top:1px solid var(--border); padding:18px 26px; }
+   .action-group { display:flex; gap:9px; }
+   .button {
+    border:0;
+    border-radius:10px;
+    padding:10px 14px;
+    font-size:13px;
+    font-weight:900;
+    cursor:pointer;
+    text-decoration:none;
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+   }
+   .button:disabled { opacity:.45; cursor:not-allowed; }
+   .btn-primary { background:var(--blue); color:white; }
+   .btn-light { background:white; color:var(--navy); border:1px solid var(--border); }
+   .btn-small { padding:7px 10px; font-size:12px; }
+   [hidden] { display:none!important; }
+   @media (max-width:800px) {
+    .page { width:min(100% - 24px,1060px); margin-top:16px; }
+    .setup-shell { grid-template-columns:1fr; }
+    .setup-sidebar { border-right:0; border-bottom:1px solid var(--border); }
+    .step-list { grid-template-columns:repeat(3,1fr); }
+    .step-link { padding:7px; }
+    .step-link span:last-child { display:none; }
+    .form-grid,.review-grid,.status-grid { grid-template-columns:1fr; }
+    .setup-head,.setup-actions { padding-left:18px; padding-right:18px; }
+    .setup-screen { padding:20px 18px; }
+    .setup-actions { flex-direction:column-reverse; }
+    .action-group { width:100%; }
+    .action-group .button,.setup-actions > .button { flex:1; }
+   }
+  </style>
+  <link href="../shared/app-shell.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <header class="app-header">
+   <div class="app-header-inner">
+    <a class="app-logo" href="../index.html">UNICATHLETE</a>
+    <nav aria-label="Platform view switcher" class="app-switch">
+     <a href="../index.html">Platform</a>
+     <a class="active" href="../signup.html">Create Account</a>
+     <a href="../athlete/overview.html">Athlete View</a>
+     <a href="overview.html">Recruiter View</a>
+    </nav>
+   </div>
+  </header>
+
+  <main class="page">
+   <section class="setup-shell">
+    <aside class="setup-sidebar">
+     <span class="restricted-pill">Restricted account</span>
+     <h1>Set up Scout profile</h1>
+     <p>Progress is saved. After setup and identity verification, the organization affiliation can enter manual verification.</p>
+     <div class="step-list" id="stepList">
+      <button class="step-link active" data-onboarding-step="professional" type="button"><span class="step-number">1</span><span>Professional</span></button>
+      <button class="step-link" data-onboarding-step="focus" type="button"><span class="step-number">2</span><span>Recruiting focus</span></button>
+      <button class="step-link" data-onboarding-step="organization" type="button"><span class="step-number">3</span><span>Organization</span></button>
+      <button class="step-link" data-onboarding-step="evidence" type="button"><span class="step-number">4</span><span>Evidence</span></button>
+      <button class="step-link" data-onboarding-step="review" type="button"><span class="step-number">5</span><span>Review</span></button>
+      <button class="step-link" data-onboarding-step="status" type="button"><span class="step-number">6</span><span>Status</span></button>
+     </div>
+    </aside>
+
+    <div class="setup-main">
+     <div class="setup-head">
+      <div>
+       <h2 id="onboardingTitle">Professional information</h2>
+       <p id="onboardingSubtitle">Confirm the minimum information used for the private professional profile.</p>
+      </div>
+      <span class="saved-pill" id="savedStatus">Saved</span>
+     </div>
+     <div class="progress"><div id="onboardingProgress"></div></div>
+     <div aria-live="polite" class="validation-message" hidden id="validationMessage">Complete the required fields before continuing.</div>
+
+     <div class="setup-screen active" data-screen="professional">
+      <div class="notice">Name and verified email come from account creation. Account credentials and contact information are not displayed to athletes.</div>
+      <div class="form-grid">
+       <div class="field">
+        <label for="professionalName">Full name</label>
+        <input id="professionalName" readonly value="Mike Brown"/>
+       </div>
+       <div class="field">
+        <label for="professionalEmail">Verified account email</label>
+        <input id="professionalEmail" readonly type="email" value="mike@scouting.example"/>
+       </div>
+       <div class="field">
+        <label for="professionalCountry">Country of professional activity <span class="required">*</span></label>
+        <select data-required id="professionalCountry">
+         <option value="">Choose country</option>
+         <option selected>Canada</option>
+         <option>United States</option>
+         <option>Spain</option>
+         <option>United Kingdom</option>
+         <option>Other</option>
+        </select>
+       </div>
+       <div class="field">
+        <label for="professionalExperience">Scouting / recruiting experience <span class="optional">Optional · self-reported</span></label>
+        <select id="professionalExperience">
+         <option value="">Not added</option>
+         <option>Less than 1 year</option>
+         <option>1–2 years</option>
+         <option>3–5 years</option>
+         <option selected>6–10 years</option>
+         <option>More than 10 years</option>
+        </select>
+        <span class="field-help">Provides context only. It is not verification evidence.</span>
+       </div>
+       <div class="field full">
+        <label for="professionalLanguages">Languages <span class="optional">Optional</span></label>
+        <input id="professionalLanguages" value="English, Spanish"/>
+       </div>
+       <div class="field full">
+        <label for="professionalPhoto">Professional photo <span class="optional">Optional</span></label>
+        <input accept=".jpg,.jpeg,.png" id="professionalPhoto" type="file"/>
+       </div>
+      </div>
+     </div>
+
+     <div class="setup-screen" data-screen="focus">
+      <div class="notice">These optional fields support the future Scout Profile and recruiting tools. They are not required for manual approval.</div>
+      <div class="form-grid">
+       <div class="field">
+        <label for="scoutSport">Sport</label>
+        <select disabled id="scoutSport"><option>Soccer</option></select>
+       </div>
+       <div class="field">
+        <label for="scoutCategory">Recruiting category <span class="optional">Optional</span></label>
+        <select id="scoutCategory">
+         <option value="">Not added</option>
+         <option>Men's Soccer</option>
+         <option>Women's Soccer</option>
+         <option selected>Men's and Women's Soccer</option>
+        </select>
+       </div>
+       <div class="field full">
+        <label for="scoutCoverage">Recruiting coverage <span class="optional">Optional</span></label>
+        <input id="scoutCoverage" value="Canada, Spain, Turkey"/>
+        <span class="field-help">Countries or regions where this Scout currently recruits or has professional coverage.</span>
+       </div>
+       <div class="field">
+        <label for="scoutAgeGroups">Age groups <span class="optional">Optional</span></label>
+        <input id="scoutAgeGroups" value="U15–U21"/>
+       </div>
+       <div class="field">
+        <label for="scoutFocus">Scouting focus <span class="optional">Optional</span></label>
+        <input id="scoutFocus" value="Youth scouting, midfielders, wingers"/>
+       </div>
+       <div class="field full">
+        <label for="scoutStrengths">Evaluation strengths <span class="optional">Optional</span></label>
+        <input id="scoutStrengths" value="Technical ability, mentality, potential"/>
+       </div>
+      </div>
+     </div>
+
+     <div class="setup-screen" data-screen="organization">
+      <div class="notice">The MVP supports one active organization affiliation per Scout. The data model may preserve previous affiliations and support multiple active affiliations later.</div>
+      <div class="form-grid">
+       <div class="field full">
+        <label for="organizationName">Organization name <span class="required">*</span></label>
+        <input data-required id="organizationName" value="Toronto Academy"/>
+        <span class="field-help">Production may match an existing organization or create an unconfirmed organization record for review.</span>
+       </div>
+       <div class="field">
+        <label for="organizationType">Organization type <span class="required">*</span></label>
+        <select data-required id="organizationType">
+         <option value="">Choose type</option>
+         <option>University or college</option>
+         <option>Professional club</option>
+         <option selected>Academy or youth club</option>
+         <option>Recruiting agency</option>
+         <option>Other eligible organization</option>
+        </select>
+       </div>
+       <div class="field">
+        <label for="organizationCountry">Organization country <span class="required">*</span></label>
+        <select data-required id="organizationCountry">
+         <option value="">Choose country</option>
+         <option selected>Canada</option>
+         <option>United States</option>
+         <option>Spain</option>
+         <option>United Kingdom</option>
+         <option>Other</option>
+        </select>
+       </div>
+       <div class="field full">
+        <label for="organizationWebsite">Official organization website <span class="required">*</span></label>
+        <input data-required id="organizationWebsite" type="url" value="https://torontoacademy.example"/>
+        <span class="field-help">Used to identify the official organization domain and independently verify contact channels.</span>
+       </div>
+       <div class="field">
+        <label for="affiliationTitle">Professional title at organization <span class="required">*</span></label>
+        <input data-required id="affiliationTitle" value="Scout"/>
+       </div>
+       <div class="field">
+        <label for="affiliationRelationship">Relationship type <span class="required">*</span></label>
+        <select data-required id="affiliationRelationship">
+         <option value="">Choose relationship</option>
+         <option selected>Employee</option>
+         <option>Contractor</option>
+         <option>Other current professional relationship</option>
+        </select>
+       </div>
+       <div class="field">
+        <label for="affiliationStart">Relationship start <span class="optional">Optional</span></label>
+        <input id="affiliationStart" type="month" value="2023-08"/>
+       </div>
+      </div>
+     </div>
+
+     <div class="setup-screen" data-screen="evidence">
+      <div class="notice">Affiliation evidence is private and available only to authorized UnicAthlete administrators. It is not shown to athletes, guardians, other Scouts, or organization members.</div>
+      <div class="form-grid">
+       <div class="field full">
+        <label for="organizationWorkEmail">Organization work email <span class="required">*</span></label>
+        <input data-required id="organizationWorkEmail" type="email" value="mike@torontoacademy.example"/>
+        <span class="field-help">Verified separately from the account email. It supports the affiliation but does not prove the Scout's role by itself.</span>
+        <div class="email-status-row" id="organizationEmailStatusRow">
+         <span class="status-pill green">Email verified</span>
+         <button class="button btn-light btn-small" type="button">Resend verification</button>
+        </div>
+       </div>
+       <div class="checkbox-row">
+        <input id="noOrganizationEmail" type="checkbox"/>
+        <label for="noOrganizationEmail">My organization does not provide me with a work email
+         <span>This exception requires direct confirmation through an organization-controlled channel independently verified by UnicAthlete.</span>
+        </label>
+       </div>
+       <div class="field full">
+        <label for="evidenceMethod">Official corroboration route <span class="required">*</span></label>
+        <select data-required id="evidenceMethod">
+         <option value="">Choose route</option>
+         <option selected value="staff-page">Official organization staff page</option>
+         <option value="official-directory">Official federation or league directory</option>
+         <option value="representative">Direct organization confirmation</option>
+        </select>
+       </div>
+       <div class="field full" id="evidenceTextField">
+        <label for="evidenceText" id="evidenceTextLabel">Official staff-page URL <span class="required">*</span></label>
+        <input data-required id="evidenceText" type="url" value="https://torontoacademy.example/staff/mike-brown"/>
+        <span class="field-help" id="evidenceHelp">The page should identify the applicant and their current professional role.</span>
+       </div>
+       <div class="field" hidden id="representativeNameField">
+        <label for="representativeName">Representative name <span class="required">*</span></label>
+        <input id="representativeName" value="Ashley Lee"/>
+       </div>
+       <div class="field" hidden id="representativeRoleField">
+        <label for="representativeRole">Representative role <span class="required">*</span></label>
+        <input id="representativeRole" value="Director of Recruitment"/>
+       </div>
+       <div class="field full" hidden id="representativeNoteField">
+        <span class="field-help">The Scout identifies a suitable representative, but UnicAthlete independently finds or verifies the official contact channel. Contact details supplied only by the applicant are not sufficient.</span>
+       </div>
+       <div class="field full">
+        <label for="linkedInUrl">LinkedIn profile <span class="optional">Optional supporting evidence</span></label>
+        <input id="linkedInUrl" type="url" value="https://linkedin.example/in/mike-brown"/>
+        <span class="field-help">Supporting context only. LinkedIn cannot confirm an affiliation by itself.</span>
+       </div>
+       <div class="field full">
+        <label for="supportingUrl">Another relevant official link <span class="optional">Optional</span></label>
+        <input id="supportingUrl" type="url" placeholder="Organization announcement, professional directory, or licence listing"/>
+       </div>
+      </div>
+      <div class="notice orange" style="margin-top:18px;">
+       <strong>Identity verification comes next.</strong> Manual organization-affiliation verification cannot begin until identity verification succeeds. The provider has not been selected, so this wireframe shows a provider-neutral placeholder and does not collect identity documents here.
+      </div>
+     </div>
+
+     <div class="setup-screen" data-screen="review">
+      <div class="review-grid">
+       <div class="review-card"><span>Professional</span><strong id="reviewProfessional">Mike Brown · Canada</strong></div>
+       <div class="review-card"><span>Optional Scout context</span><strong id="reviewFocus">Soccer · Men's and Women's Soccer</strong></div>
+       <div class="review-card"><span>Organization</span><strong id="reviewOrganization">Toronto Academy · Academy or youth club · Canada</strong></div>
+       <div class="review-card"><span>Claimed relationship</span><strong id="reviewRelationship">Scout · Employee</strong></div>
+       <div class="review-card"><span>Work email</span><strong id="reviewWorkEmail">mike@torontoacademy.example</strong></div>
+       <div class="review-card"><span>Official corroboration</span><strong id="reviewEvidence">Official organization staff page</strong></div>
+       <div class="review-card"><span>Athlete access</span><strong>Restricted</strong></div>
+      </div>
+      <div class="submission-box">
+       <h3>Complete Scout onboarding</h3>
+       <p>This stores the professional, affiliation, and evidence information. Manual review is queued only after identity verification succeeds, and completing onboarding does not enable athlete access.</p>
+      </div>
+     </div>
+
+     <div class="setup-screen" data-screen="status">
+      <div class="notice orange"><strong>Scout access remains restricted.</strong> Verification and affiliation statuses stay separate, and no organization affiliation grants workspace permissions.</div>
+      <div class="status-grid">
+       <div class="status-card"><div><strong>Email verification</strong><span>Account email ownership</span></div><span class="status-pill green">Verified</span></div>
+       <div class="status-card"><div><strong>Scout onboarding</strong><span>Professional and affiliation setup</span></div><span class="status-pill green">Completed</span></div>
+       <div class="status-card"><div><strong>Identity verification</strong><span id="identityDescription">Provider not selected</span></div><span class="status-pill gray" id="identityStatus">Not started</span></div>
+       <div class="status-card"><div><strong>Toronto Academy affiliation</strong><span id="affiliationDescription">Starts after identity verification</span></div><span class="status-pill gray" id="affiliationStatus">Not queued</span></div>
+       <div class="status-card"><div><strong>Athlete access</strong><span id="accessDescription">Required checks are not complete</span></div><span class="status-pill gray">Restricted</span></div>
+      </div>
+      <div class="review-reason" hidden id="reviewReason">
+       <strong id="reviewReasonLabel">Changes requested:</strong> <span id="reviewReasonText">The submitted source does not clearly confirm the current role.</span>
+       <button class="button btn-light btn-small" id="updateSubmission" style="margin-left:10px;" type="button">Update submission</button>
+      </div>
+      <div class="review-tools">
+       <strong>Wireframe review state:</strong>
+       <button class="button btn-light btn-small" data-review-state="identity" type="button">Awaiting ID</button>
+       <button class="button btn-light btn-small" data-review-state="pending" type="button">ID verified · queued</button>
+       <button class="button btn-light btn-small" data-review-state="direct" type="button">Direct confirmation required</button>
+       <button class="button btn-light btn-small" data-review-state="changes" type="button">Changes requested</button>
+       <button class="button btn-light btn-small" data-review-state="approved" type="button">Affiliation confirmed</button>
+      </div>
+     </div>
+
+     <div class="setup-actions">
+      <a class="button btn-light" href="scout-profile.html">Save and exit</a>
+      <div class="action-group">
+       <button class="button btn-light" id="onboardingBack" type="button">Back</button>
+       <button class="button btn-primary" id="onboardingNext" type="button">Continue</button>
+      </div>
+     </div>
+    </div>
+   </section>
+  </main>
+
+  <script>
+   const onboardingSteps=['professional','focus','organization','evidence','review','status'];
+   const onboardingCopy={
+    professional:['Professional information','Confirm the minimum information used for the private professional profile.'],
+    focus:['Recruiting focus','Add optional context for the Scout Profile and future recruiting tools.'],
+    organization:['Organization affiliation','Record the one active organization relationship supported in the MVP.'],
+    evidence:['Affiliation evidence','Verify the organization email and provide an official corroboration route.'],
+    review:['Review onboarding','Review the information that will be stored before identity verification and affiliation review.'],
+    status:['Restricted Scout workspace','Track the separate checks required before athlete access can be considered.']
+   };
+   let onboardingIndex=0;
+   let submitted=false;
+   const savedStatus=document.getElementById('savedStatus');
+   function currentScreen(){ return document.querySelector('[data-screen="'+onboardingSteps[onboardingIndex]+'"]'); }
+   function fieldHasValue(field){
+    if(field.type==='file') return field.files.length>0;
+    return String(field.value||'').trim()!=='';
+   }
+   function visibleRequiredFields(screen){
+    return Array.from(screen.querySelectorAll('[data-required]')).filter(field=>!field.closest('[hidden]'));
+   }
+   function stepComplete(step){
+    if(step==='status') return submitted;
+    const screen=document.querySelector('[data-screen="'+step+'"]');
+    return visibleRequiredFields(screen).every(fieldHasValue);
+   }
+   function validateCurrentStep(){
+    const required=visibleRequiredFields(currentScreen());
+    required.forEach(field=>field.setAttribute('aria-invalid',String(!fieldHasValue(field))));
+    const valid=stepComplete(onboardingSteps[onboardingIndex]);
+    document.getElementById('validationMessage').hidden=valid;
+    return valid;
+   }
+   function selectedText(id){
+    const field=document.getElementById(id);
+    return field.value?field.selectedOptions[0].text:'Not added';
+   }
+   function updateEvidenceFields(){
+    const method=document.getElementById('evidenceMethod').value;
+    const textField=document.getElementById('evidenceTextField');
+    const input=document.getElementById('evidenceText');
+    const label=document.getElementById('evidenceTextLabel');
+    const help=document.getElementById('evidenceHelp');
+    const representativeFields=['representativeNameField','representativeRoleField','representativeNoteField'];
+    const representativeInputs=['representativeName','representativeRole'];
+    const directConfirmation=method==='representative';
+    textField.hidden=directConfirmation||!method;
+    representativeFields.forEach(id=>document.getElementById(id).hidden=!directConfirmation);
+    input.removeAttribute('data-required');
+    representativeInputs.forEach(id=>document.getElementById(id).removeAttribute('data-required'));
+    if(directConfirmation) representativeInputs.forEach(id=>document.getElementById(id).setAttribute('data-required',''));
+    else if(method) input.setAttribute('data-required','');
+    if(method==='staff-page'){
+     label.textContent='Official staff-page URL *';
+     input.type='url';
+     input.value='https://torontoacademy.example/staff/mike-brown';
+     help.textContent='The page should identify the applicant and their current professional role.';
+    }else if(method==='official-directory'){
+     label.textContent='Official directory URL *';
+     input.type='url';
+     input.value='https://league.example/directory/mike-brown';
+     help.textContent='The federation or league directory should show the applicant, organization, and current role.';
+    }
+   }
+   function updateOrganizationEmail(){
+    const noEmail=document.getElementById('noOrganizationEmail').checked;
+    const workEmail=document.getElementById('organizationWorkEmail');
+    const method=document.getElementById('evidenceMethod');
+    workEmail.closest('.field').hidden=noEmail;
+    document.getElementById('organizationEmailStatusRow').hidden=noEmail;
+    workEmail.toggleAttribute('data-required',!noEmail);
+    method.disabled=noEmail;
+    if(noEmail){
+     method.value='representative';
+     updateEvidenceFields();
+    }
+   }
+   function updateReview(){
+    document.getElementById('reviewProfessional').textContent=document.getElementById('professionalName').value+' · '+selectedText('professionalCountry');
+    document.getElementById('reviewFocus').textContent='Soccer · '+selectedText('scoutCategory');
+    document.getElementById('reviewOrganization').textContent=document.getElementById('organizationName').value+' · '+selectedText('organizationType')+' · '+selectedText('organizationCountry');
+    document.getElementById('reviewRelationship').textContent=document.getElementById('affiliationTitle').value+' · '+selectedText('affiliationRelationship');
+    document.getElementById('reviewWorkEmail').textContent=document.getElementById('noOrganizationEmail').checked?'Organization does not provide one · Direct confirmation required':document.getElementById('organizationWorkEmail').value+' · Verified';
+    document.getElementById('reviewEvidence').textContent=selectedText('evidenceMethod');
+   }
+   function renderOnboarding(){
+    const step=onboardingSteps[onboardingIndex];
+    document.querySelectorAll('.setup-screen').forEach(screen=>screen.classList.toggle('active',screen.dataset.screen===step));
+    document.querySelectorAll('[data-onboarding-step]').forEach((button,index)=>{
+     button.classList.toggle('active',index===onboardingIndex);
+     button.classList.toggle('complete',index<onboardingIndex&&stepComplete(onboardingSteps[index]));
+    });
+    document.getElementById('onboardingTitle').textContent=onboardingCopy[step][0];
+    document.getElementById('onboardingSubtitle').textContent=onboardingCopy[step][1];
+    document.getElementById('onboardingProgress').style.width=((onboardingIndex+1)/onboardingSteps.length*100)+'%';
+    document.getElementById('validationMessage').hidden=true;
+    document.querySelectorAll('[aria-invalid="true"]').forEach(field=>field.removeAttribute('aria-invalid'));
+    document.getElementById('onboardingBack').disabled=false;
+    document.getElementById('onboardingNext').hidden=step==='status';
+    document.getElementById('onboardingNext').textContent=step==='review'?'Complete Onboarding':'Continue';
+    if(step==='review') updateReview();
+   }
+   function showSaved(){
+    savedStatus.textContent='Saving…';
+    window.clearTimeout(showSaved.timer);
+    showSaved.timer=window.setTimeout(()=>{savedStatus.textContent='Saved';},350);
+   }
+   function setReviewState(state){
+    const affiliationStatus=document.getElementById('affiliationStatus');
+    const identityStatus=document.getElementById('identityStatus');
+    const identityDescription=document.getElementById('identityDescription');
+    const affiliationDescription=document.getElementById('affiliationDescription');
+    const reason=document.getElementById('reviewReason');
+    const reasonLabel=document.getElementById('reviewReasonLabel');
+    const reasonText=document.getElementById('reviewReasonText');
+    [identityStatus,affiliationStatus].forEach(status=>status.className='status-pill');
+    reason.hidden=state!=='changes'&&state!=='direct';
+    if(state==='identity'){
+     identityStatus.textContent='Not started';
+     affiliationStatus.textContent='Not queued';
+     identityStatus.classList.add('gray');
+     affiliationStatus.classList.add('gray');
+     identityDescription.textContent='Provider not selected';
+     affiliationDescription.textContent='Starts after identity verification';
+    }else if(state==='approved'){
+     identityStatus.textContent='Verified';
+     affiliationStatus.textContent='Confirmed';
+     identityStatus.classList.add('green');
+     affiliationStatus.classList.add('green');
+     identityDescription.textContent='Identity check completed';
+     affiliationDescription.textContent='Organization relationship confirmed';
+    }else if(state==='direct'){
+     identityStatus.textContent='Verified';
+     affiliationStatus.textContent='Direct confirmation required';
+     identityStatus.classList.add('green');
+     affiliationStatus.classList.add('orange');
+     identityDescription.textContent='Identity check completed';
+     affiliationDescription.textContent='UnicAthlete must verify an official organization channel';
+     reasonLabel.textContent='Direct confirmation required:';
+     reasonText.textContent='No sufficient official listing is available or the submitted evidence is ambiguous.';
+    }else if(state==='changes'){
+     identityStatus.textContent='Verified';
+     affiliationStatus.textContent='Changes requested';
+     identityStatus.classList.add('green');
+     affiliationStatus.classList.add('red');
+     identityDescription.textContent='Identity check completed';
+     affiliationDescription.textContent='Additional confirmation is required';
+     reasonLabel.textContent='Changes requested:';
+     reasonText.textContent='The submitted source does not clearly confirm the current role.';
+    }else{
+     identityStatus.textContent='Verified';
+     affiliationStatus.textContent='Pending review';
+     identityStatus.classList.add('green');
+     affiliationStatus.classList.add('orange');
+     identityDescription.textContent='Identity check completed';
+     affiliationDescription.textContent='Waiting for an administrator';
+    }
+   }
+   document.getElementById('onboardingNext').addEventListener('click',()=>{
+    if(!validateCurrentStep()) return;
+    if(onboardingSteps[onboardingIndex]==='review'){
+     submitted=true;
+     onboardingIndex=onboardingSteps.indexOf('status');
+     setReviewState('identity');
+     renderOnboarding();
+     return;
+    }
+    showSaved();
+    onboardingIndex+=1;
+    renderOnboarding();
+   });
+   document.getElementById('onboardingBack').addEventListener('click',()=>{
+    if(onboardingIndex===0){ window.location.href='../signup.html'; return; }
+    onboardingIndex=Math.max(0,onboardingIndex-1);
+    renderOnboarding();
+   });
+   document.querySelectorAll('[data-onboarding-step]').forEach((button,index)=>{
+    button.addEventListener('click',()=>{ onboardingIndex=index; renderOnboarding(); });
+   });
+   document.getElementById('evidenceMethod').addEventListener('change',()=>{ updateEvidenceFields(); showSaved(); });
+   document.getElementById('noOrganizationEmail').addEventListener('change',()=>{ updateOrganizationEmail(); showSaved(); });
+   document.querySelectorAll('[data-review-state]').forEach(button=>button.addEventListener('click',()=>setReviewState(button.dataset.reviewState)));
+   document.getElementById('updateSubmission').addEventListener('click',()=>{
+    onboardingIndex=onboardingSteps.indexOf('organization');
+    renderOnboarding();
+   });
+   document.querySelectorAll('input,select,textarea').forEach(field=>field.addEventListener('change',showSaved));
+   updateOrganizationEmail();
+   updateEvidenceFields();
+   setReviewState('identity');
+   renderOnboarding();
+  </script>
+ </body>
+</html>

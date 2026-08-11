@@ -74,9 +74,9 @@ Engineering determines the token design and recommends an expiry duration.
 ### Scout
 
 - Account status is restricted.
-- Onboarding, identity verification, and admin verification are separate processes and are `not started`.
-- Email verification is separate from identity verification and admin verification.
-- The identity-verification provider and the admin-verification workflow have not been selected or designed.
+- Onboarding, identity verification, and organization-affiliation verification are separate processes and are `not started`.
+- Email verification is separate from identity verification and organization-affiliation verification.
+- The identity-verification provider and manual organization-affiliation workflow are unavailable in Slice 1.
 - Athlete access, discovery, messaging, saved athletes, evaluations, and workspace access are unavailable.
 
 ## Legal Records
@@ -108,15 +108,15 @@ Scout status must identify:
 
 - restricted account status;
 - email-verification status;
-- onboarding, identity verification, and admin verification as `not started`;
+- onboarding, identity verification, and organization-affiliation verification as `not started`;
 - athlete access as unavailable.
 
 ## Out of Scope
 
 - Athlete profile questions or completeness
 - Athlete publication or visibility controls
-- Scout onboarding, identity-verification workflow, or admin-verification workflow
-- Real identity, guardian, age, or scout admin verification
+- Scout onboarding, identity-verification workflow, or organization-affiliation-verification workflow
+- Real identity, guardian, age, or Scout organization-affiliation verification
 - Provider-specific verification UI
 - Multiple-profile management UI
 - Discovery, messaging, requests, media, documents, evaluations, or comparisons

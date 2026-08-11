@@ -2021,7 +2021,7 @@ p {
       <label class="consent-item">
        <input class="required-scout-term" type="checkbox"/>
        <span>
-        I understand that scout onboarding, identity verification, and admin verification are required before athlete access can be considered.
+        I understand that Scout onboarding, identity verification, and organization-affiliation verification are required before athlete access can be considered.
         <small>
          Account creation alone does not allow discovery, messaging, saved athletes, or workspace access.
         </small>
@@ -2040,7 +2040,7 @@ p {
       We sent a verification link to the email used to create your scout account.
      </p>
      <div class="info-box">
-      Open the link in the email to verify the account. The scout account remains restricted until the required identity and admin verification are complete.
+      Open the link in the email to verify the account. The Scout account remains restricted until the required identity and organization-affiliation verification are complete.
      </div>
     </div>
     <div class="actions">
@@ -2088,7 +2088,7 @@ const copy = {
   'adult-account': ['Independent Athlete Account', 'Adult athletes create their own login and manage their own profile.'],
   'adult-consent': ['Adult Account Consent', 'Confirm account ownership and required account acknowledgements.'],
   'athlete-created': ['Check Your Email', 'Verify the account email before continuing with profile setup.'],
-  'scout-account': ['Professional / Scout Account', 'Create a restricted account before identity and admin verification.'],
+  'scout-account': ['Professional / Scout Account', 'Create a restricted account before identity and organization-affiliation verification.'],
   'scout-terms': ['Scout Account Terms', 'Confirm the account terms and understand the restricted-account status.'],
   'scout-created': ['Check Your Email', 'Verify the scout account email before continuing.']
 };
@@ -2115,7 +2115,7 @@ function render() {
   let nextButtonLabel = 'Continue';
   if (currentStep === 'scout-terms') nextButtonLabel = 'Create Account';
   else if (currentStep === 'athlete-created') nextButtonLabel = 'Continue to Profile Setup';
-  else if (currentStep === 'scout-created') nextButtonLabel = 'Back to Overview';
+  else if (currentStep === 'scout-created') nextButtonLabel = 'Continue to Scout Profile Setup';
   else if (isFinalStep) nextButtonLabel = 'Finish Signup';
   document.getElementById('nextButton').textContent = nextButtonLabel;
   const supervisedChoiceRequired = currentStep === 'teen-access' && !selected.manager;
@@ -2167,7 +2167,7 @@ function goNext() {
   } else if (currentStep === 'athlete-created') {
     window.location.href = 'athlete/onboarding.html';
   } else if (currentStep === 'scout-created') {
-    window.location.href = 'index.html';
+    window.location.href = 'recruiter/onboarding.html';
   } else if (activeSequence.indexOf(currentStep) === activeSequence.length - 1) {
     window.location.href = 'index.html';
   } else if (currentStep === 'dob') {

@@ -607,7 +607,7 @@ h1 {
      MVP Scout Workspace Model
     </h2>
 	    <p>
-	     Every verified scout gets the same private scout workspace flow. A scout can have multiple organization affiliations, and each recruiting project can be independent or linked to one affiliation as context.
+	     Every verified Scout gets the same private workspace flow. The MVP uses one active confirmed organization affiliation, while the structure can preserve affiliation history and support multiple active affiliations later.
     </p>
     <div class="grid-3">
      <div class="card">
@@ -623,13 +623,13 @@ h1 {
      </div>
      <div class="card">
       <h3>
-       Agency Affiliation
+       Organization Affiliation
       </h3>
       <p>
-       Optional grouping layer for agencies, clubs, or companies. Agency scouts use the same flow as independent scouts, and project context does not change messaging in MVP.
+       Required professional context for eligible MVP Scouts. It remains separate from future organization workspace membership and permissions.
       </p>
       <span class="tag green">
-       Skeleton Only
+       Foundation Only
       </span>
      </div>
     </div>
@@ -657,8 +657,7 @@ h1 {
      </span>
     </div>
 	    <div class="note">
-	     MVP rule: the Scout Profile is private identity and trust information; the Dashboard contains the private scout portfolio/activity summary. Project context does not create shared organization chats, permission management, or reporting. Those arrive later as Line 2 subscription features.
-	     In the UI, context should behave as a filter: selecting Toronto Academy, Global Soccer Partners, or Independent shows only projects, conversations, requests, and updates related to that context.
+	     MVP rule: the Scout Profile is private identity and trust information; the Dashboard contains the private scout portfolio/activity summary. The Scout has one active confirmed affiliation, so no affiliation-context selector is required. Multiple affiliation filters and organization collaboration arrive later.
 	    </div>
    </div>
    <div class="section" id="workspace-logic">
@@ -666,9 +665,9 @@ h1 {
      Workspace Logic
     </h2>
     <p>
-     A scout workspace is where a verified scout manages athlete-related work. Inside it,
-    work is divided into recruiting projects. Each project can be independent or linked
-    to one active organization affiliation as project context.
+     A Scout workspace is where a verified Scout manages athlete-related work. Inside it,
+    work is divided into recruiting projects attributed to the Scout's one active confirmed
+    organization affiliation. Multiple or independent contexts may be introduced later.
     </p>
     <div class="grid-3">
      <div class="card">
@@ -1263,7 +1262,7 @@ Important rules:
 - Saved Athletes can be filtered by All Saved, Not in Pipeline, and In Pipeline.
 - Adding an athlete to the pipeline creates or links a ProjectAthlete record with pipeline_status = New.
 - Moving an athlete into the pipeline does not erase the ProjectSavedAthlete record.
-- A project can be independent or linked to one organization affiliation.
+- MVP project activity is attributed to the Scout's one active confirmed organization affiliation; later versions may add multiple or independent contexts.
 - Line 2 can grant other scouts permissioned visibility without changing message ownership.
 - Athletes do not see ProjectAthlete internals.`
 }

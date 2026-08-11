@@ -13,7 +13,7 @@ Before production, qualified review must determine the applicable laws, legal ba
 - **Purpose-specific consent:** applies only when the approved legal basis requires consent for a stated collection, use, or disclosure. It must not authorize unrelated future features.
 - **Product permission:** controls product behavior, such as supervised or independent communication. It is not automatically legal consent for every related processing activity.
 - **Guardian authority:** may be asserted or verified. A checkbox assertion does not prove identity, parental authority, or legal guardianship.
-- **Verification:** email ownership, identity/adult status, age, guardian relationship, scout identity, and scout admin verification are separate results.
+- **Verification:** email ownership, identity/adult status, age, guardian relationship, Scout identity, and Scout organization-affiliation confirmation are separate results.
 - **Verifiable parental consent:** where legally required, it is a specific process and must not be inferred from an ordinary checkbox, verified email, or adult-ID result alone.
 
 ## Evidence the Product Must Preserve

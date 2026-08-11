@@ -27,6 +27,7 @@ Every applicable item below must pass.
 - Date of birth is present.
 - City is present.
 - Country of residence is present.
+- At least one country of citizenship is selected.
 
 ### Education and Recruiting Timeline
 
@@ -182,9 +183,12 @@ The Slice 2 implementation boundary and temporary profile-status behavior are de
 - Profile photo: 2%.
 - City: 2%.
 - Country of residence: 2%.
-- At least one language: 4%.
+- At least one country of citizenship: 2%.
+- At least one language: 2%.
 
 Full name and date of birth do not contribute because they are required during account creation.
+
+Citizenship is shared `AthleteProfile` information and is separate from country of residence. Support one or more standardized country identifiers. Do not collect passport numbers or citizenship documents in this field. Citizenship countries may appear to eligible scouts only through an effectively visible Sport Profile's approved recruiter-facing projection.
 
 ### Education — 10%
 
@@ -237,6 +241,14 @@ When `With a team` is selected, each completed item on the current draft or acti
 
 Statistics are owned by the applicable `TeamSeason`; closing or archiving a season must not move its values onto the general Soccer Profile.
 
+The applicable statistic set is determined by the position played in that `TeamSeason`, not only by the Soccer Profile's primary position:
+
+- common statistics include appearances, starts, minutes played, yellow cards, and red cards for every position group;
+- outfield statistics additionally include goals, assists, and calculated Goal Contributions; and
+- goalkeeper statistics additionally include saves, clean sheets, goals conceded, and shots on target faced.
+
+Calculate Goal Contributions from goals plus assists. Calculate `save_percentage` from saves and shots on target faced when both values are available. Display it to users as **Save Rate**, with the underlying values available as context. Neither calculated value is independently editable, and Save Rate remains unavailable when its required source values are missing. Statistic definitions must be configurable and versioned with stable identifiers rather than implemented as fixed `TeamSeason` columns, so other position groups and sports can be introduced later.
+
 If current-season performance is not applicable because the athlete is unattached and has no active `TeamSeason`, recalculate this section across the remaining applicable item.
 
 ### Recruiting Details — 10%
@@ -274,14 +286,14 @@ An empty, processing, or failed media item does not contribute. Additional clips
 |---|---|
 | Goalkeeper | Shot Stopping; Handling & Cross Management; Goalkeeper 1v1; Goalkeeper Distribution; Goalkeeper Positioning |
 | Centre Back | Defending & Pressing; Aerial Play; Passing & Distribution; First Touch & Ball Control; Off-ball Movement & Positioning |
-| Full Back / Wing Back | Pace in Match Situations; Defending & Pressing; Crossing & Chance Creation; Passing & Distribution; Off-ball Movement & Positioning; First Touch & Ball Control |
+| Right Back (RB); Left Back (LB); Right Wing-Back (RWB); Left Wing-Back (LWB) | Pace in Match Situations; Defending & Pressing; Crossing & Chance Creation; Passing & Distribution; Off-ball Movement & Positioning; First Touch & Ball Control |
 | Defensive Midfielder | Defending & Pressing; Passing & Distribution; First Touch & Ball Control; Off-ball Movement & Positioning |
 | Central Midfielder | Passing & Distribution; First Touch & Ball Control; Off-ball Movement & Positioning; Ball Carrying & Attacking 1v1; Crossing & Chance Creation |
 | Attacking Midfielder | Ball Carrying & Attacking 1v1; Passing & Distribution; First Touch & Ball Control; Off-ball Movement & Positioning; Crossing & Chance Creation; Finishing |
-| Winger | Ball Carrying & Attacking 1v1; Crossing & Chance Creation; Off-ball Movement & Positioning; Pace in Match Situations; First Touch & Ball Control; Finishing |
+| Right Winger (RW); Left Winger (LW) | Ball Carrying & Attacking 1v1; Crossing & Chance Creation; Off-ball Movement & Positioning; Pace in Match Situations; First Touch & Ball Control; Finishing |
 | Forward / Striker | Finishing; Off-ball Movement & Positioning; Ball Carrying & Attacking 1v1; First Touch & Ball Control; Hold-up & Link Play |
 
-The MVP library contains 15 unique categories and 42 position-to-category assignments. Engineering must implement it as configurable, versioned product data rather than hardcoded profile columns. Category identifiers used by media records must remain stable even if display labels change.
+The MVP library contains 15 unique categories. Each selectable position has its own stable identifier. Positions that use the same recommendations, such as RW/LW or RB/LB/RWB/LWB, may reference a shared configurable mapping group rather than duplicate the rules. Engineering must implement the library and mappings as configurable, versioned product data rather than hardcoded profile columns. Category and position identifiers used by records must remain stable even if display labels change.
 
 ### Skill Filtering and Recalculation
 
@@ -346,7 +358,7 @@ This document does not define media file-size, duration, upload-count, storage, 
 - An athlete marked `Currently unattached` may be Recruiter-Ready without an active `TeamSeason`.
 - Without a Main Evaluation Video, the maximum completion is 90%.
 - A Centre Back with three of five mapped categories receives `3 / 5 × 10 = 6%` from Skill Clips.
-- A Winger with three of six mapped categories receives `3 / 6 × 10 = 5%` from Skill Clips.
+- A Right Winger (RW) or Left Winger (LW) with three of six mapped categories receives `3 / 6 × 10 = 5%` from Skill Clips.
 - An explicit `Currently unattached` response completes Current Playing Context.
 - A valid zero statistic counts; a blank statistic does not.
 - A valid explicit `No previous team seasons` response completes the applicable history item.
