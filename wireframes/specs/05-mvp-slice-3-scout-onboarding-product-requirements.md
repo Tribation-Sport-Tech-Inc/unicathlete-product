@@ -203,6 +203,8 @@ It must communicate:
 
 The restricted Scout may view and edit permitted professional and affiliation information and enter the empty/restricted personal workspace. Athlete-dependent features remain unavailable. The same Scout Profile may later render the eligible state when the applicable access functionality exists and every required gate is satisfied; changing state does not create a second profile or destination.
 
+The Scout Workspace is a separate destination. The Scout Profile may link to it through the main navigation, but it does not embed workspace statistics, recruiting-project actions, managed-athlete counts, or other workspace content.
+
 ## Minimal Admin Review Interface
 
 - Slice 3 includes a minimal internal organization-affiliation review tool, not a general administration dashboard.

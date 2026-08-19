@@ -685,9 +685,6 @@ body {
 	       <span class="badge" id="trustAvailabilityBadge">
 	        Trust card unavailable
 	       </span>
-	       <span class="badge purple">
-	        Scout Workspace Active
-	       </span>
       </div>
      </div>
     </div>
@@ -912,66 +909,6 @@ body {
        </div>
       </div>
    </div>
-	   <div class="card" style="margin-bottom:18px;">
-	    <h2 class="section-title">
-	     Scout Workspace
-	    </h2>
-	    <p class="section-subtitle">
-	     This is the scout's personal operating area. Future recruiting actions retain the confirmed organization affiliation the scout represented when acting.
-	    </p>
-      <div class="workspace-card-list">
-       <div class="workspace-membership-card individual primary-workspace">
-        <div class="workspace-membership-top">
-         <div>
-          <div class="workspace-membership-name">
-           Mike Brown Scout Workspace
-          </div>
-          <div class="workspace-membership-meta">
-           Created during Scout onboarding
-           <br/>
-           Owner: Mike Brown
-           <br/>
-           Used for recruiting work performed under a confirmed organization affiliation
-          </div>
-         </div>
-         <span class="workspace-type-pill personal">
-          Personal
-         </span>
-        </div>
-        <div class="workspace-stat-row">
-         <div class="workspace-stat">
-          <strong>
-           1
-          </strong>
-          Scout
-         </div>
-         <div class="workspace-stat">
-          <strong id="managedAthleteCount">
-           0
-          </strong>
-          Managed Athletes
-         </div>
-         <div class="workspace-stat">
-          <strong id="recruitingProjectCount">
-           0
-          </strong>
-          Recruiting Projects
-         </div>
-        </div>
-        <div class="workspace-action-row">
-         <a class="button btn-primary" href="workspace.html" id="openWorkspaceAction">
-          Open Restricted Workspace
-         </a>
-         <a class="button btn-light is-disabled" href="create_group.html" id="createProjectAction" aria-disabled="true">
-          Create Recruiting Project
-         </a>
-         <a class="button btn-light" href="#">
-          Workspace Details
-         </a>
-        </div>
-       </div>
-      </div>
-   </div>
   </div>
   <div class="backend-modal" id="backendNoteModal" onclick="closeBackendNote(event)">
    <div class="backend-modal-card">
@@ -1025,12 +962,6 @@ body {
     document.getElementById('removeAffiliationCopy').textContent=eligible
      ?'It will no longer be your active confirmed affiliation, and any athlete access that depends on it will be suspended. The removal is recorded in affiliation history. Using this organization again will require a new application or reverification.'
      :'The claimed relationship and removal will remain in affiliation history. Using this organization again will require a new application.';
-    document.getElementById('managedAthleteCount').textContent=eligible?'14':'0';
-    document.getElementById('recruitingProjectCount').textContent=eligible?'3':'0';
-    document.getElementById('openWorkspaceAction').textContent=eligible?'Open Workspace':'Open Restricted Workspace';
-    const createProjectAction=document.getElementById('createProjectAction');
-    createProjectAction.classList.toggle('is-disabled',!eligible);
-    createProjectAction.setAttribute('aria-disabled',String(!eligible));
     document.querySelectorAll('[data-athlete-access-link]').forEach(link=>{
      link.classList.toggle('is-disabled',!eligible);
      link.setAttribute('aria-disabled',String(!eligible));
