@@ -1,0 +1,29 @@
+{
+  "bridgeVersion": "3.6",
+  "kind": "google-docs-trusted-read-receipt",
+  "status": "complete",
+  "target": {
+    "documentId": "18zzLZv0AoK7FCu_8QJgWXWr74wv6l-Uiy8ZHIVzfnZ4",
+    "title": "Pilot Preparation",
+    "revisionId": "AIroW37t5NfB0ZesPblV0f4XfwGAlKNthU2EYRbOD37SyGk6DMj-JogI28ktRN-4qIbnmgt3SEjufEqxF69CFASJ9o_pP3gTTp99seGMzRI",
+    "documentUrl": "https://docs.google.com/document/d/18zzLZv0AoK7FCu_8QJgWXWr74wv6l-Uiy8ZHIVzfnZ4",
+    "selectedTabId": "t.0"
+  },
+  "dropdownMetadata": {
+    "status": "unavailable",
+    "resolvedTool": null,
+    "authoritative": false,
+    "count": 0
+  },
+  "controlAwareness": {
+    "hasProtectedControls": false,
+    "authoritativeDropdownCount": 0,
+    "opaqueControlCount": 0,
+    "affectedParagraphCount": 0,
+    "nativeElementCounts": {},
+    "preservationRequired": false,
+    "recommendedBehavior": "No protected controls were detected in the scanned scope."
+  },
+  "warnings": [],
+  "error": null
+}

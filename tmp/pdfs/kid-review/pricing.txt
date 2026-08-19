@@ -1,0 +1,525 @@
+
+===== PAGE 1 =====
+                                                                                                                                    
+   K-ID CONFIDENTIAL                                                                                         VERSION V1.2 · 15 JULY 2026
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+       Pricing                                                                                                                      
+                                                                                                                                    
+                                                                                                                                    
+       built     to  scale     with     you.                                                                                        
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+       How        Pricing        Works                                                                                              
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                Organizational            Cover                                                     
+                                                                                                                                    
+                                                                                                                                    
+                             One tier. Applied company-wide. Sets the compliance  posture, markets, SLA,                            
+                                                                                                                                    
+                           and entitlements  that flow through every product, every team, every choice you                          
+                                                             make  next.                                                            
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                      THEN   CHOOSE   ONE   OF                                                      
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                               OPTION 01                                  OPTION 02                                 OPTION 03       
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+             Product  Subscription          OR          Verification Bundle           OR            Supported  Users                
+                                                                                                                                    
+                   PER PRODUCT                                PER CHECK                                  PER USER                   
+                 from  $499/mo                              $0.10  list                              $0.48/user/yr                  
+                                                                                                                                    
+                · tiers up to $49,999/mo               · packs from $0.01 with subscription          · drops to $0.11 at scale      
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+       Organization                Compliance               Coverage                                                                
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+       One tier. Company-wide. Sets compliance posture, markets, Family Connect surface, and SLA for the whole organisation. Every Product
+                                                                                                                                    
+       Subscription, Verification Bundle, and Commerce line inherits it. Tiers scale from Sandbox (free) through Enterprise ($25,000/month).
+                                                                                                                                    
+                                                                        MOST POPULAR                                                
+                            Sandbox             Foundation          Enhanced           Concierge           Enterprise               
+                                                                                                                                    
+                            Free age-gate API,  One product live. One Multiple products. Global. Every market. Top-tier global. Bespoke
+                            unlimited.          market.             Multiple markets.  Custom.             & co-developed.          
+                            $0                  $499                $3,499             $9,999              $25,000                  
+                                /mo                   /mo                    /mo                /mo                  /mo            
+                            ALWAYS FREE         $5,389 / YEAR — SAVE 10% $37,789 / YEAR — SAVE $107,989 / YEAR — SAVE $270,000 / YEAR — SAVE
+                                                                    10%                10%                 10%                      
+                                                                                                                                    
+                                                                    Everything in Foundation, Everything in Enhanced, Everything in Concierge,
+                                                                    plus:              plus:               plus:                    
+                                                                                                                                    
+         POSTURE                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                               No compliance      AgeKit+ defaults    Curated levels —    Curated levels     Co-developed           
+                               enforcement                            AgeKit+             (AgeKit+ & CDK)    posture                
+                                                  CDK defaults                                                                      
+                              Posture unlocks at                      Curated levels —    Fine-grained       Bespoke regulatory     
+                              Foundation.                             CDK                 overrides          work                   
+                                                                      5 levels: Best      Custom policies    Curated levels         
+                                                                      Practice ·                             (AgeKit+ & CDK)        
+                                                                                          Toggle email for                          
+         Compliance posture                                           Enforcement ·       AgeKit+            Fine-grained           
+                                                                      Guidance · Inferred ·                                         
+                                                                                                             overrides              
+                                                                                          New regimes added                         
+                                                                      Mandatory                                                     
+                                                                                          automatically      Custom policies        
+                                                                      New regimes added                                             
+                                                                                                             Toggle email for       
+                                                                      automatically                                                 
+                                                                                                             AgeKit+                
+                                                                                                             New regimes added      
+                                                                                                             automatically          
+                               Sandbox API        Full production API Full production API Full production API Full production API   
+                               Free age-category  Verification        Verification        Verification       Verification           
+                               in prod            Orchestration       Orchestration       Orchestration      Orchestration          
+         Production access                                                                                                          
+                              Free, unlimited age-                    Adjust method       Adjust method      Adjust method          
+                              bucketing — even in                     order               order              order                  
+                              production. No credit                                                                                 
+                              card.                                                                                                 
+                               Not included       Basic parental      Basic parental      Basic parental     Basic parental         
+                                                  approval            approval            approval           approval               
+                                                                      Time, spend &       Time, spend &      Time, spend &          
+         Family Connect                                               permission controls permission controls permission controls   
+                                                                      Multi-product       Multi-product      Multi-product          
+                                                                      approvals           approvals          approvals              
+                                                                      DSAR Enablement     DSAR Enablement    DSAR Enablement        
+         MARKETS                                                                                                                    
+                               Test markets only  1 market included   1 market included   Every market       Every market           
+                                                                                          included           included               
+         Markets                                                                                                                    
+                                                                                                             Pre-launch access      
+                                                                                                             to emerging            
+                                                                                                             regimes                
+         IDENTITY   &                                                                                                               
+         PORTFOLIO                                                                                                                  
+                                                                                                                                    
+                              —                   —                   —                   Account System     Account System         
+         Identity & Portfolio                                                                                                       
+                                                                                          Global Policy      Global Policy          
+                                                                                                                                    
+         BUILD                                                                                                                      
+                                                                                                                                    
+                              —                   Standard SDKs       MCP integration     MCP integration    MCP integration        
+                                                                      AI Skill            AI Skill           AI Skill               
+         Integration                                                                                                                
+                                                                                          Headless mode      Headless mode          
+                                                                                                             Custom integration     
+                                                                                                                                    
+                              Default branding    Your logo on k-ID   Your logo on k-ID   Your logo on k-ID  Your logo on k-ID      
+                                                  surfaces            surfaces            surfaces           surfaces               
+                                                                      UX customization    UX customization   UX customization       
+                                                                                                                                    
+                                                                                          Bespoke design     Bespoke design         
+                                                                                          partnership        partnership            
+         Branding                                                                                                                   
+                                                                                                             Private label          
+                                                                                                             Bespoke surfaces       
+                                                                                                             k-ID design partners   
+                                                                                                             build to your          
+                                                                                                             guidelines             
+                                                                                                                                    
+         SECURITY   &                                                                                                               
+         IDENTITY                                                                                                                   
+                                                                                                                                    
+                              —                   —                   SSO / SAML / SCIM   SSO / SAML / SCIM  SSO / SAML / SCIM      
+         Security & Identity                                                                                                        
+                                                                                          Data Residency     Data Residency         
+                                                                                                                                    
+         MONITORING                                                                                                                 
+                                                                                                                                    
+                              —                   —                   —                   Real-time Activity Real-time Activity     
+         Monitoring                                                                       Monitoring &       Monitoring &           
+                                                                                          Alerting           Alerting               
+                                                                                                                                    
+         INFRASTRUCTURE                                                                                                             
+                                                                                                                                    
+                              —                   —                   —                  —                   Dedicated Tenant       
+                                                                                                                                    
+                                                                                                             Dedicated              
+         Infrastructure                                                                                      Verification Pipeline  
+                                                                                                             Private Deployment     
+                                                                                                             in your VPC            
+                                                                                                                                    
+         SUPPORT   & SLA                                                                                                            
+                                                                                                                                    
+                               Community docs &   Email support       Slack support       Concierge support  24/7 named team        
+                               forum                                                                                                
+                                                  24h response        4h response         30min response     15min response         
+                               No SLA · as-is                                                                                       
+                                                  99.9% uptime SLA    Dedicated AM        Technical Account  Technical Account      
+                                                                                          Manager            Manager                
+                                                                      99.95% uptime SLA                                             
+         Service level                                                                    Integration Expert Integration Expert     
+                                                                                          Legal Expert       Legal Expert           
+                                                                                          99.99% uptime SLA  Dedicated SRE          
+                                                                                                             99.99% uptime SLA      
+                                                                                                             with credits           
+                                                                                                                                    
+         INCLUDES                                                                                                                   
+                                                                                                                                    
+                              —                   —                   —                   5 neimo — $10k/mo  10 neimo —             
+         Bonus inclusions                                                                 Pro seats bundled  Pro seats $20k/mo      
+                                                                                                                     bundled        
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+       Product          Subscription                                                                                                
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+       One subscription per product — every app, website, game, or service that needs real-time                                     
+                                                                                                                                    
+       compliance. Pick a tier per title, scale as it grows. Each tier is sized for an audience band —                              
+       with the API throughput and complimentary verifications that audience needs included.                                        
+                                                                                                                                    
+       Start lean at Live, upgrade when you ship proof of fit.                                                                      
+                                                                                                                                    
+                                                                                                                                    
+                       Free             Live             Hit              Anchor            Flagship         Titan                  
+                                                                                                                                    
+                       Prototype, dev, and First public launch. Mid-market titles Revenue product. Top-tier global. Extreme scale. Multi-
+                       quiet launches.  Indies & niche apps. with real audience. Portfolio anchor. Mass-market scale. region, multi-surface.
+                       Free             $499             $2,999           $9,999            $19,999          $49,999                
+                                              /mo                 /mo              /mo                /mo              /mo          
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+         EACH  TIER                                                                                                                 
+         INCLUDES                                                                                                                   
+                                                                                                                                    
+         Great for     Up to 1k users   Up to 250k users  Up to 2M users   Up to 10M users  Up to 25M users     25M+ users          
+                                                                                                                                    
+         API call fair use 25,000            2.5M              20M              75M              200M             500M              
+                                                                                                                                    
+                                                                                                                                    
+         Complimentary/                                                                                                             
+                            1,000           50,000           250,000             1M               2M               5M               
+         verifications year                                                                                                         
+         Indemnity           —               1.0×              1.0×            1.25×             1.5×             1.75×             
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+       Verification             Bundles                                                                                             
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+       Annual packs pool across your whole org. Higher product subscriptions unlock                                                 
+       discounted rates.                                                                                                            
+                                                                                                                                    
+                                                                                                                                    
+            3 METHODS INCLUDED Facial age estimation · AgeKeys · ID Verification with optional Face Match                           
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+         Facial age estimation: server-side FAE is included by default. On-device FAE is also included for the gaming sector.       
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                  Manual Age  Appeal                
+          PAY AS YOU GO        STARTER               BUILD                 GROWTH                                                   
+          PAYG                 1M                    5M                    10M                    When automated verification can't 
+          monthly billing      verifications a year  verifications a year  verifications a year   confirm, our trained team reviews 
+                                                                                                  the appeal — humans, fast, audit- 
+          $0.10                $0.05                 $0.04                 $0.03                                                    
+                                                                                                  ready.                            
+          per verification · list rate per verification · same rate for per verification · same rate for per verification · same rate for
+                               overages              overages              overages                                                 
+          $0                                                                                                                        
+                                                                                                        STARTER                     
+          no annual commit        WITH LIVE OR HIT      WITH LIVE OR HIT      WITH LIVE OR HIT                    $9,000            
+                                  $0.01 / verif         $0.01 / verif         $0.01 / verif             6,000 / mo                  
+                                                                                                       STANDARD                     
+                                                                                                                 $22,000            
+                                                                                                        16,000 / mo                 
+          SCALE                GLOBAL                APEX                                                                           
+          25M                  50M                   100M                                                                           
+                                                                                                        GROWTH                      
+          verifications a year verifications a year  verifications a year                                                           
+                                                                                                                 $28,000            
+          $0.02                $0.015                $0.01                                              22,000 / mo                 
+          per verification · same rate for per verification · same rate for per verification · our lowest                           
+                                                                                                      ENTERPRISE                    
+          overages             overages              rate                                                                           
+                                                                                                                 $36,000            
+                                                                                                        30,000 / mo                 
+              WITH ANCHOR+         WITH ANCHOR+          WITH ANCHOR+                                                               
+            $0.01 / verif         $0.01 / verif         $0.01 / verif                                                               
+                                                                                                    SLA WINDOW                      
+                                                                                                     24h (base)                     
+       ADD-ON GLOBAL METHODS — billed at list rate                                                                                  
+                                                                                                     16h (+30–40%)                  
+           On-device FAE         Email Verification   Credit card                                                                   
+                                                                                                     8h (~2× base)                  
+         $0.16 / check         $0.32 / check        $0.35 / check                                                                   
+       ADD-ON LOCAL METHODS — per region · list rate                                                                                
+                                                                                                                                    
+         󾓦 SSN (US)            🇦🇺 ConnectID (AU)    🇧🇷 CPF (BR)           󾓮  Real Name (KR)                                         
+         $0.15 / check         $0.85 / check        $0.99 / check         $0.20 / check                                             
+                                                                                                                                    
+                                                                                                                                    
+         🇸🇬 SingPass (SG)      🇮🇩 Privy (ID)        🇮🇳 DigiLocker (IN)                                                              
+         $0.50 / check         $0.40 / check        $0.29 / check                                                                   
+                                                                                                                                    
+                                                                                                                                    
+       Committed volume-based pricing also available on request.                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+       Commerce                / Marketplace               Enablement                                                               
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+       Per-user pricing for marketplaces opening commerce to digital youth. Also supports                                           
+                                                                                                                                    
+       Commerce  for Family Connect — same rate card, parent-approved purchases across your                                         
+       product portfolio.                                                                                                           
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+               BAND    RANGE                                RATE                                                                    
+                                                                                                                                    
+                                                                                                                                    
+               Tier 1  0 – 1M                               $0.48 / user / yr                                                       
+                                                                                                                                    
+               Tier 2  1M – 10M                             $0.39 / user / yr                                                       
+                                                                                                                                    
+                                                                                                                                    
+               Tier 3  10M – 50M                            $0.22 / user / yr                                                       
+                                                                                                                                    
+               Tier 4  50M+                                 $0.11 / user / yr                                                       
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+       Professional              Services                                                                                           
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+         ★ PS spend converts to product credit. Every dollar spent on Professional Services applies as platform credit when you convert to a subscription.
+         Conversion credit reduces on a published schedule the longer you wait — full credit within 6 months, stepping down to 25% by month 24.
+                                                                                                                                    
+         Revenue recognition: PS fees recognised on delivery; conversion credits recognised as subscription deferred revenue at the point of conversion, in line with ASC 606.
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+         CREDIT WINDOW WITHIN  6 MONTHS 100% ·     7–12 MONTHS 75% ·      13–18 MONTHS 50% ·      19–24 MONTHS 25%                  
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+          HOURLY ADVISORY · LEGAL      COMPLIANCE REPORT             WORKSHOP                      COMPLIANCE SPRINT                
+          Legal Counsel — 10-          Product  Compliance           Compliance   Workshop         Compliance  Readiness            
+          hour block                   Report                                                      Sprint                           
+                                                                     3-hour custom workshop.                                        
+          Ad hoc compliance support. 10 Gap analysis, risk report,   Recorded; editable slides     Bespoke end-to-end. ~150 hours.  
+          hours per block. 25% off with 3+ recommendations. Includes live delivered.               Includes ResearchKit. Min 3      
+                                                                                                                                    
+          block commit.                workshop. 25% off 3+ reports.                               months.                          
+                                                                     $1,500                                                         
+                                                                              / workshop                                            
+          $4,000                       $8,000                                                      $30,000                          
+                   / 10h block ($400/hr)         / report                                                    / engagement           
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+          HOURLY ADVISORY · FDE                                                                                                     
+          Forward Deployed                                                                                                          
+          Engineer — 10-hour                                                                                                        
+                                                                                                                                    
+          block                                                                                                                     
+                                                                                                                                    
+          Engineering integration support.                                                                                          
+          Same rate card as legal. 10 hours                                                                                         
+          per block.                                                                                                                
+                                                                                                                                    
+          $4,000                                                                                                                    
+                   / 10h block ($400/hr)                                                                                            
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+       Pre-payment commitments unlock an additional 15% discount on Professional Services. Excludes general legal advice (employment, IP, corporate); partner law firms
+       are available on referral for privileged opinions.                                                                           
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+       neimo      —    premium            legal      &  market                                                                      
+                                                                                                                                    
+       intelligence                                                                                                                 
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+       A separate offering layered on top of k-ID. Skip if you don't need legal & market                                            
+                                                                                                                                    
+       intelligence; turn on to size seats.                                                                                         
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+          SANDBOX                                                     PROFESSIONAL                                                  
+          Sandbox                                                     Professional                                                  
+                                                                                                                                    
+                                                                                                                                    
+          Free starting point. Stay on Sandbox and unlock features individually Everything bundled at one seat price. Cheaper than buying every add-
+          with the add-ons below.                                     on individually.                                              
+                                                                                                                                    
+                                                                                                                                    
+          Free                                                        $2,000                                                        
+                                                                                / seat / mo                                         
+          NO CHARGE PER SEAT                                          $21,600 / SEAT / YR — SAVE 10%                                
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+          INCLUDED                                                    EVERYTHING IN SANDBOX, PLUS ALL ADD-ONS                       
+            5 research calls / seat / mo                                Full Map Suite + Build Your Own Maps                        
+                                                                                                                                    
+            2 Core Maps (read-only)                                     Unlimited Research Calls                                    
+                                                                                                                                    
+            Weekly Intelligence briefings                               All Knowledge Bases (Online Safety + AI)                    
+            Email support — 24h response                                Global Market Insights                                      
+                                                                                                                                    
+                                                                        Horizons Briefing + private alerts                          
+                                                                        Direct Attorney Channel + 8 hrs / qtr                       
+                                                                                                                                    
+                                                                        Quarterly Private Briefing                                  
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+       Sandbox seats consume research tokens on each AI call — billed at $0.99 per overage call beyond the                          
+       included pool. Professional seats remove the cap entirely and bundle all premium features.                                   
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+       Fair     use    limits.                                                                                                      
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+       Stay within your plan. Cross the line, this is what it costs.                                                                
+                                                                                                                                    
+                                                                                                                                    
+             API calls                                                                                                              
+                                                                                                                                    
+          $0.003 / call beyond your plan.                                                                                           
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+             Research calls                                                                                                         
+                                                                                                                                    
+          Pro: 25 / seat / mo. Concierge: unlimited. Pro overage $0.99 / call.                                                      
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+             Consent emails                                                                                                         
+          PAYG $0.001 / email. Bundle: 1M included, then $0.0005.                                                                   
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    

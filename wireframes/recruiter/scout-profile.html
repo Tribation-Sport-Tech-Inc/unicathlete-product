@@ -60,6 +60,10 @@ body {
   color: white;
   font-weight: 600;
 }
+.nav a.is-disabled {
+  opacity: .4;
+  pointer-events: none;
+}
 .page {
   max-width: 1360px;
   margin: 28px auto;
@@ -108,6 +112,31 @@ body {
   background: var(--navy);
   color: white;
 }
+.btn-danger {
+  background: #fff;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+.button.is-disabled {
+  opacity: .45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.preview-tools {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+  padding: 14px 16px;
+  border: 2px dashed #c4b5fd;
+  border-radius: 14px;
+  background: var(--purple-light);
+}
+.preview-tools strong { display: block; margin-bottom: 3px; color: var(--purple); }
+.preview-tools p { margin: 0; color: var(--muted); font-size: 12px; }
+.preview-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.preview-actions .active { background: var(--purple); color: white; border-color: var(--purple); }
 .hero {
   background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
   border: 1px solid var(--border);
@@ -406,6 +435,31 @@ body {
   font-size: 13px;
   margin-bottom: 2px;
 }
+.affiliation-management {
+  grid-column: 1 / -1;
+  margin-top: 4px;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+.affiliation-management summary {
+  color: var(--blue);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 800;
+}
+.affiliation-warning {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-top: 12px;
+  padding: 13px;
+  border: 1px solid #fecaca;
+  border-radius: 11px;
+  background: #fef2f2;
+}
+.affiliation-warning strong { display: block; color: #991b1b; margin-bottom: 3px; }
+.affiliation-warning p { margin: 0; color: #7f1d1d; font-size: 12px; line-height: 1.45; }
 .workspace-note {
   background: #f9fafb;
   border: 1px solid var(--border);
@@ -537,6 +591,8 @@ body {
 .trust-card-preview {
   flex-direction: column;
 }
+.affiliation-warning { align-items: stretch; flex-direction: column; }
+.preview-tools { align-items: stretch; flex-direction: column; }
 }
   </style>
   <link href="../shared/backend-modal.css" rel="stylesheet"/>
@@ -574,16 +630,16 @@ body {
    <a href="dashboard.html">
     Dashboard
    </a>
-   <a href="discover.html">
+   <a href="discover.html" data-athlete-access-link>
     Discover Athletes
    </a>
    <a href="workspace.html">
     Workspace
    </a>
-   <a href="profile.html">
+   <a href="profile.html" data-athlete-access-link>
     Athlete Profile
    </a>
-   <a href="messages.html">
+   <a href="messages.html" data-athlete-access-link>
     Messages
    </a>
   </div>
@@ -594,10 +650,22 @@ body {
 	      Scout Profile
 	     </h1>
 	     <p>
-	      Private professional identity, Scout role, active organization affiliation, verification, and recruiting focus.
+	      Private professional identity, Scout role, organization affiliation, verification, and recruiting context.
 	     </p>
     </div>
    </div>
+   <div class="preview-tools">
+    <div>
+     <strong>Internal wireframe state preview</strong>
+     <p>The production page uses the Scout's real statuses. This control is not shown to Scouts.</p>
+    </div>
+    <div class="preview-actions">
+     <button class="button btn-light active" data-scout-preview="restricted" type="button">Restricted after onboarding</button>
+     <button class="button btn-light" data-scout-preview="no-email" type="button">No-work-email exception</button>
+     <button class="button btn-light" data-scout-preview="eligible" type="button">Future eligible state</button>
+    </div>
+   </div>
+   <div class="workspace-note" id="profileStatusNotice">Your profile and affiliation application are saved. Affiliation review has not started. It will begin automatically after your account email, organization email, and identity are verified; you do not need to submit the application again. Athlete access remains restricted.</div>
    <div class="hero">
     <div class="profile-main">
      <div class="avatar">
@@ -608,14 +676,14 @@ body {
        Mike Brown
       </h2>
 	      <p>
-	       Scout &middot; Toronto Academy &middot; Canada / Spain recruiting coverage
+	       <span id="heroAffiliationSummary">Scout &middot; Lakeside Soccer Academy affiliation pending &middot; Spain athlete market</span>
 	      </p>
 	      <div class="badge-row">
-	       <span class="badge green">
-	        Eligible Scout
+	       <span class="badge orange" id="eligibilityBadge">
+	        Restricted Scout account
 	       </span>
-	       <span class="badge">
-	        Limited athlete-visible trust card
+	       <span class="badge" id="trustAvailabilityBadge">
+	        Trust card unavailable
 	       </span>
 	       <span class="badge purple">
 	        Scout Workspace Active
@@ -647,10 +715,10 @@ body {
        <div class="info-list">
         <div class="info-row">
          <span>
-          Location
+          Country of professional activity
          </span>
          <span>
-          Toronto, Canada
+          United States
          </span>
         </div>
         <div class="info-row">
@@ -673,7 +741,7 @@ body {
         Sport
        </span>
        <span>
-       Football / Soccer
+       Soccer
        </span>
       </div>
       <div class="info-row">
@@ -686,34 +754,10 @@ body {
       </div>
       <div class="info-row">
        <span>
-	        Recruiting Coverage
+	        Athlete Market
        </span>
        <span>
-        Canada, Spain, Turkey
-       </span>
-      </div>
-      <div class="info-row">
-       <span>
-        Age Groups
-       </span>
-       <span>
-        U15&ndash;U21
-       </span>
-      </div>
-      <div class="info-row">
-       <span>
-	        Scouting Focus
-       </span>
-       <span>
-        Youth scouting, midfielders, wingers
-       </span>
-      </div>
-      <div class="info-row">
-       <span>
-        Evaluation Strengths
-       </span>
-       <span>
-       Technical ability, mentality, potential
+        Spain
        </span>
       </div>
        </div>
@@ -727,42 +771,50 @@ body {
     <div class="info-list">
      <div class="info-row">
       <span>
-       Email Verification
+       Account Email Verification
       </span>
+      <span id="accountEmailProfileStatus">
+       Pending
+      </span>
+     </div>
+     <div class="info-row">
       <span>
-       Verified
+       Organization Work Email
+      </span>
+      <span id="organizationEmailProfileStatus">
+       Pending
       </span>
      </div>
      <div class="info-row">
       <span>
        Identity Verification
       </span>
-      <span>
-       Verified
+      <span id="identityProfileStatus">
+       Not started
       </span>
      </div>
      <div class="info-row">
       <span>
-       Organization Affiliation
+       Affiliation Review
       </span>
-      <span>
-       Confirmed
+      <span id="affiliationProfileStatus">
+       Not started
       </span>
      </div>
      <div class="info-row">
       <span>
        Athlete Access
       </span>
-      <span>
-       Enabled
+      <span id="athleteAccessProfileStatus">
+       Restricted
       </span>
      </div>
      <div class="info-row">
       <span>
        Manual Review Last Completed
       </span>
-      <span>
-       Jun 12, 2026
+      <span id="reviewCompletedProfileStatus">
+       Not started
       </span>
 	     </div>
 	    </div>
@@ -774,8 +826,8 @@ body {
 	       Athlete-visible Trust Card Preview
 	      </h2>
 	     </summary>
-	     <p class="section-subtitle">
-	      Athletes do not browse Scout profiles publicly. This limited card appears only in an eligible interaction and identifies the confirmed organization represented in that interaction.
+	     <p class="section-subtitle" id="trustCardExplanation">
+	      This is a future eligible-state preview. It is not currently visible to athletes while verification and access remain incomplete.
 	     </p>
 	     <div class="trust-card-preview">
 	      <div class="trust-avatar">
@@ -786,11 +838,11 @@ body {
 	        Mike Brown
 	       </h3>
 		       <p>
-	        Scout &middot; Toronto Academy &middot; Toronto, Canada
+	        Scout &middot; Lakeside Soccer Academy &middot; Dallas, United States
 		       </p>
 		       <div class="badge-row">
-		        <span class="badge green">
-	         Identity verified &middot; Affiliation confirmed
+	        <span class="badge orange" id="trustCardStatusBadge">
+	         Not available &middot; access restricted
 		        </span>
 		       </div>
 	      </div>
@@ -811,19 +863,19 @@ body {
        <div class="workspace-membership-card organization affiliation-row">
          <div>
           <div class="workspace-membership-name">
-           Toronto Academy
+           Lakeside Soccer Academy
           </div>
           <div class="workspace-membership-meta">
-           Academy &middot; Canada &middot; Confirmed affiliation
+           Academy &middot; United States &middot; <span id="affiliationCardState">Claimed affiliation</span>
           </div>
          </div>
-         <span class="workspace-type-pill">
-          4 Projects
+         <span class="workspace-type-pill" id="affiliationProjectCount">
+          0 Projects
          </span>
         <div class="affiliation-meta-grid">
          <div class="affiliation-meta">
           <strong>
-           Verified
+           <span id="affiliationWorkEmailState">Pending</span>
           </strong>
           Work email
          </div>
@@ -835,11 +887,28 @@ body {
          </div>
          <div class="affiliation-meta">
           <strong>
-          Confirmed
+          Men's and Women's Soccer
           </strong>
-          Reviewed Jun 12, 2026
+          Program / recruiting category
+         </div>
+         <div class="affiliation-meta">
+          <strong>
+          <span id="affiliationVerificationState">Unverified</span>
+          </strong>
+          <span id="affiliationReviewTiming">Application awaiting required checks</span>
          </div>
         </div>
+        <details class="affiliation-management">
+         <summary>Manage affiliation</summary>
+         <div class="workspace-note" style="margin-top:12px;">Changing the organization, work email, professional title, relationship type, or program / recruiting category may require reverification. General profile edits such as photo or languages do not affect affiliation verification.</div>
+         <div class="affiliation-warning">
+          <div>
+           <strong id="removeAffiliationHeading">Removing this claimed affiliation ends the application</strong>
+           <p id="removeAffiliationCopy">The claimed relationship and removal will remain in affiliation history. Using this organization again will require a new application.</p>
+          </div>
+          <button class="button btn-danger" type="button">Remove affiliation</button>
+         </div>
+        </details>
        </div>
       </div>
    </div>
@@ -877,23 +946,23 @@ body {
           Scout
          </div>
          <div class="workspace-stat">
-          <strong>
-           14
+          <strong id="managedAthleteCount">
+           0
           </strong>
           Managed Athletes
          </div>
          <div class="workspace-stat">
-          <strong>
-           3
+          <strong id="recruitingProjectCount">
+           0
           </strong>
           Recruiting Projects
          </div>
         </div>
         <div class="workspace-action-row">
-         <a class="button btn-primary" href="workspace.html">
-          Open Workspace
+         <a class="button btn-primary" href="workspace.html" id="openWorkspaceAction">
+          Open Restricted Workspace
          </a>
-         <a class="button btn-light" href="create_group.html">
+         <a class="button btn-light is-disabled" href="create_group.html" id="createProjectAction" aria-disabled="true">
           Create Recruiting Project
          </a>
          <a class="button btn-light" href="#">
@@ -919,6 +988,59 @@ body {
    </div>
   </div>
   <script>
+   function setScoutProfilePreview(state){
+    const eligible=state==='eligible';
+    const noEmail=state==='no-email';
+    document.querySelectorAll('[data-scout-preview]').forEach(button=>button.classList.toggle('active',button.dataset.scoutPreview===state));
+    document.getElementById('profileStatusNotice').textContent=eligible
+     ?'Future eligible-state preview: all current access gates are satisfied and athlete access is enabled under the applicable product rules.'
+     :noEmail
+      ?'Your organization does not provide a work email. Account email and identity checks are complete; UnicAthlete is waiting for confirmation through an independently verified organization channel. Athlete access remains restricted.'
+      :'Your profile and affiliation application are saved. Affiliation review has not started. It will begin automatically after your account email, organization email, and identity are verified; you do not need to submit the application again. Athlete access remains restricted.';
+    document.getElementById('heroAffiliationSummary').textContent=eligible
+     ?'Scout · Lakeside Soccer Academy · Spain athlete market'
+     :'Scout · Lakeside Soccer Academy affiliation pending · Spain athlete market';
+    const eligibilityBadge=document.getElementById('eligibilityBadge');
+    eligibilityBadge.className=eligible?'badge green':'badge orange';
+    eligibilityBadge.textContent=eligible?'Athlete access eligible':'Restricted Scout account';
+    document.getElementById('trustAvailabilityBadge').textContent=eligible?'Limited athlete-visible trust card':'Trust card unavailable';
+    document.getElementById('accountEmailProfileStatus').textContent=eligible||noEmail?'Verified':'Pending';
+    document.getElementById('organizationEmailProfileStatus').textContent=eligible?'Verified':noEmail?'Not applicable':'Pending';
+    document.getElementById('identityProfileStatus').textContent=eligible||noEmail?'Verified':'Not started';
+    document.getElementById('affiliationProfileStatus').textContent=eligible?'Confirmed':noEmail?'Waiting for organization confirmation':'Not started';
+    document.getElementById('athleteAccessProfileStatus').textContent=eligible?'Enabled':'Restricted';
+    document.getElementById('reviewCompletedProfileStatus').textContent=eligible?'Jun 12, 2026':noEmail?'In progress':'Not started';
+    document.getElementById('trustCardExplanation').textContent=eligible
+     ?'Athletes do not browse Scout profiles publicly. This limited card appears only in an eligible interaction and identifies the confirmed organization represented in that interaction.'
+     :'This is a future eligible-state preview. It is not currently visible to athletes while verification and access remain incomplete.';
+    const trustCardStatusBadge=document.getElementById('trustCardStatusBadge');
+    trustCardStatusBadge.className=eligible?'badge green':'badge orange';
+    trustCardStatusBadge.textContent=eligible?'Identity verified · Affiliation confirmed':'Not available · access restricted';
+    document.getElementById('affiliationCardState').textContent=eligible?'Confirmed affiliation':noEmail?'Waiting for organization confirmation':'Claimed affiliation';
+    document.getElementById('affiliationProjectCount').textContent=eligible?'3 Projects':'0 Projects';
+    document.getElementById('affiliationWorkEmailState').textContent=eligible?'Verified':noEmail?'Not applicable':'Pending';
+    document.getElementById('affiliationVerificationState').textContent=eligible?'Confirmed':'Unverified';
+    document.getElementById('affiliationReviewTiming').textContent=eligible?'Reviewed Jun 12, 2026 · Valid until Jun 12, 2027':noEmail?'Representative confirmation pending':'Application awaiting required checks';
+    document.getElementById('removeAffiliationHeading').textContent=eligible?'Removing this affiliation changes its verification status':'Removing this claimed affiliation ends the application';
+    document.getElementById('removeAffiliationCopy').textContent=eligible
+     ?'It will no longer be your active confirmed affiliation, and any athlete access that depends on it will be suspended. The removal is recorded in affiliation history. Using this organization again will require a new application or reverification.'
+     :'The claimed relationship and removal will remain in affiliation history. Using this organization again will require a new application.';
+    document.getElementById('managedAthleteCount').textContent=eligible?'14':'0';
+    document.getElementById('recruitingProjectCount').textContent=eligible?'3':'0';
+    document.getElementById('openWorkspaceAction').textContent=eligible?'Open Workspace':'Open Restricted Workspace';
+    const createProjectAction=document.getElementById('createProjectAction');
+    createProjectAction.classList.toggle('is-disabled',!eligible);
+    createProjectAction.setAttribute('aria-disabled',String(!eligible));
+    document.querySelectorAll('[data-athlete-access-link]').forEach(link=>{
+     link.classList.toggle('is-disabled',!eligible);
+     link.setAttribute('aria-disabled',String(!eligible));
+    });
+   }
+   document.querySelectorAll('[data-scout-preview]').forEach(button=>button.addEventListener('click',()=>setScoutProfilePreview(button.dataset.scoutPreview)));
+   setScoutProfilePreview('restricted');
+   if(new URLSearchParams(window.location.search).get('onboarding')==='complete'){
+    document.getElementById('profileStatusNotice').textContent='Onboarding complete. Your profile and affiliation application are saved. Affiliation review has not started. It will begin automatically after your account email, organization email, and identity are verified; you do not need to submit the application again. Athlete access remains restricted.';
+   }
    const backendNotes = {
   "profile-architecture": {
     title: "Profile Architecture",
@@ -956,20 +1078,17 @@ ProfessionalProfile records can:
 • Scale into organization workspace roles and collaboration without rebuilding the personal profile`
   },
   "professional-expertise": {
-    title: "Scout Expertise",
+    title: "Scout Role Context",
     body: `Scout ProfessionalRole
 │
 ├── Sport
-├── Recruiting coverage
-├── Age groups
-├── Scouting focus
-└── Evaluation strengths
+└── Athlete market
 
-This describes the Scout's reusable professional background and strengths.
+The Athlete market is Spain for the MVP and identifies where athletes available through UnicAthlete are based. These are stable attributes of the Scout role.
 
 It is not a public professional profile or the same as project-specific recruiting criteria.
 
-Recruiting criteria live inside Recruiting Projects because each project may search for a different type of athlete.`
+Recruiting classes, positions, player types, and evaluation criteria live inside Recruiting Projects because each project may search for a different type of athlete.`
   },
   "verification": {
     title: "Verification and Access Architecture",
@@ -987,7 +1106,7 @@ Manual affiliation verification may use:
 • Verified organization work email
 • Official staff-page reference
 • Official federation or league directory
-• Direct confirmation through an independently verified organization-controlled channel
+• Organization representative confirmation through an independently verified organization-controlled channel
 
 A work email proves control of the mailbox but does not alone prove the Scout's role. LinkedIn and other optional sources provide supporting context only. Contract, employment-letter, and recruiting-mandate uploads are not accepted as MVP evidence routes.`
   },
@@ -1001,7 +1120,9 @@ A work email proves control of the mailbox but does not alone prove the Scout's 
 └── OrganizationAffiliations[]
     ├── Organization record
     ├── Scout affiliation record
-    └── Status: Unconfirmed / Pending / Confirmed / Rejected / Ended
+    ├── Relationship: Active / Ended
+    ├── Application: Draft / Awaiting checks / Pending review / Waiting / Approved / Unable / Rejected / Closed
+    └── Verification: Unverified / Confirmed / Reverification required / Expired / Suspended / Revoked / Invalidated
 
 MVP workspace rule:
 • Every Scout uses one personal Scout Workspace

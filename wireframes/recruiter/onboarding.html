@@ -127,8 +127,57 @@
     font:14px Arial,sans-serif;
    }
    .field input[readonly],.field select:disabled { color:var(--muted); }
-   .field input[aria-invalid="true"],.field select[aria-invalid="true"] { border-color:var(--red); box-shadow:0 0 0 2px #fee2e2; }
+   .field input[aria-invalid="true"],.field select[aria-invalid="true"],.field textarea[aria-invalid="true"] { border-color:var(--red); box-shadow:0 0 0 2px #fee2e2; }
    .field textarea { min-height:95px; resize:vertical; }
+   .language-select {
+    position:relative;
+   }
+   .language-select summary {
+    width:100%;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:#f9fafb;
+    color:var(--navy);
+    padding:11px 38px 11px 12px;
+    font-size:14px;
+    cursor:pointer;
+    list-style:none;
+    position:relative;
+   }
+   .language-select summary::-webkit-details-marker { display:none; }
+   .language-select summary::after {
+    content:'▾';
+    position:absolute;
+    right:13px;
+    color:var(--muted);
+   }
+   .language-select[open] summary::after { content:'▴'; }
+   .language-options {
+    display:grid;
+    gap:2px;
+    max-height:220px;
+    overflow:auto;
+    margin-top:6px;
+    padding:7px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:white;
+    box-shadow:0 10px 24px rgba(15,23,42,.10);
+   }
+   .field .language-option {
+    display:flex;
+    align-items:center;
+    gap:9px;
+    padding:8px;
+    border-radius:7px;
+    color:var(--navy);
+    font-size:14px;
+    font-weight:500;
+    text-transform:none;
+    cursor:pointer;
+   }
+   .language-option:hover { background:#f3f4f6; }
+   .language-option input { width:auto; margin:0; }
    .required { color:var(--red); }
    .optional { color:var(--blue); font-size:11px; text-transform:none; }
    .field-help { color:var(--muted); font-size:12px; }
@@ -182,18 +231,10 @@
     margin-bottom:7px;
    }
    .review-card strong { display:block; }
+   .review-card small { display:block; margin-top:5px; color:var(--orange); font-size:12px; font-weight:800; }
    .status-card { display:flex; justify-content:space-between; gap:14px; align-items:center; }
    .status-card > div strong { display:block; margin-bottom:3px; }
    .status-card > div span { color:var(--muted); font-size:12px; }
-   .submission-box {
-    background:var(--purple-light);
-    border:1px solid #ddd6fe;
-    border-radius:14px;
-    padding:16px;
-    margin-top:18px;
-   }
-   .submission-box h3 { margin:0 0 5px; }
-   .submission-box p { margin:0; color:var(--muted); font-size:13px; }
    .review-tools {
     display:flex;
     gap:8px;
@@ -204,6 +245,29 @@
     border-top:1px solid var(--border);
    }
    .review-tools strong { font-size:12px; color:var(--muted); margin-right:4px; }
+   .internal-navigation {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:18px;
+    margin-bottom:18px;
+    padding:16px;
+    border:2px dashed #c4b5fd;
+    border-radius:14px;
+    background:var(--purple-light);
+   }
+   .internal-navigation span {
+    display:block;
+    margin-bottom:3px;
+    color:var(--purple);
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+   }
+   .internal-navigation strong { display:block; margin-bottom:3px; }
+   .internal-navigation p { margin:0; color:var(--muted); font-size:12px; }
+   .internal-navigation .button { flex-shrink:0; background:var(--purple); color:white; }
    .review-reason {
     margin-top:14px;
     padding:13px 14px;
@@ -244,6 +308,7 @@
     .setup-actions { flex-direction:column-reverse; }
     .action-group { width:100%; }
     .action-group .button,.setup-actions > .button { flex:1; }
+    .internal-navigation { align-items:stretch; flex-direction:column; }
    }
   </style>
   <link href="../shared/app-shell.css" rel="stylesheet"/>
@@ -266,14 +331,13 @@
     <aside class="setup-sidebar">
      <span class="restricted-pill">Restricted account</span>
      <h1>Set up Scout profile</h1>
-     <p>Progress is saved. After setup and identity verification, the organization affiliation can enter manual verification.</p>
+     <p>Progress is saved. After the required email and identity checks, the affiliation application enters manual review automatically.</p>
      <div class="step-list" id="stepList">
       <button class="step-link active" data-onboarding-step="professional" type="button"><span class="step-number">1</span><span>Professional</span></button>
-      <button class="step-link" data-onboarding-step="focus" type="button"><span class="step-number">2</span><span>Recruiting focus</span></button>
+      <button class="step-link" data-onboarding-step="focus" type="button"><span class="step-number">2</span><span>Sport &amp; market</span></button>
       <button class="step-link" data-onboarding-step="organization" type="button"><span class="step-number">3</span><span>Organization</span></button>
       <button class="step-link" data-onboarding-step="evidence" type="button"><span class="step-number">4</span><span>Evidence</span></button>
       <button class="step-link" data-onboarding-step="review" type="button"><span class="step-number">5</span><span>Review</span></button>
-      <button class="step-link" data-onboarding-step="status" type="button"><span class="step-number">6</span><span>Status</span></button>
      </div>
     </aside>
 
@@ -289,25 +353,20 @@
      <div aria-live="polite" class="validation-message" hidden id="validationMessage">Complete the required fields before continuing.</div>
 
      <div class="setup-screen active" data-screen="professional">
-      <div class="notice">Name and verified email come from account creation. Account credentials and contact information are not displayed to athletes.</div>
+      <div class="notice">Name and account email come from account creation. Email verification is tracked separately, and account credentials and contact information are not displayed to athletes.</div>
       <div class="form-grid">
        <div class="field">
         <label for="professionalName">Full name</label>
         <input id="professionalName" readonly value="Mike Brown"/>
        </div>
        <div class="field">
-        <label for="professionalEmail">Verified account email</label>
+        <label for="professionalEmail">Account email</label>
         <input id="professionalEmail" readonly type="email" value="mike@scouting.example"/>
        </div>
        <div class="field">
         <label for="professionalCountry">Country of professional activity <span class="required">*</span></label>
         <select data-required id="professionalCountry">
-         <option value="">Choose country</option>
-         <option selected>Canada</option>
-         <option>United States</option>
-         <option>Spain</option>
-         <option>United Kingdom</option>
-         <option>Other</option>
+         <option selected value="US">United States</option>
         </select>
        </div>
        <div class="field">
@@ -323,48 +382,42 @@
         <span class="field-help">Provides context only. It is not verification evidence.</span>
        </div>
        <div class="field full">
-        <label for="professionalLanguages">Languages <span class="optional">Optional</span></label>
-        <input id="professionalLanguages" value="English, Spanish"/>
+        <label id="professionalLanguagesLabel">Languages <span class="optional">Optional</span></label>
+        <details aria-labelledby="professionalLanguagesLabel" class="language-select" id="professionalLanguages">
+         <summary id="professionalLanguagesSummary">English, Spanish</summary>
+         <div class="language-options">
+          <label class="language-option"><input checked data-label="English" name="professionalLanguage" type="checkbox" value="en"/> English</label>
+          <label class="language-option"><input checked data-label="Spanish" name="professionalLanguage" type="checkbox" value="es"/> Spanish</label>
+          <label class="language-option"><input data-label="French" name="professionalLanguage" type="checkbox" value="fr"/> French</label>
+          <label class="language-option"><input data-label="Portuguese" name="professionalLanguage" type="checkbox" value="pt"/> Portuguese</label>
+          <label class="language-option"><input data-label="German" name="professionalLanguage" type="checkbox" value="de"/> German</label>
+          <label class="language-option"><input data-label="Italian" name="professionalLanguage" type="checkbox" value="it"/> Italian</label>
+          <label class="language-option"><input data-label="Turkish" name="professionalLanguage" type="checkbox" value="tr"/> Turkish</label>
+         </div>
+        </details>
+        <span class="field-help">Select all languages that apply.</span>
        </div>
        <div class="field full">
-        <label for="professionalPhoto">Professional photo <span class="optional">Optional</span></label>
-        <input accept=".jpg,.jpeg,.png" id="professionalPhoto" type="file"/>
+       <label for="professionalPhoto">Professional photo <span class="optional">Optional</span></label>
+       <input accept=".jpg,.jpeg,.png" id="professionalPhoto" type="file"/>
+        <span class="field-help">May provide context when an official listing includes a photo, but it is not identity or affiliation evidence and is not required for approval.</span>
        </div>
       </div>
      </div>
 
      <div class="setup-screen" data-screen="focus">
-      <div class="notice">These optional fields support the future Scout Profile and recruiting tools. They are not required for manual approval.</div>
+      <div class="notice">Sport and Athlete market reflect the current Spain-to-United States MVP.</div>
       <div class="form-grid">
        <div class="field">
         <label for="scoutSport">Sport</label>
         <select disabled id="scoutSport"><option>Soccer</option></select>
        </div>
-       <div class="field">
-        <label for="scoutCategory">Recruiting category <span class="optional">Optional</span></label>
-        <select id="scoutCategory">
-         <option value="">Not added</option>
-         <option>Men's Soccer</option>
-         <option>Women's Soccer</option>
-         <option selected>Men's and Women's Soccer</option>
+       <div class="field full">
+        <label for="scoutCoverage">Athlete market <span class="required">*</span></label>
+        <select data-required id="scoutCoverage">
+         <option selected value="ES">Spain</option>
         </select>
-       </div>
-       <div class="field full">
-        <label for="scoutCoverage">Recruiting coverage <span class="optional">Optional</span></label>
-        <input id="scoutCoverage" value="Canada, Spain, Turkey"/>
-        <span class="field-help">Countries or regions where this Scout currently recruits or has professional coverage.</span>
-       </div>
-       <div class="field">
-        <label for="scoutAgeGroups">Age groups <span class="optional">Optional</span></label>
-        <input id="scoutAgeGroups" value="U15–U21"/>
-       </div>
-       <div class="field">
-        <label for="scoutFocus">Scouting focus <span class="optional">Optional</span></label>
-        <input id="scoutFocus" value="Youth scouting, midfielders, wingers"/>
-       </div>
-       <div class="field full">
-        <label for="scoutStrengths">Evaluation strengths <span class="optional">Optional</span></label>
-        <input id="scoutStrengths" value="Technical ability, mentality, potential"/>
+        <span class="field-help">The country where athletes available through the MVP are based.</span>
        </div>
       </div>
      </div>
@@ -373,35 +426,53 @@
       <div class="notice">The MVP supports one active organization affiliation per Scout. The data model may preserve previous affiliations and support multiple active affiliations later.</div>
       <div class="form-grid">
        <div class="field full">
-        <label for="organizationName">Organization name <span class="required">*</span></label>
-        <input data-required id="organizationName" value="Toronto Academy"/>
-        <span class="field-help">Production may match an existing organization or create an unconfirmed organization record for review.</span>
+        <label for="organizationMode">Organization setup <span class="required">*</span></label>
+        <select data-required id="organizationMode">
+         <option selected value="existing">Find an existing organization</option>
+         <option value="new">Add an organization for review</option>
+        </select>
+        <span class="field-help">Selecting an organization does not confirm your affiliation or give you organization permissions.</span>
+       </div>
+       <div class="field full" id="existingOrganizationField">
+        <label for="existingOrganization">Search for your organization <span class="required">*</span></label>
+        <select data-required id="existingOrganization">
+         <option value="">Search or choose an organization</option>
+         <option selected value="lakeside">Lakeside Soccer Academy — Dallas, United States</option>
+         <option value="atlantic-state">Atlantic State University Athletics — Boston, United States</option>
+        </select>
+        <span class="field-help">Production should use searchable matching. Organization details are prefilled from the selected record.</span>
+       </div>
+       <div class="field full" hidden id="newOrganizationNameField">
+        <label for="newOrganizationName">Organization name <span class="required">*</span></label>
+        <input id="newOrganizationName" placeholder="Enter the official organization name"/>
+        <span class="field-help">This creates an unconfirmed organization suggestion for review, not an immediately trusted organization.</span>
        </div>
        <div class="field">
         <label for="organizationType">Organization type <span class="required">*</span></label>
         <select data-required id="organizationType">
          <option value="">Choose type</option>
-         <option>University or college</option>
-         <option>Professional club</option>
-         <option selected>Academy or youth club</option>
-         <option>Recruiting agency</option>
-         <option>Other eligible organization</option>
+         <option value="college-university">College or university athletic program</option>
+         <option value="professional-club">Professional soccer club</option>
+         <option selected value="youth-club-academy">Youth soccer academy or club</option>
+         <option value="recruiting-agency">Recruiting or scouting agency</option>
+         <option value="other">Other eligible organization</option>
         </select>
        </div>
        <div class="field">
         <label for="organizationCountry">Organization country <span class="required">*</span></label>
         <select data-required id="organizationCountry">
-         <option value="">Choose country</option>
-         <option selected>Canada</option>
-         <option>United States</option>
-         <option>Spain</option>
-         <option>United Kingdom</option>
-         <option>Other</option>
+         <option selected value="US">United States</option>
         </select>
+        <span class="field-help">For a multinational organization, select the country of the branch or office confirming the affiliation.</span>
+       </div>
+       <div class="field full" hidden id="otherOrganizationTypeField">
+        <label for="otherOrganizationType">Describe the organization type <span class="required">*</span></label>
+        <input id="otherOrganizationType" placeholder="Describe the organization's role in recruiting or evaluating athletes"/>
+        <span class="field-help">UnicAthlete will review both the organization's eligibility and your affiliation. Independent or unaffiliated professionals are not supported in the MVP.</span>
        </div>
        <div class="field full">
         <label for="organizationWebsite">Official organization website <span class="required">*</span></label>
-        <input data-required id="organizationWebsite" type="url" value="https://torontoacademy.example"/>
+        <input data-required id="organizationWebsite" type="url" value="https://lakesidesoccer.example"/>
         <span class="field-help">Used to identify the official organization domain and independently verify contact channels.</span>
        </div>
        <div class="field">
@@ -409,13 +480,28 @@
         <input data-required id="affiliationTitle" value="Scout"/>
        </div>
        <div class="field">
+        <label for="scoutCategory">Program / recruiting category <span class="required">*</span></label>
+        <select data-required id="scoutCategory">
+         <option value="">Choose category</option>
+         <option value="mens">Men's Soccer</option>
+         <option value="womens">Women's Soccer</option>
+         <option selected value="both">Men's and Women's Soccer</option>
+        </select>
+        <span class="field-help">This belongs to the organization affiliation. Future Recruiting Projects may narrow, but not expand beyond, the verified category.</span>
+       </div>
+       <div class="field">
         <label for="affiliationRelationship">Relationship type <span class="required">*</span></label>
         <select data-required id="affiliationRelationship">
          <option value="">Choose relationship</option>
-         <option selected>Employee</option>
-         <option>Contractor</option>
-         <option>Other current professional relationship</option>
+         <option selected value="employee">Employee</option>
+         <option value="contractor">Contractor</option>
+         <option value="other">Other current professional relationship</option>
         </select>
+       </div>
+       <div class="field full" hidden id="otherAffiliationRelationshipField">
+        <label for="otherAffiliationRelationship">Describe your relationship with the organization <span class="required">*</span></label>
+        <textarea id="otherAffiliationRelationship" placeholder="For example: External recruitment consultant authorized to scout for the men's soccer program"></textarea>
+        <span class="field-help">Describe the current professional relationship the organization can confirm. Do not upload a contract or employment document.</span>
        </div>
        <div class="field">
         <label for="affiliationStart">Relationship start <span class="optional">Optional</span></label>
@@ -429,17 +515,17 @@
       <div class="form-grid">
        <div class="field full">
         <label for="organizationWorkEmail">Organization work email <span class="required">*</span></label>
-        <input data-required id="organizationWorkEmail" type="email" value="mike@torontoacademy.example"/>
+        <input data-required id="organizationWorkEmail" type="email" value="mike@lakesidesoccer.example"/>
         <span class="field-help">Verified separately from the account email. It supports the affiliation but does not prove the Scout's role by itself.</span>
         <div class="email-status-row" id="organizationEmailStatusRow">
-         <span class="status-pill green">Email verified</span>
+         <span class="status-pill orange">Verification email sent</span>
          <button class="button btn-light btn-small" type="button">Resend verification</button>
         </div>
        </div>
        <div class="checkbox-row">
         <input id="noOrganizationEmail" type="checkbox"/>
         <label for="noOrganizationEmail">My organization does not provide me with a work email
-         <span>This exception requires direct confirmation through an organization-controlled channel independently verified by UnicAthlete.</span>
+         <span>This exception requires confirmation from the organization through a channel independently verified by UnicAthlete.</span>
         </label>
        </div>
        <div class="field full">
@@ -448,12 +534,12 @@
          <option value="">Choose route</option>
          <option selected value="staff-page">Official organization staff page</option>
          <option value="official-directory">Official federation or league directory</option>
-         <option value="representative">Direct organization confirmation</option>
+         <option value="representative">Organization representative confirmation</option>
         </select>
        </div>
        <div class="field full" id="evidenceTextField">
         <label for="evidenceText" id="evidenceTextLabel">Official staff-page URL <span class="required">*</span></label>
-        <input data-required id="evidenceText" type="url" value="https://torontoacademy.example/staff/mike-brown"/>
+        <input data-required id="evidenceText" type="url" value="https://lakesidesoccer.example/staff/mike-brown"/>
         <span class="field-help" id="evidenceHelp">The page should identify the applicant and their current professional role.</span>
        </div>
        <div class="field" hidden id="representativeNameField">
@@ -478,46 +564,20 @@
        </div>
       </div>
       <div class="notice orange" style="margin-top:18px;">
-       <strong>Identity verification comes next.</strong> Manual organization-affiliation verification cannot begin until identity verification succeeds. The provider has not been selected, so this wireframe shows a provider-neutral placeholder and does not collect identity documents here.
+       <strong>Verification can be completed later.</strong> Completing onboarding saves the affiliation application. After all required emails and identity are verified, the application is automatically sent for manual organization-affiliation review.
       </div>
      </div>
 
      <div class="setup-screen" data-screen="review">
       <div class="review-grid">
-       <div class="review-card"><span>Professional</span><strong id="reviewProfessional">Mike Brown · Canada</strong></div>
-       <div class="review-card"><span>Optional Scout context</span><strong id="reviewFocus">Soccer · Men's and Women's Soccer</strong></div>
-       <div class="review-card"><span>Organization</span><strong id="reviewOrganization">Toronto Academy · Academy or youth club · Canada</strong></div>
+       <div class="review-card"><span>Professional</span><strong id="reviewProfessional">Mike Brown · United States</strong></div>
+       <div class="review-card"><span>Scout context</span><strong id="reviewFocus">Soccer · Spain athlete market</strong></div>
+       <div class="review-card"><span>Organization</span><strong id="reviewOrganization">Lakeside Soccer Academy · Youth soccer academy or club · United States</strong><small hidden id="reviewOrganizationNote">New organization — subject to review</small></div>
        <div class="review-card"><span>Claimed relationship</span><strong id="reviewRelationship">Scout · Employee</strong></div>
-       <div class="review-card"><span>Work email</span><strong id="reviewWorkEmail">mike@torontoacademy.example</strong></div>
+       <div class="review-card"><span>Program / recruiting category</span><strong id="reviewCategory">Men's and Women's Soccer</strong></div>
+       <div class="review-card"><span>Work email</span><strong id="reviewWorkEmail">mike@lakesidesoccer.example</strong></div>
        <div class="review-card"><span>Official corroboration</span><strong id="reviewEvidence">Official organization staff page</strong></div>
        <div class="review-card"><span>Athlete access</span><strong>Restricted</strong></div>
-      </div>
-      <div class="submission-box">
-       <h3>Complete Scout onboarding</h3>
-       <p>This stores the professional, affiliation, and evidence information. Manual review is queued only after identity verification succeeds, and completing onboarding does not enable athlete access.</p>
-      </div>
-     </div>
-
-     <div class="setup-screen" data-screen="status">
-      <div class="notice orange"><strong>Scout access remains restricted.</strong> Verification and affiliation statuses stay separate, and no organization affiliation grants workspace permissions.</div>
-      <div class="status-grid">
-       <div class="status-card"><div><strong>Email verification</strong><span>Account email ownership</span></div><span class="status-pill green">Verified</span></div>
-       <div class="status-card"><div><strong>Scout onboarding</strong><span>Professional and affiliation setup</span></div><span class="status-pill green">Completed</span></div>
-       <div class="status-card"><div><strong>Identity verification</strong><span id="identityDescription">Provider not selected</span></div><span class="status-pill gray" id="identityStatus">Not started</span></div>
-       <div class="status-card"><div><strong>Toronto Academy affiliation</strong><span id="affiliationDescription">Starts after identity verification</span></div><span class="status-pill gray" id="affiliationStatus">Not queued</span></div>
-       <div class="status-card"><div><strong>Athlete access</strong><span id="accessDescription">Required checks are not complete</span></div><span class="status-pill gray">Restricted</span></div>
-      </div>
-      <div class="review-reason" hidden id="reviewReason">
-       <strong id="reviewReasonLabel">Changes requested:</strong> <span id="reviewReasonText">The submitted source does not clearly confirm the current role.</span>
-       <button class="button btn-light btn-small" id="updateSubmission" style="margin-left:10px;" type="button">Update submission</button>
-      </div>
-      <div class="review-tools">
-       <strong>Wireframe review state:</strong>
-       <button class="button btn-light btn-small" data-review-state="identity" type="button">Awaiting ID</button>
-       <button class="button btn-light btn-small" data-review-state="pending" type="button">ID verified · queued</button>
-       <button class="button btn-light btn-small" data-review-state="direct" type="button">Direct confirmation required</button>
-       <button class="button btn-light btn-small" data-review-state="changes" type="button">Changes requested</button>
-       <button class="button btn-light btn-small" data-review-state="approved" type="button">Affiliation confirmed</button>
       </div>
      </div>
 
@@ -533,17 +593,15 @@
   </main>
 
   <script>
-   const onboardingSteps=['professional','focus','organization','evidence','review','status'];
+   const onboardingSteps=['professional','focus','organization','evidence','review'];
    const onboardingCopy={
     professional:['Professional information','Confirm the minimum information used for the private professional profile.'],
-    focus:['Recruiting focus','Add optional context for the Scout Profile and future recruiting tools.'],
+    focus:['Sport and athlete market','Confirm the stable recruiting context for the current MVP.'],
     organization:['Organization affiliation','Record the one active organization relationship supported in the MVP.'],
     evidence:['Affiliation evidence','Verify the organization email and provide an official corroboration route.'],
-    review:['Review onboarding','Review the information that will be stored before identity verification and affiliation review.'],
-    status:['Restricted Scout workspace','Track the separate checks required before athlete access can be considered.']
+    review:['Review application','Review the information that will be saved before completing the required verification steps.']
    };
    let onboardingIndex=0;
-   let submitted=false;
    const savedStatus=document.getElementById('savedStatus');
    function currentScreen(){ return document.querySelector('[data-screen="'+onboardingSteps[onboardingIndex]+'"]'); }
    function fieldHasValue(field){
@@ -554,7 +612,6 @@
     return Array.from(screen.querySelectorAll('[data-required]')).filter(field=>!field.closest('[hidden]'));
    }
    function stepComplete(step){
-    if(step==='status') return submitted;
     const screen=document.querySelector('[data-screen="'+step+'"]');
     return visibleRequiredFields(screen).every(fieldHasValue);
    }
@@ -587,7 +644,7 @@
     if(method==='staff-page'){
      label.textContent='Official staff-page URL *';
      input.type='url';
-     input.value='https://torontoacademy.example/staff/mike-brown';
+     input.value='https://lakesidesoccer.example/staff/mike-brown';
      help.textContent='The page should identify the applicant and their current professional role.';
     }else if(method==='official-directory'){
      label.textContent='Official directory URL *';
@@ -609,12 +666,62 @@
      updateEvidenceFields();
     }
    }
+   function updateOrganizationType(){
+    const isOther=document.getElementById('organizationType').value==='other';
+    const field=document.getElementById('otherOrganizationTypeField');
+    const input=document.getElementById('otherOrganizationType');
+    field.hidden=!isOther;
+    input.toggleAttribute('data-required',isOther);
+   }
+   function updateAffiliationRelationship(){
+    const isOther=document.getElementById('affiliationRelationship').value==='other';
+    const field=document.getElementById('otherAffiliationRelationshipField');
+    const input=document.getElementById('otherAffiliationRelationship');
+    field.hidden=!isOther;
+    input.toggleAttribute('data-required',isOther);
+   }
+   const organizationPresets={
+    lakeside:{name:'Lakeside Soccer Academy',type:'youth-club-academy',website:'https://lakesidesoccer.example'},
+    'atlantic-state':{name:'Atlantic State University Athletics',type:'college-university',website:'https://atlanticstate.example/athletics'}
+   };
+   function organizationDisplayName(){
+    if(document.getElementById('organizationMode').value==='new') return document.getElementById('newOrganizationName').value;
+    const selected=document.getElementById('existingOrganization').value;
+    return organizationPresets[selected]?organizationPresets[selected].name:'Not selected';
+   }
+   function updateOrganizationMode(){
+    const isNew=document.getElementById('organizationMode').value==='new';
+    const existingField=document.getElementById('existingOrganizationField');
+    const newField=document.getElementById('newOrganizationNameField');
+    const existing=document.getElementById('existingOrganization');
+    const newName=document.getElementById('newOrganizationName');
+    const type=document.getElementById('organizationType');
+    const website=document.getElementById('organizationWebsite');
+    existingField.hidden=isNew;
+    newField.hidden=!isNew;
+    existing.toggleAttribute('data-required',!isNew);
+    newName.toggleAttribute('data-required',isNew);
+    type.disabled=!isNew;
+    website.readOnly=!isNew;
+    if(isNew){
+     type.value='';
+     website.value='';
+    }else{
+     const preset=organizationPresets[existing.value];
+     if(preset){ type.value=preset.type; website.value=preset.website; }
+    }
+    updateOrganizationType();
+   }
    function updateReview(){
     document.getElementById('reviewProfessional').textContent=document.getElementById('professionalName').value+' · '+selectedText('professionalCountry');
-    document.getElementById('reviewFocus').textContent='Soccer · '+selectedText('scoutCategory');
-    document.getElementById('reviewOrganization').textContent=document.getElementById('organizationName').value+' · '+selectedText('organizationType')+' · '+selectedText('organizationCountry');
-    document.getElementById('reviewRelationship').textContent=document.getElementById('affiliationTitle').value+' · '+selectedText('affiliationRelationship');
-    document.getElementById('reviewWorkEmail').textContent=document.getElementById('noOrganizationEmail').checked?'Organization does not provide one · Direct confirmation required':document.getElementById('organizationWorkEmail').value+' · Verified';
+    document.getElementById('reviewFocus').textContent='Soccer · '+selectedText('scoutCoverage')+' athlete market';
+    const organizationType=document.getElementById('organizationType').value==='other'?document.getElementById('otherOrganizationType').value:selectedText('organizationType');
+    document.getElementById('reviewOrganization').textContent=organizationDisplayName()+' · '+organizationType+' · '+selectedText('organizationCountry');
+    document.getElementById('reviewOrganizationNote').hidden=document.getElementById('organizationMode').value!=='new';
+    const relationshipDescription=document.getElementById('affiliationRelationship').value==='other'?' · '+document.getElementById('otherAffiliationRelationship').value:'';
+    document.getElementById('reviewRelationship').textContent=document.getElementById('affiliationTitle').value+' · '+selectedText('affiliationRelationship')+relationshipDescription;
+    document.getElementById('reviewCategory').textContent=selectedText('scoutCategory');
+    document.getElementById('reviewWorkEmail').textContent=document.getElementById('noOrganizationEmail').checked?'Organization does not provide one · Organization confirmation required':document.getElementById('organizationWorkEmail').value+' · Verification pending';
     document.getElementById('reviewEvidence').textContent=selectedText('evidenceMethod');
    }
    function renderOnboarding(){
@@ -630,8 +737,7 @@
     document.getElementById('validationMessage').hidden=true;
     document.querySelectorAll('[aria-invalid="true"]').forEach(field=>field.removeAttribute('aria-invalid'));
     document.getElementById('onboardingBack').disabled=false;
-    document.getElementById('onboardingNext').hidden=step==='status';
-    document.getElementById('onboardingNext').textContent=step==='review'?'Complete Onboarding':'Continue';
+    document.getElementById('onboardingNext').textContent=step==='review'?'Complete onboarding':'Continue';
     if(step==='review') updateReview();
    }
    function showSaved(){
@@ -639,64 +745,10 @@
     window.clearTimeout(showSaved.timer);
     showSaved.timer=window.setTimeout(()=>{savedStatus.textContent='Saved';},350);
    }
-   function setReviewState(state){
-    const affiliationStatus=document.getElementById('affiliationStatus');
-    const identityStatus=document.getElementById('identityStatus');
-    const identityDescription=document.getElementById('identityDescription');
-    const affiliationDescription=document.getElementById('affiliationDescription');
-    const reason=document.getElementById('reviewReason');
-    const reasonLabel=document.getElementById('reviewReasonLabel');
-    const reasonText=document.getElementById('reviewReasonText');
-    [identityStatus,affiliationStatus].forEach(status=>status.className='status-pill');
-    reason.hidden=state!=='changes'&&state!=='direct';
-    if(state==='identity'){
-     identityStatus.textContent='Not started';
-     affiliationStatus.textContent='Not queued';
-     identityStatus.classList.add('gray');
-     affiliationStatus.classList.add('gray');
-     identityDescription.textContent='Provider not selected';
-     affiliationDescription.textContent='Starts after identity verification';
-    }else if(state==='approved'){
-     identityStatus.textContent='Verified';
-     affiliationStatus.textContent='Confirmed';
-     identityStatus.classList.add('green');
-     affiliationStatus.classList.add('green');
-     identityDescription.textContent='Identity check completed';
-     affiliationDescription.textContent='Organization relationship confirmed';
-    }else if(state==='direct'){
-     identityStatus.textContent='Verified';
-     affiliationStatus.textContent='Direct confirmation required';
-     identityStatus.classList.add('green');
-     affiliationStatus.classList.add('orange');
-     identityDescription.textContent='Identity check completed';
-     affiliationDescription.textContent='UnicAthlete must verify an official organization channel';
-     reasonLabel.textContent='Direct confirmation required:';
-     reasonText.textContent='No sufficient official listing is available or the submitted evidence is ambiguous.';
-    }else if(state==='changes'){
-     identityStatus.textContent='Verified';
-     affiliationStatus.textContent='Changes requested';
-     identityStatus.classList.add('green');
-     affiliationStatus.classList.add('red');
-     identityDescription.textContent='Identity check completed';
-     affiliationDescription.textContent='Additional confirmation is required';
-     reasonLabel.textContent='Changes requested:';
-     reasonText.textContent='The submitted source does not clearly confirm the current role.';
-    }else{
-     identityStatus.textContent='Verified';
-     affiliationStatus.textContent='Pending review';
-     identityStatus.classList.add('green');
-     affiliationStatus.classList.add('orange');
-     identityDescription.textContent='Identity check completed';
-     affiliationDescription.textContent='Waiting for an administrator';
-    }
-   }
    document.getElementById('onboardingNext').addEventListener('click',()=>{
     if(!validateCurrentStep()) return;
     if(onboardingSteps[onboardingIndex]==='review'){
-     submitted=true;
-     onboardingIndex=onboardingSteps.indexOf('status');
-     setReviewState('identity');
-     renderOnboarding();
+     window.location.href='scout-profile.html?onboarding=complete';
      return;
     }
     showSaved();
@@ -713,15 +765,24 @@
    });
    document.getElementById('evidenceMethod').addEventListener('change',()=>{ updateEvidenceFields(); showSaved(); });
    document.getElementById('noOrganizationEmail').addEventListener('change',()=>{ updateOrganizationEmail(); showSaved(); });
-   document.querySelectorAll('[data-review-state]').forEach(button=>button.addEventListener('click',()=>setReviewState(button.dataset.reviewState)));
-   document.getElementById('updateSubmission').addEventListener('click',()=>{
-    onboardingIndex=onboardingSteps.indexOf('organization');
-    renderOnboarding();
-   });
+   document.getElementById('organizationType').addEventListener('change',()=>{ updateOrganizationType(); showSaved(); });
+   document.getElementById('affiliationRelationship').addEventListener('change',()=>{ updateAffiliationRelationship(); showSaved(); });
+   document.getElementById('organizationMode').addEventListener('change',()=>{ updateOrganizationMode(); showSaved(); });
+   document.getElementById('existingOrganization').addEventListener('change',()=>{ updateOrganizationMode(); showSaved(); });
+   function updateProfessionalLanguages(){
+    const selected=[...document.querySelectorAll('input[name="professionalLanguage"]:checked')];
+    document.getElementById('professionalLanguagesSummary').textContent=selected.length
+     ? selected.map(language=>language.dataset.label).join(', ')
+     : 'Select languages';
+   }
+   document.querySelectorAll('input[name="professionalLanguage"]').forEach(field=>field.addEventListener('change',updateProfessionalLanguages));
    document.querySelectorAll('input,select,textarea').forEach(field=>field.addEventListener('change',showSaved));
+   updateProfessionalLanguages();
    updateOrganizationEmail();
+   updateOrganizationMode();
+   updateOrganizationType();
+   updateAffiliationRelationship();
    updateEvidenceFields();
-   setReviewState('identity');
    renderOnboarding();
   </script>
  </body>

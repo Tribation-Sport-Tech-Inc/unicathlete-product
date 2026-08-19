@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>Admin — Scout Affiliation Review</title>
+  <style>
+   :root {
+    --navy:#111827;
+    --blue:#2563eb;
+    --blue-light:#eff6ff;
+    --green:#16a34a;
+    --green-light:#ecfdf5;
+    --orange:#f97316;
+    --orange-light:#fff7ed;
+    --red:#dc2626;
+    --red-light:#fef2f2;
+    --gray-bg:#f3f4f6;
+    --border:#e5e7eb;
+    --muted:#6b7280;
+    --white:#fff;
+   }
+   * { box-sizing:border-box; }
+   body {
+    margin:0;
+    padding-top:56px!important;
+    background:var(--gray-bg);
+    color:var(--navy);
+    font-family:Arial,sans-serif;
+    line-height:1.45;
+   }
+   button,input,textarea { font:inherit; }
+   .page { width:min(1440px,calc(100% - 40px)); margin:28px auto 50px; }
+   .page-head { display:flex; justify-content:space-between; gap:20px; align-items:flex-start; margin-bottom:20px; }
+   .eyebrow { color:var(--blue); font-size:11px; font-weight:900; letter-spacing:.08em; text-transform:uppercase; }
+   h1 { margin:4px 0 6px; font-size:30px; }
+   h2 { margin:0; font-size:20px; }
+   h3 { margin:0; font-size:15px; }
+   p { margin:0; color:var(--muted); }
+   .internal-pill,.status-pill {
+    display:inline-flex;
+    border-radius:999px;
+    padding:6px 9px;
+    font-size:11px;
+    font-weight:900;
+   }
+   .internal-pill { color:#1e3a8a; background:var(--blue-light); border:1px solid #bfdbfe; }
+   .status-pill.green { color:#166534; background:var(--green-light); border:1px solid #bbf7d0; }
+   .status-pill.orange { color:#9a3412; background:var(--orange-light); border:1px solid #fed7aa; }
+   .status-pill.gray { color:#475569; background:#f8fafc; border:1px solid var(--border); }
+   .status-pill.red { color:#991b1b; background:var(--red-light); border:1px solid #fecaca; }
+   .queue-tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+   .queue-tab {
+    border:1px solid var(--border);
+    background:white;
+    border-radius:10px;
+    padding:9px 11px;
+    color:var(--muted);
+    font-size:12px;
+    font-weight:900;
+    cursor:pointer;
+   }
+   .queue-tab.active { color:var(--blue); border-color:#93c5fd; background:var(--blue-light); }
+   .review-layout { display:grid; grid-template-columns:320px minmax(0,1fr); gap:16px; align-items:start; }
+   .panel { background:white; border:1px solid var(--border); border-radius:18px; box-shadow:0 6px 18px rgba(15,23,42,.05); }
+   .panel-head { padding:18px; border-bottom:1px solid var(--border); }
+   .panel-head p { margin-top:4px; font-size:12px; }
+   .queue-list { display:grid; }
+   .queue-item {
+    width:100%;
+    border:0;
+    border-bottom:1px solid var(--border);
+    background:white;
+    padding:15px 16px;
+    text-align:left;
+    cursor:pointer;
+   }
+   .queue-item:last-child { border-bottom:0; border-radius:0 0 18px 18px; }
+   .queue-item.active { background:var(--blue-light); box-shadow:inset 4px 0 0 var(--blue); }
+   .queue-item strong { display:block; margin-bottom:3px; font-size:14px; }
+   .queue-item span { display:block; color:var(--muted); font-size:12px; }
+   .queue-item-meta { display:flex!important; justify-content:space-between; gap:8px; margin-top:9px; color:var(--muted); font-size:11px!important; }
+   .detail { display:grid; gap:16px; }
+   .detail-head { padding:20px; display:flex; justify-content:space-between; gap:18px; align-items:flex-start; }
+   .detail-head p { margin-top:5px; }
+   .gate-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; padding:0 20px 20px; }
+   .gate { border:1px solid var(--border); background:#f9fafb; border-radius:12px; padding:12px; }
+   .gate span { display:block; color:var(--muted); font-size:10px; font-weight:900; text-transform:uppercase; margin-bottom:5px; }
+   .gate strong { font-size:13px; }
+   .detail-columns { display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:16px; }
+   .content-stack,.action-stack { display:grid; gap:16px; }
+   .section { padding:20px; }
+   .section-title { display:flex; justify-content:space-between; gap:14px; align-items:center; margin-bottom:14px; }
+   .section-title p { font-size:12px; }
+   .info-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+   .info-item { border:1px solid var(--border); background:#f9fafb; border-radius:11px; padding:11px 12px; }
+   .info-item span { display:block; color:var(--muted); font-size:10px; font-weight:900; text-transform:uppercase; margin-bottom:4px; }
+   .info-item strong,.info-item a { color:var(--navy); font-size:13px; word-break:break-word; }
+   .info-item.full { grid-column:1/-1; }
+   .evidence-row { border:1px solid var(--border); border-radius:12px; padding:13px; margin-top:9px; }
+   .evidence-row:first-of-type { margin-top:0; }
+   .evidence-row-top { display:flex; justify-content:space-between; gap:14px; align-items:center; }
+   .evidence-row p { font-size:12px; margin-top:4px; }
+   .source-check { margin-top:10px; color:#166534; background:var(--green-light); border-radius:9px; padding:8px 10px; font-size:11px; font-weight:800; }
+   .exception-preview { margin-top:12px; border:2px dashed #c4b5fd; border-radius:12px; background:#f5f3ff; overflow:hidden; }
+   .exception-preview summary { cursor:pointer; padding:12px 13px; color:#6d28d9; font-size:12px; font-weight:900; }
+   .exception-preview-body { border-top:1px solid #ddd6fe; padding:13px; }
+   details.additional { padding:0; overflow:hidden; }
+   details.additional summary { cursor:pointer; list-style:none; padding:18px 20px; display:flex; justify-content:space-between; gap:14px; align-items:center; }
+   details.additional summary::-webkit-details-marker { display:none; }
+   details.additional summary::after { content:'Show'; color:var(--blue); font-size:12px; font-weight:900; }
+   details.additional[open] summary::after { content:'Hide'; }
+   .additional-body { border-top:1px solid var(--border); padding:18px 20px 20px; }
+   .context-note { margin-bottom:12px; padding:10px 12px; border-radius:10px; background:var(--orange-light); border:1px solid #fed7aa; color:#9a3412; font-size:12px; }
+   .history-list { display:grid; gap:11px; }
+   .history-item { border-left:3px solid #cbd5e1; padding-left:12px; }
+   .history-item strong { display:block; font-size:13px; }
+   .history-item span { color:var(--muted); font-size:11px; }
+   .decision-panel { padding:18px; position:sticky; top:74px; }
+   .decision-panel > p { font-size:12px; margin:7px 0 15px; }
+   .button-list { display:grid; gap:8px; }
+   .button {
+    width:100%;
+    border:1px solid var(--border);
+    background:white;
+    color:var(--navy);
+    border-radius:10px;
+    padding:10px 12px;
+    text-align:left;
+    font-size:12px;
+    font-weight:900;
+    cursor:pointer;
+   }
+   .button.primary { color:white; background:var(--green); border-color:var(--green); }
+   .button.warn { color:#9a3412; background:var(--orange-light); border-color:#fed7aa; }
+   .button.danger { color:#991b1b; background:var(--red-light); border-color:#fecaca; }
+   .decision-note { margin-top:14px; }
+   .decision-note label { display:block; color:var(--muted); font-size:10px; font-weight:900; text-transform:uppercase; margin-bottom:5px; }
+   .decision-note textarea { width:100%; min-height:82px; resize:vertical; border:1px solid var(--border); border-radius:10px; padding:10px; font-size:12px; }
+   .decision-note select { width:100%; border:1px solid var(--border); border-radius:10px; padding:9px 10px; background:white; font-size:12px; }
+   .privacy-note { padding:14px; background:#f8fafc; border:1px solid var(--border); border-radius:12px; color:var(--muted); font-size:11px; margin-top:14px; }
+   .snapshot { padding:17px; }
+   .snapshot strong { display:block; font-size:13px; margin-bottom:4px; }
+   .snapshot span { color:var(--muted); font-size:11px; }
+   .review-result { display:none; margin-top:12px; padding:10px; border-radius:10px; background:var(--blue-light); color:#1e3a8a; font-size:12px; font-weight:800; }
+   .review-result.visible { display:block; }
+   @media (max-width:1050px) {
+    .review-layout,.detail-columns { grid-template-columns:1fr; }
+    .gate-grid { grid-template-columns:repeat(2,1fr); }
+    .decision-panel { position:static; }
+   }
+   @media (max-width:650px) {
+    .page { width:min(100% - 24px,1440px); margin-top:16px; }
+    .page-head,.detail-head { flex-direction:column; }
+    .gate-grid,.info-grid { grid-template-columns:1fr; }
+    .info-item.full { grid-column:auto; }
+   }
+  </style>
+  <link href="../shared/app-shell.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <header class="app-header">
+   <div class="app-header-inner">
+    <a class="app-logo" href="../index.html">UNICATHLETE</a>
+    <nav aria-label="Platform view switcher" class="app-switch">
+     <a href="../index.html">Platform</a>
+     <a href="../signup.html">Create Account</a>
+     <a href="../recruiter/onboarding.html">Scout Onboarding</a>
+     <a class="active" href="scout-affiliation-review.html">Admin Review</a>
+    </nav>
+   </div>
+  </header>
+
+  <main class="page">
+   <div class="page-head">
+    <div>
+     <span class="eyebrow">Internal operations</span>
+     <h1>Manual organization-affiliation review</h1>
+     <p>Minimal Slice 3 queue and review detail. This is not a general administration dashboard.</p>
+    </div>
+    <span class="internal-pill">manage_scout_affiliation_reviews · MFA required</span>
+   </div>
+
+   <div class="queue-tabs" aria-label="Review queues">
+    <button class="queue-tab" data-admin-mode="application" type="button">Awaiting verification · 3</button>
+    <button class="queue-tab active" data-admin-mode="application" type="button">Ready for review · 4</button>
+    <button class="queue-tab" data-admin-mode="application" type="button">Waiting for scout · 2</button>
+    <button class="queue-tab" data-admin-mode="application" type="button">Waiting for organization · 1</button>
+    <button class="queue-tab" data-admin-mode="lifecycle" type="button">Lifecycle review · 1</button>
+    <button class="queue-tab" data-admin-mode="application" type="button">Completed · 18</button>
+   </div>
+
+   <div class="review-layout">
+    <aside class="panel">
+     <div class="panel-head">
+      <h2 id="queueHeading">Ready for review</h2>
+      <p id="queueDescription">Email and identity prerequisites are complete.</p>
+     </div>
+     <div class="queue-list" id="applicationQueueList">
+      <button class="queue-item active" type="button">
+       <strong>Mike Brown</strong>
+       <span>Lakeside Soccer Academy</span>
+       <span>Men's and Women's Soccer</span>
+       <span class="queue-item-meta"><span>Existing organization</span><span>Today</span></span>
+      </button>
+      <button class="queue-item" type="button">
+       <strong>Emily Carter</strong>
+       <span>Atlantic State University Athletics</span>
+       <span>Women's Soccer</span>
+       <span class="queue-item-meta"><span>Existing organization</span><span>Yesterday</span></span>
+      </button>
+      <button class="queue-item" type="button">
+       <strong>Daniel Ruiz</strong>
+       <span>US Talent Pathways</span>
+       <span>Men's Soccer</span>
+       <span class="queue-item-meta"><span>New suggestion</span><span>Aug 17</span></span>
+      </button>
+     </div>
+     <div class="queue-list" hidden id="lifecycleQueueList">
+      <button class="queue-item active" type="button">
+       <strong>Mike Brown</strong>
+       <span>Lakeside Soccer Academy</span>
+       <span>Verification suspended</span>
+       <span class="queue-item-meta"><span>Organization complaint</span><span>Today</span></span>
+      </button>
+     </div>
+    </aside>
+
+    <section class="detail">
+     <div class="panel">
+      <div class="detail-head">
+       <div>
+        <span class="eyebrow" id="caseEyebrow">Application UA-AFF-00241</span>
+        <h2 id="caseTitle">Mike Brown · Lakeside Soccer Academy</h2>
+        <p id="caseDescription">Automatically submitted after required email and identity checks completed.</p>
+       </div>
+       <span class="status-pill orange" id="caseStatus">Pending review</span>
+      </div>
+      <div class="gate-grid">
+       <div class="gate"><span>Account email</span><strong>Verified</strong></div>
+       <div class="gate"><span>Organization email</span><strong>Verified</strong></div>
+       <div class="gate"><span>Identity</span><strong>Verified · IDV-5812</strong></div>
+       <div class="gate"><span>Athlete access</span><strong>Restricted</strong></div>
+      </div>
+     </div>
+
+     <div class="detail-columns">
+      <div class="content-stack">
+       <section class="panel section" hidden id="lifecycleContext">
+        <div class="section-title"><div><h2>Affiliation lifecycle review</h2><p>Review of a previously confirmed affiliation; this is not a new application decision.</p></div><span class="status-pill red">Suspended</span></div>
+        <div class="info-grid">
+         <div class="info-item"><span>Relationship status</span><strong>Active</strong></div>
+         <div class="info-item"><span>Verification status</span><strong>Suspended</strong></div>
+         <div class="info-item"><span>Trigger</span><strong>Organization complaint</strong></div>
+         <div class="info-item"><span>Athlete access</span><strong>Restricted immediately</strong></div>
+         <div class="info-item"><span>Previously confirmed</span><strong>Jun 12, 2026</strong></div>
+         <div class="info-item"><span>Original valid-until date</span><strong>Jun 12, 2027</strong></div>
+        </div>
+        <div class="history-list" style="margin-top:14px;">
+         <div class="history-item"><strong>Organization complaint recorded</strong><span>Aug 19, 2026 · Official organization channel · Admin J. Patel</span></div>
+         <div class="history-item"><strong>Verification changed: Confirmed → Suspended</strong><span>Aug 19, 2026 · Reason: organization_report_or_complaint</span></div>
+         <div class="history-item"><strong>Transactional email generated</strong><span>Aug 19, 2026 · Safe Scout-facing explanation only · Delivery tracked separately</span></div>
+        </div>
+       </section>
+       <section class="panel section">
+        <div class="section-title">
+         <div><h2>Affiliation application</h2><p>Scout-submitted information from snapshot v1.</p></div>
+        </div>
+        <div class="info-grid">
+         <div class="info-item"><span>Account name</span><strong>Mike Brown</strong></div>
+         <div class="info-item"><span>Professional title</span><strong>Scout</strong></div>
+         <div class="info-item"><span>Relationship type</span><strong>Employee</strong></div>
+         <div class="info-item"><span>Relationship start</span><strong>August 2023</strong></div>
+         <div class="info-item"><span>Program / recruiting category</span><strong>Men's and Women's Soccer</strong></div>
+         <div class="info-item"><span>Athlete market</span><strong>Spain</strong></div>
+        </div>
+        <details class="exception-preview">
+         <summary>Conditional wireframe example — other professional relationship</summary>
+         <div class="exception-preview-body">
+          <div class="info-item"><span>Relationship description</span><strong>External recruitment consultant authorized to scout for the men's soccer program</strong></div>
+         </div>
+        </details>
+       </section>
+
+       <section class="panel section" id="applicationHistory">
+        <div class="section-title">
+         <div><h2>Organization and eligibility</h2><p>Organization identity is separate from the applicant's affiliation.</p></div>
+         <span class="status-pill green">Existing organization</span>
+        </div>
+        <div class="info-grid">
+         <div class="info-item"><span>Canonical name</span><strong>Lakeside Soccer Academy</strong></div>
+         <div class="info-item"><span>Organization type</span><strong>Youth soccer academy or club</strong></div>
+         <div class="info-item"><span>Confirming branch</span><strong>Dallas, United States</strong></div>
+         <div class="info-item"><span>Eligibility</span><strong>Previously reviewed</strong></div>
+         <div class="info-item full"><span>Official website</span><a href="#">https://lakesidesoccer.example</a></div>
+        </div>
+        <details class="exception-preview">
+         <summary>Conditional wireframe examples — new, duplicate, or ineligible organization</summary>
+         <div class="exception-preview-body">
+          <div class="context-note">These replace the existing-organization state above when the Scout adds an organization for review.</div>
+          <div class="info-grid">
+           <div class="info-item"><span>New suggestion</span><strong>Review canonical name, type, US branch, website, and eligibility</strong></div>
+           <div class="info-item"><span>Possible duplicate</span><strong>Match to an existing organization while preserving the application and evidence references</strong></div>
+           <div class="info-item"><span>Eligible new organization</span><strong>Confirm the organization record separately from the Scout's affiliation</strong></div>
+           <div class="info-item"><span>Ineligible organization</span><strong>Record structured reason and safe explanation; do not approve the affiliation</strong></div>
+          </div>
+         </div>
+        </details>
+       </section>
+
+       <section class="panel section">
+        <div class="section-title">
+         <div><h2>Affiliation evidence</h2><p>Evidence is private and checked against independently obtained official sources.</p></div>
+        </div>
+        <div class="evidence-row">
+         <div class="evidence-row-top"><strong>Organization work email</strong><span class="status-pill green">Verified</span></div>
+         <p>mike@lakesidesoccer.example · mailbox ownership only; not sufficient by itself</p>
+        </div>
+        <div class="evidence-row">
+         <div class="evidence-row-top"><strong>Official organization staff page</strong><a href="#">Open source</a></div>
+         <p>https://lakesidesoccer.example/staff/mike-brown</p>
+         <div class="source-check">Official domain independently checked · Name, current role and organization match</div>
+        </div>
+        <div class="evidence-row">
+         <div class="evidence-row-top"><strong>Optional supporting link</strong><a href="#">Open link</a></div>
+         <p>LinkedIn profile · Supporting context only, never sufficient by itself</p>
+        </div>
+        <details class="exception-preview">
+         <summary>Conditional wireframe example — organization provides no work email</summary>
+         <div class="exception-preview-body">
+          <div class="context-note">This replaces the standard work-email and staff-page rows when the no-work-email exception applies; both paths are not shown together in production.</div>
+          <div class="info-grid">
+           <div class="info-item"><span>Organization work email</span><strong>Not applicable</strong></div>
+           <div class="info-item"><span>Required route</span><strong>Organization representative confirmation</strong></div>
+           <div class="info-item"><span>Representative proposed by Scout</span><strong>Ashley Lee · Director of Recruitment</strong></div>
+           <div class="info-item"><span>Official contact channel</span><strong>Independently verified by administrator</strong></div>
+           <div class="info-item"><span>Request sent</span><strong>Aug 19, 2026 · Admin J. Patel</strong></div>
+           <div class="info-item"><span>Response</span><strong>Pending</strong></div>
+          </div>
+         </div>
+        </details>
+       </section>
+
+       <details class="panel additional">
+        <summary>
+         <div><h2>Additional profile information</h2><p>Available for context, collapsed by default and not approval criteria.</p></div>
+        </summary>
+        <div class="additional-body">
+         <div class="context-note">Optional information must not be treated as required evidence or used to reward applicants who provide more personal information.</div>
+         <div class="info-grid">
+          <div class="info-item"><span>Professional photo</span><strong>Provided · Context only</strong></div>
+          <div class="info-item"><span>Languages</span><strong>English, Spanish</strong></div>
+          <div class="info-item"><span>Self-reported experience</span><strong>6–10 years</strong></div>
+          <div class="info-item"><span>Country of professional activity</span><strong>United States</strong></div>
+         </div>
+        </div>
+       </details>
+
+       <section class="panel section">
+        <div class="section-title"><div><h2>Review history</h2><p>Append-only activity for this application.</p></div></div>
+        <div class="history-list">
+         <div class="history-item"><strong>Application automatically submitted for review</strong><span>Aug 19, 2026 · Snapshot v1 · System</span></div>
+         <div class="history-item"><strong>Identity verification completed</strong><span>Aug 19, 2026 · Provider reference IDV-5812</span></div>
+         <div class="history-item"><strong>Organization work email verified</strong><span>Aug 18, 2026 · Verification event retained</span></div>
+        </div>
+       </section>
+      </div>
+
+      <aside class="action-stack">
+       <div class="panel decision-panel" id="applicationDecision">
+        <h2>Review decision</h2>
+        <p>Actions apply to application snapshot v1. A reason and audit event are stored where applicable.</p>
+        <div class="button-list">
+         <button class="button primary" data-decision-action="confirm" data-result="Affiliation confirmed" type="button">Confirm affiliation</button>
+         <button class="button warn" data-decision-action="request_info" data-result="Additional information requested" type="button">Request additional information</button>
+         <button class="button warn" data-decision-action="organization_confirmation" data-result="Waiting for organization confirmation" type="button">Require organization confirmation</button>
+         <button class="button" data-decision-action="unable" data-result="Unable to verify" type="button">Mark unable to verify</button>
+         <button class="button danger" data-decision-action="reject" data-result="Application rejected" type="button">Reject application</button>
+        </div>
+        <div class="decision-note">
+         <label for="decisionReasonCode">Structured reason</label>
+         <select id="decisionReasonCode"><option value="">Choose an action first</option></select>
+        </div>
+        <div class="decision-note" id="applicationExplanationField">
+         <label for="decisionExplanation">Scout-facing explanation</label>
+         <textarea id="decisionExplanation" placeholder="Required safe explanation for the Scout when the selected outcome requires one."></textarea>
+        </div>
+        <div class="decision-note">
+         <label for="decisionInternalNote">Restricted internal note</label>
+         <textarea id="decisionInternalNote" placeholder="Optional operational or investigation context; never automatically shown to the Scout."></textarea>
+        </div>
+        <div class="privacy-note" hidden id="confirmationMetadata">Current policy: 12 months. Confirmation records the reviewer, application snapshot, evidence basis, decision timestamp, policy version, confirmation date, and system-calculated validity date. No Scout-facing explanation is required.</div>
+        <div class="review-result" id="reviewResult" aria-live="polite"></div>
+        <div class="privacy-note">Admins cannot rewrite Scout-submitted fields. Request a correction so the reviewed snapshot and subsequent resubmission remain auditable.</div>
+        <div class="privacy-note">A confirmation is time-limited under the current configurable policy. Expiration, Scout removal, suspension, revocation, and reverification must create separate audited lifecycle events.</div>
+       </div>
+       <div class="panel snapshot">
+        <strong>Reviewed application snapshot</strong>
+        <span>Version 1 · Created Aug 19, 2026<br/>Material changes create a new version.</span>
+       </div>
+       <div class="panel snapshot" hidden id="lifecycleDecision">
+        <strong>Lifecycle decision</strong>
+        <span>This affiliation is currently suspended. Restore or revoke it after investigation; neither action rewrites its previous history.</span>
+        <div class="decision-note">
+         <label for="lifecycleReasonCode">Structured reason</label>
+         <select id="lifecycleReasonCode">
+          <option value="">Select a reason</option>
+          <option selected>Organization report or complaint</option>
+          <option>Organization denied affiliation</option>
+          <option>Administrative safety hold</option>
+          <option>Administrative correction</option>
+         </select>
+        </div>
+        <div class="decision-note">
+         <label for="lifecycleExplanation">Scout-facing explanation</label>
+         <textarea id="lifecycleExplanation" placeholder="Required safe explanation shown to the Scout."></textarea>
+        </div>
+        <div class="decision-note">
+         <label for="lifecycleInternalNote">Restricted internal note</label>
+         <textarea id="lifecycleInternalNote" placeholder="Optional investigation context; never automatically shown to the Scout."></textarea>
+        </div>
+        <div class="button-list" style="margin-top:10px;">
+         <button class="button primary" data-result="Suspended affiliation restored" type="button">Restore affiliation</button>
+         <button class="button danger" data-result="Confirmed affiliation revoked" type="button">Revoke affiliation</button>
+        </div>
+        <div class="review-result" id="lifecycleResult" aria-live="polite"></div>
+       </div>
+      </aside>
+     </div>
+    </section>
+   </div>
+  </main>
+
+  <script>
+   function setAdminMode(mode){
+    const lifecycle=mode==='lifecycle';
+    document.getElementById('applicationQueueList').hidden=lifecycle;
+    document.getElementById('lifecycleQueueList').hidden=!lifecycle;
+    document.getElementById('lifecycleContext').hidden=!lifecycle;
+    document.getElementById('applicationHistory').hidden=lifecycle;
+    document.getElementById('applicationDecision').hidden=lifecycle;
+    document.getElementById('lifecycleDecision').hidden=!lifecycle;
+    document.getElementById('queueHeading').textContent=lifecycle?'Lifecycle review':'Ready for review';
+    document.getElementById('queueDescription').textContent=lifecycle?'Previously confirmed affiliations requiring an administrator decision.':'Email and identity prerequisites are complete.';
+    document.getElementById('caseEyebrow').textContent=lifecycle?'Lifecycle case UA-LIFE-00018':'Application UA-AFF-00241';
+    document.getElementById('caseDescription').textContent=lifecycle?'Previously confirmed affiliation suspended after an organization complaint.':'Automatically submitted after required email and identity checks completed.';
+    const status=document.getElementById('caseStatus');
+    status.textContent=lifecycle?'Suspended':'Pending review';
+    status.className=lifecycle?'status-pill red':'status-pill orange';
+   }
+   document.querySelectorAll('.queue-tab').forEach(tab=>tab.addEventListener('click',()=>{
+    document.querySelectorAll('.queue-tab').forEach(item=>item.classList.remove('active'));
+    tab.classList.add('active');
+    setAdminMode(tab.dataset.adminMode||'application');
+   }));
+   document.querySelectorAll('.queue-item').forEach(item=>item.addEventListener('click',()=>{
+    document.querySelectorAll('.queue-item').forEach(row=>row.classList.remove('active'));
+    item.classList.add('active');
+   }));
+   const applicationReasonOptions={
+    confirm:['Sufficient official evidence'],
+    request_info:['Insufficient role evidence','Missing or ambiguous official source','Material information incomplete'],
+    organization_confirmation:['Official source is ambiguous','No organization work email','Organization response required'],
+    unable:['Organization did not respond','No reliable official contact channel','Evidence remained inconclusive'],
+    reject:['Organization is ineligible','Recruiting authority not confirmed','Organization denied the affiliation','Material conflict with official information','Safety or integrity concern']
+   };
+   function configureApplicationDecision(action){
+    const select=document.getElementById('decisionReasonCode');
+    select.replaceChildren();
+    applicationReasonOptions[action].forEach((label,index)=>{
+     const option=document.createElement('option');
+     option.value=label.toLowerCase().replaceAll(' ','_');
+     option.textContent=label;
+     option.selected=index===0;
+     select.appendChild(option);
+    });
+    const confirmation=action==='confirm';
+    document.getElementById('applicationExplanationField').hidden=confirmation;
+    document.getElementById('confirmationMetadata').hidden=!confirmation;
+   }
+   document.querySelectorAll('[data-result]').forEach(button=>button.addEventListener('click',()=>{
+    if(button.dataset.decisionAction) configureApplicationDecision(button.dataset.decisionAction);
+    const result=button.closest('#lifecycleDecision')?document.getElementById('lifecycleResult'):document.getElementById('reviewResult');
+    result.textContent=(button.dataset.decisionAction?'Selected action: ':'Wireframe outcome preview: ')+button.dataset.result;
+    result.classList.add('visible');
+   }));
+   setAdminMode('application');
+  </script>
+ </body>
+</html>

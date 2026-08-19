@@ -1,0 +1,57 @@
+{
+  "bridgeVersion": "3.6",
+  "kind": "google-docs-trusted-read",
+  "status": "complete",
+  "outputDir": "/Users/arina/Documents/Codex/unicathlete-product/tmp/google-docs-trusted/read-06",
+  "target": {
+    "documentId": "18zzLZv0AoK7FCu_8QJgWXWr74wv6l-Uiy8ZHIVzfnZ4",
+    "title": "Pilot Preparation",
+    "revisionId": "AIroW35_NLoHpZ4UP5Cf9un0nHqjeNckYrD0R2DlHGQV3-Gr_D7BycnkErt0UOtR74IRY8q7SZ1ypQ7-w3Y12x7CcUfLTngioVEllpGIcOo",
+    "documentUrl": "https://docs.google.com/document/d/18zzLZv0AoK7FCu_8QJgWXWr74wv6l-Uiy8ZHIVzfnZ4",
+    "selectedTabId": "t.0"
+  },
+  "dropdownMetadata": {
+    "status": "unavailable",
+    "resolvedTool": null,
+    "authoritative": false,
+    "count": 0
+  },
+  "controlAwareness": {
+    "hasProtectedControls": false,
+    "authoritativeDropdownCount": 0,
+    "opaqueControlCount": 0,
+    "affectedParagraphCount": 0,
+    "nativeElementCounts": {},
+    "preservationRequired": false,
+    "recommendedBehavior": "No protected controls were detected in the scanned scope."
+  },
+  "warnings": [],
+  "files": {
+    "document_result": {
+      "path": "/Users/arina/Documents/Codex/unicathlete-product/tmp/google-docs-trusted/read-06/document-result.json",
+      "bytes": 246947,
+      "sha256": "f38ad091e1f66906538ea3d1198c7f9dcb590a3dde4c764375d68c5b9c42b08a"
+    },
+    "control_inventory": {
+      "path": "/Users/arina/Documents/Codex/unicathlete-product/tmp/google-docs-trusted/read-06/control-inventory.json",
+      "bytes": 1023,
+      "sha256": "d7db228ada8c3604c9b580f00148d2ce688fdcf4941f67d9d8c556aeb1d5c26e"
+    },
+    "document_outline": {
+      "path": "/Users/arina/Documents/Codex/unicathlete-product/tmp/google-docs-trusted/read-06/document-outline.json",
+      "bytes": 32005,
+      "sha256": "a13356cedcee101c600d8ce7268a0fd258c2d633af9399801353b108e08dfb1e"
+    },
+    "document_text": {
+      "path": "/Users/arina/Documents/Codex/unicathlete-product/tmp/google-docs-trusted/read-06/document-text.md",
+      "bytes": 8420,
+      "sha256": "cd1322a4f1da6f50108354c7ee18c27860fcd2e72f803b93e0a72aa7f7f59e99"
+    },
+    "receipt": {
+      "path": "/Users/arina/Documents/Codex/unicathlete-product/tmp/google-docs-trusted/read-06/receipt.json",
+      "bytes": 954,
+      "sha256": "893c98fa49bb1fe563c603231fac1b53349d387b01a0b8854b06157583586212"
+    }
+  },
+  "error": null
+}
