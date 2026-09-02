@@ -87,7 +87,7 @@ The one-active-record rule is an MVP product constraint. The relationship model 
 
 Ordinary profile editing does not grant authority over guardian-required legal actions, relationships, supervision, external sharing, visibility, or profile/account deletion. Visibility authority follows Spec 03 and the access matrix in Spec 06. For under-14 and guardian-managed unjoined profiles, the guardian performs profile and applicable protected actions directly. Joined athletes manage ordinary content; the guardian performs only the supervisory actions assigned to them.
 
-- Date of birth is not normally editable by either person and uses the correction process.
+- Date of birth is not editable after account creation through ordinary profile controls; MVP corrections are handled manually through support as defined in Spec 08.
 - Legal/full-name correction uses an audited exception process rather than ordinary profile editing.
 - Each login owner controls their own email verification, password, multifactor authentication, and recovery information. Credentials are never shared.
 - In independent mode, the guardian may make the Sport Profile private but cannot enable visibility. Withdrawal of a guardian-provided permission is a separate legal action from changing visibility.

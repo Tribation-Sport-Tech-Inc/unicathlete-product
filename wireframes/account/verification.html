@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="utf-8"/>
+ <meta name="viewport" content="width=device-width, initial-scale=1"/>
+ <title>Account &amp; Verification</title>
+ <style>
+  :root{--navy:#111827;--blue:#2563eb;--green:#16a34a;--orange:#f97316;--red:#b91c1c;--purple:#7c3aed;--bg:#f3f4f6;--border:#e5e7eb;--muted:#6b7280}
+  *{box-sizing:border-box}body{font-family:Arial,sans-serif;margin:0;background:var(--bg);color:var(--navy);line-height:1.45}
+  .nav{background:var(--navy);padding:8px 24px;display:flex;gap:10px;overflow-x:auto}.nav a{color:#d1d5db;text-decoration:none;padding:7px 10px;border-radius:8px;font-size:13px;white-space:nowrap}.nav a.active{background:var(--blue);color:#fff;font-weight:700}
+  .page{max-width:790px;margin:28px auto;padding:0 24px 48px}h1,h2,p{margin-top:0}h1{font-size:28px;margin-bottom:5px}h2{font-size:18px;margin-bottom:5px}p{color:var(--muted);margin-bottom:0}
+  .preview{display:flex;align-items:end;gap:10px;flex-wrap:wrap;border:2px dashed #c4b5fd;background:#f5f3ff;border-radius:12px;padding:12px;margin:20px 0}.preview strong{color:var(--purple);font-size:13px}.preview label{display:grid;gap:4px;color:var(--muted);font-size:11px}.preview select{background:#fff;border:1px solid var(--border);border-radius:8px;padding:7px 9px;color:var(--navy)}
+  .card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:0 6px 18px rgba(15,23,42,.04);margin-bottom:14px}.row,.status-head{display:flex;justify-content:space-between;align-items:center;gap:16px}.row+.row{border-top:1px solid var(--border);margin-top:14px;padding-top:14px}.row span{color:var(--muted);font-size:14px}.row strong{text-align:right;font-size:14px}
+  .status-head{align-items:flex-start}.status-label{display:flex;gap:11px}.icon{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#fff7ed;color:var(--orange);font-weight:900}.pill{display:inline-flex;border-radius:999px;padding:5px 9px;background:#fff7ed;color:#9a3412;font-size:12px;font-weight:800;white-space:nowrap}.pill.green{background:#ecfdf5;color:#166534}.pill.blue{background:#eff6ff;color:#1d4ed8}.pill.red{background:#fef2f2;color:var(--red)}
+  .status-copy{margin:14px 0 0;font-size:14px}.impact{margin-top:10px;padding:11px 12px;background:#f9fafb;border-radius:10px;font-size:13px;color:var(--muted)}.impact strong{display:block;color:var(--navy);margin-bottom:3px}
+  .actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}.button{border:0;border-radius:9px;padding:9px 13px;font:700 13px Arial,sans-serif;text-decoration:none;display:inline-flex;cursor:pointer}.primary{background:var(--blue);color:#fff}.light{background:#fff;color:var(--navy);border:1px solid var(--border)}.button:disabled{opacity:.45;cursor:not-allowed}
+  .special{display:none}.special.visible{display:block}.standard.hidden{display:none}.notice{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:12px;padding:13px 14px;margin-bottom:14px;font-size:14px}
+  .modal{position:fixed;inset:0;background:rgba(15,23,42,.65);display:none;align-items:center;justify-content:center;padding:20px;z-index:9000}.modal.visible{display:flex}.modal-card{width:min(520px,100%);background:#fff;border-radius:17px;padding:22px;box-shadow:0 24px 64px rgba(15,23,42,.32)}.modal-head{display:flex;justify-content:space-between;gap:16px}.close{border:0;background:#f3f4f6;border-radius:50%;width:32px;height:32px;font-size:19px;cursor:pointer}.privacy{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px}.privacy a{color:var(--blue);font-size:12px;font-weight:700}.fine{font-size:12px;margin-top:11px}
+  @media(max-width:650px){.page{padding:0 16px 40px}.status-head{flex-direction:column}.row{align-items:flex-start}.row strong{max-width:55%}}
+ </style>
+ <link href="../shared/app-shell.css" rel="stylesheet"/>
+</head>
+<body>
+ <header class="app-header"><div class="app-header-inner"><a class="app-logo" href="../index.html">UNICATHLETE</a><nav class="app-switch" aria-label="Platform view switcher"><a href="../index.html">Platform</a><a href="../signup.html">Create Account</a><a href="../athlete/overview.html">Athlete View</a><a href="../recruiter/overview.html">Recruiter View</a><a href="../admin/scout-affiliation-review.html">Admin Review</a></nav></div></header>
+ <nav class="nav" aria-label="Account settings"><a href="#">Account</a><a class="active" href="verification.html">Verification</a><a id="returnLink" href="../athlete/profile.html">Return to Athlete Profile</a></nav>
+ <main class="page">
+  <h1>Account &amp; Verification</h1><p>Manage the checks required for your account.</p>
+  <div class="preview">
+   <strong>Wireframe preview</strong>
+   <label>View<select id="rolePreview"><option value="guardian">Guardian</option><option value="adult">Adult athlete</option><option value="scout">Scout</option><option value="approaching">Approaching 18</option><option value="transition">Turned 18</option></select></label>
+   <label class="standard" id="statusControl">Identity status<select id="statusPreview"><option value="email-required">Email verification required</option><option value="not-started" selected>Not started</option><option value="in-progress">In progress</option><option value="action-required">Action required</option><option value="verified">Verified</option><option value="unable">Unable to verify</option><option value="reverify">Reverification required</option></select></label>
+  </div>
+
+  <section class="standard" id="standardView">
+   <article class="card"><div class="row"><span>Account email</span><strong id="email">guardian@example.com · Verified</strong></div></article>
+   <article class="card">
+    <div class="status-head"><div class="status-label"><div class="icon" id="icon">!</div><div><h2>Identity verification</h2><p id="purpose">Guardian identity and adult-age check</p></div></div><span class="pill" id="pill">Not started</span></div>
+    <p class="status-copy" id="message">Required before eligible athlete visibility can be enabled.</p>
+    <p class="fine" id="verifiedDate" hidden>Verified on September 2, 2026</p>
+    <div class="impact"><strong id="impactState">Profile visibility: Private · Ineligible</strong><span id="impact">Private profile editing can continue.</span></div>
+    <div class="actions"><button class="button primary" id="verifyButton" type="button">Verify identity</button><button class="button light" id="resendButton" type="button" hidden>Resend verification email</button><a class="button light" id="supportButton" href="#support" hidden>Contact support</a></div>
+   </article>
+  </section>
+
+  <section class="special" id="approachingView">
+   <div class="notice">You will turn 18 in 7 days. Your guardian’s automatic profile access will end on your birthday.</div>
+   <article class="card"><h2>Prepare your account</h2><div class="row"><span>Athlete account</span><strong>Activated</strong></div><div class="row"><span>Account email</span><strong>Verified</strong></div><div class="row"><span>Adult requirements</span><strong>Available on your birthday</strong></div><div class="actions"><a class="button light" href="../athlete/profile.html">Return to Athlete Profile</a></div></article>
+  </section>
+
+  <section class="special" id="transitionView">
+   <div class="notice">You are now 18. Guardian access has ended and your Soccer Profile is private.</div>
+   <article class="card"><h2>Complete your adult account transition</h2><div class="row"><span>Adult Terms and Privacy actions</span><strong>Action required</strong></div><div class="row"><span>Adult visibility permission</span><strong>Action required</strong></div><div class="row"><span>Identity verification</span><strong>Not started</strong></div><div class="actions"><button class="button primary" id="transitionButton" type="button">Continue setup</button><a class="button light" href="../athlete/profile.html">Edit profile privately</a></div></article>
+  </section>
+ </main>
+
+ <div class="modal" id="veriffModal" role="dialog" aria-modal="true" aria-labelledby="veriffTitle"><div class="modal-card">
+  <div class="modal-head"><div><h2 id="veriffTitle">Continue to Veriff</h2><p id="modalText">Veriff will verify your identity and adult age.</p></div><button class="close" id="closeModal" type="button" aria-label="Close">×</button></div>
+  <p class="status-copy">You provide your identity information directly to Veriff. UnicAthlete receives the result.</p>
+  <div class="privacy"><a href="#privacy">UnicAthlete Privacy Notice</a><a href="https://www.veriff.com/privacy-notice" target="_blank" rel="noreferrer">Veriff Privacy Notice</a></div>
+  <div class="actions"><button class="button primary" id="continueButton" type="button">Continue to Veriff</button><button class="button light" id="cancelButton" type="button">Cancel</button></div>
+  <p class="fine">Veriff’s own document-capture screens are not reproduced in this wireframe.</p>
+ </div></div>
+
+ <script>
+  const roles={
+   guardian:{email:'guardian@example.com',purpose:'Guardian identity and adult-age check',message:'Required before eligible athlete visibility can be enabled.',blockedLabel:'Profile visibility: Private · Ineligible',blocked:'Private profile editing can continue.',clearLabel:'Profile visibility: Private · Eligible',clear:'The visibility control is now available but remains off.',returnLabel:'Return to Athlete Profile',returnHref:'../athlete/profile.html',modal:'Veriff will verify your identity and adult age.'},
+   adult:{email:'athlete@example.com',purpose:'Adult-athlete identity and age check',message:'Required before your eligible Soccer Profile can be made visible.',blockedLabel:'Profile visibility: Private · Ineligible',blocked:'Private profile editing can continue.',clearLabel:'Profile visibility: Private · Eligible',clear:'The visibility control is now available but remains off.',returnLabel:'Return to Athlete Profile',returnHref:'../athlete/profile.html',modal:'Veriff will verify your adult identity and age.'},
+   scout:{email:'scout@example.com',purpose:'Scout identity and adult-age check',message:'Required before affiliation review and athlete access can become eligible.',blockedLabel:'Athlete access: Restricted · Ineligible',blocked:'Affiliation review and athlete access remain unavailable.',clearLabel:'Identity gate: Complete',clear:'Organization-email and affiliation requirements still apply.',returnLabel:'Return to Scout Profile',returnHref:'../recruiter/scout-profile.html',modal:'Veriff will verify your identity and adult age.'}
+  };
+  const states={
+   'email-required':{label:'Not started',icon:'!',kind:'',message:'Verify your account email before starting identity verification.',emailRequired:true},
+   'not-started':{label:'Not started',icon:'!',kind:'',action:'Verify identity'},
+   'in-progress':{label:'In progress',icon:'…',kind:'blue',message:'Your verification is being processed.'},
+   'action-required':{label:'Action required',icon:'!',kind:'',message:'Complete the available action to continue.',action:'Continue verification'},
+   verified:{label:'Verified',icon:'✓',kind:'green',message:'Identity verification completed.'},
+   unable:{label:'Unable to verify',icon:'×',kind:'red',message:'Verification could not be completed.',support:true},
+   reverify:{label:'Reverification required',icon:'!',kind:'red',message:'Verify your identity again to restore the affected eligibility.',action:'Verify again',support:true}
+  };
+  const el=id=>document.getElementById(id);let role='guardian',status='not-started';
+  function render(){const r=roles[role],s=states[status],clear=status==='verified',emailRequired=!!s.emailRequired;el('email').textContent=r.email+' · '+(emailRequired?'Not verified':'Verified');el('purpose').textContent=r.purpose;el('message').textContent=s.message||r.message;el('verifiedDate').hidden=!clear;el('impactState').textContent=clear?r.clearLabel:r.blockedLabel;el('impact').textContent=clear?r.clear:r.blocked;el('pill').textContent=s.label;el('pill').className='pill '+s.kind;el('icon').textContent=s.icon;el('verifyButton').hidden=!emailRequired&&!s.action;el('verifyButton').disabled=emailRequired;el('verifyButton').textContent=emailRequired?'Verify identity':s.action||'';el('resendButton').hidden=!emailRequired;el('supportButton').hidden=!s.support;el('returnLink').textContent=r.returnLabel;el('returnLink').href=r.returnHref;el('modalText').textContent=r.modal}
+  function setRole(value){const special=value==='approaching'||value==='transition';el('standardView').classList.toggle('hidden',special);el('statusControl').classList.toggle('hidden',special);el('approachingView').classList.toggle('visible',value==='approaching');el('transitionView').classList.toggle('visible',value==='transition');if(!special){role=value;render()}}
+  function openModal(){el('veriffModal').classList.add('visible')}function closeModal(){el('veriffModal').classList.remove('visible')}
+  el('rolePreview').addEventListener('change',e=>setRole(e.target.value));el('statusPreview').addEventListener('change',e=>{status=e.target.value;render()});el('verifyButton').addEventListener('click',openModal);el('resendButton').addEventListener('click',()=>{el('message').textContent='Verification email sent. Check your inbox.'});el('transitionButton').addEventListener('click',()=>{el('rolePreview').value='adult';setRole('adult');openModal()});el('closeModal').addEventListener('click',closeModal);el('cancelButton').addEventListener('click',closeModal);el('continueButton').addEventListener('click',()=>{closeModal();status='in-progress';el('statusPreview').value=status;render()});el('veriffModal').addEventListener('click',e=>{if(e.target===el('veriffModal'))closeModal()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+  const requested=new URLSearchParams(location.search).get('role');const initial=roles[requested]||requested==='approaching'||requested==='transition'?requested:'guardian';el('rolePreview').value=initial;setRole(initial);
+ </script>
+</body>
+</html>

@@ -665,7 +665,7 @@ body {
      <button class="button btn-light" data-scout-preview="eligible" type="button">Future eligible state</button>
     </div>
    </div>
-   <div class="workspace-note" id="profileStatusNotice">Your profile and affiliation application are saved. Affiliation review has not started. It will begin automatically after your account email, organization email, and identity are verified; you do not need to submit the application again. Athlete access remains restricted.</div>
+   <div class="workspace-note" id="profileStatusNotice">Your profile and affiliation application are saved. Affiliation review has not started. It will begin automatically after your organization email and identity are verified; you do not need to submit the application again. Athlete access remains restricted.</div>
    <div class="hero">
     <div class="profile-main">
      <div class="avatar">
@@ -692,7 +692,7 @@ body {
 	     <a class="button btn-light" href="#">
 	      Edit Details
 	     </a>
-     <a class="button btn-dark" href="#">
+     <a class="button btn-dark" href="../account/verification.html?role=scout">
       Account Settings
      </a>
     </div>
@@ -771,7 +771,7 @@ body {
        Account Email Verification
       </span>
       <span id="accountEmailProfileStatus">
-       Pending
+       Verified
       </span>
      </div>
      <div class="info-row">
@@ -814,6 +814,9 @@ body {
        Not started
       </span>
 	     </div>
+	    </div>
+	    <div class="hero-actions" style="margin-top:16px;">
+	     <a class="button btn-primary" href="../account/verification.html?role=scout">Open Account &amp; Verification</a>
 	    </div>
 	   </div>
 	   <div class="card" style="margin-bottom:18px;">
@@ -884,9 +887,9 @@ body {
          </div>
          <div class="affiliation-meta">
           <strong>
-          Men's and Women's Soccer
+          Men's Soccer &middot; Women's Soccer
           </strong>
-          Program / recruiting category
+          Programs recruited for
          </div>
          <div class="affiliation-meta">
           <strong>
@@ -933,7 +936,7 @@ body {
      ?'Future eligible-state preview: all current access gates are satisfied and athlete access is enabled under the applicable product rules.'
      :noEmail
       ?'Your organization does not provide a work email. Account email and identity checks are complete; UnicAthlete is waiting for confirmation through an independently verified organization channel. Athlete access remains restricted.'
-      :'Your profile and affiliation application are saved. Affiliation review has not started. It will begin automatically after your account email, organization email, and identity are verified; you do not need to submit the application again. Athlete access remains restricted.';
+      :'Your profile and affiliation application are saved. Affiliation review has not started. It will begin automatically after your organization email and identity are verified; you do not need to submit the application again. Athlete access remains restricted.';
     document.getElementById('heroAffiliationSummary').textContent=eligible
      ?'Scout · Lakeside Soccer Academy · Spain athlete market'
      :'Scout · Lakeside Soccer Academy affiliation pending · Spain athlete market';
@@ -941,7 +944,7 @@ body {
     eligibilityBadge.className=eligible?'badge green':'badge orange';
     eligibilityBadge.textContent=eligible?'Athlete access eligible':'Restricted Scout account';
     document.getElementById('trustAvailabilityBadge').textContent=eligible?'Limited athlete-visible trust card':'Trust card unavailable';
-    document.getElementById('accountEmailProfileStatus').textContent=eligible||noEmail?'Verified':'Pending';
+    document.getElementById('accountEmailProfileStatus').textContent='Verified';
     document.getElementById('organizationEmailProfileStatus').textContent=eligible?'Verified':noEmail?'Not applicable':'Pending';
     document.getElementById('identityProfileStatus').textContent=eligible||noEmail?'Verified':'Not started';
     document.getElementById('affiliationProfileStatus').textContent=eligible?'Confirmed':noEmail?'Waiting for organization confirmation':'Not started';
@@ -970,7 +973,7 @@ body {
    document.querySelectorAll('[data-scout-preview]').forEach(button=>button.addEventListener('click',()=>setScoutProfilePreview(button.dataset.scoutPreview)));
    setScoutProfilePreview('restricted');
    if(new URLSearchParams(window.location.search).get('onboarding')==='complete'){
-    document.getElementById('profileStatusNotice').textContent='Onboarding complete. Your profile and affiliation application are saved. Affiliation review has not started. It will begin automatically after your account email, organization email, and identity are verified; you do not need to submit the application again. Athlete access remains restricted.';
+    document.getElementById('profileStatusNotice').textContent='Onboarding complete. Your profile and affiliation application are saved. Affiliation review has not started. It will begin automatically after your organization email and identity are verified; you do not need to submit the application again. Athlete access remains restricted.';
    }
    const backendNotes = {
   "profile-architecture": {

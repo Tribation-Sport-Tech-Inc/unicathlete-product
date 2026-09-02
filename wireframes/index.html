@@ -555,7 +555,7 @@ h1 {
      Athlete Account Lifecycle
     </h2>
     <p>
-     This diagram shows how one athlete profile can evolve from guardian-managed under 14 to independent adult control. Birthdays unlock review actions; they do not change permissions automatically.
+     This diagram shows how one athlete profile can evolve from guardian-managed under 14 to independent adult control. Age-based rules apply automatically, while consent, verification, and visibility still require the applicable explicit actions.
     </p>
     <div class="lifecycle">
      <div class="lifecycle-card state guardian">
@@ -707,7 +707,7 @@ h1 {
        Age 16-17 connected account
       </h3>
       <p>
-       The account is either supervised or independent with guardian connection. Guardian access remains until adult transfer or another explicit relationship change.
+       The account is either supervised or independent with guardian connection. Minor-based guardian access remains until the athlete turns 18 or another explicit relationship change occurs earlier.
       </p>
      </div>
      <div class="lifecycle-arrow">
@@ -717,52 +717,52 @@ h1 {
       <div class="decision-question">
        <div>
         <span class="lifecycle-kicker">
-         Decision At 18
+         Automatic Transition At 18
         </span>
         <h3>
-         Complete adult transfer?
+         What happens when the athlete turns 18?
         </h3>
        </div>
        <span class="decision-badge">
-        Explicit decision
+        Date-of-birth triggered
        </span>
       </div>
       <div class="decision-branches">
        <div class="branch yes">
         <span class="branch-label">
-         Yes
+         Athlete account active
         </span>
         <strong>
-         Athlete becomes adult owner
+         Athlete becomes the sole profile manager
         </strong>
         <ul>
          <li>
-          Athlete confirms adult control.
+          Guardian access to this Athlete Profile ends automatically.
          </li>
          <li>
-          Adult terms and verification apply.
+          The athlete can continue managing the private profile.
          </li>
          <li>
-          Guardian access is removed or changed only by explicit choice.
+          Adult legal actions and ID verification are required before the Sport Profile can become visible again.
          </li>
         </ul>
        </div>
        <div class="branch no">
         <span class="branch-label">
-         No
+         Athlete has not joined
         </span>
         <strong>
-         Previous safe state remains
+         Profile becomes locked and private
         </strong>
         <ul>
          <li>
-          No silent permission switch.
+          Guardian access still ends automatically.
          </li>
          <li>
-          Guardian access does not disappear automatically.
+          Existing profile information and history are preserved.
          </li>
          <li>
-          Adult transfer prompt remains pending.
+          The athlete must securely claim the existing profile; claiming must not create a duplicate.
          </li>
         </ul>
        </div>
@@ -776,22 +776,22 @@ h1 {
        18+ independent adult account
       </h3>
       <p>
-       The athlete controls the account, profile, visibility, messages, and information requests after adult transfer is completed.
+       The athlete controls the account and private profile after claiming it. Visibility remains off until the applicable adult legal actions and ID verification are complete and the athlete explicitly enables it.
       </p>
      </div>
     </div>
     <div class="note">
-     Age unlocks an option. Age does not automatically change permissions.
+     Turning 18 automatically ends minor-based guardian access, but it does not automatically grant visibility or satisfy adult legal and identity requirements.
     </div>
     <div class="lifecycle-card">
      <span class="lifecycle-kicker">
       Consent And Verification Rule
      </span>
      <h3>
-      Third-party consent and ID verification
+      Identity verification and legal records
      </h3>
      <p>
-      Guardian consent, guardian ID verification, and adult athlete ID verification are handled through trusted third-party programs. The platform stores only the result, timestamp, provider reference, and accepted policy version.
+      Guardian and adult-athlete identity verification use the approved third-party provider. Legal agreements, acknowledgments, consents, and product permissions remain separate records and are not inferred from identity verification.
      </p>
     </div>
    </div>

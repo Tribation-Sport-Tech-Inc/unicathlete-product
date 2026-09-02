@@ -1246,6 +1246,33 @@ p {
   color:var(--orange);
   border:1px solid #fed7aa;
 }
+.visibility-summary {
+  background:var(--orange-light);
+  border:1px solid #fed7aa;
+  border-radius:16px;
+  padding:14px;
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  align-items:center;
+}
+.visibility-summary strong {
+  display:block;
+  color:var(--navy);
+  font-size:15px;
+  margin-bottom:3px;
+}
+.visibility-summary span:not(.status-pill) {
+  color:var(--muted);
+  font-size:13px;
+}
+.visibility-actions {
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
 .missing-list {
   display:grid;
   gap:8px;
@@ -1777,6 +1804,19 @@ p {
       </div>
       <div class="progress"><div style="width:40%"></div></div>
       <p style="margin-top:10px;">Completion score can improve independently from search visibility.</p>
+     </div>
+   </div>
+  </div>
+
+   <div class="readiness-card" style="margin:0 0 18px;">
+    <div class="visibility-summary">
+     <div>
+      <strong>Visibility</strong>
+      <span>Eligibility: Ineligible · Guardian identity verification is required.</span>
+     </div>
+     <div class="visibility-actions">
+      <span class="status-pill warning">Private</span>
+      <a class="button btn-light" href="../account/verification.html?role=guardian">Open verification</a>
      </div>
     </div>
    </div>

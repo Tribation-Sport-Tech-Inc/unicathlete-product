@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "kind": "google-docs-trusted-read-context",
+  "target": {
+    "documentId": "1XbiKYAbYqP7f_9fOrl7FWr7MFZGhCg-Xm6Wbn0dRr6U",
+    "title": "UnicAthlete MVP Development Slices",
+    "revisionId": "AIroW35zJZWWZHZY7mwtSBEq7GVwqqMRYxObtc8zK633V4cY61GHHg5-xSa56gK8PM_47id3uc2ZPosvriktzksakKR7l6Az6FYdi2AZ8Ko",
+    "documentUrl": "https://docs.google.com/document/d/1XbiKYAbYqP7f_9fOrl7FWr7MFZGhCg-Xm6Wbn0dRr6U",
+    "selectedTabId": "t.0"
+  },
+  "dropdownMetadata": {
+    "status": "unavailable",
+    "resolvedTool": null,
+    "authoritative": false,
+    "count": 0
+  },
+  "derivedControlInventory": {
+    "hasProtectedControls": false,
+    "authoritativeDropdownCount": 0,
+    "opaqueControlCount": 0,
+    "nativeElementCounts": {},
+    "tabsScanned": [
+      "t.0"
+    ],
+    "controls": [],
+    "nativeElements": []
+  },
+  "editGuidance": {
+    "advisoryOnly": true,
+    "requiresTargetedPreservation": false,
+    "recommendedBehavior": "No protected controls were detected in the scanned scope.",
+    "warnings": []
+  }
+}

@@ -164,13 +164,18 @@ Extend the existing age-transition job:
 1. Recalculate the athlete as an adult and use independent adult management.
 2. End automatic guardian access using `relationship_status`, `ended_at`, and `ended_reason`.
 3. Append `adult_transition` and `guardian_access_ended` events.
+4. Make effective Sport Profile visibility private without deleting the previous preference or profile data.
+5. Keep adult legal actions, adult identity verification, visibility preference, and effective visibility as separate source records or states. Visibility may be enabled again only through the explicit adult flow defined in Spec 08.
+
+The access-ending transition takes effect on the 18th birthday without a grace period. Authorization must stop accepting the former active guardian relationship immediately; retaining it as history must not continue profile access.
 
 ### Athlete has not joined
 
 1. Keep every Sport Profile private or suspended.
 2. End guardian minor-based management access.
-3. Require the athlete to claim/activate their account and complete applicable adult account actions.
-4. Do not automatically create adult consent or continue guardian management.
+3. Require the athlete to claim/activate their account before private management can continue.
+4. Require applicable adult legal actions and adult identity verification before visibility can be enabled; do not automatically create adult consent or continue guardian management.
+
+Claiming the account restores private management. Adult identity verification is a visibility requirement and must not be required merely to edit the private profile.
 
 The adult may later grant voluntary access through a separate future access role; do not reuse the expired minor-based guardian authority.
-

@@ -11,6 +11,7 @@ Define who may manage, view, and supervise an Athlete Profile and its Sport Prof
 - Before the athlete joins, the guardian manages the private profile.
 - After the athlete joins, the athlete becomes the ordinary-content editor and the guardian moves to view and supervision access.
 - Athlete and guardian accounts never share credentials.
+- The MVP supports one active guardian relationship with management or visibility authority per Athlete Profile. Additional active guardians are a future feature; the relationship architecture must not prevent supporting them later.
 - The guardian remains identified as a guardian. View-only profile access is a permission state, not a change to a generic `viewer` relationship role.
 - The same Athlete Profile and Sport Profiles continue through every transition; joining must never create duplicate profiles.
 
@@ -61,7 +62,7 @@ Ordinary profile access does not grant authority to:
 - approve messaging, private-contact sharing, document sharing, or other external interaction unless a later feature specification grants that action; or
 - delete or transfer an account/profile outside its approved age-specific process.
 
-Date-of-birth and legal-name corrections use an audited exception process. Each login owner controls their own credentials and account acknowledgments.
+Date-of-birth corrections use the manual support process defined in Spec 08. Legal-name corrections use an audited exception process. Each login owner controls their own credentials and account acknowledgments.
 
 ## Visibility and Withdrawal
 
@@ -85,11 +86,16 @@ Visibility remains subject to Recruiter-Ready, verification, permission, safety,
 
 ## Adult Transition
 
-- Automatic minor-based guardian access ends when the athlete becomes an adult.
+- Automatic minor-based guardian access and management permissions end when the athlete becomes an adult; the guardian's own User account does not end.
+- There is no automatic grace period or option to continue guardian access through the former minor relationship after the 18th birthday. This applies even when the athlete has not joined or completed the adult transition steps.
 - The transition must be explicit, auditable, and communicated; it must not convert an earlier guardian action into adult consent or permission.
 - If the athlete has not joined by age 18, the profile remains private or suspended and the guardian cannot continue managing it as a minor profile.
-- The athlete must claim/activate their account and complete applicable adult account actions before continued management or visibility.
+- The athlete must claim/activate their account to continue managing the existing private profile. Adult-athlete identity verification and the applicable adult legal actions are required before visibility can be enabled.
+- The system sends reminders 7 days, 3 days, and 1 day before the 18th birthday and a transition confirmation on the birthday. If the athlete has not joined, the guardian is prompted to invite the athlete to claim the existing profile.
+- Historical guardian relationships, permissions, and actions remain preserved as inactive history. Preserving the relationship record does not preserve access.
 - The adult athlete may later grant another person voluntary access through a separate role or invitation model.
+
+The complete pre-18 notification, verification, eligibility-recalculation, and birthday-transition behavior is defined in `08-mvp-slice-4-identity-verification-eligibility-product-requirements.md`.
 
 ## Authorization and Audit Requirements
 
@@ -99,4 +105,3 @@ Visibility remains subject to Recruiter-Ready, verification, permission, safety,
 - Store whether the athlete has joined and when management authority transferred.
 - Record actor, role, previous value, new value, and timestamp for management-state, relationship, visibility, and protected-action changes.
 - Age transitions and join transitions must update authorization atomically so two people do not retain conflicting ordinary-edit authority.
-

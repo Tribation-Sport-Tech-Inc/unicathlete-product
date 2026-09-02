@@ -194,6 +194,27 @@
    .checkbox-row input { margin:3px 0 0; }
    .checkbox-row label { font-size:13px; font-weight:800; }
    .checkbox-row span { display:block; margin-top:3px; color:var(--muted); font-size:12px; font-weight:400; }
+   .scope-options {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+   }
+   .scope-option {
+    display:flex;
+    align-items:center;
+    gap:9px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:#f9fafb;
+    padding:11px 12px;
+    color:var(--navy);
+    font-size:14px;
+    font-weight:700;
+    text-transform:none;
+    cursor:pointer;
+   }
+   .scope-option input { width:auto; margin:0; }
+   .scope-options[aria-invalid="true"] .scope-option { border-color:var(--red); }
    .email-status-row {
     display:flex;
     align-items:center;
@@ -303,6 +324,7 @@
     .step-link { padding:7px; }
     .step-link span:last-child { display:none; }
     .form-grid,.review-grid,.status-grid { grid-template-columns:1fr; }
+    .scope-options { grid-template-columns:1fr; }
     .setup-head,.setup-actions { padding-left:18px; padding-right:18px; }
     .setup-screen { padding:20px 18px; }
     .setup-actions { flex-direction:column-reverse; }
@@ -353,7 +375,7 @@
      <div aria-live="polite" class="validation-message" hidden id="validationMessage">Complete the required fields before continuing.</div>
 
      <div class="setup-screen active" data-screen="professional">
-      <div class="notice">Name and account email come from account creation. Email verification is tracked separately, and account credentials and contact information are not displayed to athletes.</div>
+      <div class="notice">Name and verified account email come from account creation. Account credentials and contact information are not displayed to athletes.</div>
       <div class="form-grid">
        <div class="field">
         <label for="professionalName">Full name</label>
@@ -480,14 +502,12 @@
         <input data-required id="affiliationTitle" value="Scout"/>
        </div>
        <div class="field">
-        <label for="scoutCategory">Program / recruiting category <span class="required">*</span></label>
-        <select data-required id="scoutCategory">
-         <option value="">Choose category</option>
-         <option value="mens">Men's Soccer</option>
-         <option value="womens">Women's Soccer</option>
-         <option selected value="both">Men's and Women's Soccer</option>
-        </select>
-        <span class="field-help">This belongs to the organization affiliation. Future Recruiting Projects may narrow, but not expand beyond, the verified category.</span>
+        <label id="recruitingScopesLabel">Programs recruited for <span class="required">*</span></label>
+        <div aria-labelledby="recruitingScopesLabel" class="scope-options" data-required-group="recruitingScope" role="group">
+         <label class="scope-option"><input checked name="recruitingScope" type="checkbox" value="mens-soccer"/> Men's Soccer</label>
+         <label class="scope-option"><input checked name="recruitingScope" type="checkbox" value="womens-soccer"/> Women's Soccer</label>
+        </div>
+        <span class="field-help">Select one or both. These scopes belong to the organization affiliation. Future Recruiting Projects may narrow, but not expand beyond, the verified scopes.</span>
        </div>
        <div class="field">
         <label for="affiliationRelationship">Relationship type <span class="required">*</span></label>
@@ -564,7 +584,7 @@
        </div>
       </div>
       <div class="notice orange" style="margin-top:18px;">
-       <strong>Verification can be completed later.</strong> Completing onboarding saves the affiliation application. After all required emails and identity are verified, the application is automatically sent for manual organization-affiliation review.
+       <strong>Verification can be completed later.</strong> Completing onboarding saves the affiliation application. After the organization email and identity are verified, the application is automatically sent for manual organization-affiliation review.
       </div>
      </div>
 
@@ -574,7 +594,7 @@
        <div class="review-card"><span>Scout context</span><strong id="reviewFocus">Soccer · Spain athlete market</strong></div>
        <div class="review-card"><span>Organization</span><strong id="reviewOrganization">Lakeside Soccer Academy · Youth soccer academy or club · United States</strong><small hidden id="reviewOrganizationNote">New organization — subject to review</small></div>
        <div class="review-card"><span>Claimed relationship</span><strong id="reviewRelationship">Scout · Employee</strong></div>
-       <div class="review-card"><span>Program / recruiting category</span><strong id="reviewCategory">Men's and Women's Soccer</strong></div>
+       <div class="review-card"><span>Programs recruited for</span><strong id="reviewCategory">Men's Soccer · Women's Soccer</strong></div>
        <div class="review-card"><span>Work email</span><strong id="reviewWorkEmail">mike@lakesidesoccer.example</strong></div>
        <div class="review-card"><span>Official corroboration</span><strong id="reviewEvidence">Official organization staff page</strong></div>
        <div class="review-card"><span>Athlete access</span><strong>Restricted</strong></div>
@@ -613,11 +633,16 @@
    }
    function stepComplete(step){
     const screen=document.querySelector('[data-screen="'+step+'"]');
-    return visibleRequiredFields(screen).every(fieldHasValue);
+    const requiredGroups=Array.from(screen.querySelectorAll('[data-required-group]'));
+    const groupsComplete=requiredGroups.every(group=>group.querySelectorAll('input:checked').length>0);
+    return visibleRequiredFields(screen).every(fieldHasValue)&&groupsComplete;
    }
    function validateCurrentStep(){
     const required=visibleRequiredFields(currentScreen());
     required.forEach(field=>field.setAttribute('aria-invalid',String(!fieldHasValue(field))));
+    currentScreen().querySelectorAll('[data-required-group]').forEach(group=>{
+     group.setAttribute('aria-invalid',String(group.querySelectorAll('input:checked').length===0));
+    });
     const valid=stepComplete(onboardingSteps[onboardingIndex]);
     document.getElementById('validationMessage').hidden=valid;
     return valid;
@@ -625,6 +650,14 @@
    function selectedText(id){
     const field=document.getElementById(id);
     return field.value?field.selectedOptions[0].text:'Not added';
+   }
+   function selectedRecruitingScopes(){
+    const labels={
+     'mens-soccer':"Men's Soccer",
+     'womens-soccer':"Women's Soccer"
+    };
+    const selected=[...document.querySelectorAll('input[name="recruitingScope"]:checked')];
+    return selected.length?selected.map(scope=>labels[scope.value]).join(' · '):'Not selected';
    }
    function updateEvidenceFields(){
     const method=document.getElementById('evidenceMethod').value;
@@ -720,7 +753,7 @@
     document.getElementById('reviewOrganizationNote').hidden=document.getElementById('organizationMode').value!=='new';
     const relationshipDescription=document.getElementById('affiliationRelationship').value==='other'?' · '+document.getElementById('otherAffiliationRelationship').value:'';
     document.getElementById('reviewRelationship').textContent=document.getElementById('affiliationTitle').value+' · '+selectedText('affiliationRelationship')+relationshipDescription;
-    document.getElementById('reviewCategory').textContent=selectedText('scoutCategory');
+    document.getElementById('reviewCategory').textContent=selectedRecruitingScopes();
     document.getElementById('reviewWorkEmail').textContent=document.getElementById('noOrganizationEmail').checked?'Organization does not provide one · Organization confirmation required':document.getElementById('organizationWorkEmail').value+' · Verification pending';
     document.getElementById('reviewEvidence').textContent=selectedText('evidenceMethod');
    }

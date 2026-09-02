@@ -2,13 +2,15 @@
 
 ## Status
 
-Product definition for Scout onboarding, affiliation evidence, restricted access, and manual organization-affiliation verification. The identity-verification provider remains undecided, so Slice 3 uses a provider-neutral placeholder and keeps all verification results separate.
+Product definition for Scout onboarding, affiliation evidence, restricted access, and manual organization-affiliation verification. Slice 3 uses a provider-neutral identity-verification placeholder because the integration belongs to Slice 4, and it keeps all verification results separate.
 
 ## Outcome
 
-A user with the restricted Scout account created in Slice 1 can complete and later edit a personal professional profile, record their Scout role and MVP organization affiliation, save the affiliation application, and enter a restricted personal workspace while required email or identity checks remain pending. The application enters manual organization-affiliation review automatically after those prerequisites succeed.
+An email-verified user with the restricted Scout account created in Slice 1 can complete and later edit a personal professional profile, record their Scout role and MVP organization affiliation, save the affiliation application, and enter a restricted personal workspace while organization-email or identity checks remain pending. The application enters manual organization-affiliation review automatically after those prerequisites succeed.
 
 Completing Scout onboarding does not approve the Scout and does not provide access to athletes.
+
+The MVP Scout pathway is available only to adults aged 18 or older. Slice 3 may retain the account in its restricted state while age remains unverified; Slice 4 uses Veriff to confirm the requirement before the affiliation application can enter active manual review.
 
 ## Included
 
@@ -48,13 +50,13 @@ Scouting/recruiting experience belongs to the Scout `ProfessionalRole`, is optio
 
 ## Minimum Required to Complete Onboarding
 
-The account name and account email come from Slice 1. Email verification is tracked separately and may remain pending when Scout onboarding is submitted. Scout onboarding additionally requires:
+The account name and account email come from Slice 1. The account email must already be verified before the Scout enters onboarding. Scout onboarding additionally requires:
 
 - country of professional activity, required and limited to `United States` (`US`) for the MVP; the UI presents it as the single available option while the model remains extensible to additional countries later;
 - athlete market, required and limited to `Spain` (`ES`) for the MVP; it identifies where athletes available through UnicAthlete are based, not the Scout's professional location or the athlete's destination;
 - organization name, type, country, and official website; organization country is required and limited to `United States` (`US`) for the standard MVP flow and refers to the specific branch or office confirming the affiliation when the organization is multinational;
 - the Scout's professional title at that organization;
-- program / recruiting category, required as `Men's Soccer`, `Women's Soccer`, or `Men's and Women's Soccer` and attached to the organization affiliation rather than the reusable Professional Profile;
+- at least one recruiting scope, selected independently as `Men's Soccer` and/or `Women's Soccer` and attached to the organization affiliation rather than the reusable Professional Profile; selecting both creates two scope records rather than one combined value;
 - relationship type: employee, contractor, or another current professional relationship the organization can confirm; selecting `Other current professional relationship` requires a concise relationship description stored separately from the stable `other` type;
 - an organization work email, unless the organization does not provide one; its verification may remain pending when onboarding is submitted; and
 - one official corroboration route: an official organization staff page, an official federation/league directory, or organization representative confirmation through an independently verified organization channel.
@@ -149,9 +151,10 @@ One status must not automatically imply another.
 
 ## Verification and Athlete Access
 
-- Third-party identity verification remains undecided and separate. Slice 3 displays its provider-neutral status and next-action placeholder but does not collect identity documents in UnicAthlete or treat the placeholder as completed verification.
+- Third-party identity-verification integration belongs to Slice 4 and remains separate from affiliation verification. Slice 3 displays its provider-neutral status and next-action placeholder but does not collect identity documents in UnicAthlete or treat the placeholder as completed verification.
 - Manual organization-affiliation verification is the only manual admin review in Slice 3.
-- Completing onboarding saves the affiliation application while account-email, organization-email, and identity-verification statuses may remain pending. The application status is `Awaiting required checks` and it is not yet placed in the active admin review queue.
+- Completing onboarding saves the affiliation application while organization-email and identity-verification statuses may remain pending. The application status is `Awaiting required checks` and it is not yet placed in the active admin review queue.
+- Account-email verification is required before identity verification can start. Organization work-email verification is separate and may be completed before or after identity verification, but both must succeed before the standard affiliation application enters active manual review.
 - After every required email check and identity verification succeeds, the system automatically freezes a submission snapshot and places the affiliation application into manual organization-affiliation review without requiring the Scout to submit it again.
 - Application review uses only the application statuses defined above. `Waiting for Scout` is shown to the Scout as `Additional information required`; `Waiting for organization` is shown as `Waiting for organization confirmation`. An approved application produces verification status `Confirmed`; it does not combine the application and verification records.
 - An admin reviews the claimed relationship, professional title, verified work email, official corroboration, and optional supporting context, then confirms, requests changes or organization confirmation, marks unable to verify, or rejects with a recorded reason. The admin may request specific additional information when the available evidence cannot establish the affiliation.
@@ -195,7 +198,7 @@ It must communicate:
 - that Scout profile setup is complete or incomplete;
 - whether the email is verified;
 - the separate identity-verification and organization-affiliation-verification statuses;
-- that affiliation review is `Not started` while any required account-email, organization-email, or identity check remains incomplete, and that it starts automatically without another Scout submission after every applicable prerequisite succeeds;
+- that affiliation review is `Not started` while the required organization-email or identity check remains incomplete, and that it starts automatically without another Scout submission after every applicable prerequisite succeeds;
 - organization-affiliation status when applicable;
 - the confirmation date and validity/reverification date for a confirmed affiliation;
 - that athlete access remains restricted; and
@@ -229,7 +232,7 @@ The Scout Workspace is a separate destination. The Scout Profile may link to it 
 - A restricted Scout from Slice 1 can leave and resume onboarding without creating a duplicate User, Professional Profile, Scout role, personal Workspace, membership, or affiliation application.
 - Onboarding cannot complete until every applicable required field is present, including conditional descriptions for `Other eligible organization` and `Other current professional relationship`.
 - Completing onboarding saves one versioned affiliation application and opens the status-aware restricted Scout Profile; it does not confirm the affiliation or enable athlete access.
-- The application remains `Awaiting required checks` until the applicable account-email, organization-email, and identity prerequisites succeed. It then enters the correct admin queue automatically without a second Scout submission.
+- The account email is verified before onboarding and before identity verification can start. The application remains `Awaiting required checks` until the applicable organization-email and identity prerequisites succeed, then enters the correct admin queue automatically without a second Scout submission.
 - In the no-work-email exception, organization email is `Not applicable`, representative confirmation is required, and the application cannot be approved without a successful response through an independently verified organization-controlled channel.
 - Application, relationship, and verification statuses remain separate and only valid combinations/transitions are accepted. Every transition preserves the prior state, actor, time, source, and structured reason where applicable.
 - Only a named MFA-authenticated account with `manage_scout_affiliation_reviews` can access private review data or perform review/lifecycle actions; direct UI or API access without permission is denied.
@@ -270,6 +273,4 @@ None of these organization collaboration or organization-page experiences are im
 - automated delivery of affiliation-expiration reminders; and
 - final evidence-retention durations and deletion operations pending approved privacy/legal policy.
 
-## Remaining Implementation Decisions
-
-- the identity-verification provider and resulting integration timing.
+Identity-verification integration and its email-first initiation rules are defined in Spec 08.

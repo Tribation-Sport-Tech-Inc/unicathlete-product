@@ -151,7 +151,9 @@ Profile-management and guardian-access transitions are defined in `06-athlete-gu
 
 Effective visibility must be recalculated whenever an applicable requirement changes. If a visible Sport Profile later fails any requirement—for example, permission is withdrawn, Recruiter-Ready becomes `No`, verification is no longer valid, or a hold is applied—the system must immediately make it unavailable to scouts.
 
-The stored visibility setting may remain `Visible to eligible scouts` while effective visibility is suspended, so the profile can become visible again after the blocking condition is resolved. The UI must clearly show that visibility is currently suspended and why. A product or safety rule may instead require a new explicit visibility action before reinstatement; this behavior must be configurable.
+When eligibility is lost, effective visibility turns off, the visibility control becomes disabled, and the Sport Profile returns to `Private`. The UI clearly shows that the profile is private and why it is ineligible. When all gates pass again, the control becomes available but remains `Private`; the authorized user must explicitly select `Visible to eligible scouts` again. Visibility must never resume automatically.
+
+The transition to adulthood is one such explicit-action case: effective visibility becomes off on the 18th birthday and does not resume automatically. The adult athlete must complete the requirements and explicitly enable visibility as defined in Spec 08.
 
 ### Data and Audit Requirements
 
@@ -159,6 +161,7 @@ The stored visibility setting may remain `Visible to eligible scouts` while effe
 - Calculate effective visibility from current source records rather than treating it as an independent user-editable status.
 - Return structured blocking-reason codes so the UI can explain what remains incomplete.
 - Record visibility-setting changes with actor, actor role, previous value, new value, and timestamp.
+- Distinguish a system-enforced return to `Private` from a visibility change selected by a User.
 - Keep verification results, legal permissions, safety holds, and Recruiter-Ready as separate source records or statuses.
 - Visibility must expose only the approved recruiter-facing Sport Profile projection. Private documents, direct contact details, legal records, internal status history, and other private information remain inaccessible unless a separate sharing rule permits access.
 

@@ -21,6 +21,7 @@ Athlete profile onboarding, scout onboarding, and real identity verification are
 - An athlete profile may connect to a guardian user, athlete user, or both.
 - The connection must preserve each person's role and relationship status.
 - Scout is the only professional profile type in Slice 1.
+- The Scout pathway is limited to adults aged 18 or older. Slice 1 records the restricted account without performing the age check; adult age is confirmed through identity verification in Slice 4 before affiliation review or athlete-access eligibility.
 - The MVP UI supports one active profile path, but the underlying product must not prevent a user from having multiple profile relationships later.
 
 ## Age-Based Paths
