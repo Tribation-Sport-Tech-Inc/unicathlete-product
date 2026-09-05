@@ -12,6 +12,9 @@ specs/
   - 02-legal-consent-product-requirements.md: product capabilities needed for evolving legal documents and consent; implementation owned by the Lead Developer.
   - 03-athlete-sport-profile-completion-product-requirements.md: rules, weights, exclusions, and UI requirements for per-Sport-Profile completion.
   - 04-mvp-slice-2-athlete-profile-product-requirements.md: concise Slice 2 scope, editing authority, protected actions, privacy boundary, and future media compatibility rules.
+  - 05-mvp-slice-3-scout-onboarding-product-requirements.md: Scout onboarding, restricted professional profile, organization-email verification, and manual affiliation review.
+  - 08-mvp-slice-4-identity-verification-eligibility-product-requirements.md: Veriff identity verification, derived eligibility gates, and the transition to adult-athlete control.
+  - 09-mvp-slice-5-product-analytics-foundation-product-requirements.md: analytics event foundation, privacy controls, data quality, and paid-feature value-validation measurements.
   - archive/age-based-athlete-accounts.md: background product exploration; not part of the Slice 1 handoff.
   - archive/athlete-account-flow-schema.md: background product exploration; not part of the Slice 1 handoff.
 
