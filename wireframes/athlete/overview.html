@@ -667,9 +667,9 @@ p {
      <div class="card">
       <h3>Recruiter-Ready</h3>
       <p>
-       Unlocks search visibility after the athlete adds a profile photo and at least one football video.
+       Confirms that the required profile information and Main Evaluation Video are ready. Visibility remains a separate choice and eligibility check.
       </p>
-      <span class="tag green">Searchable</span>
+      <span class="tag green">Minimum Review Standard</span>
      </div>
 
      <div class="card">
@@ -689,32 +689,29 @@ p {
        Recruiter-Ready is not determined by the percentage score alone.
        It is a checklist-based visibility status.
       </p>
-      <div class="row"><span>Player Profile completed</span><span>Required</span></div>
-      <div class="row"><span>Profile photo uploaded</span><span>Required</span></div>
-      <div class="row"><span>At least one football video</span><span>Required</span></div>
-      <div class="row"><span>Visibility setting</span><span>Visible to recruiters</span></div>
-      <div class="row"><span>Result</span><span>Searchable</span></div>
+      <div class="row"><span>Required profile and education information</span><span>Required</span></div>
+      <div class="row"><span>Required Soccer and playing context</span><span>Required</span></div>
+      <div class="row"><span>Recruiting status and target start</span><span>Required</span></div>
+      <div class="row"><span>Main Evaluation Video ready</span><span>Required</span></div>
+      <div class="row"><span>Visibility</span><span>Separate control</span></div>
      </div>
 
      <div class="card">
       <h3>Score Breakdown</h3>
-      <div class="row"><span>Player Profile / Onboarding</span><span>35%</span></div>
-      <div class="row"><span>Profile Photo</span><span>10%</span></div>
-      <div class="row"><span>One Football Video</span><span>15%</span></div>
-      <div class="row"><span>Statistics</span><span>10%</span></div>
-      <div class="row"><span>Achievements</span><span>10%</span></div>
-      <div class="row"><span>Additional Media</span><span>10%</span></div>
-      <div class="row"><span>Documents &amp; Verification</span><span>5%</span></div>
-      <div class="row"><span>Opportunity Preferences</span><span>5%</span></div>
+      <div class="row"><span>Shared Athlete Information</span><span>10%</span></div>
+      <div class="row"><span>Education</span><span>10%</span></div>
+      <div class="row"><span>Measurements</span><span>5%</span></div>
+      <div class="row"><span>Soccer Player Details</span><span>10%</span></div>
+      <div class="row"><span>Current Playing Context</span><span>15%</span></div>
+      <div class="row"><span>Performance and Playing History</span><span>10%</span></div>
+      <div class="row"><span>Recruiting Details</span><span>10%</span></div>
+      <div class="row"><span>Achievements and References</span><span>5%</span></div>
+      <div class="row"><span>Soccer Media</span><span>25%</span></div>
      </div>
     </div>
 
     <div class="note">
-     Access Logic: athletes cannot reach the dashboard until the Player Profile onboarding is complete.
-     Profiles remain hidden from recruiter search until the Recruiter-Ready checklist is complete:
-     Player Profile completed, profile photo uploaded, at least one football video uploaded, and visibility set to recruiters.
-     Profile Completion is a separate progress score that continues to increase as athletes add statistics,
-     achievements, additional media, documents, verification, and opportunity preferences.
+     Recruiter-Ready, Profile Completion, and visibility are separate states. Documents do not contribute to Profile Completion or Recruiter-Ready.
     </div>
 
     <div class="flow">
@@ -785,48 +782,45 @@ p {
 
    <div class="section">
   <h2>
-    Documents & Information Requests
+    Private Document Library
   </h2>
 
   <p>
-    Athletes can upload documents proactively or provide them later in response to recruiter requests.
-    Documents remain private by default and are only shared with recruiters when the athlete approves or
-    submits them through an Information Request.
+    Athletes or their permitted guardians can privately manage athlete-held academic documents. Scout requests and sharing are not included in Slice 6.
   </p>
 
   <div class="grid-3" style="margin-top:16px;">
 
     <div class="card">
-      <h3>Academic</h3>
+      <h3>Academic Record</h3>
       <p>
-        Education-related documents used primarily for university recruitment.
+        Transcript, grade report or report card, or school report.
       </p>
 
       <span class="tag blue">
-        Standard Category
+        Controlled Subtypes
       </span>
     </div>
 
     <div class="card">
-      <h3>Medical</h3>
+      <h3>Graduation or Examination Credential</h3>
       <p>
-        Medical clearance and health-related documents required by clubs or organizations.
+        Diploma or proof of graduation, leaving certificate, or national examination results.
       </p>
 
       <span class="tag blue">
-        Standard Category
+        Controlled Subtypes
       </span>
     </div>
 
     <div class="card">
-      <h3>Custom</h3>
+      <h3>Test Score Report</h3>
       <p>
-        Flexible documents defined by the athlete or requested by recruiters
-        (for example: Coach Recommendation, Club Release, Parent Consent).
+        SAT, ACT, TOEFL, IELTS, Duolingo English Test, or Cambridge English.
       </p>
 
       <span class="tag purple">
-        Flexible Category
+        Controlled Subtypes
       </span>
     </div>
 
@@ -847,26 +841,22 @@ p {
     <span class="arrow">→</span>
 
     <span class="step">
-      Recruiter Request
+      Processed and Ready
     </span>
 
     <span class="arrow">→</span>
 
     <span class="step">
-      Athlete Shares Document
+      Preview, Replace, or Delete
     </span>
 
   </div>
 
   <div class="note">
 
-    <strong>Privacy Logic</strong><br><br>
+    <strong>Pilot Boundary</strong><br><br>
 
-    Documents are never publicly visible.
-
-    Recruiters cannot browse an athlete's private documents.
-
-    Documents become accessible only after the athlete shares them through the Information Request workflow.
+    The library supports up to 10 current documents. Non-English documents may include a certified English translation attached to the same record. Coach references remain structured profile records, not athlete-uploaded documents. Scout requests and access grants are defined in a later slice.
 
   </div>
 

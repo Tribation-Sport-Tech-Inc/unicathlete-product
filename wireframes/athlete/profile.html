@@ -218,6 +218,11 @@ p {
   color:var(--purple);
   border:1px solid #ddd6fe
 }
+.warn {
+  background:#fff7ed;
+  color:#c2410c;
+  border:1px solid #fed7aa;
+}
 .orange {
   background:var(--orange-light);
   color:var(--orange);
@@ -817,6 +822,7 @@ p {
   border-radius:12px;
   padding:10px 12px;
   display:flex;
+  align-items:center;
   justify-content:space-between;
   gap:12px;
   font-size:13px;
@@ -824,6 +830,8 @@ p {
 .timestamp-item strong {
   color:var(--blue);
 }
+.timestamp-item span { flex:1; }
+.timestamp-item .button { padding:7px 9px; }
 @media (max-width: 1000px) {
   .football-portfolio-summary,
   .skill-strip,
@@ -833,6 +841,10 @@ p {
   }
   .highlight-card {
     align-items:stretch;
+  }
+  .timestamp-item {
+    align-items:flex-start;
+    flex-wrap:wrap;
   }
 }
 
@@ -1365,16 +1377,81 @@ p {
   font-size:13px;
 }
 .measurement-history-row strong { color:var(--navy); }
-.document-filters {
+.document-library-head {
   display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin:14px 0;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin:18px 0 10px;
 }
-.document-filter.active {
-  background:var(--blue);
-  border-color:var(--blue);
-  color:white;
+.document-library-head h3 { margin:0; }
+.document-group {
+  display:grid;
+  gap:8px;
+  margin-top:18px;
+}
+.document-row {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:12px;
+  overflow:hidden;
+}
+.document-row summary {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:14px 16px;
+  cursor:pointer;
+  list-style:none;
+}
+.document-row summary::-webkit-details-marker { display:none; }
+.document-row summary::after {
+  content:'Expand';
+  color:var(--blue);
+  font-size:12px;
+  font-weight:900;
+}
+.document-row[open] summary::after { content:'Collapse'; }
+.document-row-title {
+  display:grid;
+  gap:3px;
+}
+.document-row-title strong { color:var(--navy); }
+.document-row-title span {
+  color:var(--muted);
+  font-size:13px;
+}
+.document-row-summary-end {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-left:auto;
+}
+.document-row-summary-end .tag { margin:0; }
+.document-details {
+  border-top:1px solid var(--border);
+  padding:14px 16px 16px;
+}
+.document-detail-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+}
+.document-detail {
+  display:grid;
+  gap:3px;
+}
+.document-detail span:first-child {
+  color:var(--muted);
+  font-size:11px;
+  font-weight:900;
+  text-transform:uppercase;
+}
+.document-detail span:last-child {
+  color:var(--navy);
+  font-size:13px;
+  font-weight:700;
 }
 @media (max-width: 1000px) {
   .status-panel-head,
@@ -1390,7 +1467,8 @@ p {
   }
   .measurement-grid,
   .summary-grid,
-  .measurement-history-row {
+  .measurement-history-row,
+  .document-detail-grid {
     grid-template-columns:1fr;
   }
 }
@@ -2177,38 +2255,56 @@ p {
      <button class="button btn-light compact-section-toggle" data-collapse-target="soccer-experience-content" data-collapsed-label="Expand" data-expanded-label="Collapse" type="button">Expand</button>
     </div>
     <div class="collapsible-content form-grid" hidden id="soccer-experience-content">
-     <div class="field">
+     <div class="field" style="grid-column:1/-1;">
       <label>Soccer Achievements <span class="field-lock">Optional</span></label>
       <textarea id="soccerAchievements">2025 OPDL Cup finalist · Selected for regional development camp</textarea>
       <label style="margin-top:8px;"><input id="noSoccerAchievements" type="checkbox"/> No achievements to add</label>
      </div>
-     <div class="field">
+     <div class="field" style="grid-column:1/-1;">
       <label>Coach Reference</label>
       <select>
        <option selected>Reference available on request</option>
        <option>Not added</option>
       </select>
-      <span class="field-help">Coach contact details are not displayed publicly and require permission to share.</span>
+      <div class="form-grid" style="margin-top:12px;">
+       <div class="field">
+        <label>Coach Name</label>
+        <input placeholder="Enter coach name"/>
+       </div>
+       <div class="field">
+        <label>Role</label>
+        <input placeholder="For example, Head Coach"/>
+       </div>
+       <div class="field">
+        <label>Team or Organization</label>
+        <input placeholder="Enter team or organization"/>
+       </div>
+       <div class="field">
+        <label>Relationship</label>
+        <select>
+         <option selected>Current coach</option>
+         <option>Former coach</option>
+         <option>Academy coach</option>
+         <option>National or regional coach</option>
+        </select>
+       </div>
+       <div class="field">
+        <label>Private Contact Details</label>
+        <input placeholder="Email or phone"/>
+       </div>
+       <div class="field">
+        <label>Coach Agreement</label>
+        <select>
+         <option selected>Coach has agreed to be a reference</option>
+         <option>Agreement not yet confirmed</option>
+        </select>
+       </div>
+      </div>
+      <span class="field-help">Contact details remain private. A future Scout request requires the applicable permission before contact details or a reference are shared.</span>
      </div>
     </div>
    </div>
 
-   <div class="section" id="soccer-linked-documents">
-    <div class="section-head">
-     <div>
-      <h2>Linked Documents</h2>
-      <p>Documents connected to this Soccer Profile. File management remains in the central Documents library.</p>
-     </div>
-     <button class="button btn-light" data-open-profile-tab="documents" type="button">Manage in Documents</button>
-    </div>
-    <div class="season-history-row">
-     <div>
-      <strong>Coach Recommendation</strong>
-      <span>Issued May 2026 &middot; English</span>
-     </div>
-     <button class="button btn-light" data-open-profile-tab="documents" type="button">View Document</button>
-    </div>
-   </div>
    </div>
    </div>
 
@@ -2238,11 +2334,12 @@ p {
       <div>
        <h3>U17 Season Highlights</h3>
        <p>4:36 &middot; 2025/26 &middot; OPDL U17 &middot; Right Winger (RW) &middot; Shirt #11</p>
-       <span class="tag blue">Viewed 14 times</span>
+       <span class="tag blue">Ready</span>
       </div>
       <div class="actions">
-       <a class="button btn-light" href="#">Replace</a>
-       <a class="button btn-primary" href="#">Preview</a>
+       <button class="button btn-light" type="button">Replace</button>
+       <button class="button btn-light" type="button">Delete</button>
+       <button class="button btn-primary" type="button">Preview</button>
       </div>
      </div>
     </div>
@@ -2257,7 +2354,8 @@ p {
        <p>Create short evaluation sequences from existing match footage or upload a separate clip. Suggested primary-position categories contribute to Soccer Profile completion.</p>
       </div>
       <div class="actions" style="margin-top:0;">
-       <span class="limit-note">Up to 8 clips · usually 10–60 sec · up to 90 sec for context</span>
+       <span class="limit-note">5 of 8 clips · 10–60 sec each</span>
+       <button class="button btn-light" type="button">Reorder Clips</button>
       </div>
      </div>
 
@@ -2357,8 +2455,10 @@ p {
         <h3>North Toronto vs East York</h3>
         <p>44:52 &middot; Mar 15, 2026 &middot; OPDL U17 &middot; Right Winger (RW) &middot; Shirt #11</p>
         <div class="actions">
-         <a class="button btn-light" href="#">Replace Footage</a>
-         <a class="button btn-primary" href="#">Edit Timestamps</a>
+         <button class="button btn-light" type="button">Replace</button>
+         <button class="button btn-light" type="button">Delete</button>
+         <button class="button btn-light" type="button">Edit Timestamps</button>
+         <button class="button btn-primary" type="button">Preview</button>
         </div>
        </div>
       </div>
@@ -2367,10 +2467,10 @@ p {
        <h3>Highlighted Moments</h3>
        <p>Manual timestamps added by athlete.</p>
        <div class="timestamp-list" style="margin-top:12px;">
-        <div class="timestamp-item"><strong>03:15</strong><span>1v1 dribble and cross</span></div>
-        <div class="timestamp-item"><strong>14:08</strong><span>Assist / chance creation</span></div>
-        <div class="timestamp-item"><strong>27:42</strong><span>Defensive recovery run</span></div>
-        <div class="timestamp-item"><strong>39:10</strong><span>Key pass into final third</span></div>
+        <div class="timestamp-item"><strong>03:15</strong><span>1v1 dribble and cross</span><button class="button btn-light" type="button">Create Skill Clip</button></div>
+        <div class="timestamp-item"><strong>14:08</strong><span>Assist / chance creation</span><button class="button btn-light" type="button">Create Skill Clip</button></div>
+        <div class="timestamp-item"><strong>27:42</strong><span>Defensive recovery run</span><button class="button btn-light" type="button">Create Skill Clip</button></div>
+        <div class="timestamp-item"><strong>39:10</strong><span>Key pass into final third</span><button class="button btn-light" type="button">Create Skill Clip</button></div>
        </div>
       </div>
      </div>
@@ -2387,67 +2487,74 @@ p {
        <button aria-label="Document storage engineering note" class="info-note" onclick="openBackendNote('document-storage')" title="Engineering note" type="button">ⓘ</button>
       </div>
       <p>
-       Private files associated with the Athlete Profile. A document may optionally be linked to a Sport Profile; linking it does not make it visible.
+       Keep academic records and credentials organized in one private Athlete Profile library.
       </p>
      </div>
      <button class="button btn-primary" id="uploadDocumentButton" type="button">Upload Document</button>
     </div>
 
-    <div class="note">
-     <strong>Private by default.</strong> Uploading a document does not make it visible to recruiters or anyone outside the athlete's authorized account relationships.
+    <div class="document-library-head">
+     <span class="limit-note">3 of 10 documents</span>
+     <span class="field-help">Translations do not count as separate documents.</span>
     </div>
 
     <div class="measurement-panel" hidden id="documentUploadForm">
      <h3>Upload Document</h3>
-     <p>The document will remain private. Files uploaded here are not treated as official or independently verified.</p>
+     <p>Add an athlete-held academic copy. Schools, testing organizations, or the NCAA may still require a copy directly from the issuer.</p>
      <div class="form-grid" style="margin-top:14px;">
       <div class="field" style="grid-column:1/-1">
        <label for="documentFile">File</label>
-       <input accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" id="documentFile" type="file"/>
-       <span class="field-help">PDF, Word document, JPG or PNG.</span>
+       <input id="documentFile" type="file"/>
       </div>
       <div class="field">
        <label for="documentType">Document Type</label>
        <select id="documentType">
-        <option selected>Unofficial Academic Transcript</option>
-        <option>Transcript Translation</option>
-        <option>Graduation Certificate / Diploma</option>
-        <option>Enrollment or Expected Graduation Letter</option>
-        <option>English Proficiency Result</option>
-        <option>Standardized Test Result</option>
-        <option>Coach Recommendation</option>
-        <option>Club or Academy Confirmation</option>
-        <option>Other Academic Document</option>
-        <option>Other Soccer Document</option>
-        <option>Other</option>
+        <option selected value="academic">Academic Record</option>
+        <option value="credential">Graduation or Examination Credential</option>
+        <option value="test">Test Score Report</option>
        </select>
       </div>
       <div class="field">
-       <label for="documentCategory">Category</label>
-       <select id="documentCategory">
-        <option selected>Academic</option>
-        <option>Soccer</option>
-        <option>Other</option>
+       <label for="documentSubtype">Document Subtype</label>
+       <select id="documentSubtype">
+        <option>Transcript</option>
+        <option>Grade Report / Report Card</option>
+        <option>School Report</option>
        </select>
       </div>
       <div class="field">
        <label for="documentLanguage">Document Language</label>
-       <input id="documentLanguage" value="English"/>
-      </div>
-      <div class="field">
-       <label for="documentSportProfile">Linked Sport Profile <span class="field-lock">Optional</span></label>
-       <select id="documentSportProfile">
-        <option selected>Not linked</option>
-        <option>Soccer Profile</option>
+       <select id="documentLanguage">
+        <option selected>English</option>
+        <option>French</option>
+        <option>Spanish</option>
+        <option>Portuguese</option>
+        <option>German</option>
+        <option>Italian</option>
+        <option>Other</option>
        </select>
       </div>
       <div class="field">
-       <label for="documentIssueDate">Issue Date <span class="field-lock">Optional</span></label>
-       <input id="documentIssueDate" type="date"/>
+       <label for="documentIssuer">Issuing School or Organization</label>
+       <input id="documentIssuer" placeholder="Enter issuer"/>
       </div>
       <div class="field">
+       <label for="documentIssueDate">Issue Date</label>
+       <input id="documentIssueDate" type="date"/>
+       <label style="margin-top:8px;"><input id="documentIssueYearOnly" type="checkbox"/> I only know the issue year</label>
+      </div>
+      <div class="field" hidden id="documentIssueYearField">
+       <label for="documentIssueYear">Issue Year</label>
+       <input id="documentIssueYear" inputmode="numeric" max="2100" min="1900" placeholder="YYYY" type="number"/>
+      </div>
+      <div class="field" id="documentExpiryField">
        <label for="documentExpiryDate">Expiry Date <span class="field-lock">Optional</span></label>
        <input id="documentExpiryDate" type="date"/>
+      </div>
+      <div class="field" hidden id="documentTranslationField" style="grid-column:1/-1">
+       <label for="documentTranslation">Certified English Translation <span class="field-lock">Optional</span></label>
+       <input id="documentTranslation" type="file"/>
+       <span class="field-help">The translation stays attached to this document and is not a separate library item.</span>
       </div>
      </div>
      <div class="actions">
@@ -2456,65 +2563,76 @@ p {
      </div>
     </div>
 
-    <div class="document-filters" aria-label="Document category filters">
-     <button class="status-toggle document-filter active" data-document-filter="all" type="button">All</button>
-     <button class="status-toggle document-filter" data-document-filter="academic" type="button">Academic</button>
-     <button class="status-toggle document-filter" data-document-filter="soccer" type="button">Soccer</button>
-     <button class="status-toggle document-filter" data-document-filter="other" type="button">Other</button>
-    </div>
-    <div class="list">
-
-    <div class="item" data-document-scope="academic">
-      <div class="item-head">
-        <div>
-          <div class="item-title">Unofficial Academic Transcript</div>
-          <div class="item-meta">
-            English &middot; Issued June 2026 &middot; Uploaded July 28, 2026 &middot; Not linked to a Sport Profile
-          </div>
-        </div>
+    <div class="document-group">
+     <h3>Academic Records</h3>
+     <details class="document-row">
+      <summary>
+       <span class="document-row-title"><strong>Transcript</strong><span>Instituto Internacional de Madrid</span></span>
+      </summary>
+      <div class="document-details">
+       <div class="document-detail-grid">
+        <div class="document-detail"><span>Issue date</span><span>June 18, 2026</span></div>
+        <div class="document-detail"><span>Language</span><span>Spanish</span></div>
+        <div class="document-detail"><span>Source</span><span>Athlete-uploaded copy</span></div>
+        <div class="document-detail"><span>English translation</span><span>Certified translation attached</span></div>
+        <div class="document-detail"><span>Uploaded</span><span>July 28, 2026</span></div>
+       </div>
+       <div class="actions">
+        <button class="button btn-primary" type="button">Preview</button>
+        <button class="button btn-light" type="button">Download</button>
+        <button class="button btn-light" type="button">Replace</button>
+        <button class="button btn-light" type="button">Delete</button>
+       </div>
       </div>
-      <div class="actions">
-       <button class="button btn-light" type="button">Preview</button>
-       <button class="button btn-light" type="button">Download</button>
-       <button class="button btn-light" type="button">Replace</button>
-       <button class="button btn-light" type="button">Delete</button>
-      </div>
-    </div>
-
-    <div class="item" data-document-scope="academic">
-      <div class="item-head">
-        <div>
-          <div class="item-title">Transcript Translation</div>
-          <div class="item-meta">
-            Spanish to English &middot; Issued June 2026 &middot; Uploaded July 28, 2026 &middot; Not linked to a Sport Profile
-          </div>
-        </div>
-      </div>
-      <div class="actions">
-       <button class="button btn-light" type="button">Preview</button>
-       <button class="button btn-light" type="button">Download</button>
-       <button class="button btn-light" type="button">Replace</button>
-       <button class="button btn-light" type="button">Delete</button>
-      </div>
+     </details>
     </div>
 
-    <div class="item" data-document-scope="soccer">
-      <div class="item-head">
-        <div>
-          <div class="item-title">Coach Recommendation</div>
-          <div class="item-meta">
-            English &middot; Issued May 2026 &middot; Uploaded July 25, 2026 &middot; Linked to Soccer Profile
-          </div>
-        </div>
+    <div class="document-group">
+     <h3>Graduation or Examination Credentials</h3>
+     <details class="document-row">
+      <summary>
+       <span class="document-row-title"><strong>National Examination Results</strong><span>Ontario Ministry of Education</span></span>
+       <span class="document-row-summary-end"><span class="tag warn">Processing</span></span>
+      </summary>
+      <div class="document-details">
+       <div class="document-detail-grid">
+        <div class="document-detail"><span>Issue year</span><span>2026</span></div>
+        <div class="document-detail"><span>Language</span><span>English</span></div>
+        <div class="document-detail"><span>Source</span><span>Athlete-uploaded copy</span></div>
+        <div class="document-detail"><span>Uploaded</span><span>July 30, 2026</span></div>
+       </div>
+       <div class="actions">
+        <button class="button btn-light" disabled type="button">Preview</button>
+        <button class="button btn-light" type="button">Replace</button>
+        <button class="button btn-light" type="button">Delete</button>
+       </div>
       </div>
-      <div class="actions">
-       <button class="button btn-light" type="button">Preview</button>
-       <button class="button btn-light" type="button">Download</button>
-       <button class="button btn-light" type="button">Replace</button>
-       <button class="button btn-light" type="button">Delete</button>
-      </div>
+     </details>
     </div>
 
+    <div class="document-group">
+     <h3>Test Score Reports</h3>
+     <details class="document-row">
+      <summary>
+       <span class="document-row-title"><strong>IELTS</strong><span>British Council</span></span>
+       <span class="document-row-summary-end"><span class="tag warn">Expiring soon</span></span>
+      </summary>
+      <div class="document-details">
+       <div class="document-detail-grid">
+        <div class="document-detail"><span>Issue date</span><span>October 12, 2024</span></div>
+        <div class="document-detail"><span>Language</span><span>English</span></div>
+        <div class="document-detail"><span>Source</span><span>Athlete-uploaded copy</span></div>
+        <div class="document-detail"><span>Expiry date</span><span>October 12, 2026</span></div>
+        <div class="document-detail"><span>Uploaded</span><span>July 25, 2026</span></div>
+       </div>
+       <div class="actions">
+        <button class="button btn-primary" type="button">Preview</button>
+        <button class="button btn-light" type="button">Download</button>
+        <button class="button btn-light" type="button">Replace</button>
+        <button class="button btn-light" type="button">Delete</button>
+       </div>
+      </div>
+     </details>
     </div>
    </div>
   </main>
@@ -2653,39 +2771,44 @@ COMPLETION BEHAVIOR
 • Skill Clip completion does not independently change Recruiter-Ready, visibility, or search ranking.
 • Changing a position updates the recommendation display but never deletes, retags, or hides an existing uploaded clip.
 • A Skill Clip may be cut from the Main Evaluation Video, cut from Extended Match Footage, or uploaded separately. Reuse the source media reference instead of duplicating the original file.
-• Default duration is 10–60 seconds. Allow up to 90 seconds when positioning, pressing, movement, pace, goalkeeper positioning, or link play requires more context.
+• Every Skill Clip must be 10–60 seconds.
 • Match and training clips remain distinguishable through source/context metadata. Video evidence demonstrates pace but does not create an objective speed measurement.
 
 DELIVERY PHASING
-The wireframe visualizes the planned media workflow. Slice 2 includes its placement and completion boundary only; functional upload, storage, processing, clipping, playback, replacement, deletion, and moderation are implemented in a later media slice.
+Slice 6 implements upload, storage, processing, clipping, playback, replacement, deletion, pilot allowances, and moderation-compatible states.
 
 SCOUT VIEW
 Recruiters see uploaded clips and their category/context labels. They do not see empty recommendation slots, internal recommendation badges, or the position-mapping logic.`
     },
     'document-storage': {
-     title: 'Documents — Private Library Foundation',
+     title: 'Documents — Slice 6 Pilot Library',
      body: `OWNERSHIP AND ACCESS
 • AthleteDocument is owned by AthleteProfile and may optionally link to one or more AthleteSportProfiles.
-• Slice 2 does not implement document access or management. The document slice must apply the current athlete/guardian authorization state and define any narrower document-specific permissions.
-• Sport Profile visibility never grants access to a linked document.
+• Sport links remain backend-only in the one-sport pilot; do not show a sport selector or automatically link academic documents to Soccer.
+• The authorized guardian manages documents before the athlete joins and for an under-14 athlete. After a 14–17-year-old athlete joins, the athlete manages documents and the guardian retains preview/download access. Previous guardian access ends at age 18.
+• Slice 6 does not provide Scout sharing or document requests.
 • Documents do not affect Profile Completion, Recruiter-Ready, search visibility, or ranking.
 
 DOCUMENT RECORD
-• Document type and category
+• Controlled type and subtype
 • Storage reference and original filename
 • File-processing status: Processing, Ready, or Upload failed
-• Language, issue date, and optional expiry date
+• Language, issuer, issue date or year, and optional expiry date
 • Uploaded-by User and upload timestamp
-• Self-uploaded / unverified source label
+• System-controlled Athlete-uploaded copy source label
 • Optional AthleteSportProfile links
+• Optional certified English translation attached to a non-English document
 
 UPLOAD RULES
-• Athlete-uploaded academic documents are not represented as official or independently verified.
+• Pilot types are Academic Record, Graduation or Examination Credential, and Test Score Report, each with controlled subtypes and no free-text Other option.
+• Athlete-uploaded documents and translations are not independently verified by UnicAthlete.
 • Identity, medical, visa, financial, consent, and legal documents are excluded from this general library.
-• Replacing a file should preserve relevant audit history; deleting it must remove normal access according to the platform's retention rules.
+• Allow up to 10 current documents. Attached translations and hidden previous versions do not count separately.
+• Replacement keeps the current ready version available until the new version is ready. No athlete-facing version archive is included.
+• Expired documents remain available and are marked Expired; show Expiring soon beginning 30 days before expiry.
 
 DELIVERY PHASING
-The wireframe visualizes the planned document library. Slice 2 includes its placement and data-boundary placeholder only; functional upload, storage, processing, preview, download, replacement, deletion, requests, sharing, and access grants are implemented later.
+Slice 6 implements private upload, processing, preview, download, replacement, and deletion. Requests, sharing, and access grants remain deferred.
 
 FUTURE EXTENSION
 A later request-and-sharing workflow may reference an AthleteDocument through a separate request and access-grant record. Do not add scout access or sharing state directly to Sport Profile visibility.`
@@ -3053,8 +3176,17 @@ Profile Completion remains guidance and does not itself unlock visibility.`
    const cancelDocumentUploadButton=document.getElementById('cancelDocumentUploadButton');
    const saveDocumentButton=document.getElementById('saveDocumentButton');
    const documentType=document.getElementById('documentType');
-   const documentCategory=document.getElementById('documentCategory');
-   const documentSportProfile=document.getElementById('documentSportProfile');
+   const documentSubtype=document.getElementById('documentSubtype');
+   const documentLanguage=document.getElementById('documentLanguage');
+   const documentTranslationField=document.getElementById('documentTranslationField');
+   const documentIssueDate=document.getElementById('documentIssueDate');
+   const documentIssueYearOnly=document.getElementById('documentIssueYearOnly');
+   const documentIssueYearField=document.getElementById('documentIssueYearField');
+   const documentSubtypes={
+    academic:['Transcript','Grade Report / Report Card','School Report'],
+    credential:['Diploma / Proof of Graduation','Leaving Certificate','National Examination Results'],
+    test:['SAT','ACT','TOEFL','IELTS','Duolingo English Test','Cambridge English']
+   };
    function closeDocumentUpload(){
     documentUploadForm.hidden=true;
     uploadDocumentButton.textContent='Upload Document';
@@ -3067,22 +3199,19 @@ Profile Completion remains guidance and does not itself unlock visibility.`
    cancelDocumentUploadButton.addEventListener('click',closeDocumentUpload);
    saveDocumentButton.addEventListener('click',closeDocumentUpload);
    documentType.addEventListener('change',function(){
-    const type=documentType.value;
-    const isSoccer=type==='Coach Recommendation'||type==='Club or Academy Confirmation'||type==='Other Soccer Document';
-    const isOther=type==='Other';
-    documentCategory.value=isSoccer?'Soccer':(isOther?'Other':'Academic');
-    documentSportProfile.value=isSoccer?'Soccer Profile':'Not linked';
-   });
-
-   document.querySelectorAll('.document-filter').forEach(function(button){
-    button.addEventListener('click',function(){
-     document.querySelectorAll('.document-filter').forEach(function(item){item.classList.remove('active');});
-     button.classList.add('active');
-     const filter=button.dataset.documentFilter;
-     document.querySelectorAll('[data-document-scope]').forEach(function(documentItem){
-      documentItem.hidden=filter!=='all'&&documentItem.dataset.documentScope!==filter;
-     });
+    documentSubtype.innerHTML='';
+    documentSubtypes[documentType.value].forEach(function(label){
+     const option=document.createElement('option');
+     option.textContent=label;
+     documentSubtype.appendChild(option);
     });
+   });
+   documentLanguage.addEventListener('change',function(){
+    documentTranslationField.hidden=documentLanguage.value==='English';
+   });
+   documentIssueYearOnly.addEventListener('change',function(){
+    documentIssueYearField.hidden=!documentIssueYearOnly.checked;
+    documentIssueDate.disabled=documentIssueYearOnly.checked;
    });
   </script>
   <script src="../shared/app.js">
