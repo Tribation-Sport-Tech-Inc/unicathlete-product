@@ -1,0 +1,57 @@
+{
+  "bridgeVersion": "3.6",
+  "kind": "google-docs-trusted-read",
+  "status": "complete",
+  "outputDir": "/Users/arina/Documents/Codex/unicathlete-product/bridge/trusted-read-legal-brief-06",
+  "target": {
+    "documentId": "1zO4bxDUrQUbwjlFjnSN6pgIcN9Sy3-tMufh7e_TfA7w",
+    "title": "UnicAthlete - Legal Review Brief",
+    "revisionId": "ANLCKQkK-OzbgqgGZK6SuRrprY4uuwHLouoq9L7QGWTC8JGlwYwbIT5sl8dwAG8CpEqM0bpJ5XbFbnW4E1VGugLXvqgKv8oMmU0B8pLamSY",
+    "documentUrl": "https://docs.google.com/document/d/1zO4bxDUrQUbwjlFjnSN6pgIcN9Sy3-tMufh7e_TfA7w",
+    "selectedTabId": null
+  },
+  "dropdownMetadata": {
+    "status": "unavailable",
+    "resolvedTool": null,
+    "authoritative": false,
+    "count": 0
+  },
+  "controlAwareness": {
+    "hasProtectedControls": false,
+    "authoritativeDropdownCount": 0,
+    "opaqueControlCount": 0,
+    "affectedParagraphCount": 0,
+    "nativeElementCounts": {},
+    "preservationRequired": false,
+    "recommendedBehavior": "No protected controls were detected in the scanned scope."
+  },
+  "warnings": [],
+  "files": {
+    "document_result": {
+      "path": "/Users/arina/Documents/Codex/unicathlete-product/bridge/trusted-read-legal-brief-06/document-result.json",
+      "bytes": 249185,
+      "sha256": "108eca45361dc8fb9918ca4f65707cc1379575f02d224c738abfc1b04997dfd0"
+    },
+    "control_inventory": {
+      "path": "/Users/arina/Documents/Codex/unicathlete-product/bridge/trusted-read-legal-brief-06/control-inventory.json",
+      "bytes": 1037,
+      "sha256": "c1793de9b8aacee482de94a50cd309343fe6a41979bad458ca032f4ed90d0793"
+    },
+    "document_outline": {
+      "path": "/Users/arina/Documents/Codex/unicathlete-product/bridge/trusted-read-legal-brief-06/document-outline.json",
+      "bytes": 56329,
+      "sha256": "67623a61fa6d1d1647de91eb244e9270a6839dea75920c099db3f7993685748b"
+    },
+    "document_text": {
+      "path": "/Users/arina/Documents/Codex/unicathlete-product/bridge/trusted-read-legal-brief-06/document-text.md",
+      "bytes": 18762,
+      "sha256": "c4b74da305dd1faf3b843ff7affb1b1355dac033f309a1a76e9fb609d1c8c75c"
+    },
+    "receipt": {
+      "path": "/Users/arina/Documents/Codex/unicathlete-product/bridge/trusted-read-legal-brief-06/receipt.json",
+      "bytes": 968,
+      "sha256": "a7448ca39fd56d2fdc2900c8d651a72736e8edc9b1c643f1adca0e86c2442d39"
+    }
+  },
+  "error": null
+}

@@ -18,8 +18,7 @@ Slice 6 uses configurable pilot allowances and measures usage to inform later ca
 - Profile Completion and Recruiter-Ready recalculation;
 - private storage and controlled playback;
 - configurable pilot allowances and user-facing allowance states;
-- moderation-compatible media states; and
-- the Slice 5-compatible measurement requirements defined below.
+- moderation-compatible media states.
 
 Profile-photo upload remains separate and does not consume the Soccer-media allowance.
 
@@ -45,7 +44,8 @@ Profile-photo upload remains separate and does not consume the Soccer-media allo
 
 - An athlete may upload a separate Skill Clip or create one from existing Main Evaluation Video or Extended Match Footage.
 - Each Skill Clip must be between 10 and 60 seconds long.
-- Reuse the source-media reference when a clip is created from existing footage; do not duplicate the original source file solely to create the clip.
+- A Skill Clip created from existing footage retains a reference to its source and may use an independently playable derivative; do not duplicate the full original source file solely to create the clip.
+- The clip remains playable if its source is later replaced or voluntarily deleted. If the source is restricted or removed for safety, rights, or policy reasons, review the derived clip before it remains available.
 - Each Skill Clip has exactly one category.
 - Selecting one of the 15 Skill Clip categories is required.
 - A separate clip title is not required; the selected category is used as its visible title.
@@ -115,7 +115,9 @@ Only the current primary position determines suggested coverage. The secondary p
 ## Upload and Processing Behaviour
 
 - Show the applicable duration limit before the athlete selects or creates a video.
-- Reject media outside the applicable duration range with a clear message and a recovery action.
+- If Engineering confirms reliable pre-upload trimming on supported devices and browsers, allow an athlete to select up to 15 minutes for a Main Evaluation Video and up to 60 minutes for Extended Match Footage, then require trimming to the five-minute and 45-minute product limits before upload.
+- Use the same start/end selection control to create a 10–60-second Skill Clip. Show the final selected duration and do not begin uploading until it satisfies the applicable product limit.
+- Upload only the selected range, not the untrimmed original. Reject files beyond the selection cap with a clear message. If reliable pre-upload trimming cannot be supported for the pilot, retain direct rejection at the product-duration limit.
 - The UI supports these user-facing states and actions:
   - `Uploading`: show progress and allow cancellation;
   - `Processing`: explain that preparation continues if the athlete leaves the page;
@@ -125,6 +127,11 @@ Only the current primary position determines suggested coverage. The secondary p
   - `Restricted` or `Removed`: show a general reason and, where applicable, allow replacement, deletion, or contacting support.
 - Do not expose raw technical errors or internal moderation details. Use controlled internal error and reason codes.
 - Every unsuccessful state must present a clear available next action.
+- Automatically check uploaded video before it becomes `Ready`. A flagged item moves to `Under review` and contributes nothing to Profile Completion or Recruiter-Ready until an authorized reviewer approves it.
+- Automated checks never make the final rejection decision. An authorized reviewer may approve, restrict, or remove flagged media and media requiring review after a report. Define the reviewer role and operational review process before launch.
+- An automated flag or authorized manual review moves an item to `Under review`; a future valid report may use the same transition. Reviewer approval moves it to `Ready`, temporary prevention of access moves it to `Restricted`, and final platform removal moves it to `Removed`.
+- Audio moderation is outside the pilot. Identify the moderation provider in the applicable privacy notice.
+- Only the backend may set media to `Ready`, based on the provider's processing notification; the client never sets this state. Deduplicate repeated notifications, and do not allow a late notification to downgrade or reopen a settled state such as `Restricted` or `Removed`.
 - Media does not contribute to completion, Recruiter-Ready, or Scout-facing playback until it is `Ready` and permitted for exposure.
 - A failed upload provides a retry or replacement action without creating completion credit.
 - Upload and processing failure must not delete or replace an existing ready item unless the replacement succeeds.
@@ -214,6 +221,8 @@ Do not collect student identifiers, passport or government identifiers, copied g
 
 ### Upload and Management Behaviour
 
+- For the pilot, accept PDF documents only, with an initial configurable maximum file size of 7 MB. Show the supported format and size before file selection. If a file is unsupported, explain the reason and prompt the user to scan or save it as a PDF within the limit.
+- For documents, `Processing` means a server-side malware scan. A document becomes `Ready` only after passing the scan. A technical scanning failure results in `Upload failed` with a retry option. An unsafe file remains unavailable and shows a general replacement or support message; technical security details remain internal.
 - Allow multiple documents of the same subtype.
 - Each ready document provides preview, download, replace, and delete actions.
 - `Upload another` creates a separate document; `Replace` creates a new version of the selected document.
@@ -236,10 +245,10 @@ Do not collect student identifiers, passport or government identifiers, copied g
 ### Expiry and Profile Status
 
 - Documents are optional and do not affect Profile Completion, Recruiter-Ready, visibility, or search ranking.
-- Keep an expired document in the library and mark it `Expired`; do not delete it automatically.
-- Mark a document `Expiring soon` beginning 30 days before its entered expiry date.
+- Expiry states are derived only from an entered expiry date. Mark the document `Expiring soon` beginning 30 days before that date and `Expired` after it passes.
+- A document without an entered expiry date never shows `Expiring soon` or `Expired`; UnicAthlete never infers or assigns an expiry date.
+- Keep an expired document in the library; do not delete it automatically.
 - During the pilot, show expiry states only in the Documents area and do not send expiry notifications.
-- Do not calculate expiry automatically; the entered expiry date is authoritative.
 - The permitted manager may replace or delete an expired document.
 
 ### Library Presentation
@@ -254,6 +263,6 @@ Do not collect student identifiers, passport or government identifiers, copied g
 - Show total allowance usage near the upload action.
 - Do not add document search or filters during the pilot.
 
-### Document Analytics — Pending Data-Model Review
+### Slice 6 Analytics — Pending Data-Model Review
 
 Analytics for this slice will be defined after reviewing the Slice 6 data model.

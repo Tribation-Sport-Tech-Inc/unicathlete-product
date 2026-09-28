@@ -2893,6 +2893,7 @@ Profile Completion remains guidance and does not itself unlock visibility.`
      document.querySelectorAll('.profile-tab-panel').forEach(function(panel){
       panel.hidden=panel.id!==button.dataset.profileTab;
      });
+     window.history.replaceState(null,'','#'+button.dataset.profileTab);
     });
    });
 
@@ -2917,6 +2918,7 @@ Profile Completion remains guidance and does not itself unlock visibility.`
      document.querySelectorAll('.soccer-tab-panel').forEach(function(panel){
       panel.hidden=panel.id!==button.dataset.soccerTab;
      });
+     window.history.replaceState(null,'','#'+button.dataset.soccerTab);
     });
    });
 
@@ -2932,6 +2934,25 @@ Profile Completion remains guidance and does not itself unlock visibility.`
      if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
     });
    });
+
+   function openLinkedProfileView(){
+    const targetId=window.location.hash.slice(1);
+    if(!targetId) return;
+    const profileTargets=['shared-profile','sport-profiles','documents'];
+    const soccerTargets=['soccer-profile-panel','soccer-media-panel'];
+    if(profileTargets.includes(targetId)){
+     const profileTab=document.querySelector('[data-profile-tab="'+targetId+'"]');
+     if(profileTab) profileTab.click();
+    }
+    if(soccerTargets.includes(targetId)){
+     const sportProfilesTab=document.querySelector('[data-profile-tab="sport-profiles"]');
+     const soccerTab=document.querySelector('[data-soccer-tab="'+targetId+'"]');
+     if(sportProfilesTab) sportProfilesTab.click();
+     if(soccerTab) soccerTab.click();
+    }
+   }
+   window.addEventListener('hashchange',openLinkedProfileView);
+   openLinkedProfileView();
 
    document.querySelectorAll('[data-edit-target]').forEach(function(button){
     button.addEventListener('click',function(){

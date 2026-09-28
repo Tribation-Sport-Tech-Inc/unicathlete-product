@@ -1,0 +1,29 @@
+{
+  "bridgeVersion": "3.6",
+  "kind": "google-docs-trusted-read-receipt",
+  "status": "complete",
+  "target": {
+    "documentId": "1zO4bxDUrQUbwjlFjnSN6pgIcN9Sy3-tMufh7e_TfA7w",
+    "title": "UnicAthlete - Legal Review Brief",
+    "revisionId": "ANLCKQkauP9Tpn4WPR7IU4kSYXhET7b-EplBgcqMDihXXs08dwTWopbZVurlrBhFmnTr7AT4UYfsk4u5_ZS6MRGfRkvZq8n00WCb6MaF01A",
+    "documentUrl": "https://docs.google.com/document/d/1zO4bxDUrQUbwjlFjnSN6pgIcN9Sy3-tMufh7e_TfA7w",
+    "selectedTabId": null
+  },
+  "dropdownMetadata": {
+    "status": "unavailable",
+    "resolvedTool": null,
+    "authoritative": false,
+    "count": 0
+  },
+  "controlAwareness": {
+    "hasProtectedControls": false,
+    "authoritativeDropdownCount": 0,
+    "opaqueControlCount": 0,
+    "affectedParagraphCount": 0,
+    "nativeElementCounts": {},
+    "preservationRequired": false,
+    "recommendedBehavior": "No protected controls were detected in the scanned scope."
+  },
+  "warnings": [],
+  "error": null
+}
