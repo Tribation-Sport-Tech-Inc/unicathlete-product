@@ -1238,7 +1238,7 @@ function assignScout(btn) {
        John Smith
       </h2>
       <p>
-       Midfielder | 17 | Toronto Academy | Canada
+       Midfielder | 17 | Madrid Academy | Spain
       </p>
       <div class="badge-row">
        <span class="badge">
@@ -1250,19 +1250,19 @@ function assignScout(btn) {
     <div class="actions">
      <div class="destination-select">
       <button class="button btn-primary" style="background:#16a34a;">
-       &checkmark; In My Scout Workspace
+       &checkmark; Saved in 2 projects
       </button>
       <div class="destination-menu">
        <button class="destination-option" onclick="addToWorkspace(this, 'My Scout Workspace')">
-        Add to My Scout Workspace
+        Save to another project
         <small>
-         Also save as a private prospect
+         Choose an active Recruiting Project
         </small>
        </button>
-       <button class="destination-option" onclick="addToWorkspace(this, 'Toronto Academy')">
-        Agency affiliation: Toronto Academy
+       <button class="destination-option" onclick="addToWorkspace(this, 'Scholarship Candidates')">
+        Scholarship Candidates
         <small>
-         Context only in MVP
+         Active project
         </small>
        </button>
       </div>
@@ -1273,7 +1273,7 @@ function assignScout(btn) {
      <button class="button btn-compare" onclick="toggleCompare(this)">
       + Compare
      </button>
-     <button class="button btn-outline" onclick="assignScout(this)">
+     <button class="button btn-outline" data-future-slice="team-collaboration" hidden onclick="assignScout(this)">
       Assign Scout
      </button>
     </div>
@@ -1305,7 +1305,7 @@ function assignScout(btn) {
         Country
        </span>
        <span>
-        Canada
+        Spain
        </span>
       </div>
       <div class="info-row">
@@ -1313,7 +1313,7 @@ function assignScout(btn) {
         Club
        </span>
        <span>
-        Toronto Academy
+        Madrid Academy
        </span>
       </div>
      </div>
@@ -1484,7 +1484,7 @@ function assignScout(btn) {
     <div class="profile-column scout-column">
      <div class="workspace-header">
       <h2>
-       Scout-Athlete Relationship
+       Your Workspace Context
        <button class="info-note" data-note="This section shows the permanent Scout-Athlete Relationship.
 
 Messages and information requests stay between this scout and this athlete, even when the related project has an organization context.
@@ -1496,13 +1496,11 @@ Line 2 later adds permissions around this relationship, such as allowing another
        </button>
       </h2>
       <p>
-       Mike Brown's direct relationship with this athlete
+       Private project information visible only to you
       </p>
-      <span class="workspace-marker">
-       Linked project context: Toronto Academy
-      </span>
+     <span class="workspace-marker">Individual Workspace</span>
      </div>
-     <div class="workspace-actions">
+     <div class="workspace-actions" data-future-slice="messages-and-requests">
       <a class="workspace-btn workspace-btn-primary" href="messages.html">
        <span class="workspace-btn-icon">
         💬
@@ -1541,21 +1539,21 @@ Line 2 later adds permissions around this relationship, such as allowing another
      </div>
      <div class="status-card">
       <div class="status-label">
-       Current Projects / Evaluation Contexts
+       Projects containing this athlete
       </div>
       <div class="project-card active" data-project="u17" onclick="selectProjectContext('u17')">
        <div class="project-name">
         U17 Midfielders
        </div>
        <div class="project-meta">
-        Criteria: Midfielder &middot; Age 15&ndash;17 &middot; Ontario &middot; Academy level
+        Active &middot; Active in Pipeline
        </div>
        <div class="project-chip-row">
         <span class="project-chip secondary">
-         Context: Toronto Academy
+         Active
         </span>
         <span class="project-chip">
-         Selected Context
+         Active in Pipeline
         </span>
         <span class="project-chip secondary">
          Reviewing
@@ -1564,34 +1562,43 @@ Line 2 later adds permissions around this relationship, such as allowing another
          Priority: High
         </span>
        </div>
-       <a class="mini-action" href="evaluation_management.html">
-        Open Project Evaluation
+       <a class="mini-action" href="workspace.html#project-detail">
+        Open Project
+       </a>
+       <a class="mini-action" data-future-slice="evaluations" href="evaluation_management.html">
+        Part 2: Open Evaluation
        </a>
       </div>
       <div class="project-card" data-project="ontario" onclick="selectProjectContext('ontario')">
        <div class="project-name">
-        Ontario Prospects
+        Scholarship Candidates
        </div>
        <div class="project-meta">
-        Criteria: Any position &middot; Ontario &middot; Academy level
+        Active &middot; Saved only
        </div>
        <div class="project-chip-row">
         <span class="project-chip secondary">
-         Context: Independent
+         Active
         </span>
         <span class="project-chip secondary">
-         Additional Context
+         Saved only
         </span>
         <span class="project-chip secondary">
-         New
+         Add to pipeline
         </span>
         <span class="project-chip secondary">
-         Priority: Medium
+         Priority: Not set
         </span>
        </div>
-       <a class="mini-action" href="evaluation_management.html">
-        Open Project Evaluation
+       <a class="mini-action" href="workspace.html#project-detail">
+        Open Project
        </a>
+      </div>
+      <div class="project-card">
+       <div class="project-name">2025 International Prospects</div>
+       <div class="project-meta">Archived · Closed</div>
+       <div class="project-chip-row"><span class="project-chip secondary">Archived</span><span class="project-chip secondary">Outcome: Not selected</span></div>
+       <a class="mini-action" href="workspace.html#project-detail">Open project</a>
       </div>
      </div>
 
@@ -1613,7 +1620,7 @@ Line 2 later adds permissions around this relationship, such as allowing another
        </span>
       </div>
      </div>
-     <div class="status-card">
+     <div class="status-card" data-future-slice="team-collaboration" hidden>
       <div class="status-label">
        Lead Scout
       </div>
@@ -1621,7 +1628,7 @@ Line 2 later adds permissions around this relationship, such as allowing another
        Mike Brown
       </div>
      </div>
-     <div class="status-card">
+     <div class="status-card" data-future-slice="team-collaboration" hidden>
       <div class="status-label">
        Future Collaborators
       </div>
@@ -1639,7 +1646,7 @@ Line 2 later adds permissions around this relationship, such as allowing another
      </div>
      <div class="status-card">
       <div class="status-label">
-       Project Rating
+       Part 2: Project Rating
       </div>
       <div class="status-value" id="ratingScore" style="font-size:24px;">
        8.0 / 10

@@ -378,9 +378,8 @@ textarea {
 They are not just folders.
 
 A project can define:
-&bull; Objective
+&bull; Optional description
 &bull; Recruiting criteria
-&bull; Lead scout
 &bull; Athletes
 &bull; Pipeline work
 
@@ -390,7 +389,7 @@ Workspace &rarr; RecruitingProject &rarr; ProjectAthlete records" data-title="Re
       </button>
      </h1>
     </div>
-    <a class="button btn-primary" href="workspace.html">
+    <a class="button btn-primary" href="workspace.html#project-detail">
      Create Project
     </a>
    </div>
@@ -399,18 +398,12 @@ Workspace &rarr; RecruitingProject &rarr; ProjectAthlete records" data-title="Re
      <div class="card">
       <h2 class="section-title">
        Basic Information
-       <button class="info-note" data-note="Basic Information defines what this project is and which context it uses.
-
-Every verified Scout creates projects inside the same personal workspace flow. In the MVP, the Scout has one active confirmed organization affiliation, so no organization-context switcher is required.
-
-The selected project context is attribution metadata in MVP. It does not create shared messaging, shared requests, or organization permissions yet.
-
-The project name should describe the recruiting focus, not the scout creating it." data-title="Basic Information" onclick="openBackendNote(this)" type="button">
+       <button class="info-note" data-note="Project name is the only required field. Description and every recruiting criterion are optional." data-title="Basic Information" onclick="openBackendNote(this)" type="button">
         ⓘ
        </button>
       </h2>
       <div class="form-grid">
-       <div class="form-row">
+       <div class="form-row" data-future-slice="team-workspace-context" hidden>
         <div class="form-label">
          Project Context
         </div>
@@ -427,15 +420,15 @@ The project name should describe the recruiting focus, not the scout creating it
        </div>
        <div class="form-row">
         <div class="form-label">
-         Recruiting Project Name
+         Recruiting Project Name <span style="color:#dc2626;">*</span>
         </div>
         <input type="text" value="U17 Midfielders"/>
        </div>
        <div class="form-row">
         <div class="form-label">
-         Project Objective
+         Description <span style="font-weight:400;color:var(--muted);">(optional)</span>
         </div>
-        <textarea>Identify midfielders for the 2027 U17 squad and move suitable athletes through evaluation, contact, and trial consideration.</textarea>
+       <textarea>Identify midfielders for the 2027 U17 squad.</textarea>
        </div>
       </div>
      </div>
@@ -465,7 +458,46 @@ Future criteria can become more sport-specific." data-title="Recruiting Criteria
         ⓘ
        </button>
       </h2>
+      <p style="margin:0 0 14px;color:var(--muted);font-size:13px;">All criteria are optional and guide the Scout without restricting which athletes can be saved.</p>
       <div class="criteria-grid">
+       <div class="field-block">
+        <label>Recruiting Category</label>
+        <select><option>Not specified</option><option>Men's Soccer</option><option>Women's Soccer</option><option>Men's and Women's Soccer</option></select>
+       </div>
+       <div class="field-block">
+        <label>Position</label>
+        <select><option>Not specified</option><option>Goalkeeper</option><option>Defender</option><option>Midfielder</option><option>Winger</option><option>Forward</option></select>
+       </div>
+       <div class="field-block">
+        <label>Age Range</label>
+        <select><option>Not specified</option><option>15–17</option><option>16–18</option><option>Custom</option></select>
+       </div>
+       <div class="field-block">
+        <label>Height Range</label>
+        <select><option>Not specified</option><option>170–179 cm</option><option>180 cm+</option><option>Custom</option></select>
+       </div>
+       <div class="field-block">
+        <label>Recruiting Availability</label>
+        <select><option>Not specified</option><option>Open to opportunities</option><option>Committed</option><option>Not currently seeking</option></select>
+       </div>
+       <div class="field-block">
+        <label>Target College Start</label>
+        <select><option>Not specified</option><option>Fall 2027</option><option>Spring 2028</option><option>Custom</option></select>
+       </div>
+       <div class="field-block">
+        <label>Skill Clips</label>
+        <select><option>No requirement</option><option>Required</option></select>
+       </div>
+       <div class="field-block">
+        <label>Extended Match Footage</label>
+        <select><option>No requirement</option><option>Required</option></select>
+       </div>
+       <div class="field-block">
+        <label>Country</label>
+        <select disabled><option>Spain — pilot market</option></select>
+       </div>
+      </div>
+      <div class="criteria-grid" data-future-slice="advanced-project-criteria" hidden>
        <div class="field-block">
         <label>
          Sport
@@ -776,7 +808,7 @@ Future criteria can become more sport-specific." data-title="Recruiting Criteria
        </div>
       </div>
      </div>
-     <div class="card">
+     <div class="card" data-future-slice="team-collaboration" hidden>
       <h2 class="section-title">
        Lead Scout
        <button class="info-note" data-note="In MVP, project responsibility is simple.
@@ -905,19 +937,11 @@ Assigned scouts, collaborators, and role-based permissions can be added after te
     <div class="card summary-card">
      <h2 class="section-title">
       Project Summary
-      <button class="info-note" data-note="The summary previews how this project will appear in the Workspace page.
-
-It should show only the most important operational details:
-	&bull; Project context
-&bull; Project name
-&bull; Objective
-&bull; Criteria summary
-&bull; Lead scout
-&bull; Next step" data-title="Project Summary" onclick="openBackendNote(this)" type="button">
+      <button class="info-note" data-note="The summary shows the project name plus any optional description and criteria entered by the Scout." data-title="Project Summary" onclick="openBackendNote(this)" type="button">
        ⓘ
       </button>
      </h2>
-     <div class="summary-item">
+     <div class="summary-item" data-future-slice="team-workspace-context" hidden>
       <div class="summary-label">
        Project Context
       </div>
@@ -938,7 +962,7 @@ It should show only the most important operational details:
      </div>
      <div class="summary-item">
       <div class="summary-label">
-       Objective
+       Description
       </div>
       <div class="summary-value">
        Find midfielders for the 2027 U17 squad.
@@ -949,10 +973,10 @@ It should show only the most important operational details:
        Criteria
       </div>
       <div class="summary-value">
-       Football &middot; Midfielder &middot; Age 15&ndash;17 &middot; Ontario &middot; Academy &middot; Highlight video required
+       Soccer &middot; Midfielder &middot; Age 15&ndash;17 &middot; Spain &middot; Skill Clips required
       </div>
      </div>
-     <div class="summary-item">
+     <div class="summary-item" data-future-slice="team-collaboration" hidden>
       <div class="summary-label">
        Lead Scout
       </div>
@@ -960,7 +984,7 @@ It should show only the most important operational details:
        Mike Brown
       </div>
      </div>
-     <div class="summary-item">
+     <div class="summary-item" data-future-slice="team-collaboration" hidden>
       <div class="summary-label">
        Assigned Scouts
       </div>

@@ -1055,6 +1055,18 @@ a {
   border-color: #bbf7d0;
   background: #fbfffd;
 }
+   .workspace-summary-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:18px 0 24px}
+   .workspace-summary-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px}
+   .workspace-summary-card strong{display:block;font-size:26px;margin-top:8px}
+   .workspace-project-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+   .workspace-project-card{display:block;background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px;text-decoration:none;color:inherit}
+   .workspace-project-card:hover{border-color:#93c5fd;box-shadow:0 8px 20px rgba(15,23,42,.08)}
+   .workspace-project-card h3{margin:0 0 8px}
+   .workspace-project-card p{margin:6px 0;color:var(--muted);font-size:13px}
+   .project-detail-back{display:inline-flex;margin-bottom:14px;color:var(--primary);font-weight:700;text-decoration:none}
+   .future-slice-label{display:inline-flex;align-items:center;border-radius:999px;background:#f3f4f6;color:#6b7280;padding:3px 8px;font-size:11px;font-weight:700}
+   @media(max-width:900px){.workspace-summary-grid,.workspace-project-grid{grid-template-columns:1fr 1fr}}
+   @media(max-width:600px){.workspace-summary-grid,.workspace-project-grid{grid-template-columns:1fr}}
   </style>
   <link href="../shared/backend-modal.css" rel="stylesheet"/>
   <link href="../shared/app-shell.css" rel="stylesheet"/>
@@ -1108,14 +1120,14 @@ a {
    <div class="page-title">
     <div>
      <h1>
-      My Scouting Workspace
+      Workspace
      </h1>
     </div>
     <a class="button btn-primary" href="create_group.html">
      + Create Recruiting Project
     </a>
    </div>
-   <div class="workspace-tabs">
+   <div class="workspace-tabs" data-future-slice="team-workspaces" hidden>
     <a class="workspace-tab" href="#">
      All contexts
     </a>
@@ -1129,53 +1141,94 @@ a {
      Independent
     </a>
    </div>
-   <div class="layout">
+   <section id="workspaceLanding">
+    <div class="workspace-summary-grid">
+     <div class="workspace-summary-card">Active Projects<strong>3</strong></div>
+     <div class="workspace-summary-card">Saved Athletes<strong>29</strong></div>
+     <div class="workspace-summary-card">Active Pipeline Records<strong>12</strong></div>
+     <div class="workspace-summary-card">Archived Projects<strong>1</strong></div>
+    </div>
+    <div class="saved-athletes-top">
+     <div>
+      <h2>Active Recruiting Projects</h2>
+      <p>Open a project to manage its Saved Athletes and pipeline.</p>
+     </div>
+     <select class="sort-select" aria-label="Sort projects">
+      <option>Recently updated</option>
+      <option>Name A–Z</option>
+     </select>
+    </div>
+    <div class="workspace-project-grid">
+     <a class="workspace-project-card" href="#project-detail" onclick="openProjectDetail(event)">
+      <h3>U17 Midfielders</h3>
+      <p>Updated today</p>
+      <p><strong>18</strong> saved · <strong>7</strong> active pipeline records</p>
+     </a>
+     <a class="workspace-project-card" href="#project-detail" onclick="openProjectDetail(event)">
+      <h3>First Team Watchlist</h3>
+      <p>Updated 2 days ago</p>
+      <p><strong>12</strong> saved · <strong>3</strong> active pipeline records</p>
+     </a>
+     <a class="workspace-project-card" href="#project-detail" onclick="openProjectDetail(event)">
+      <h3>Scholarship Candidates</h3>
+      <p>Updated 5 days ago</p>
+      <p><strong>7</strong> saved · <strong>2</strong> active pipeline records</p>
+     </a>
+    </div>
+    <div class="saved-comparisons-card" style="margin-top:20px;">
+     <div class="saved-comparisons-top">
+      <div><h2>Archived Projects</h2><p>Archived projects are read-only and can be reactivated.</p></div>
+     </div>
+     <a class="small-action" href="#project-detail" onclick="openProjectDetail(event)">View archived projects (1)</a>
+    </div>
+   </section>
+   <div class="layout" id="projectDetail" hidden>
     <div class="sidebar">
      <h2>
       Recruiting Projects
      </h2>
-     <div class="group-project-meta" style="margin:0 0 12px;color:var(--muted);">
+     <div class="group-project-meta" data-future-slice="team-workspace-context" hidden style="margin:0 0 12px;color:var(--muted);">
       Showing projects for Toronto Academy context only.
      </div>
      <div class="group-list">
-      <a class="group-project active" href="#">
+      <a class="group-project active" href="#project-detail">
        <div class="group-project-name">
         U17 Midfielders
        </div>
-       <div class="group-workspace-marker">
+       <div class="group-workspace-marker" data-future-slice="team-workspace-context" hidden>
         Toronto Academy
        </div>
        <div class="group-project-meta">
-        18 athletes &middot; Lead: Mike
+        18 saved &middot; 7 in pipeline
        </div>
       </a>
       <a class="group-project" href="#">
        <div class="group-project-name">
         First Team Watchlist
        </div>
-       <div class="group-workspace-marker">
+       <div class="group-workspace-marker" data-future-slice="team-workspace-context" hidden>
         Toronto Academy
        </div>
        <div class="group-project-meta">
-        12 athletes &middot; Lead: Mike
+        12 saved &middot; 3 in pipeline
        </div>
       </a>
       <a class="group-project" href="#">
        <div class="group-project-name">
         Scholarship Candidates
        </div>
-       <div class="group-workspace-marker">
+       <div class="group-workspace-marker" data-future-slice="team-workspace-context" hidden>
         Toronto Academy
        </div>
        <div class="group-project-meta">
-        7 athletes &middot; Lead: Mike
+        7 saved &middot; 2 in pipeline
        </div>
       </a>
       <a class="group-project" href="#">
        <div class="group-project-name">
         Archived Projects
        </div>
-       <div class="group-workspace-marker">
+       <div class="group-workspace-marker" data-future-slice="team-workspace-context" hidden>
         Toronto Academy
        </div>
        <div class="group-project-meta">
@@ -1190,21 +1243,14 @@ a {
      </a>
     </div>
     <div class="pipeline-area">
+     <a class="project-detail-back" href="#" onclick="showWorkspaceLanding(event)">&lsaquo; Back to Workspace</a>
      <div class="group-overview">
       <div class="group-overview-top">
        <div>
         <h2>
          U17 Midfielders
         </h2>
-        <div class="group-workspace-marker">
-         Toronto Academy
-        </div>
-        <span class="workspace-type-marker">
-         Filtered context
-        </span>
-        <span class="owner-pill">
-         Lead Scout: Mike Brown
-        </span>
+        <span class="workspace-type-marker">Active</span>
        </div>
        <div class="workspace-action-row">
         <a class="button btn-light" href="create_group.html">
@@ -1213,7 +1259,7 @@ a {
         <a class="button btn-light" href="#">
          Archive Project
         </a>
-        <a class="button btn-danger" href="#">
+        <a class="button btn-danger" data-future-slice="permanent-delete" hidden href="#">
          Delete
         </a>
        </div>
@@ -1223,7 +1269,7 @@ a {
         <strong>
          Criteria
         </strong>
-        Football &middot; Midfielder &middot; Age 15&ndash;17 &middot; Canada
+        Soccer &middot; Midfielder &middot; Age 15&ndash;17 &middot; Spain
        </div>
 	       <div class="overview-tile">
 	        <strong>
@@ -1241,7 +1287,7 @@ a {
 	        <strong>
 	         Closed Outcomes
 	        </strong>
-	        1 signed &middot; 1 rejected
+	         1 recruited &middot; 1 not selected
        </div>
 	     </div>
 	    </div>
@@ -1252,7 +1298,7 @@ a {
 	        Saved Athletes
 	       </h2>
 	       <p>
-	        Project longlist from Discovery. Saved athletes stay available unless explicitly removed, and can remain saved after they enter the pipeline.
+	        Project longlist from Discovery. Every pipeline athlete remains in this list.
 	       </p>
 	      </div>
 	      <div class="saved-filter-row">
@@ -1273,7 +1319,7 @@ a {
 	        Ethan White
 	       </div>
 	       <div class="saved-athlete-meta">
-	        Midfielder &middot; 16 &middot; Canada &middot; Saved from Discovery
+	        Midfielder &middot; 16 &middot; Spain &middot; Saved today
 	       </div>
 	       <span class="pipeline-state none">
 	        Not in Pipeline
@@ -1292,7 +1338,7 @@ a {
 	        John Smith
 	       </div>
 	       <div class="saved-athlete-meta">
-	        Midfielder &middot; 17 &middot; Canada &middot; Saved before pipeline
+	        Midfielder &middot; 17 &middot; Spain &middot; Saved Jun 20, 2026
 	       </div>
 	       <span class="pipeline-state">
 	        In Pipeline &middot; New
@@ -1354,7 +1400,7 @@ a {
          Sort: Recently updated
         </option>
         <option>
-         Sort: Match score
+         Sort: Name A–Z
         </option>
        </select>
        <input class="search-box" placeholder="Search saved athletes..."/>
@@ -1363,8 +1409,8 @@ a {
      <div class="pipeline">
       <div class="column">
        <div class="column-header new-header">
-        New
-        <span>
+       New
+       <span>
          2
         </span>
        </div>
@@ -1378,17 +1424,17 @@ a {
          </button>
         </div>
         <div class="prospect-meta">
-         Midfielder &bull; 17 &bull; Canada
+         Midfielder &bull; 17 &bull; Spain
         </div>
         <div class="tag-row">
          <span class="tag tag-priority">
           High priority
          </span>
-         <span class="tag tag-video">
+         <span class="tag tag-video" data-future-slice="automated-matching" hidden>
           Match score 94%
          </span>
         </div>
-        <div class="primary-scout">
+        <div class="primary-scout" data-future-slice="team-collaboration" hidden>
          Lead Scout: Mike Brown
         </div>
         <div class="card-footer tidy">
@@ -1407,17 +1453,17 @@ a {
          </button>
         </div>
         <div class="prospect-meta">
-         Goalkeeper &bull; 18 &bull; Canada
+         Goalkeeper &bull; 18 &bull; Spain
         </div>
         <div class="tag-row">
          <span class="tag tag-priority medium">
           Medium priority
          </span>
-         <span class="tag tag-video">
+         <span class="tag tag-video" data-future-slice="automated-matching" hidden>
           Match score 82%
          </span>
         </div>
-        <div class="primary-scout unassigned">
+        <div class="primary-scout unassigned" data-future-slice="team-collaboration" hidden>
          Unassigned
         </div>
         <div class="card-footer tidy">
@@ -1451,10 +1497,10 @@ a {
           High priority
          </span>
          <span class="tag tag-request">
-          Needs evaluation
+          Part 2: Needs evaluation
          </span>
         </div>
-        <div class="primary-scout">
+        <div class="primary-scout" data-future-slice="team-collaboration" hidden>
          Lead Scout: Mike Brown
         </div>
         <div class="active-projects">
@@ -1487,17 +1533,17 @@ a {
          </button>
         </div>
         <div class="prospect-meta">
-         Centre Back &bull; 18 &bull; Canada
+         Centre Back &bull; 18 &bull; Spain
         </div>
         <div class="tag-row">
          <span class="tag tag-priority medium">
           Medium priority
          </span>
          <span class="tag tag-request">
-          Request open
+          Later: Request open
          </span>
         </div>
-        <div class="primary-scout">
+        <div class="primary-scout" data-future-slice="team-collaboration" hidden>
          Lead Scout: Mike Brown
         </div>
         <div class="card-footer tidy">
@@ -1524,7 +1570,7 @@ a {
          </button>
         </div>
         <div class="prospect-meta">
-         Striker &bull; 19 &bull; Canada
+         Striker &bull; 19 &bull; Spain
         </div>
         <div class="tag-row">
          <span class="tag tag-priority">
@@ -1534,7 +1580,7 @@ a {
           Compare shortlist
          </span>
         </div>
-        <div class="primary-scout">
+        <div class="primary-scout" data-future-slice="team-collaboration" hidden>
          Lead Scout: Mike Brown
         </div>
         <div class="card-footer tidy">
@@ -1546,12 +1592,12 @@ a {
       </div>
       <div class="column">
        <div class="column-header decision-header">
-        Decision / Closed
-        <span>
-         2
+       Decision
+       <span>
+         0
         </span>
        </div>
-       <div class="prospect-card closed-card">
+       <div class="prospect-card closed-card" hidden>
         <div class="prospect-top">
          <a class="prospect-name" href="profile.html#interaction-history">
           Pau Cubarsi
@@ -1599,7 +1645,7 @@ a {
          </a>
         </div>
        </div>
-       <div class="prospect-card closed-card">
+       <div class="prospect-card closed-card" hidden>
         <div class="prospect-top">
          <a class="prospect-name" href="profile.html#interaction-history">
           Marco Silva
@@ -1649,6 +1695,23 @@ a {
        </div>
       </div>
 	     </div>
+     <div class="saved-athletes-card">
+      <div class="saved-athletes-top">
+       <div><h2>Closed</h2><p>Completed pipeline records remain in project history and may be reopened.</p></div>
+      </div>
+      <div class="saved-athletes-grid">
+       <div class="saved-athlete-item">
+        <div class="saved-athlete-name">Pau Cubarsi</div>
+        <div class="saved-athlete-meta">Outcome: Recruited · Closed Jun 25, 2026 · Final stage: Decision · High priority</div>
+        <div class="saved-athlete-actions"><a class="small-action" href="profile.html#interaction-history">History</a><a class="small-action primary" href="#">Reopen</a></div>
+       </div>
+       <div class="saved-athlete-item">
+        <div class="saved-athlete-name">Marco Silva</div>
+        <div class="saved-athlete-meta">Outcome: Not selected · Closed Jun 24, 2026 · Final stage: Decision · Low priority</div>
+        <div class="saved-athlete-actions"><a class="small-action" href="profile.html#interaction-history">History</a><a class="small-action primary" href="#">Reopen</a></div>
+       </div>
+      </div>
+     </div>
      <div class="saved-comparisons-card">
       <div class="saved-comparisons-top">
        <div>
@@ -1656,12 +1719,12 @@ a {
          Archived Project Example
         </h2>
         <p>
-         Archived projects are closed and read-only, but can be consulted and reactivated without losing criteria, athletes, evaluations, notes, or results.
+         Archived projects are read-only and can be reactivated without losing project records. Athlete profiles always show current accessible information; no profile or media snapshot is stored here.
         </p>
        </div>
       </div>
       <div class="group-project-meta" style="margin-bottom:12px;">
-       Status: Archived &middot; Closed Jun 25, 2026 &middot; Context: Toronto Academy
+       Status: Archived &middot; Closed Jun 25, 2026 &middot; 3 active pipeline records preserved
       </div>
       <div class="workspace-action-row">
        <a class="button btn-light" href="#">
@@ -1822,7 +1885,28 @@ function clearCompare() {
   updateCompareTray();
 }
 
-document.addEventListener("DOMContentLoaded", updateCompareTray);
+function openProjectDetail(event) {
+  if (event) event.preventDefault();
+  const landing = document.getElementById("workspaceLanding");
+  const detail = document.getElementById("projectDetail");
+  if (landing) landing.hidden = true;
+  if (detail) detail.hidden = false;
+  window.location.hash = "project-detail";
+}
+
+function showWorkspaceLanding(event) {
+  if (event) event.preventDefault();
+  const landing = document.getElementById("workspaceLanding");
+  const detail = document.getElementById("projectDetail");
+  if (landing) landing.hidden = false;
+  if (detail) detail.hidden = true;
+  history.replaceState(null, "", window.location.pathname);
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  updateCompareTray();
+  if (window.location.hash === "#project-detail") openProjectDetail();
+});
       </script>
       <script>
        function decodeHtml(value) {

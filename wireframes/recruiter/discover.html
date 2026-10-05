@@ -544,23 +544,23 @@ select:focus, input:focus {
       Discover Athletes
      </h1>
     </div>
-	    <a class="button btn-primary" href="#">
-	     Save Search as Project
+	    <a class="button btn-primary" href="create_group.html">
+	     Create project from search
 	    </a>
    </div>
    <div class="layout">
     <div class="card filters">
-     <div class="project-filter-card">
+     <div class="project-filter-card" data-future-slice="apply-project-criteria" hidden>
       <div class="project-filter-title">
-       Apply Workspace / Project Criteria
+       Apply Project Criteria
       </div>
       <div class="workspace-select-row" style="margin-top:10px;">
-       <select id="workspaceSelect" onchange="updateWorkspaceProjects()">
+       <select id="workspaceSelect" onchange="updateWorkspaceProjects()" data-future-slice="team-workspaces" hidden>
         <option value="toronto">
-         Toronto Academy Workspace
+         Team Workspace (future)
         </option>
         <option value="individual">
-         Mike Brown Individual Workspace
+         Individual Workspace
         </option>
        </select>
        <select id="projectSelect" onchange="updateProjectPreview()">
@@ -577,16 +577,29 @@ select:focus, input:focus {
       </div>
       <div class="workspace-context-preview">
        <div class="workspace-marker" id="workspaceMarker">
-        Toronto Academy
+        Individual Workspace
        </div>
       </div>
       <div class="workspace-project-note" id="projectCriteriaPreview">
-       Applied criteria: Football &middot; Midfielder &middot; Age 15&ndash;17 &middot; Ontario &middot; Academy &middot; Highlight video required
+       Applied criteria: Soccer &middot; Midfielder &middot; Age 15&ndash;17 &middot; Spain &middot; Skill Clips required
       </div>
      </div>
      <h2 class="section-title">
-      Search Filters
+     Search Filters
      </h2>
+     <div class="filter-section">
+      <div class="filter-label">Recruiting Category</div>
+      <label><input checked type="checkbox"/> Men's Soccer</label><br/>
+      <label><input checked type="checkbox"/> Women's Soccer</label>
+     </div>
+     <div class="filter-section"><div class="filter-label">Position</div><select><option>Any position</option><option>Goalkeeper</option><option>Defender</option><option>Midfielder</option><option>Winger</option><option>Forward</option></select></div>
+     <div class="filter-section"><div class="filter-label">Age</div><div class="filter-grid-2"><select><option>Minimum age</option><option>14</option><option>15</option><option>16</option></select><select><option>Maximum age</option><option>17</option><option>18</option><option>19</option></select></div></div>
+     <div class="filter-section"><div class="filter-label">Country of Residence</div><select disabled><option>Spain — pilot market</option></select></div>
+     <div class="filter-section"><div class="filter-label">Height</div><div class="filter-grid-2"><select><option>Minimum height</option><option>170 cm</option><option>175 cm</option><option>180 cm</option></select><select><option>Maximum height</option><option>180 cm</option><option>185 cm</option><option>No maximum</option></select></div></div>
+     <div class="filter-section"><div class="filter-label">Recruiting Availability</div><label><input checked type="checkbox"/> Open to opportunities</label><br/><label><input checked type="checkbox"/> Committed</label><br/><label><input checked type="checkbox"/> Not currently seeking</label></div>
+     <div class="filter-section"><div class="filter-label">Target College Start</div><select><option>Any year</option><option>2027</option><option>2028</option><option>2029</option></select></div>
+     <div class="filter-section"><div class="filter-label">Media</div><label><input type="checkbox"/> Has Skill Clips</label><br/><label><input type="checkbox"/> Has Extended Match Footage</label></div>
+     <div data-future-slice="advanced-discovery-filters" hidden>
      <div class="filter-section">
       <div class="filter-label">
        Sport
@@ -870,6 +883,7 @@ select:focus, input:focus {
        </option>
       </select>
      </div>
+     </div>
      <div style="margin-top:16px; display:grid; gap:8px;">
       <a class="button btn-primary" href="#" style="width:100%;">
        Apply Filters
@@ -881,7 +895,7 @@ select:focus, input:focus {
     </div>
     <div>
 	     <div class="card search-panel">
-	      <input class="search-box" placeholder="Search by name, position, club, country, or recruiting criteria..."/>
+	      <input class="search-box" placeholder="Search by athlete name, club, academy, team, or squad..."/>
 	      <a class="button btn-dark" href="#">
 	       Search
 	      </a>
@@ -891,7 +905,7 @@ select:focus, input:focus {
 	       Save to Project
 	      </strong>
 	      <p style="font-size:13px;">
-	       Saving adds the athlete to the selected project's Saved Athletes longlist. Pipeline starts later when the scout chooses Add to Pipeline.
+	       Saving adds the athlete to the selected project's Saved Athletes longlist. It does not add the athlete to the pipeline.
 	      </p>
 	     </div>
 	     <div class="results">
@@ -908,16 +922,16 @@ select:focus, input:focus {
            </a>
           </h3>
           <p>
-           Midfielder | 17 | Canada | Toronto Academy
+           Midfielder | 17 | Spain | Open to opportunities | College start 2027
           </p>
           <div class="result-meta">
            <span class="tag tag-blue">
-            Highlight Video
+            4 Skill Clips
            </span>
-           <span class="tag tag-green">
+           <span class="tag tag-green" data-future-slice="additional-trust-badges" hidden>
             Verified Profile
            </span>
-           <span class="tag tag-orange">
+           <span class="tag tag-orange" data-future-slice="automated-matching" hidden>
             High Match
            </span>
           </div>
@@ -936,20 +950,20 @@ select:focus, input:focus {
           Save to selected project...
          </button>
          <div class="destination-menu">
-          <button class="destination-option" onclick="addToWorkspace(this, 'Toronto Academy &middot; U17 Midfielders')">
-           Toronto Academy &middot; U17 Midfielders
+          <button class="destination-option" onclick="addToWorkspace(this, 'U17 Midfielders')">
+           U17 Midfielders
            <small>
             Project saved athletes list
            </small>
           </button>
-          <button class="destination-option" onclick="addToWorkspace(this, 'Toronto Academy &middot; Spain Targets')">
-           Toronto Academy &middot; Spain Targets
+          <button class="destination-option" onclick="addToWorkspace(this, 'Spain Targets')">
+           Spain Targets
            <small>
             Project saved athletes list
            </small>
           </button>
-          <button class="destination-option" onclick="addToWorkspace(this, 'My Individual Workspace &middot; Personal Watchlist')">
-           My Individual Workspace &middot; Personal Watchlist
+          <button class="destination-option" onclick="addToWorkspace(this, 'Personal Watchlist')">
+           Personal Watchlist
            <small>
             Private project saved athletes list
            </small>
@@ -971,14 +985,14 @@ select:focus, input:focus {
            </a>
           </h3>
           <p>
-           Forward | 18 | Spain | Madrid Youth Club
+           Forward | 18 | Spain | Open to opportunities | College start 2027
           </p>
           <div class="result-meta">
            <span class="tag tag-blue">
-            Full Match
+            Extended Match
            </span>
            <span class="tag tag-purple">
-            Open to Trial
+            3 Skill Clips
            </span>
           </div>
          </div>
@@ -996,20 +1010,20 @@ select:focus, input:focus {
           Save to selected project...
          </button>
          <div class="destination-menu">
-          <button class="destination-option" onclick="addToWorkspace(this, 'Toronto Academy &middot; U17 Midfielders')">
-           Toronto Academy &middot; U17 Midfielders
+          <button class="destination-option" onclick="addToWorkspace(this, 'U17 Midfielders')">
+           U17 Midfielders
            <small>
             Project saved athletes list
            </small>
           </button>
-          <button class="destination-option" onclick="addToWorkspace(this, 'Toronto Academy &middot; Spain Targets')">
-           Toronto Academy &middot; Spain Targets
+          <button class="destination-option" onclick="addToWorkspace(this, 'Spain Targets')">
+           Spain Targets
            <small>
             Project saved athletes list
            </small>
           </button>
-          <button class="destination-option" onclick="addToWorkspace(this, 'My Individual Workspace &middot; Personal Watchlist')">
-           My Individual Workspace &middot; Personal Watchlist
+          <button class="destination-option" onclick="addToWorkspace(this, 'Personal Watchlist')">
+           Personal Watchlist
            <small>
             Private project saved athletes list
            </small>
@@ -1031,13 +1045,13 @@ select:focus, input:focus {
            </a>
           </h3>
           <p>
-           Winger | 17 | Spain | Valencia Youth
+           Winger | 17 | Spain | Committed | College start 2028
           </p>
           <div class="result-meta">
-           <span class="tag tag-green">
+           <span class="tag tag-green" data-future-slice="additional-trust-badges" hidden>
             Verified Profile
            </span>
-           <span class="tag tag-orange">
+           <span class="tag tag-orange" data-future-slice="automated-matching" hidden>
             Strong Match
            </span>
           </div>
@@ -1056,20 +1070,20 @@ select:focus, input:focus {
           Save to selected project...
          </button>
          <div class="destination-menu">
-          <button class="destination-option" onclick="addToWorkspace(this, 'Toronto Academy &middot; U17 Midfielders')">
-           Toronto Academy &middot; U17 Midfielders
+          <button class="destination-option" onclick="addToWorkspace(this, 'U17 Midfielders')">
+           U17 Midfielders
            <small>
             Project saved athletes list
            </small>
           </button>
-          <button class="destination-option" onclick="addToWorkspace(this, 'Toronto Academy &middot; Spain Targets')">
-           Toronto Academy &middot; Spain Targets
+          <button class="destination-option" onclick="addToWorkspace(this, 'Spain Targets')">
+           Spain Targets
            <small>
             Project saved athletes list
            </small>
           </button>
-          <button class="destination-option" onclick="addToWorkspace(this, 'My Individual Workspace &middot; Personal Watchlist')">
-           My Individual Workspace &middot; Personal Watchlist
+          <button class="destination-option" onclick="addToWorkspace(this, 'Personal Watchlist')">
+           Personal Watchlist
            <small>
             Private project saved athletes list
            </small>
