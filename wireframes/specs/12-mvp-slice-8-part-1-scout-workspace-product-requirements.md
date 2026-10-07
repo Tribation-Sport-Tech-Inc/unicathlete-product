@@ -15,10 +15,10 @@ An eligible Scout can organize discovered athletes in one private individual Wor
 The landing page shows:
 
 - `Create Recruiting Project`;
-- active projects, most recently meaningfully updated first, with `Name A–Z` as an additional sort;
+- active projects, most recently meaningfully updated first, with `Name A–Z` as an additional sort. Meaningful updates are project-detail or criteria changes, Saved Athlete changes, pipeline additions or reopenings, and stage, priority, or outcome changes; passive views do not update the order;
 - access to archived projects;
 - active- and archived-project counts;
-- unique athletes saved across active projects; and
+- unique Soccer Sport Profiles saved across active projects; and
 - active project-athlete pipeline-record count.
 
 When no project exists, show `Create your first Recruiting Project` and the create action.
@@ -29,11 +29,12 @@ When no project exists, show `Create your first Recruiting Project` and the crea
 - The pilot Scout is the sole Workspace owner. Do not show Lead Scout, assignment, member, or role controls.
 - The model must later support multiple authorized Workspace members and role-based permissions without migrating existing projects or athlete records.
 - A future team Workspace must not automatically receive access to the Scout's individual Workspace data.
+- Store the Scout's confirmed affiliation at project creation as immutable historical context only. It does not create organization ownership, sharing, or team access.
 
 ## Recruiting Projects
 
 - Project name is required. Description and recruiting criteria are optional and editable while active.
-- Criteria use the controlled Slice 7 Discovery fields: recruiting category, position, age range, height range, recruiting availability, target college start year and optional term, Skill Clips requirement, and Extended Match Footage requirement.
+- Criteria use the controlled Slice 7 Discovery fields: recruiting category, position, age range, height range, recruiting availability, target college start year and optional term, Skill Clips requirement, and Extended Match Footage requirement. Store selected minimum and maximum ages rather than a birth-date range resolved at creation. Store college-start year and optional controlled term as separate values.
 - Spain is the fixed pilot market.
 - Criteria are guidance only. They do not restrict, rank, add, remove, promote, or close athletes. Do not calculate a project-match score.
 
@@ -58,16 +59,19 @@ Provide:
 - Allow saving from Discovery and the Scout-facing athlete profile to one selected active project.
 - If no project exists, allow project creation from the save flow.
 - Saving does not add the athlete to the pipeline.
-- Every pipeline athlete remains in Saved Athletes for that project.
-- An athlete may be removed after confirmation only when they do not have an active pipeline record in that project.
+- Every athlete with an active pipeline record remains in Saved Athletes for that project.
+- An athlete may be removed after confirmation only when they do not have an active pipeline record in that project. Removing an athlete after closure does not delete or change the closed pipeline record or its history.
+- Closing a pipeline record does not automatically remove the athlete from Saved Athletes. Reopening restores the athlete to Saved Athletes when necessary.
 
 Provide:
 
-- `All Saved` — default;
-- `Not in Pipeline`; and
-- `In Pipeline`.
+- `Current` — default; includes Saved only and Active in pipeline;
+- `Saved only`;
+- `Active in pipeline`;
+- `Closed`; and
+- `All`.
 
-Default to most recently saved first and also allow `Name A–Z`. Show saved date and, when applicable, pipeline stage and priority.
+Default to most recently saved first and also allow `Name A–Z`. Show saved date and `Saved only`, `Active in pipeline · [stage]`, or `Closed · [outcome]`; show priority for active pipeline records.
 
 ## Pipeline
 
@@ -95,9 +99,10 @@ Default to most recently saved first and also allow `Name A–Z`. Show saved dat
 Controlled outcomes are `Recruited`, `Not selected`, `Athlete withdrew`, and `No longer available`.
 
 - An athlete may remain active in `Decision` without an outcome.
+- `Close with outcome` is available from every active pipeline stage.
 - Selecting an outcome closes the pipeline record and moves it from the active board to a separate Closed view.
 - Show outcome, closing date, final stage, and priority at closure.
-- Reopening returns the athlete to `Decision` and preserves previous outcome history.
+- Reopening returns the athlete to the stage from which the record was closed unless the Scout selects another active stage, and preserves previous outcome history.
 
 ## Unavailable Athletes
 
@@ -107,6 +112,8 @@ If a saved or pipeline athlete becomes inaccessible:
 - show `This profile is no longer available` without disclosing why;
 - block profile and media access and retain no Scout-accessible cached copy; and
 - restore current-profile access if the athlete becomes accessible again.
+
+`No longer available` is a Scout-selected outcome and must never be assigned automatically because profile access ended.
 
 ## Project Archive
 

@@ -1519,15 +1519,6 @@ Line 2 later adds permissions around this relationship, such as allowing another
         4
        </span>
       </a>
-      <a class="workspace-btn workspace-btn-secondary" href="#past-projects">
-       <span class="workspace-btn-icon">
-        🗂
-       </span>
-       Past Projects
-       <span class="workspace-badge">
-        2
-       </span>
-      </a>
       <a class="workspace-btn workspace-btn-secondary" href="requests.html">
        <span class="workspace-btn-icon">
         +
@@ -1541,85 +1532,52 @@ Line 2 later adds permissions around this relationship, such as allowing another
       <div class="status-label">
        Projects containing this athlete
       </div>
-      <div class="project-card active" data-project="u17" onclick="selectProjectContext('u17')">
+      <div class="project-card" data-project="u17">
        <div class="project-name">
         U17 Midfielders
        </div>
        <div class="project-meta">
-        Active &middot; Active in Pipeline
+        Active project
        </div>
        <div class="project-chip-row">
         <span class="project-chip secondary">
-         Active
-        </span>
-        <span class="project-chip">
-         Active in Pipeline
-        </span>
-        <span class="project-chip secondary">
-         Reviewing
+         Pipeline: Reviewing
         </span>
         <span class="project-chip secondary">
          Priority: High
         </span>
        </div>
-       <a class="mini-action" href="workspace.html#project-detail">
-        Open Project
-       </a>
-       <a class="mini-action" data-future-slice="evaluations" href="evaluation_management.html">
-        Part 2: Open Evaluation
+       <a class="mini-action" href="evaluation_management.html">
+        Open project record
        </a>
       </div>
-      <div class="project-card" data-project="ontario" onclick="selectProjectContext('ontario')">
+      <div class="project-card" data-project="ontario">
        <div class="project-name">
         Scholarship Candidates
        </div>
        <div class="project-meta">
-        Active &middot; Saved only
+        Active project
        </div>
        <div class="project-chip-row">
         <span class="project-chip secondary">
-         Active
-        </span>
-        <span class="project-chip secondary">
          Saved only
-        </span>
-        <span class="project-chip secondary">
-         Add to pipeline
-        </span>
-        <span class="project-chip secondary">
-         Priority: Not set
         </span>
        </div>
        <a class="mini-action" href="workspace.html#project-detail">
-        Open Project
+        Add to pipeline
+       </a>
+       <a class="mini-action" href="evaluation_management.html">
+        Open project record
        </a>
       </div>
       <div class="project-card">
        <div class="project-name">2025 International Prospects</div>
-       <div class="project-meta">Archived · Closed</div>
-       <div class="project-chip-row"><span class="project-chip secondary">Archived</span><span class="project-chip secondary">Outcome: Not selected</span></div>
-       <a class="mini-action" href="workspace.html#project-detail">Open project</a>
+       <div class="project-meta">Archived project</div>
+       <div class="project-chip-row"><span class="project-chip secondary">Outcome: Not selected</span></div>
+       <a class="mini-action" href="evaluation_management.html">Open project record</a>
       </div>
      </div>
 
-     <div class="status-card">
-      <div class="status-label">
-       Pipeline Status
-      </div>
-      <div class="status-value" id="pipelineStatus">
-       Reviewing
-      </div>
-     </div>
-     <div class="status-card">
-      <div class="status-label">
-       Priority Level
-      </div>
-      <div>
-       <span class="priority-value" id="priorityLevel">
-        High
-       </span>
-      </div>
-     </div>
      <div class="status-card" data-future-slice="team-collaboration" hidden>
       <div class="status-label">
        Lead Scout
@@ -1643,54 +1601,6 @@ Line 2 later adds permissions around this relationship, such as allowing another
       <a class="mini-action" href="#">
        Future: Add Collaborator
       </a>
-     </div>
-     <div class="status-card">
-      <div class="status-label">
-       Part 2: Project Rating
-      </div>
-      <div class="status-value" id="ratingScore" style="font-size:24px;">
-       8.0 / 10
-      </div>
-      <div class="rating-context-note" id="ratingMeta">
-       Scout rating for U17 Midfielders &middot; 3 evaluations
-      </div>
-     </div>
-     <div class="section-divider">
-     </div>
-     <div class="status-card" id="past-projects">
-      <div class="status-value">
-       Past Projects
-      </div>
-      <div class="history-project-row closed-project-row">
-       <strong>
-        Canada Games
-       </strong>
-       <span>
-        Closed &middot;
-        <span class="outcome-signed">
-         Signed
-        </span>
-        &middot; Reason: Strong trial performance
-       </span>
-       <a class="mini-action" href="evaluation_management.html">
-        View Project History
-       </a>
-      </div>
-      <div class="history-project-row closed-project-row">
-       <strong>
-        2025 Ontario Showcase
-       </strong>
-       <span>
-        Closed &middot;
-        <span class="outcome-rejected">
-         Rejected
-        </span>
-        &middot; Reason: Tactical fit
-       </span>
-       <a class="mini-action" href="evaluation_management.html">
-        View Project History
-       </a>
-      </div>
      </div>
     </div>
    </div>
@@ -1736,79 +1646,6 @@ Line 2 later adds permissions around this relationship, such as allowing another
    </div>
   </div>
   <script>
-   const projectContexts = {
-  u17: {
-    name: "U17 Midfielders",
-    criteria: "Criteria: Midfielder · Age 15–17 · Ontario · Academy level",
-    context: "Toronto Academy",
-    pipelineStatus: "Reviewing",
-    priority: "High",
-    priorityClass: "",
-    primaryScout: "Mike Brown",
-    collaborators: [],
-    rating: "8.0 / 10",
-    ratingMeta: "Scout rating for U17 Midfielders · 3 evaluations"
-  },
-  ontario: {
-    name: "Ontario Prospects",
-    criteria: "Criteria: Any position · Ontario · Academy level",
-    context: "Independent",
-    pipelineStatus: "New",
-    priority: "Medium",
-    priorityClass: "medium",
-    primaryScout: "Mike Brown",
-    collaborators: [],
-    rating: "7.4 / 10",
-    ratingMeta: "Scout rating for Ontario Prospects · 2 evaluations"
-  }
-};
-
-function selectProjectContext(projectKey) {
-  const project = projectContexts[projectKey];
-  if (!project) return;
-
-  document.querySelectorAll(".project-card[data-project]").forEach(function(card) {
-    card.classList.toggle("active", card.dataset.project === projectKey);
-
-    const firstChip = card.querySelector(".project-chip-row .project-chip:nth-child(2)");
-    if (firstChip) {
-      firstChip.textContent = card.dataset.project === projectKey ? "Selected Context" : "Additional Context";
-      firstChip.classList.toggle("secondary", card.dataset.project !== projectKey);
-    }
-  });
-
-  document.getElementById("selectedProjectName").textContent = project.name;
-  document.getElementById("selectedProjectCriteria").textContent = project.criteria;
-  document.getElementById("pipelineStatus").textContent = project.pipelineStatus;
-  const priorityLevel = document.getElementById("priorityLevel");
-  priorityLevel.textContent = project.priority;
-  priorityLevel.className = "priority-value" + (project.priorityClass ? " " + project.priorityClass : "");
-  document.getElementById("primaryScout").textContent = project.primaryScout;
-  document.getElementById("ratingScore").textContent = project.rating;
-  document.getElementById("ratingMeta").textContent = project.ratingMeta;
-
-  const collaboratorList = document.getElementById("collaboratorList");
-  collaboratorList.innerHTML = "";
-
-  if (project.collaborators.length === 0) {
-    const empty = document.createElement("span");
-    empty.className = "rating-context-note";
-    empty.textContent = "Collaborator review is post-MVP";
-    collaboratorList.appendChild(empty);
-  } else {
-    project.collaborators.forEach(function(name) {
-      const chip = document.createElement("span");
-      chip.className = "team-chip";
-      chip.textContent = name;
-      collaboratorList.appendChild(chip);
-    });
-  }
-}
-
-function updateEvaluationContext(select) {
-  selectProjectContext(select.value);
-}
-
 function openBackendNote(button) {
   const modal = document.getElementById("backendNoteModal");
   const title = document.getElementById("backendModalTitle");
@@ -1929,7 +1766,6 @@ function clearCompare() {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-  selectProjectContext("u17");
   updateCompareTray();
 });
   </script>
