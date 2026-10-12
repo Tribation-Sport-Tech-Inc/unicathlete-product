@@ -2,14 +2,16 @@
 
 ## Outcome
 
-An eligible Scout can organize discovered athletes in one private individual Workspace using Recruiting Projects, project-specific Saved Athletes lists, and project pipelines.
+An eligible Scout can organize discovered athletes in a private affiliation-scoped Workspace using Recruiting Projects, project-specific Saved Athletes lists, and project pipelines.
 
 ## Workspace
 
-- The pilot provides one individual Workspace per Scout.
+- The pilot shows one individual Workspace for the Scout's current eligible organization affiliation.
+- The backend must support separate Workspaces for different organization affiliations. Renewal or reverification of the same organization relationship continues using the same Workspace; a genuinely different organization affiliation uses a separate Workspace.
 - Workspace access requires the Slice 4 Scout athlete-access eligibility result to be `Eligible`.
 - An ineligible Scout selecting Workspace sees their eligibility requirements and next action, with no Workspace content or counts.
-- If eligibility is lost, lock access without changing Workspace records. Restore access to the same Workspace when eligibility returns.
+- If eligibility is lost, lock access without changing Workspace records. Restore the same Workspace when the same organization relationship becomes eligible again.
+- Do not copy or transfer projects, athlete records, conversations, requests, evaluations, notes, or sharing permissions between Workspaces automatically.
 - Workspace always opens its landing page rather than opening a project automatically.
 
 The landing page shows:
@@ -26,10 +28,11 @@ When no project exists, show `Create your first Recruiting Project` and the crea
 ## Ownership and Future Team Compatibility
 
 - Workspace records belong to the Workspace; record the acting Scout separately.
-- The pilot Scout is the sole Workspace owner. Do not show Lead Scout, assignment, member, or role controls.
+- Each Workspace is scoped to one verified organization relationship. Organization scope does not by itself grant access.
+- The pilot Scout is the sole authorized Workspace member. Do not show Workspace switching, Lead Scout, assignment, member, or role controls.
 - The model must later support multiple authorized Workspace members and role-based permissions without migrating existing projects or athlete records.
-- A future team Workspace must not automatically receive access to the Scout's individual Workspace data.
-- Store the Scout's confirmed affiliation at project creation as immutable historical context only. It does not create organization ownership, sharing, or team access.
+- Future access requires explicit Workspace membership; another Scout's affiliation with the same organization does not automatically grant access.
+- Store the exact confirmed affiliation version applicable to each project and action as immutable historical context.
 
 ## Recruiting Projects
 
@@ -149,6 +152,6 @@ Allow `Save to another project` and, for a Saved-only athlete in an active proje
 - evaluations and internal notes;
 - messaging, requests, and comparison;
 - saved searches, alerts, and automated matching;
-- team collaboration and additional Workspaces;
+- Workspace switching and team collaboration;
 - payments and commercial limits; and
 - analytics, to be defined after the Slice 8 data model.

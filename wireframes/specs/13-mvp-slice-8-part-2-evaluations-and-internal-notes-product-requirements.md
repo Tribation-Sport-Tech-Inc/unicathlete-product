@@ -8,8 +8,8 @@ An eligible Scout can evaluate and maintain private working notes about an athle
 
 - Evaluations, notes, and activity belong to the Workspace athlete-project record; store the acting Scout and confirmed affiliation context separately.
 - The athlete must have an active pipeline record before the Scout can create an evaluation or internal note. Saved-only athletes must first enter the pipeline.
-- The pilot Scout is the individual Workspace's only authorized member. Affiliation does not grant access.
-- Future authorized Workspace members may create their own evaluations without migrating existing records. A future team Workspace must not automatically receive records from an individual Workspace.
+- The pilot Scout is the affiliation-scoped Workspace's only authorized member. Organization affiliation alone does not grant access.
+- Future explicitly authorized Workspace members may create their own evaluations without migrating existing records. Records never transfer automatically to another Workspace.
 - Athletes and guardians cannot access or receive notifications about evaluations, notes, stages, priorities, recommendations, or outcomes.
 - Loss of Scout eligibility blocks access without changing records. Restore access when eligibility returns and the athlete remains accessible.
 

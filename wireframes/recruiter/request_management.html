@@ -625,7 +625,7 @@ body {
       Request Management
      </h1>
      <p>
-      Review project-specific request history, submitted information, and follow-ups for this athlete.
+      Review information requests within this Workspace–Athlete conversation.
      </p>
     </div>
    </div>
@@ -666,7 +666,7 @@ body {
        Message Athlete
       </a>
       <a class="secondary-request-action" href="#">
-       Assign Follow-Up
+       Open Athlete Profile
       </a>
      </div>
     </div>
@@ -690,19 +690,11 @@ body {
       </span>
      </div>
     </div>
-    <div class="criteria-box">
-     <strong>
-      Linked Recruiting Projects
-     </strong>
-     <span>
-      U17 Midfielders &middot; Ontario Prospects &middot; Spain Targets
-     </span>
-    </div>
    </div>
    <div class="summary-grid">
     <div class="summary-card">
      <strong>
-      4
+      3
      </strong>
      <span>
       Total Requests
@@ -718,7 +710,7 @@ body {
     </div>
     <div class="summary-card">
      <strong>
-      2
+      1
      </strong>
      <span>
       Submitted
@@ -729,7 +721,7 @@ body {
       1
      </strong>
      <span>
-      Reviewed
+      Declined
      </span>
     </div>
    </div>
@@ -740,7 +732,7 @@ body {
        Request History
       </h2>
       <p class="section-subtitle">
-       Track structured requests, statuses, creators, reviewers, and athlete responses for this scout-athlete relationship.
+       Track structured requests and athlete responses without exposing recruiting-project context.
       </p>
       <div class="request-filter-row">
        <div class="request-filter">
@@ -755,10 +747,10 @@ body {
           Submitted
          </option>
          <option>
-          Reviewed
+          Declined
          </option>
          <option>
-          Closed
+          Withdrawn
          </option>
         </select>
        </div>
@@ -771,17 +763,12 @@ body {
           Media Request
          </option>
          <option>
-          Medical Information
+          Document Request
          </option>
          <option>
-          Verification
+          Coach Reference
          </option>
          <option>
-          Introductory Call
-         </option>
-         <option>
-          Assessment / Trial
-         </option>
         </select>
        </div>
        <div class="request-filter">
@@ -805,12 +792,12 @@ body {
        <div class="request-row highlight">
         <div>
          <div class="request-title">
-          Medical Information Request
+          Academic Transcript Request
          </div>
          <div class="request-meta">
           Sent Jun 14, 2026 &middot; Deadline Jun 20, 2026
           <br/>
-          Created by Mike Brown &middot; Linked to U17 Midfielders + Ontario Prospects
+          Requested by Jun 20, 2026 &middot; Created by Mike Brown
          </div>
          <span class="status pending">
           Pending
@@ -828,15 +815,15 @@ body {
        <div class="request-row">
         <div>
          <div class="request-title">
-          Match Footage Request
+          Extended Match Footage Request
          </div>
          <div class="request-meta">
           Sent Jun 12, 2026 &middot; Submitted Jun 15, 2026
           <br/>
-          Created by Sarah Wilson &middot; Linked to U17 Midfielders
+          Created by Mike Brown &middot; Available on the athlete profile
          </div>
          <span class="status completed">
-          Completed
+          Submitted
          </span>
         </div>
         <div class="request-actions">
@@ -851,15 +838,15 @@ body {
        <div class="request-row">
         <div>
          <div class="request-title">
-          Verification Request
+          Coach Reference Request
          </div>
          <div class="request-meta">
-          Sent Jun 9, 2026 &middot; Documents received and reviewed
+          Sent Jun 9, 2026 &middot; Athlete declined Jun 11, 2026
           <br/>
-          Created by David Lee &middot; Linked to Toronto Academy Workspace
+          Created by Mike Brown
          </div>
          <span class="status reviewed">
-          Reviewed
+          Declined
          </span>
         </div>
         <div class="request-actions">
@@ -868,7 +855,7 @@ body {
          </a>
         </div>
        </div>
-       <div class="request-row">
+       <div class="request-row" hidden data-future-slice="opportunity-workflow">
         <div>
          <div class="request-title">
           Introductory Call Request
