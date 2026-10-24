@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Scout Notifications</title>
+  <link href="../shared/app-shell.css" rel="stylesheet"/>
+  <link href="../shared/notification-center.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <header class="app-header"><div class="app-header-inner"><a class="app-logo" href="../index.html">UNICATHLETE</a><nav class="app-switch" aria-label="Platform view switcher"><a href="../index.html">Platform</a><a href="../signup.html">Create Account</a><a href="../athlete/overview.html">Athlete View</a><a class="active" href="overview.html">Recruiter View</a></nav></div></header>
+  <div class="nav"><a href="overview.html">Recruiter Overview</a><a href="scout-profile.html">Scout Profile</a><a href="dashboard.html">Dashboard</a><a href="discover.html">Discover Athletes</a><a href="workspace.html">Workspace</a><a href="profile.html">Athlete Profile</a><a href="messages.html">Messages</a><a class="active notification-nav-link" href="notifications.html">🔔 Notifications <span class="notification-nav-count">4</span></a></div>
+  <main class="page">
+   <section class="hero"><h1>Notifications</h1><p>Important account, access, conversation, and request updates.</p></section>
+   <section class="panel">
+    <div class="toolbar"><div class="filters"><button class="filter active" data-notification-filter="all">All</button><button class="filter" data-notification-filter="unread">Unread</button></div><button class="secondary" id="markAllRead">Mark all as read</button></div>
+    <div class="notification unread"><span class="dot"></span><div><h2>Contact request accepted</h2><p>John Smith</p><a class="notification-link" data-notification-action href="messages.html">Open conversation</a><button class="read-control" data-mark-read>Mark as read</button></div><time class="meta">6 min ago</time></div>
+    <div class="notification unread"><span class="dot"></span><div><h2>Information request submitted</h2><p>Extended Match Footage · John Smith</p><a class="notification-link" data-notification-action href="request_management.html">Review request</a><button class="read-control" data-mark-read>Mark as read</button></div><time class="meta">22 min ago</time></div>
+    <div class="notification unread"><span class="dot"></span><div><h2>2 new messages from John Smith</h2><a class="notification-link" data-notification-action href="messages.html">Open conversation</a><button class="read-control" data-mark-read>Mark as read</button></div><time class="meta">1h ago</time></div>
+    <div class="notification unread"><span class="dot"></span><div><h2>Affiliation reverification required</h2><p>Complete the required action to maintain athlete access.</p><a class="notification-link" data-notification-action href="scout-profile.html">Review affiliation</a><button class="read-control" data-mark-read>Mark as read</button></div><time class="meta">Today</time></div>
+    <div class="notification"><span class="dot"></span><div><h2>Document updated</h2><p>The new version has not been shared with you.</p><a class="notification-link" data-notification-action href="request_management.html">View request</a></div><time class="meta">Oct 18</time></div>
+    <div class="empty" id="notificationEmpty" hidden>No unread notifications.</div>
+   </section>
+  </main>
+  <script src="../shared/notification-center.js"></script><script src="../shared/app.js"></script>
+ </body>
+</html>

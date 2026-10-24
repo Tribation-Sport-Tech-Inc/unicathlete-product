@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Athlete Notifications</title>
+  <link href="../shared/app-shell.css" rel="stylesheet"/>
+  <link href="../shared/notification-center.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <header class="app-header"><div class="app-header-inner"><a class="app-logo" href="../index.html">UNICATHLETE</a><nav class="app-switch" aria-label="Platform view switcher"><a href="../index.html">Platform</a><a href="../signup.html">Create Account</a><a class="active" href="overview.html">Athlete View</a><a href="../recruiter/overview.html">Recruiter View</a></nav></div></header>
+  <div class="nav"><a href="overview.html">Athlete Overview</a><a href="dashboard.html">Dashboard</a><a href="profile.html">Athlete Profile</a><a href="messages.html">Messages</a><a class="active notification-nav-link" href="notifications.html">🔔 Notifications <span class="notification-nav-count">4</span></a></div>
+  <main class="page">
+   <section class="hero"><h1>Notifications</h1><p>Important account, profile, permission, and communication updates.</p></section>
+   <section class="panel">
+    <div class="toolbar"><div class="filters"><button class="filter active" data-notification-filter="all">All</button><button class="filter" data-notification-filter="unread">Unread</button></div><button class="secondary" id="markAllRead">Mark all as read</button></div>
+    <div class="notification unread"><span class="dot"></span><div><h2>Guardian approval required</h2><p>Your message is waiting for guardian review.</p><a class="notification-link" data-notification-action href="messages.html">Review message</a><button class="read-control" data-mark-read>Mark as read</button></div><time class="meta">5 min ago</time></div>
+    <div class="notification unread"><span class="dot"></span><div><h2>3 new messages from Mike Brown</h2><p>Toronto Academy</p><a class="notification-link" data-notification-action href="messages.html">Open conversation</a><button class="read-control" data-mark-read>Mark as read</button></div><time class="meta">18 min ago</time></div>
+    <div class="notification unread"><span class="dot"></span><div><h2>Your profile is now private</h2><p>Complete the required profile action before making it visible again.</p><a class="notification-link" data-notification-action href="profile.html">Review profile status</a><button class="read-control" data-mark-read>Mark as read</button></div><time class="meta">Today</time></div>
+    <div class="notification unread"><span class="dot"></span><div><h2>Prepare for your adult account transition</h2><p>Your guardian access and profile permissions will change in 7 days.</p><a class="notification-link" data-notification-action href="profile.html">Review checklist</a><button class="read-control" data-mark-read>Mark as read</button></div><time class="meta">Today</time></div>
+    <div class="notification"><span class="dot"></span><div><h2>Identity verification completed</h2><a class="notification-link" data-notification-action href="profile.html">View account status</a></div><time class="meta">Oct 18</time></div>
+    <div class="empty" id="notificationEmpty" hidden>No unread notifications.</div>
+   </section>
+  </main>
+  <script src="../shared/notification-center.js"></script><script src="../shared/app.js"></script>
+ </body>
+</html>

@@ -123,7 +123,7 @@ Exclude medical or health information, identity documents, custom free-text docu
 
 ## Notifications and Unread State
 
-- Maintain per-participant conversation unread state. Show `Sent` and `Delivered`, but no read receipts.
+- Maintain per-participant conversation unread state. Show `Sent`, but no delivery or read receipts during the pilot.
 - Generate reusable notification events for contact-request changes, incoming messages, guardian actions, messaging restrictions, information-request changes, private-access withdrawal, and shared-item replacement, deletion, or unavailability.
 - Slice 9 defines triggers, recipients, safe content, and action destinations. The future Notification Center owns the central notification list, global badges, notification read state, grouping, preferences, delivery channels, external summaries, and notification history.
 - Notification failure never changes the underlying action. Messaging and information requests must not launch until the Notification Center provides the required user-facing delivery and routing.

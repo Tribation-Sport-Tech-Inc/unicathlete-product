@@ -38,3 +38,19 @@ document.addEventListener("keydown", function (event) {
     if (modal) modal.classList.remove("visible");
   }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  const nav = document.querySelector(".nav");
+  if (!nav || nav.querySelector(".notification-nav-link")) return;
+
+  const path = window.location.pathname;
+  const isRecruiter = path.includes("/recruiter/");
+  const isAthlete = path.includes("/athlete/");
+  if (!isRecruiter && !isAthlete) return;
+
+  const link = document.createElement("a");
+  link.className = "notification-nav-link";
+  link.href = "notifications.html";
+  link.innerHTML = "<span aria-hidden=\"true\">🔔</span> Notifications <span class=\"notification-nav-count\">4</span>";
+  nav.appendChild(link);
+});
