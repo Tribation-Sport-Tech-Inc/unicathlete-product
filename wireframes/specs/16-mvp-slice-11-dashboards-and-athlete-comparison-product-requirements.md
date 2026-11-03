@@ -19,9 +19,11 @@ Order unresolved actions by:
 2. relevant requested-by or expiry date; then
 3. oldest unresolved action.
 
-## 2. Athlete and Guardian Dashboard
+## 2. Athlete and Guardian Dashboards
 
-The dashboard is scoped to one Athlete Profile and its Soccer Sport Profile during the pilot.
+Athletes and Guardians receive separate dashboard states. The product displays the state allowed by the authenticated user's role and current permissions; users do not switch between Athlete and Guardian roles. A wireframe switch may be used only to demonstrate both states.
+
+Each dashboard is scoped to one Athlete Profile and its Soccer Sport Profile during the pilot.
 
 ### Status
 

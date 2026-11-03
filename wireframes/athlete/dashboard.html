@@ -9,6 +9,7 @@
   :root{--navy:#111827;--blue:#2563eb;--muted:#64748b;--border:#e2e8f0;--orange:#c2410c;--orange-light:#fff7ed;--blue-light:#eff6ff}
   *{box-sizing:border-box} body{margin:0;background:#f6f8fb;color:var(--navy);font-family:Inter,Arial,sans-serif}.nav{display:flex;gap:8px;align-items:center;overflow-x:auto;background:var(--navy);padding:12px max(28px,calc((100% - 1180px)/2 + 28px))}.nav a{color:#d1d5db;text-decoration:none;padding:7px 10px;border-radius:8px;font-size:13px;font-weight:700;white-space:nowrap}.nav a.active{background:var(--blue);color:#fff}.page{max-width:1180px;margin:28px auto;padding:0 28px 48px}.hero,.panel,.context{background:#fff;border:1px solid var(--border);border-radius:18px;box-shadow:0 6px 18px rgba(15,23,42,.05)}
   .hero{padding:24px 26px;margin-bottom:18px;background:linear-gradient(135deg,#fff,#eff6ff)}h1,h2{margin:0}.hero p,.panel-head p,.context p{margin:6px 0 0;color:var(--muted);line-height:1.45}.context{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;padding:16px 18px;margin-bottom:18px}.context label{display:block;color:var(--muted);font-size:12px;font-weight:800;margin-bottom:6px}.context select{min-width:270px;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:#fff;color:var(--navy);font:inherit;font-weight:800}.context p{max-width:540px;font-size:13px}.panel{padding:20px;margin-bottom:18px}.panel-head{margin-bottom:15px}.panel-head h2{font-size:19px}.status-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.status-card{padding:15px;border:1px solid var(--border);border-radius:14px;background:#f8fafc}.status-card span{display:block;color:var(--muted);font-size:12px;font-weight:800;margin-bottom:7px}.status-card strong{display:block;font-size:17px;margin-bottom:8px}.status-card a,.action{color:var(--blue);font-size:12px;font-weight:900;text-decoration:none}.list{display:grid;gap:10px}.item{padding:15px;border:1px solid var(--border);border-radius:14px;background:#fff}.item.urgent{border-color:#fed7aa;background:var(--orange-light)}.item-top{display:flex;justify-content:space-between;gap:15px;align-items:flex-start}.item-title{font-weight:900;margin-bottom:4px}.item-meta{color:var(--muted);font-size:13px;line-height:1.4}.badge{display:inline-flex;white-space:nowrap;border-radius:999px;padding:6px 9px;background:var(--blue-light);color:var(--blue);font-size:11px;font-weight:900}.badge.orange{background:#ffedd5;color:var(--orange)}.actions{margin-top:12px}.button{display:inline-flex;padding:9px 12px;border-radius:9px;background:#fff;border:1px solid var(--border);color:var(--navy);font-size:12px;font-weight:900;text-decoration:none}.button.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+  .view-switch{display:inline-flex;gap:4px;padding:4px;background:#e2e8f0;border-radius:11px;margin-top:16px}.view-switch button{border:0;background:transparent;color:var(--muted);padding:8px 12px;border-radius:8px;font-weight:900;cursor:pointer}.view-switch button.active{background:#fff;color:var(--blue);box-shadow:0 1px 4px rgba(15,23,42,.12)}[data-dashboard-view][hidden]{display:none!important}.account-action{margin-bottom:18px;padding:15px 18px;border:1px solid #fed7aa;border-radius:14px;background:var(--orange-light);display:flex;align-items:center;justify-content:space-between;gap:16px}.account-action strong{display:block;margin-bottom:4px}.account-action p{margin:0;color:var(--muted);font-size:13px}
   @media(max-width:760px){.page{padding:0 18px 36px}.context{align-items:stretch;flex-direction:column}.context select{min-width:0;width:100%}.status-grid{grid-template-columns:1fr}.item-top{flex-direction:column}.badge{white-space:normal}}
  </style>
 </head>
@@ -16,28 +17,30 @@
  <header class="app-header"><div class="app-header-inner"><a class="app-logo" href="../index.html">UNICATHLETE</a><nav class="app-switch" aria-label="Platform view switcher"><a href="../index.html">Platform</a><a href="../signup.html">Create Account</a><a class="active" href="overview.html">Athlete View</a><a href="../recruiter/overview.html">Recruiter View</a></nav></div></header>
  <div class="nav"><a href="overview.html">Athlete Overview</a><a class="active" href="dashboard.html">Dashboard</a><a href="profile.html">Athlete Profile</a><a href="messages.html">Messages</a></div>
  <main class="page">
-  <section class="hero"><h1>Dashboard</h1><p>Current status and actions for the selected Athlete Profile.</p></section>
-  <section class="context">
-   <div><label for="athlete-context">Athlete Profile</label><select id="athlete-context"><option>Alex Kim · 3 actions</option><option>Mia Kim · No actions</option></select></div>
-   <p>Guardians managing more than one athlete select one profile at a time. Account-level actions appear once, not once per athlete.</p>
-  </section>
-  <section class="panel">
-   <div class="panel-head"><h2>Alex Kim · Soccer</h2><p>Live status from the Soccer Sport Profile.</p></div>
-   <div class="status-grid">
-    <div class="status-card"><span>Visibility</span><strong>Private</strong><a href="profile.html#visibility">View visibility requirements</a></div>
-    <div class="status-card"><span>Recruiter-Ready</span><strong>Not ready · 1 requirement</strong><a href="profile.html#soccer-profile">Review requirement</a></div>
-    <div class="status-card"><span>Profile Completion</span><strong>82%</strong><a href="profile.html">View profile</a></div>
-   </div>
-  </section>
-  <section class="panel">
-   <div class="panel-head"><h2>Needs Your Attention</h2><p>Only actions available to you are shown here.</p></div>
-   <div class="list">
-    <article class="item urgent"><div class="item-top"><div><div class="item-title">Review contact request</div><div class="item-meta">A verified Scout has requested permission to start a conversation.</div></div><span class="badge orange">Guardian action</span></div><div class="actions"><a class="button primary" href="messages.html">Review request</a></div></article>
-    <article class="item"><div class="item-top"><div><div class="item-title">Approve information response</div><div class="item-meta">Alex prepared a response that requires Guardian approval before submission.</div></div><span class="badge orange">Approval required</span></div><div class="actions"><a class="button" href="messages.html">Review response</a></div></article>
-    <article class="item"><div class="item-top"><div><div class="item-title">Add Main Evaluation Video</div><div class="item-meta">This required Recruiter-Ready item is missing from the Soccer Sport Profile.</div></div><span class="badge">Profile requirement</span></div><div class="actions"><a class="button" href="profile.html#media">Open Media</a></div></article>
-   </div>
-  </section>
+  <section class="hero"><h1>Dashboard</h1><p id="view-description">Your profile status and actions.</p><div class="view-switch" aria-label="Wireframe dashboard state"><button class="active" id="athlete-view-button" onclick="showDashboard('athlete')">Athlete view</button><button id="guardian-view-button" onclick="showDashboard('guardian')">Guardian view</button></div></section>
+
+  <div data-dashboard-view="athlete">
+   <section class="panel"><div class="panel-head"><h2>Alex Kim · Soccer</h2><p>Live status from your Soccer Sport Profile.</p></div><div class="status-grid"><div class="status-card"><span>Visibility</span><strong>Private</strong><a href="profile.html#visibility">View visibility requirements</a></div><div class="status-card"><span>Recruiter-Ready</span><strong>Not ready · 1 requirement</strong><a href="profile.html#soccer-profile">Review requirement</a></div><div class="status-card"><span>Profile Completion</span><strong>82%</strong><a href="profile.html">View profile</a></div></div></section>
+   <section class="panel"><div class="panel-head"><h2>Needs Your Attention</h2><p>Actions currently available to you.</p></div><div class="list">
+    <article class="item urgent"><div class="item-top"><div><div class="item-title">Add Main Evaluation Video</div><div class="item-meta">This required Recruiter-Ready item is missing from your Soccer Sport Profile.</div></div><span class="badge orange">Profile requirement</span></div><div class="actions"><a class="button primary" href="profile.html#media">Open Media</a></div></article>
+    <article class="item"><div class="item-top"><div><div class="item-title">Respond to information request</div><div class="item-meta">A verified Scout requested an updated academic transcript.</div></div><span class="badge">Information request</span></div><div class="actions"><a class="button" href="messages.html">Review request</a></div></article>
+    <article class="item"><div class="item-top"><div><div class="item-title">Read new message</div><div class="item-meta">You have an unread message in an accepted Scout conversation.</div></div><span class="badge">Message</span></div><div class="actions"><a class="button" href="messages.html">Open conversation</a></div></article>
+   </div></section>
+  </div>
+
+  <div data-dashboard-view="guardian" hidden>
+   <section class="account-action"><div><strong>Complete Guardian identity verification</strong><p>This account-level action applies once, not separately to each athlete.</p></div><a class="button primary" href="profile.html">Continue</a></section>
+   <section class="context"><div><label for="athlete-context">Athlete Profile</label><select id="athlete-context"><option>Alex Kim · 2 Guardian actions</option><option>Mia Kim · No Guardian actions</option></select></div><p>Select an athlete to see only that athlete's status and actions. The last selection is remembered.</p></section>
+   <section class="panel"><div class="panel-head"><h2>Alex Kim · Soccer</h2><p>Live status you are authorized to see for this Athlete Profile.</p></div><div class="status-grid"><div class="status-card"><span>Visibility</span><strong>Private</strong><a href="profile.html#visibility">View visibility requirements</a></div><div class="status-card"><span>Recruiter-Ready</span><strong>Not ready · 1 requirement</strong><a href="profile.html#soccer-profile">Review requirement</a></div><div class="status-card"><span>Profile Completion</span><strong>82%</strong><a href="profile.html">View profile</a></div></div></section>
+   <section class="panel"><div class="panel-head"><h2>Needs Your Attention</h2><p>Only Guardian actions for the selected athlete are shown.</p></div><div class="list">
+    <article class="item urgent"><div class="item-top"><div><div class="item-title">Review contact request</div><div class="item-meta">A verified Scout requested permission to start a conversation with Alex.</div></div><span class="badge orange">Guardian action</span></div><div class="actions"><a class="button primary" href="messages.html">Review request</a></div></article>
+    <article class="item"><div class="item-top"><div><div class="item-title">Approve information response</div><div class="item-meta">Alex prepared a response that requires your approval before submission.</div></div><span class="badge orange">Approval required</span></div><div class="actions"><a class="button" href="messages.html">Review response</a></div></article>
+   </div></section>
+  </div>
  </main>
+ <script>
+  function showDashboard(view){document.querySelectorAll('[data-dashboard-view]').forEach(panel=>panel.hidden=panel.dataset.dashboardView!==view);document.getElementById('athlete-view-button').classList.toggle('active',view==='athlete');document.getElementById('guardian-view-button').classList.toggle('active',view==='guardian');document.getElementById('view-description').textContent=view==='athlete'?'Your profile status and actions.':'Status and Guardian actions for the selected Athlete Profile.'}
+ </script>
  <script src="../shared/app.js"></script>
 </body>
 </html>
