@@ -22,6 +22,30 @@ Order unresolved actions by:
 2. relevant requested-by or expiry date; then
 3. oldest unresolved action.
 
+### Dashboard Source Mapping
+
+Dashboard content is read from the owning feature; Slice 11 creates no independent status, action, count, or completion records.
+
+| Dashboard item | Source |
+|---|---|
+| Selected athlete and Soccer context | Current Athlete Profile and Soccer Sport Profile |
+| Visibility | Effective visibility state defined in Slice 7 |
+| Recruiter-Ready | Current eligibility result and unmet requirements defined by the Athlete Profile, media, verification, permission, and visibility rules |
+| Profile Completion | Existing completion calculation for the current Athlete and Soccer Sport Profile |
+| Email, identity, affiliation, reverification, guardian relationship, permission, and age-transition actions | Current unresolved requirement from the originating onboarding, access, or verification flow |
+| Contact and information-request actions | Current request state and acting authority defined in Slice 9 |
+| Guardian approvals | Current unresolved approval assigned to that Guardian under Slice 9 age and supervision rules |
+| Unread-conversation summary | Per-participant unread conversation state defined in Slice 9, not Notification Center read state |
+| Failed media or document action | Current failed processing or upload state defined in Slice 6, only when retry or recovery is available to the viewer |
+| Document expiry action | Current document expiry derived from its entered expiry date under Slice 6 |
+| Evaluation draft | Current acting Scout's unfinished draft in the selected Workspace, defined in Slice 8 Part 2 |
+| Scout access status | Current identity, affiliation, reverification, suspension, and eligibility state defined in Slices 3–4 |
+| Active Recruiting Projects | Active projects in the current Workspace, defined in Slice 8 Part 1 |
+| Saved Athletes | Unique Sport Profiles currently saved across active projects in the Workspace; exclude removed saved rows, include saved profiles that later became unavailable, and count each Sport Profile once |
+| Active pipeline records | Open project-athlete pipeline records across active projects in the current Workspace |
+
+A Notification Center record may link to the same source item, but it is never the source of dashboard truth. Marking that notification as read does not resolve the dashboard action.
+
 ## 2. Athlete and Guardian Dashboards
 
 Athletes and Guardians receive separate dashboard states. The product displays the state allowed by the authenticated user's role and current permissions; users do not switch between Athlete and Guardian roles. A wireframe switch may be used only to demonstrate both states.
