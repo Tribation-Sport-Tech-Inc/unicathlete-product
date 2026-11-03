@@ -8,9 +8,12 @@ Provide role-appropriate dashboards and a project-specific tool for comparing at
 
 - Show only information the current user is authorized to access.
 - Derive actions, statuses, and counts from their source records. Do not create separate dashboard tasks or stored totals.
+- Show no more than one dashboard action for the same unresolved source record.
 - Remove an action when its source issue is resolved. Reading a notification alone does not resolve it.
 - Link each action or count to the feature that owns it.
 - Do not reproduce complete profiles, projects, pipelines, conversations, notifications, or activity histories.
+- Summarize unread conversations using the same unread state as Messages; do not reproduce individual message notifications.
+- Show only current unresolved actions, not completed events or recent activity.
 - Support loading, empty, restricted, unavailable, and failed states without showing stale or unauthorized information.
 
 Order unresolved actions by:
@@ -45,7 +48,7 @@ Show only specific unresolved actions available to the current user, including w
 - email, identity, reverification, guardian-relationship, permission, or age-transition actions;
 - contact and information requests;
 - guardian approvals;
-- unread conversations or supervised-message actions;
+- an unread-conversation summary or supervised-message actions;
 - failed media or document processing requiring retry; and
 - relevant document-expiry actions.
 
@@ -76,13 +79,13 @@ Do not expose Workspace counts, projects, athlete names, conversations, or reque
 
 ### Needs Your Attention
 
-Show when applicable:
+For an eligible Scout, show when applicable:
 
-- Scout verification, affiliation, or access actions;
-- submitted information requests awaiting review;
-- unread conversations;
+- an unread-conversation summary;
 - unfinished evaluation drafts; and
 - persistent failed actions requiring retry.
+
+Do not show submitted information requests as actions because the pilot request model has no separate Scout-review completion state. The Notification Center and conversation route the Scout to the submitted item.
 
 Do not show pending contact requests awaiting the athlete side, automated recommendations, completed updates, or ordinary project activity.
 
